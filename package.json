@@ -1,0 +1,43 @@
+{
+	"name": "@pressbooks/pressbooks-plugin-scaffold",
+	"description": "Scaffolding for a Pressbooks plugin.",
+	"scripts": {
+		"build":
+			"cross-env NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"watch":
+			"cross-env NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"hot":
+			"cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"build:production":
+			"cross-env NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"lint": "npm -s run lint:styles && npm -s run lint:scripts",
+		"lint:styles":
+			"cross-env NODE_ENV=development node_modules/stylelint/bin/stylelint.js \"assets/src/styles/**/*.scss\" --syntax scss",
+		"lint:scripts":
+			"cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js \"assets/src/scripts/*.js\"",
+		"test": "npm -s run lint"
+	},
+	"engines": {
+		"node": ">= 6.9.4"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"pressbooks-build-tools": "^0.12.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pressbooks/pressbooks-plugin-scaffold.git"
+	},
+	"author": "Book Oven Inc. <code@pressbooks.com>",
+	"license": "GPL-3.0-or-later",
+	"bugs": {
+		"url": "https://github.com/pressbooks/pressbooks-plugin-scaffold/issues"
+	},
+	"homepage": "https://github.com/pressbooks/pressbooks-plugin-scaffold/",
+	"eslintConfig": {
+		"extends": "./node_modules/pressbooks-build-tools/config/eslint.js"
+	},
+	"stylelint": {
+		"extends": "./node_modules/pressbooks-build-tools/config/stylelint.js"
+	}
+}

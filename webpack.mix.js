@@ -13,8 +13,8 @@ let path = require( 'path' );
  */
 
 mix.setPublicPath( path.join( 'assets', 'dist' ) )
-	.js( 'assets/src/scripts/pressbooks-plugin-scaffold.js', 'assets/dist/scripts/' )
-	.sass( 'assets/src/styles/pressbooks-plugin-scaffold.scss', 'assets/dist/styles/' )
+	.js( 'assets/src/scripts/pressbooks-shibboleth-sso.js', 'assets/dist/scripts/' )
+	.sass( 'assets/src/styles/pressbooks-shibboleth-sso.scss', 'assets/dist/styles/' )
 	.copyDirectory( 'assets/src/fonts', 'assets/dist/fonts' )
 	.copyDirectory( 'assets/src/images', 'assets/dist/images' )
 	.version();

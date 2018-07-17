@@ -1,80 +1,48 @@
-# Pressbooks Plugin Scaffold 
+# Pressbooks Shibboleth Single Sign-On 
 **Contributors:** conner_bw, greatislander  
-**Donate link:** https://pressbooks.org/donate/  
-**Tags:** pressbooks, plugin, scaffolding  
+**Donate link:** https://opencollective.com/pressbooks/  
+**Tags:** pressbooks, sso, shibboleth  
 **Requires at least:** 4.9.7  
-**Tested up to:** 4.9.7  
-**Stable tag:** 0.3.1  
+**Tested up to:** 4.9  
+**Stable tag:** 0.0.1  
 **License:** GPLv3 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html  
 
-Scaffolding for a Pressbooks plugin.
+Shibboleth Single Sign-On integration for Pressbooks.
 
 
 ## Description 
 
-This is not a plugin, but a tool that helps you scaffold a plugin.
+Plugin to integrate Pressbooks with [Shibboleth](https://en.wikipedia.org/wiki/Shibboleth_(Shibboleth_Consortium)) single sign-on architectures.
 
 
 ## Installation 
 
+```
+composer require pressbooks/pressbooks-shibboleth-sso
+```
 
-# Create Plugin 
+Or, download the latest version from the releases page and unzip it into your WordPress plugin directory): https://github.com/pressbooks/pressbooks-shibboleth-sso/releases
 
-Run `composer create-project pressbooks/pressbooks-plugin-scaffold <your-plugin-slug>`.
+Then, activate and configure the plugin at the Network level.
 
-Run `yarn` to install dependencies.
-
-Uncomment lines 34-43 of `pressbooks-plugin-scaffold.php` to enable Composer autoloader (you'll need to require a class to test for first).
-
-Replace `pressbooks/pressbooks-plugin-slug` with `<your-github-username>/<your-plugin-slug>` throughout the project.
-
-Replace `pressbooks-plugin-slug` with `<your-plugin-slug>` throughout the project (renaming files as needed).
-
-Replace `PressbooksPluginScaffold` with `<YourNamespace>` throughout the project.
-
-
-# Optional Steps 
-
-Configure Travis deploys (instructions to come).
-
-Configure Transifex project and localization (instructions to come).
-
-
-# Helpful Commands 
-
-`composer standards`: check PHP coding standards with PHP_CodeSniffer
-`composer test`: run unit tests with PHPUnit
-`composer readme`: generate a Markdown readme from readme.txt
-`composer localize`: update localization files (requires Transifex to be configured)
-`yarn run test`: check SCSS/ES6 with StyleLint and ESLint
-`yarn run build:production`: build assets for distribution
-
-
-## Frequently Asked Questions 
-
-N/A.
+Read the developer documentation for more info: TK
 
 
 ## Screenshots 
 
-N/A.
+TK
 
 
 ## Changelog 
 
 
-### 0.2.0 
-**Major Changes**
-- A new feature.
-
-**Minor Changes**
-- A backwards-compatible change.
-
-**Patches**
-- A bug fix.
+### 0.0.1 
+* TK
 
 
 ## Upgrade Notice 
 
-Pressbooks Plugin Scaffold requires Pressbooks >= 5.2.0 and WordPress >= 4.9.5.
+
+### 0.0.1 
+* Pressbooks Shibboleth Single Sign-On requires Pressbooks >= 5.4 and WordPress >= 4.9

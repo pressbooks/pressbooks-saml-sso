@@ -4,6 +4,8 @@ notifications:
   email:
     on_success: never
     on_failure: change
+  slack:
+    secure: TODO
 branches:
   only:
   - dev
@@ -36,6 +38,9 @@ install:
 before_script:
 - if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+- git clone --depth=1 https://github.com/pressbooks/pressbooks.git ../pressbooks
+- cd ../pressbooks && composer install --no-dev
+- cd ../pressbooks-shibboleth-sso
 script:
 - yarn run lint
 - yarn run build:production
@@ -59,7 +64,7 @@ after_success:
 #   skip_cleanup: true
 #   api_key:
 #     secure:
-#   file: "pressbooks-plugin-scaffold-$TRAVIS_TAG.zip"
+#   file: "pressbooks-shibboleth-sso-$TRAVIS_TAG.zip"
 #   on:
 #     tags: true
-#     repo: pressbooks/pressbooks-plugin-scaffold
+#     repo: pressbooks/pressbooks-shibboleth-sso

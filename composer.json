@@ -1,9 +1,9 @@
 {
-	"name": "pressbooks/pressbooks-plugin-scaffold",
+	"name": "pressbooks/pressbooks-shibboleth-sso",
 	"license": "GPL-3.0-or-later",
 	"type": "wordpress-plugin",
 	"description": "Scaffolding for a Pressbooks plugin.",
-	"homepage": "https://github.com/pressbooks/pressbooks-plugin-scaffold",
+	"homepage": "https://github.com/pressbooks/pressbooks-shibboleth-sso",
 	"authors": [
 		{
 			"name": "Book Oven Inc.",
@@ -15,8 +15,8 @@
 	"support": {
 		"email": "code@pressbooks.com",
 		"issues":
-			"https://github.com/pressbooks/pressbooks-plugin-scaffold/issues/",
-		"source": "https://github.com/pressbooks/pressbooks-plugin-scaffold/"
+			"https://github.com/pressbooks/pressbooks-shibboleth-sso/issues/",
+		"source": "https://github.com/pressbooks/pressbooks-shibboleth-sso/"
 	},
 	"config": {
 		"platform": {
@@ -26,7 +26,8 @@
 	"require": {
 		"php": ">=7.0",
 		"composer/installers": "~1.4",
-		"yahnis-elsts/plugin-update-checker": "^4.4"
+		"yahnis-elsts/plugin-update-checker": "^4.4",
+		"simplesamlphp/simplesamlphp": "^1.15"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~6.5",
@@ -42,7 +43,7 @@
 			"vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/"
 		],
 		"localize": [
-			"wp-pot -s \"**/*.php\" -o languages/pressbooks-plugin-scaffold.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\"",
+			"wp-pot -s \"**/*.php\" -o languages/pressbooks-shibboleth-sso.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\"",
 			"bash bin/i18n.sh"
 		],
 		"readme": ["vendor/bin/wp2md -i readme.txt -o README.md"]

@@ -1,14 +1,14 @@
 <?php
 /*
-Plugin Name: Pressbooks Plugin Scaffold
+Plugin Name: Pressbooks Shibboleth Single Sign-On
 Plugin URI: https://pressbooks.org
-Description: Scaffolding for a Pressbooks plugin.
-Version: 0.3.1
+Description: Shibboleth Single Sign-On integration for Pressbooks.
+Version: 0.0.1
 Author: Pressbooks (Book Oven Inc.)
 Author URI: https://pressbooks.org
 Requires PHP: 7.0
 Pressbooks tested up to: 5.4.1
-Text Domain: pressbooks-plugin-scaffold
+Text Domain: pressbooks-shibboleth-sso
 License: GPL v3 or later
 Network: True
 */
@@ -16,9 +16,10 @@ Network: True
 // -------------------------------------------------------------------------------------------------------------------
 // Check requirements
 // -------------------------------------------------------------------------------------------------------------------
+
 if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) { // @codingStandardsIgnoreLine
 	add_action('admin_notices', function () {
-		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks-plugin-scaffold' ) . '</p></div>';
+		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks-shibboleth-sso' ) . '</p></div>';
 	});
 	return;
 } elseif ( ! pb_meets_minimum_requirements() ) {
@@ -28,31 +29,26 @@ if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( WP
 // -------------------------------------------------------------------------------------------------------------------
 // Class autoloader
 // -------------------------------------------------------------------------------------------------------------------
-\HM\Autoloader\register_class_path( 'PressbooksPluginScaffold', __DIR__ . '/inc' );
+
+\HM\Autoloader\register_class_path( 'Pressbooks\Shibboleth', __DIR__ . '/inc' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Composer autoloader
 // -------------------------------------------------------------------------------------------------------------------
-/* if ( ! class_exists( '\SomeRequiredClass' ) ) {
+
+if ( ! class_exists( '\SimpleSAML\Auth\Simple' ) ) {
 	if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 		require_once __DIR__ . '/vendor/autoload.php';
 	} else {
-		$title = __( 'Dependencies Missing', 'pressbooks-plugin-scaffold' );
-		$body = __( 'Please run <code>composer install</code> from the root of the Pressbooks Plugin Scaffold plugin directory.', 'pressbooks-plugin-scaffold' );
+		$title = __( 'Dependencies Missing', 'pressbooks-cas-sso' );
+		$body = __( 'Please run <code>composer install</code> from the root of the Pressbooks Shibboleth Single Sign-On plugin directory.', 'pressbooks-shibboleth-sso' );
 		$message = "<h1>{$title}</h1><p>{$body}</p>";
 		wp_die( $message, $title );
 	}
-} */
+}
 
 // -------------------------------------------------------------------------------------------------------------------
-// Check for updates
+// Hooks
 // -------------------------------------------------------------------------------------------------------------------
-if ( ! \Pressbooks\Book::isBook() ) {
-	$updater = new \Puc_v4p2_Vcs_PluginUpdateChecker(
-		new \Pressbooks\Updater( 'https://github.com/pressbooks/pressbooks-plugin-scaffold/' ),
-		__FILE__, // Fully qualified path to the main plugin file
-		'pressbooks-plugin-scaffold',
-		24
-	);
-	$updater->setBranch( 'master' );
-}
+
+add_action( 'plugins_loaded', [ '\Pressbooks\Shibboleth\Updates', 'init' ] );

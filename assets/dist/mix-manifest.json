@@ -1,4 +1,6 @@
 {
-    "/scripts/pressbooks-shibboleth-sso.js": "/scripts/pressbooks-shibboleth-sso.js?id=8c74c5947a360e91ab7e",
-    "/styles/pressbooks-shibboleth-sso.css": "/styles/pressbooks-shibboleth-sso.css?id=d41d8cd98f00b204e980"
+    "/scripts/pressbooks-shibboleth-sso.js": "/scripts/pressbooks-shibboleth-sso.js?id=82af1fa71f45bd84f825",
+    "/styles/pressbooks-shibboleth-sso.css": "/styles/pressbooks-shibboleth-sso.css?id=d41d8cd98f00b204e980",
+    "/styles/login-form.css": "/styles/login-form.css?id=b0db65980e05cb026eaf",
+    "/scripts/login-form.js": "/scripts/login-form.js?id=09b903690dc0da6e8d4d"
 }

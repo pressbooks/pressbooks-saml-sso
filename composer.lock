@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e341f8aff51b8774f1c000f0c8b2bd65",
+    "content-hash": "25910aa19a81335b99349d2e5b0e6d0a",
     "packages": [
         {
             "name": "composer/installers",
@@ -128,7 +128,7 @@
         },
         {
             "name": "gettext/gettext",
-            "version": "v3.6.1",
+            "version": "3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oscarotero/Gettext.git",
@@ -380,16 +380,16 @@
         },
         {
             "name": "simplesamlphp/saml2",
-            "version": "v3.1.6",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/saml2.git",
-                "reference": "d809ffbe2aa7260a0b3e72bf5be8cd6de0325d7c"
+                "reference": "43590bc9614c1df5bd7b1639088f7d904842892b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/saml2/zipball/d809ffbe2aa7260a0b3e72bf5be8cd6de0325d7c",
-                "reference": "d809ffbe2aa7260a0b3e72bf5be8cd6de0325d7c",
+                "url": "https://api.github.com/repos/simplesamlphp/saml2/zipball/43590bc9614c1df5bd7b1639088f7d904842892b",
+                "reference": "43590bc9614c1df5bd7b1639088f7d904842892b",
                 "shasum": ""
             },
             "require": {
@@ -433,20 +433,20 @@
                 }
             ],
             "description": "SAML2 PHP library from SimpleSAMLphp",
-            "time": "2018-05-04T12:03:18+00:00"
+            "time": "2018-07-12T09:56:19+00:00"
         },
         {
             "name": "simplesamlphp/simplesamlphp",
-            "version": "v1.15.4",
+            "version": "1.16.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/simplesamlphp.git",
-                "reference": "c770d0cd392ba8d8b12ac6214dcabd818d7cca32"
+                "reference": "083a643e9e77ebfd79fb44336dfdf3331bff65f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/simplesamlphp/zipball/c770d0cd392ba8d8b12ac6214dcabd818d7cca32",
-                "reference": "c770d0cd392ba8d8b12ac6214dcabd818d7cca32",
+                "url": "https://api.github.com/repos/simplesamlphp/simplesamlphp/zipball/083a643e9e77ebfd79fb44336dfdf3331bff65f4",
+                "reference": "083a643e9e77ebfd79fb44336dfdf3331bff65f4",
                 "shasum": ""
             },
             "require": {
@@ -468,9 +468,9 @@
                 "whitehat101/apr1-md5": "~1.0"
             },
             "require-dev": {
-                "ext-pdo_sqlite": "*",
+                "friendsofphp/php-cs-fixer": "^2.2",
                 "mikey179/vfsstream": "~1.6",
-                "phpunit/phpunit": "~4.8"
+                "phpunit/phpunit": "~4.8.35"
             },
             "type": "project",
             "autoload": {
@@ -509,24 +509,27 @@
                 "sp",
                 "ws-federation"
             ],
-            "time": "2018-03-02T15:02:24+00:00"
+            "time": "2018-06-01T11:30:21+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.8.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae"
+                "reference": "9d31bef82d2e9b033f335d60b96611757f98c605"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
-                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/9d31bef82d2e9b033f335d60b96611757f98c605",
+                "reference": "9d31bef82d2e9b033f335d60b96611757f98c605",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-ctype": "For best performance"
             },
             "type": "library",
             "extra": {
@@ -564,28 +567,28 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2018-04-30T19:57:29+00:00"
+            "time": "2018-05-17T18:32:56+00:00"
         },
         {
             "name": "twig/extensions",
-            "version": "v1.5.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig-extensions.git",
-                "reference": "d188c76168b853481cc75879ea045bf93d718e9c"
+                "reference": "2c1a86526d0044065220d1b51ac08348bea5ca82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/d188c76168b853481cc75879ea045bf93d718e9c",
-                "reference": "d188c76168b853481cc75879ea045bf93d718e9c",
+                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/2c1a86526d0044065220d1b51ac08348bea5ca82",
+                "reference": "2c1a86526d0044065220d1b51ac08348bea5ca82",
                 "shasum": ""
             },
             "require": {
-                "twig/twig": "~1.27|~2.0"
+                "twig/twig": "^1.27|^2.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "~3.3@dev",
-                "symfony/translation": "~2.3|~3.0"
+                "symfony/phpunit-bridge": "^3.4",
+                "symfony/translation": "^2.7|^3.4"
             },
             "suggest": {
                 "symfony/translation": "Allow the time_diff output to be translated"
@@ -615,25 +618,24 @@
                 }
             ],
             "description": "Common additional features for Twig that do not directly belong in core",
-            "homepage": "http://twig.sensiolabs.org/doc/extensions/index.html",
             "keywords": [
                 "i18n",
                 "text"
             ],
-            "time": "2017-06-08T18:19:53+00:00"
+            "time": "2018-05-22T13:26:07+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v1.35.4",
+            "version": "1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "7e081e98378a1e78c29cc9eba4aefa5d78a05d2a"
+                "reference": "cb848ee0a46d116d944fd80d50c8174e30c49f83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7e081e98378a1e78c29cc9eba4aefa5d78a05d2a",
-                "reference": "7e081e98378a1e78c29cc9eba4aefa5d78a05d2a",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/cb848ee0a46d116d944fd80d50c8174e30c49f83",
+                "reference": "cb848ee0a46d116d944fd80d50c8174e30c49f83",
                 "shasum": ""
             },
             "require": {
@@ -686,7 +688,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-07-13T07:12:17+00:00"
+            "time": "2018-07-13T07:13:09+00:00"
         },
         {
             "name": "whitehat101/apr1-md5",
@@ -2717,7 +2719,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "pressbooks/coding-standards": 20
     },

@@ -4,6 +4,9 @@ namespace Pressbooks\Shibboleth;
 
 use PressbooksMix\Assets;
 
+/**
+ * SAML: Security Assertion Markup Language
+ */
 class Shibboleth {
 
 	const META_KEY = 'pressbooks_shibboleth_identity';
@@ -56,11 +59,9 @@ class Shibboleth {
 	private $shibbolethClientIsReady = false;
 
 	/**
-	 * SAML: Security Assertion Markup Language
-	 *
-	 * @var \SimpleSAML\Auth\Simple;
+	 * @var \OneLogin\Saml2\Auth
 	 */
-	private $as;
+	private $auth;
 
 	/**
 	 * @return Shibboleth
@@ -91,6 +92,7 @@ class Shibboleth {
 	public function __construct( Admin $admin ) {
 
 		$options = $admin->getOptions();
+
 //		if ( empty( $options['server_hostname'] ) ) {
 //			if ( 'pb_shibboleth_admin' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
 //				add_action(
@@ -112,7 +114,6 @@ class Shibboleth {
 		$login_url = \Pressbooks\Sanitize\maybe_https( $login_url );
 		$this->loginUrl = $login_url;
 
-
 		$this->currentUserId = get_current_user_id();
 		$this->provision = $options['provision'];
 		$this->bypass = (bool) $options['bypass'];
@@ -125,18 +126,39 @@ class Shibboleth {
 			// If we want to support both Shibboleth & CAS on the same site, then we'll need to handle the 'login_form_shibboleth' action ourselves.
 			add_filter( 'login_url', [ $this, 'changeLoginUrl' ], 999 );
 		}
+		$this->samlConfigure( $this->loginUrl );
+		$this->shibbolethClientIsReady = true;
+	}
 
-		// TODO: Work in progress...
+	/**
+	 * @param string $url
+	 */
+	public function samlConfigure( $url ) {
 		$config = [
-			'default-sp' => [
-				'saml:SP',
-				'idp' => 'https://idp.example.com',
+			'strict' => false,
+			'debug' => true,
+			'sp' => [
+				'entityId' => add_query_arg( 'saml', 'meta', $url ),
+				'assertionConsumerService' => [
+					'url' => add_query_arg( 'saml', 'acs', $url ),
+				],
+				'singleLogoutService' => [
+					'url' => add_query_arg( 'saml', 'sls', $url ),
+				],
+				'NameIDFormat' => 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
+			],
+			'idp' => [
+				'entityId' => 'http://idp.example.com/',
+				'singleSignOnService' => [
+					'url' => 'http://idp.example.com/SSOService.php',
+				],
+				'singleLogoutService' => [
+					'url' => 'http://idp.example.com/SingleLogoutService.php',
+				],
+				'x509cert' => 'MIICgTCCAeoCCQCbOlrWDdX7FTANBgkqhkiG9w0BAQUFADCBhDELMAkGA1UEBhMCTk8xGDAWBgNVBAgTD0FuZHJlYXMgU29sYmVyZzEMMAoGA1UEBxMDRm9vMRAwDgYDVQQKEwdVTklORVRUMRgwFgYDVQQDEw9mZWlkZS5lcmxhbmcubm8xITAfBgkqhkiG9w0BCQEWEmFuZHJlYXNAdW5pbmV0dC5ubzAeFw0wNzA2MTUxMjAxMzVaFw0wNzA4MTQxMjAxMzVaMIGEMQswCQYDVQQGEwJOTzEYMBYGA1UECBMPQW5kcmVhcyBTb2xiZXJnMQwwCgYDVQQHEwNGb28xEDAOBgNVBAoTB1VOSU5FVFQxGDAWBgNVBAMTD2ZlaWRlLmVybGFuZy5ubzEhMB8GCSqGSIb3DQEJARYSYW5kcmVhc0B1bmluZXR0Lm5vMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDivbhR7P516x/S3BqKxupQe0LONoliupiBOesCO3SHbDrl3+q9IbfnfmE04rNuMcPsIxB161TdDpIesLCn7c8aPHISKOtPlAeTZSnb8QAu7aRjZq3+PbrP5uW3TcfCGPtKTytHOge/OlJbo078dVhXQ14d1EDwXJW1rRXuUt4C8QIDAQABMA0GCSqGSIb3DQEBBQUAA4GBACDVfp86HObqY+e8BUoWQ9+VMQx1ASDohBjwOsg2WykUqRXF+dLfcUH9dWR63CtZIKFDbStNomPnQz7nbK+onygwBspVEbnHuUihZq3ZUdmumQqCw4Uvs/1Uvq3orOo/WJVhTyvLgFVK2QarQ4/67OZfHd7R+POBXhophSMv1ZOo',
 			],
 		];
-		\SimpleSAML_Configuration::setPreLoadedConfig( new \SimpleSAML_Configuration( $config, 'pb-shibboleth-sso' ) );
-		$this->as = new \SimpleSAML\Auth\Simple( 'default-sp' );
-
-		$this->shibbolethClientIsReady = true;
+		$this->auth = new \OneLogin\Saml2\Auth( $config );
 	}
 
 	/**
@@ -181,23 +203,41 @@ class Shibboleth {
 	public function authenticate( $user, $username, $password ) {
 
 		$use_shibboleth = false;
+		$shibboleth_action = '';
 		if ( $this->shibbolethClientIsReady ) {
 			if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'pb_shibboleth' ) { // @codingStandardsIgnoreLine
 				$use_shibboleth = true;
+				$shibboleth_action = isset( $_REQUEST['saml'] ) ? $_REQUEST['saml'] : ''; // @codingStandardsIgnoreLine
 			}
 		}
 
 		if ( $use_shibboleth ) {
 			try {
 				$this->trackHomeUrl();
-				$this->as->requireAuth();
-				if ( $this->as->isAuthenticated() ) {
-					$attributes = $this->as->getAttributes();
-					print_r( $attributes );
-					$net_id = $attributes['uid'][0];
-					$email = $attributes['mail'][0];
-					remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
-					$this->handleLoginAttempt( $net_id, $email );
+				switch ( $shibboleth_action ) {
+					case 'meta':
+						$this->samlMetadata();
+						$this->doExit();
+						break;
+					case 'acs':
+						$this->samlAssertionConsumerService();
+						$this->doExit();
+						break;
+					case 'sls':
+						$this->samlSingleLogoutService();
+						$this->doExit();
+						break;
+					default:
+						if ( ! $this->auth->isAuthenticated() ) {
+							$this->auth->login( $this->loginUrl ); // Redirects user to SSO url
+							$this->doExit();
+						} else {
+							$attributes = isset( $_SESSION['samlUserdata'] ) ? $_SESSION['samlUserdata'] : $this->auth->getAttributes();
+							$net_id = $attributes['uid'][0];
+							$email = $attributes['mail'][0];
+							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
+							$this->handleLoginAttempt( $net_id, $email );
+						}
 				}
 			} catch ( \Exception $e ) {
 				$buffer = ob_get_clean();
@@ -223,6 +263,73 @@ class Shibboleth {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 *
+	 */
+	public function samlMetadata() {
+		try {
+			$settings = $this->auth->getSettings();
+			$metadata = $settings->getSPMetadata();
+			$errors = $settings->validateMetadata( $metadata );
+			if ( empty( $errors ) ) {
+				header( 'Content-Type: text/xml' );
+				echo $metadata;
+			} else {
+				throw new \OneLogin\Saml2\Error(
+					'Invalid SP metadata: ' . implode( ', ', $errors ),
+					\OneLogin\Saml2\Error::METADATA_SP_INVALID
+				);
+			}
+		} catch ( \Exception $e ) {
+			echo $e->getMessage();
+		}
+	}
+
+	/**
+	 * @throws \OneLogin\Saml2\Error
+	 */
+	public function samlAssertionConsumerService() {
+		$request_id = isset( $_SESSION['AuthNRequestID'] ) ? $_SESSION['AuthNRequestID'] : null;
+		$this->auth->processResponse( $request_id );
+		$errors = $this->auth->getErrors();
+		if ( ! empty( $errors ) ) {
+			echo '<p>' . implode( ', ', $errors ) . '</p>';
+		}
+
+		if ( ! $this->auth->isAuthenticated() ) {
+			echo '<p>Not authenticated</p>';
+			exit();
+		}
+		$_SESSION['samlUserdata'] = $this->auth->getAttributes();
+		$_SESSION['samlNameId'] = $this->auth->getNameId();
+		$_SESSION['samlNameIdFormat'] = $this->auth->getNameIdFormat();
+		$_SESSION['samlSessionIndex'] = $this->auth->getSessionIndex();
+		unset( $_SESSION['AuthNRequestID'] );
+		// @codingStandardsIgnoreStart
+		if ( isset( $_POST['RelayState'] ) && \OneLogin\Saml2\Utils::getSelfURL() !== $_POST['RelayState'] ) {
+			$this->auth->redirectTo( $_POST['RelayState'] );
+		}
+		// @codingStandardsIgnoreEnd
+	}
+
+	/**
+	 * @throws \OneLogin\Saml2\Error
+	 */
+	public function samlSingleLogoutService() {
+		if ( isset( $_SESSION['LogoutRequestID'] ) ) {
+			$request_id = $_SESSION['LogoutRequestID'];
+		} else {
+			$request_id = null;
+		}
+		$this->auth->processSLO( false, $request_id );
+		$errors = $this->auth->getErrors();
+		if ( empty( $errors ) ) {
+			echo '<p>Sucessfully logged out</p>';
+		} else {
+			echo '<p>' . implode( ', ', $errors ) . '</p>';
+		}
 	}
 
 	/**
@@ -262,12 +369,17 @@ class Shibboleth {
 	/**
 	 * @param string $redirect_to
 	 *
+	 * @throws \OneLogin\Saml2\Error
 	 * @return string
 	 */
 	public function logoutRedirect( $redirect_to ) {
 		if ( $this->shibbolethClientIsReady ) {
-			if ( $this->forcedRedirection || $this->as->isAuthenticated() || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
-				$this->as->logout();
+			if ( $this->forcedRedirection || $this->auth->isAuthenticated() || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
+
+				$name_id = isset( $_SESSION['samlNameId'] ) ? $_SESSION['samlNameId'] : null;
+				$session_index = isset( $_SESSION['samlSessionIndex'] ) ? $_SESSION['samlSessionIndex'] : null;
+				$name_id_format = isset( $_SESSION['samlNameIdFormat'] ) ? $_SESSION['samlNameIdFormat'] : null;
+				$this->auth->logout( null, [], $name_id, $session_index, false, $name_id_format );
 				$this->doExit();
 			}
 		}
@@ -292,7 +404,8 @@ class Shibboleth {
 			return;
 		}
 
-		$url = $this->as->getLoginURL( $this->loginUrl );
+		$url = $this->auth->login( $this->loginUrl, [], false, false, true );
+		$_SESSION['AuthNRequestID'] = $this->auth->getLastRequestID();
 
 		$button_text = $this->options['button_text'];
 		if ( empty( $button_text ) ) {
@@ -322,6 +435,7 @@ class Shibboleth {
 	 *
 	 * @param string $net_id
 	 * @param string $email An email
+	 *
 	 * @throws \Exception
 	 */
 	public function handleLoginAttempt( $net_id, $email ) {
@@ -403,6 +517,7 @@ class Shibboleth {
 	 *
 	 * @param string $username
 	 * @param string $email
+	 *
 	 * @throws \Exception
 	 *
 	 * @return array [ (int) user_id, (string) sanitized username ]
@@ -473,6 +588,7 @@ class Shibboleth {
 	 *
 	 * @param string $net_id
 	 * @param string $email
+	 *
 	 * @throws \Exception
 	 */
 	public function associateUser( $net_id, $email ) {

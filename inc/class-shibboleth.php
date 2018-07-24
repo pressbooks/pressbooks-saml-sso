@@ -160,11 +160,9 @@ class Shibboleth {
 				'entityId' => $url,
 				'assertionConsumerService' => [
 					'url' => add_query_arg( 'saml', 'acs', $url ),
-					'binding' => \OneLogin\Saml2\Constants::BINDING_HTTP_POST,
 				],
 				'singleLogoutService' => [
 					'url' => add_query_arg( 'saml', 'sls', $url ),
-					'binding' => \OneLogin\Saml2\Constants::BINDING_HTTP_POST,
 				],
 			],
 			'idp' => [

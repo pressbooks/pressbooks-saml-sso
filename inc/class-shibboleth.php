@@ -157,7 +157,7 @@ class Shibboleth {
 			'debug' => defined( 'WP_DEBUG' ) && WP_DEBUG ? true : false,
 			'baseurl' => null,
 			'sp' => [
-				'entityId' => $url,
+				'entityId' => add_query_arg( 'saml', 'metadata', $url ),
 				'assertionConsumerService' => [
 					'url' => add_query_arg( 'saml', 'acs', $url ),
 				],

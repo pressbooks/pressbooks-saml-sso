@@ -177,6 +177,11 @@ class Shibboleth {
 				],
 				'x509cert' => $idp_x509_cert,
 			],
+			'security' => [
+				'authnRequestsSigned' => false,
+				'wantAssertionsSigned' => false,
+				'signMetadata' => false,
+			],
 		];
 		$this->auth = new \OneLogin\Saml2\Auth( $config );
 	}
@@ -318,7 +323,7 @@ class Shibboleth {
 			throw new \Exception( implode( ', ', $errors ) );
 		}
 		if ( ! $this->auth->isAuthenticated() ) {
-			throw new \Exception( ' Not authenticated' );
+			throw new \Exception( sprintf( __( 'Not authenticated. Reason: %s', 'pressbooks-shibboleth-sso' ), $this->auth->getLastErrorReason() ) );
 		}
 		$_SESSION['samlUserdata'] = $this->auth->getAttributes();
 		$_SESSION['samlNameId'] = $this->auth->getNameId();

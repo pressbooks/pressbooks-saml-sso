@@ -22,6 +22,14 @@ composer require pressbooks/pressbooks-shibboleth-sso
 
 Or, download the latest version from the releases page and unzip it into your WordPress plugin directory): https://github.com/pressbooks/pressbooks-shibboleth-sso/releases
 
+Then, create the necessary certificates:
+
+```
+cd vendor/onelogin/php-saml/certs
+openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out sp.crt -keyout sp.key
+openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out metadata.crt -keyout metadata.key
+```
+
 Then, activate and configure the plugin at the Network level.
 
 Read the developer documentation for more info: TK

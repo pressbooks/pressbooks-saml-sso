@@ -157,7 +157,7 @@ class Shibboleth {
 			'debug' => defined( 'WP_DEBUG' ) && WP_DEBUG ? true : false,
 			'baseurl' => null,
 			'sp' => [
-				'entityId' => 'urn:' . wp_parse_url( $this->loginUrl, PHP_URL_HOST ),
+				'entityId' => 'urn:' . wp_parse_url( $this->loginUrl, PHP_URL_HOST ), // TODO: Missing path, example: host/path/to/pressbooks
 				'assertionConsumerService' => [
 					'url' => add_query_arg( 'saml', 'acs', $url ),
 				],
@@ -234,8 +234,10 @@ class Shibboleth {
 		if ( $use_shibboleth ) {
 			try {
 				$this->trackHomeUrl();
+				ob_start();
 				switch ( $shibboleth_action ) {
 					case 'metadata':
+						ob_end_clean();
 						$this->samlMetadata();
 						$this->doExit();
 						break;
@@ -255,15 +257,25 @@ class Shibboleth {
 							$attributes = isset( $_SESSION['samlUserdata'] ) ? $_SESSION['samlUserdata'] : $this->auth->getAttributes();
 							$net_id = $attributes['uid'][0];
 							$email = $attributes['mail'][0];
+							ob_end_clean();
 							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
 							$this->handleLoginAttempt( $net_id, $email );
 						}
 				}
 			} catch ( \Exception $e ) {
-				if ( $this->forcedRedirection ) {
-					wp_die( $e->getMessage() );
+				$buffer = ob_get_clean();
+				if ( ! empty( $buffer ) ) {
+					if ( defined( 'WP_TESTS_MULTISITE' ) ) {
+						throw new \LogicException( $buffer );
+					} else {
+						die( $buffer );
+					}
 				} else {
-					return new \WP_Error( 'authentication_failed', $e->getMessage() );
+					if ( $this->forcedRedirection ) {
+						wp_die( $e->getMessage() );
+					} else {
+						return new \WP_Error( 'authentication_failed', $e->getMessage() );
+					}
 				}
 			}
 			$message = $this->authenticationFailedMessage( $this->options['provision'] );

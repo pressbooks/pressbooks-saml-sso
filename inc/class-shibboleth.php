@@ -157,12 +157,14 @@ class Shibboleth {
 			'debug' => defined( 'WP_DEBUG' ) && WP_DEBUG ? true : false,
 			'baseurl' => null,
 			'sp' => [
-				'entityId' => 'urn:' . wp_parse_url( $this->loginUrl, PHP_URL_HOST ), // TODO: Missing path, example: host/path/to/pressbooks
+				'entityId' => $url,
 				'assertionConsumerService' => [
 					'url' => add_query_arg( 'saml', 'acs', $url ),
+					'binding' => \OneLogin\Saml2\Constants::BINDING_HTTP_POST,
 				],
 				'singleLogoutService' => [
 					'url' => add_query_arg( 'saml', 'sls', $url ),
+					'binding' => \OneLogin\Saml2\Constants::BINDING_HTTP_POST,
 				],
 			],
 			'idp' => [

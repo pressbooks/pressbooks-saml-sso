@@ -36,7 +36,7 @@ if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( WP
 // Composer autoloader
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! class_exists( '\SimpleSAML\Auth\Simple' ) ) {
+if ( ! class_exists( '\OneLogin\Saml2\Auth' ) ) {
 	if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 		require_once __DIR__ . '/vendor/autoload.php';
 	} else {

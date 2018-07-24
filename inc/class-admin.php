@@ -76,7 +76,10 @@ class Admin {
 		if ( ! empty( $_POST ) && check_admin_referer( 'pb-shibboleth-sso' ) ) {
 			$fallback = $this->getOptions();
 			$update = [
-				// TODO
+				'idp_entity_id' => trim( $_POST['idp_entity_id'] ),
+				'idp_sso_login_url' => trim( $_POST['idp_sso_login_url'] ),
+				'idp_sso_logout_url' => trim( $_POST['idp_sso_logout_url'] ),
+				'idp_x509_cert' => trim( $_POST['idp_x509_cert'] ),
 				'provision' => in_array( $_POST['provision'], [ 'refuse', 'create' ], true ) ? $_POST['provision'] : 'refuse',
 				'button_text' => isset( $_POST['button_text'] ) ? trim( wp_unslash( wp_kses( $_POST['button_text'], [
 					'br' => [],
@@ -97,8 +100,18 @@ class Admin {
 
 		$options = get_site_option( self::OPTION, [] );
 
-		// TODO
-
+		if ( empty( $options['idp_entity_id'] ) ) {
+			$options['idp_entity_id'] = '';
+		}
+		if ( empty( $options['idp_sso_login_url'] ) ) {
+			$options['idp_sso_login_url'] = '';
+		}
+		if ( empty( $options['idp_sso_logout_url'] ) ) {
+			$options['idp_sso_logout_url'] = '';
+		}
+		if ( empty( $options['idp_x509_cert'] ) ) {
+			$options['idp_x509_cert'] = '';
+		}
 		if ( empty( $options['provision'] ) ) {
 			$options['provision'] = 'refuse';
 		}

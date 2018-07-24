@@ -92,17 +92,16 @@ class Shibboleth {
 	public function __construct( Admin $admin ) {
 
 		$options = $admin->getOptions();
-
-//		if ( empty( $options['server_hostname'] ) ) {
-//			if ( 'pb_shibboleth_admin' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
-//				add_action(
-//					'network_admin_notices', function () {
-//					echo '<div id="message" class="error fade"><p>' . __( 'Shibboleth is not configured.', 'pressbooks-shibboleth-sso' ) . '</p></div>';
-//				}
-//				);
-//			}
-//			return;
-//		}
+		if ( ! $this->verifyConfig( $options ) ) {
+			if ( 'pb_shibboleth_admin' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
+				add_action(
+					'network_admin_notices', function () {
+						echo '<div id="message" class="error fade"><p>' . __( 'Shibboleth is not configured correctly.', 'pressbooks-shibboleth-sso' ) . '</p></div>';
+					}
+				);
+			}
+			return;
+		}
 
 		// Set Login URL
 		if ( is_subdomain_install() ) {
@@ -126,36 +125,57 @@ class Shibboleth {
 			// If we want to support both Shibboleth & CAS on the same site, then we'll need to handle the 'login_form_shibboleth' action ourselves.
 			add_filter( 'login_url', [ $this, 'changeLoginUrl' ], 999 );
 		}
-		$this->samlConfigure( $this->loginUrl );
+		$this->samlConfigure( $this->loginUrl, $options['idp_entity_id'], $options['idp_sso_login_url'], $options['idp_sso_logout_url'], $options['idp_x509_cert'] );
 		$this->shibbolethClientIsReady = true;
 	}
 
 	/**
-	 * @param string $url
+	 * @param array $options
+	 *
+	 * @return bool
 	 */
-	public function samlConfigure( $url ) {
+	public function verifyConfig( $options ) {
+		if ( empty( $options['idp_entity_id'] ) || empty( $options['idp_sso_login_url'] ) || empty( $options['idp_sso_logout_url'] ) || empty( $options['idp_x509_cert'] ) ) {
+			return false;
+		}
+		if ( ! filter_var( $options['idp_sso_login_url'], FILTER_VALIDATE_URL ) || ! filter_var( $options['idp_sso_logout_url'], FILTER_VALIDATE_URL ) ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * @param string $url
+	 * @param string $idp_entity_id
+	 * @param string $idp_sso_login_url
+	 * @param string $idp_sso_logout_url
+	 * @param string $idp_x509_cert
+	 */
+	public function samlConfigure( $url, $idp_entity_id, $idp_sso_login_url, $idp_sso_logout_url, $idp_x509_cert ) {
 		$config = [
-			'strict' => false,
-			'debug' => true,
+			'strict' => true,
+			'debug' => defined( 'WP_DEBUG' ) && WP_DEBUG ? true : false,
+			'baseurl' => null,
 			'sp' => [
-				'entityId' => add_query_arg( 'saml', 'meta', $url ),
+				'entityId' => 'urn:' . wp_parse_url( $this->loginUrl, PHP_URL_HOST ),
 				'assertionConsumerService' => [
 					'url' => add_query_arg( 'saml', 'acs', $url ),
 				],
 				'singleLogoutService' => [
 					'url' => add_query_arg( 'saml', 'sls', $url ),
 				],
-				'NameIDFormat' => 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
 			],
 			'idp' => [
-				'entityId' => 'http://idp.example.com/',
+				'entityId' => $idp_entity_id,
 				'singleSignOnService' => [
-					'url' => 'http://idp.example.com/SSOService.php',
+					'url' => $idp_sso_login_url,
+					'binding' => \OneLogin\Saml2\Constants::BINDING_HTTP_REDIRECT,
 				],
 				'singleLogoutService' => [
-					'url' => 'http://idp.example.com/SingleLogoutService.php',
+					'url' => $idp_sso_logout_url,
+					'binding' => \OneLogin\Saml2\Constants::BINDING_HTTP_REDIRECT,
 				],
-				'x509cert' => 'MIICgTCCAeoCCQCbOlrWDdX7FTANBgkqhkiG9w0BAQUFADCBhDELMAkGA1UEBhMCTk8xGDAWBgNVBAgTD0FuZHJlYXMgU29sYmVyZzEMMAoGA1UEBxMDRm9vMRAwDgYDVQQKEwdVTklORVRUMRgwFgYDVQQDEw9mZWlkZS5lcmxhbmcubm8xITAfBgkqhkiG9w0BCQEWEmFuZHJlYXNAdW5pbmV0dC5ubzAeFw0wNzA2MTUxMjAxMzVaFw0wNzA4MTQxMjAxMzVaMIGEMQswCQYDVQQGEwJOTzEYMBYGA1UECBMPQW5kcmVhcyBTb2xiZXJnMQwwCgYDVQQHEwNGb28xEDAOBgNVBAoTB1VOSU5FVFQxGDAWBgNVBAMTD2ZlaWRlLmVybGFuZy5ubzEhMB8GCSqGSIb3DQEJARYSYW5kcmVhc0B1bmluZXR0Lm5vMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDivbhR7P516x/S3BqKxupQe0LONoliupiBOesCO3SHbDrl3+q9IbfnfmE04rNuMcPsIxB161TdDpIesLCn7c8aPHISKOtPlAeTZSnb8QAu7aRjZq3+PbrP5uW3TcfCGPtKTytHOge/OlJbo078dVhXQ14d1EDwXJW1rRXuUt4C8QIDAQABMA0GCSqGSIb3DQEBBQUAA4GBACDVfp86HObqY+e8BUoWQ9+VMQx1ASDohBjwOsg2WykUqRXF+dLfcUH9dWR63CtZIKFDbStNomPnQz7nbK+onygwBspVEbnHuUihZq3ZUdmumQqCw4Uvs/1Uvq3orOo/WJVhTyvLgFVK2QarQ4/67OZfHd7R+POBXhophSMv1ZOo',
+				'x509cert' => $idp_x509_cert,
 			],
 		];
 		$this->auth = new \OneLogin\Saml2\Auth( $config );
@@ -215,7 +235,7 @@ class Shibboleth {
 			try {
 				$this->trackHomeUrl();
 				switch ( $shibboleth_action ) {
-					case 'meta':
+					case 'metadata':
 						$this->samlMetadata();
 						$this->doExit();
 						break;
@@ -240,19 +260,10 @@ class Shibboleth {
 						}
 				}
 			} catch ( \Exception $e ) {
-				$buffer = ob_get_clean();
-				if ( ! empty( $buffer ) ) {
-					if ( defined( 'WP_TESTS_MULTISITE' ) ) {
-						throw new \LogicException( $buffer );
-					} else {
-						die( $buffer );
-					}
+				if ( $this->forcedRedirection ) {
+					wp_die( $e->getMessage() );
 				} else {
-					if ( $this->forcedRedirection ) {
-						wp_die( $e->getMessage() );
-					} else {
-						return new \WP_Error( 'authentication_failed', $e->getMessage() );
-					}
+					return new \WP_Error( 'authentication_failed', $e->getMessage() );
 				}
 			}
 			$message = $this->authenticationFailedMessage( $this->options['provision'] );
@@ -266,28 +277,25 @@ class Shibboleth {
 	}
 
 	/**
-	 *
+	 * @throws \OneLogin\Saml2\Error
 	 */
 	public function samlMetadata() {
-		try {
-			$settings = $this->auth->getSettings();
-			$metadata = $settings->getSPMetadata();
-			$errors = $settings->validateMetadata( $metadata );
-			if ( empty( $errors ) ) {
-				header( 'Content-Type: text/xml' );
-				echo $metadata;
-			} else {
-				throw new \OneLogin\Saml2\Error(
-					'Invalid SP metadata: ' . implode( ', ', $errors ),
-					\OneLogin\Saml2\Error::METADATA_SP_INVALID
-				);
-			}
-		} catch ( \Exception $e ) {
-			echo $e->getMessage();
+		$settings = $this->auth->getSettings();
+		$metadata = $settings->getSPMetadata();
+		$errors = $settings->validateMetadata( $metadata );
+		if ( empty( $errors ) ) {
+			header( 'Content-Type: text/xml' );
+			echo $metadata;
+		} else {
+			throw new \OneLogin\Saml2\Error(
+				'Invalid SP metadata: ' . implode( ', ', $errors ),
+				\OneLogin\Saml2\Error::METADATA_SP_INVALID
+			);
 		}
 	}
 
 	/**
+	 * @throws \Exception
 	 * @throws \OneLogin\Saml2\Error
 	 */
 	public function samlAssertionConsumerService() {
@@ -295,40 +303,35 @@ class Shibboleth {
 		$this->auth->processResponse( $request_id );
 		$errors = $this->auth->getErrors();
 		if ( ! empty( $errors ) ) {
-			echo '<p>' . implode( ', ', $errors ) . '</p>';
+			throw new \Exception( implode( ', ', $errors ) );
 		}
-
 		if ( ! $this->auth->isAuthenticated() ) {
-			echo '<p>Not authenticated</p>';
-			exit();
+			throw new \Exception( ' Not authenticated' );
 		}
 		$_SESSION['samlUserdata'] = $this->auth->getAttributes();
 		$_SESSION['samlNameId'] = $this->auth->getNameId();
 		$_SESSION['samlNameIdFormat'] = $this->auth->getNameIdFormat();
 		$_SESSION['samlSessionIndex'] = $this->auth->getSessionIndex();
 		unset( $_SESSION['AuthNRequestID'] );
-		// @codingStandardsIgnoreStart
-		if ( isset( $_POST['RelayState'] ) && \OneLogin\Saml2\Utils::getSelfURL() !== $_POST['RelayState'] ) {
-			$this->auth->redirectTo( $_POST['RelayState'] );
+		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL );
+		if ( $redirect_to && \OneLogin\Saml2\Utils::getSelfURL() !== $redirect_to ) {
+			$this->auth->redirectTo( $redirect_to );
 		}
-		// @codingStandardsIgnoreEnd
 	}
 
+
 	/**
+	 * @throws \Exception
 	 * @throws \OneLogin\Saml2\Error
 	 */
 	public function samlSingleLogoutService() {
-		if ( isset( $_SESSION['LogoutRequestID'] ) ) {
-			$request_id = $_SESSION['LogoutRequestID'];
-		} else {
-			$request_id = null;
+		if ( is_user_logged_in() ) {
+			wp_logout();
 		}
-		$this->auth->processSLO( false, $request_id );
+		$this->auth->processSLO();
 		$errors = $this->auth->getErrors();
-		if ( empty( $errors ) ) {
-			echo '<p>Sucessfully logged out</p>';
-		} else {
-			echo '<p>' . implode( ', ', $errors ) . '</p>';
+		if ( ! empty( $errors ) ) {
+			throw new \Exception( implode( ', ', $errors ) );
 		}
 	}
 

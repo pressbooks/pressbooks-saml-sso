@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <th><label for="idp_x509_cert">{{ __('Public x509 certificate of the IdP', 'pressbooks-shibboleth-sso') }}</label></th>
-                <td><input name="idp_x509_cert" id="idp_x509_cert" type="text" value="{{ $options['idp_x509_cert'] }}" class="regular-text"/></td>
+                <td><textarea name="idp_x509_cert" id="idp_x509_cert" type="text" class="large-text code" rows="5">{{ $options['idp_x509_cert'] }}</textarea></td>
             </tr>
         </table>
         <table class="form-table">

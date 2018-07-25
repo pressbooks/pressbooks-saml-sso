@@ -343,7 +343,7 @@ class Shibboleth {
 		if ( is_user_logged_in() ) {
 			wp_logout();
 		}
-		wp_safe_redirect( add_query_arg( 'loggedout', true, wp_login_url() );
+		wp_safe_redirect( add_query_arg( 'loggedout', true, wp_login_url() ) );
 	}
 
 	/**

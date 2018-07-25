@@ -7,14 +7,18 @@ use PressbooksMix\Assets;
 /**
  * SAML: Security Assertion Markup Language
  */
-class Shibboleth {
+class Saml {
 
-	const META_KEY = 'pressbooks_shibboleth_identity';
+	const META_KEY = 'pressbooks_saml_identity';
 
-	const SIGN_IN_PAGE = 'pressbooks_shibboleth_sign_in_page';
+	const SIGN_IN_PAGE = 'pb_saml_sign_in_page';
+
+	const USER_DATA = 'pb_saml_user_data';
+
+	const AUTH_N_REQUEST_ID = 'pb_saml_auth_n_request_id';
 
 	/**
-	 * @var Shibboleth
+	 * @var Saml
 	 */
 	private static $instance = null;
 
@@ -56,7 +60,7 @@ class Shibboleth {
 	/**
 	 * @var bool
 	 */
-	private $shibbolethClientIsReady = false;
+	private $samlClientIsReady = false;
 
 	/**
 	 * @var \OneLogin\Saml2\Auth
@@ -64,7 +68,14 @@ class Shibboleth {
 	private $auth;
 
 	/**
-	 * @return Shibboleth
+	 * OneLogin SAML Toolkit Settings
+	 *
+	 * @var array
+	 */
+	private $samlSettings = [];
+
+	/**
+	 * @return Saml
 	 */
 	static public function init() {
 		if ( is_null( self::$instance ) ) {
@@ -76,9 +87,9 @@ class Shibboleth {
 	}
 
 	/**
-	 * @param Shibboleth $obj
+	 * @param Saml $obj
 	 */
-	static public function hooks( Shibboleth $obj ) {
+	static public function hooks( Saml $obj ) {
 		add_filter( 'authenticate', [ $obj, 'authenticate' ], 10, 3 );
 		add_action( 'login_enqueue_scripts', [ $obj, 'loginEnqueueScripts' ] );
 		add_action( 'login_form', [ $obj, 'loginForm' ] );
@@ -90,29 +101,9 @@ class Shibboleth {
 	 * @param Admin $admin
 	 */
 	public function __construct( Admin $admin ) {
-
 		$options = $admin->getOptions();
-		if ( ! $this->verifyConfig( $options ) ) {
-			if ( 'pb_shibboleth_admin' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
-				add_action(
-					'network_admin_notices', function () {
-						echo '<div id="message" class="error fade"><p>' . __( 'Shibboleth is not configured correctly.', 'pressbooks-shibboleth-sso' ) . '</p></div>';
-					}
-				);
-			}
-			return;
-		}
 
-		// Set Login URL
-		if ( is_subdomain_install() ) {
-			$login_url = network_site_url( '/wp-login.php' );
-		} else {
-			$login_url = wp_login_url();
-		}
-		$login_url = add_query_arg( 'action', 'pb_shibboleth', $login_url );
-		$login_url = \Pressbooks\Sanitize\maybe_https( $login_url );
-		$this->loginUrl = $login_url;
-
+		$this->loginUrl = \Pressbooks\Shibboleth\login_url();
 		$this->currentUserId = get_current_user_id();
 		$this->provision = $options['provision'];
 		$this->bypass = (bool) $options['bypass'];
@@ -121,12 +112,27 @@ class Shibboleth {
 		$this->options = $options;
 		if ( $this->forcedRedirection ) {
 			// TODO:
-			// This hijacks the same logic as seen in the shibboleth plugin.
-			// If we want to support both Shibboleth & CAS on the same site, then we'll need to handle the 'login_form_shibboleth' action ourselves.
+			// This hijacks the same logic as seen in the saml plugin.
+			// If we want to support both Saml & CAS on the same site, then we'll need to handle the 'login_form_saml' action ourselves.
 			add_filter( 'login_url', [ $this, 'changeLoginUrl' ], 999 );
 		}
-		$this->samlConfigure( $this->loginUrl, $options['idp_entity_id'], $options['idp_sso_login_url'], $options['idp_sso_logout_url'], $options['idp_x509_cert'] );
-		$this->shibbolethClientIsReady = true;
+
+		// Set configuration in OneLogin format
+		$this->setSamlSettings( $this->loginUrl, $options['idp_entity_id'], $options['idp_sso_login_url'], $options['idp_x509_cert'] );
+
+		// Verify the integrity of the configuration before passing to Auth to avoid things blowing up
+		if ( ! $this->verifyPluginSetup( $options ) ) {
+			if ( 'pb_shibboleth_admin' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
+				add_action(
+					'network_admin_notices', function () {
+						echo '<div id="message" class="error fade"><p>' . __( 'The Pressbooks Shibboleth Plugin is not configured correctly.', 'pressbooks-shibboleth-sso' ) . '</p></div>';
+					}
+				);
+			}
+		} else {
+			$this->auth = new \OneLogin\Saml2\Auth( $this->getSamlSettings() );
+			$this->samlClientIsReady = true;
+		}
 	}
 
 	/**
@@ -134,51 +140,64 @@ class Shibboleth {
 	 *
 	 * @return bool
 	 */
-	public function verifyConfig( $options ) {
-		if ( empty( $options['idp_entity_id'] ) || empty( $options['idp_sso_login_url'] ) || empty( $options['idp_sso_logout_url'] ) || empty( $options['idp_x509_cert'] ) ) {
+	public function verifyPluginSetup( $options ) {
+		if ( empty( $options['idp_entity_id'] ) || empty( $options['idp_sso_login_url'] ) || empty( $options['idp_x509_cert'] ) ) {
 			return false;
 		}
-		if ( ! filter_var( $options['idp_sso_login_url'], FILTER_VALIDATE_URL ) || ! filter_var( $options['idp_sso_logout_url'], FILTER_VALIDATE_URL ) ) {
+		if ( ! filter_var( $options['idp_sso_login_url'], FILTER_VALIDATE_URL ) ) {
 			return false;
 		}
 		return true;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getSamlSettings() {
+		return $this->samlSettings;
 	}
 
 	/**
 	 * @param string $url
 	 * @param string $idp_entity_id
 	 * @param string $idp_sso_login_url
-	 * @param string $idp_sso_logout_url
 	 * @param string $idp_x509_cert
 	 */
-	public function samlConfigure( $url, $idp_entity_id, $idp_sso_login_url, $idp_sso_logout_url, $idp_x509_cert ) {
+	public function setSamlSettings( $url, $idp_entity_id, $idp_sso_login_url, $idp_x509_cert ) {
 		$config = [
 			'strict' => true,
 			'debug' => defined( 'WP_DEBUG' ) && WP_DEBUG ? true : false,
 			'baseurl' => null,
-			'sp' => [
-				'entityId' => add_query_arg( 'saml', 'metadata', $url ),
-				'assertionConsumerService' => [
-					'url' => add_query_arg( 'saml', 'acs', $url ),
-				],
-				'singleLogoutService' => [
-					'url' => add_query_arg( 'saml', 'sls', $url ),
-				],
-			],
 			'idp' => [
 				'entityId' => $idp_entity_id,
 				'singleSignOnService' => [
 					'url' => $idp_sso_login_url,
 					'binding' => \OneLogin\Saml2\Constants::BINDING_HTTP_REDIRECT,
 				],
-				'singleLogoutService' => [
-					'url' => $idp_sso_logout_url,
-					'binding' => \OneLogin\Saml2\Constants::BINDING_HTTP_REDIRECT,
-				],
 				'x509cert' => $idp_x509_cert,
 			],
 		];
-		$this->auth = new \OneLogin\Saml2\Auth( $config );
+
+		/**
+		 * @param array $config
+		 *
+		 * @since 1.0.0
+		 */
+		$config = apply_filters( 'pb_saml_auth_settings', $config );
+
+		// This comes after filter because we don't want others breaking our SP config
+		$config['sp'] = [
+			'entityId' => \Pressbooks\Shibboleth\metadata_url(),
+			'assertionConsumerService' => [
+				'url' => \Pressbooks\Shibboleth\acs_url(),
+			],
+			'singleLogoutService' => [
+				'url' => \Pressbooks\Shibboleth\sls_url(),
+			],
+		];
+
+		$this->samlSettings = $config;
 	}
 
 	/**
@@ -204,8 +223,8 @@ class Shibboleth {
 	 */
 	public function showPasswordFields( $show, $profileuser ) {
 		if ( ! current_user_can( 'manage_network' ) ) {
-			$pressbooks_shibboleth_identity = get_user_meta( $profileuser->ID, self::META_KEY, true );
-			if ( $pressbooks_shibboleth_identity ) {
+			$pressbooks_saml_identity = get_user_meta( $profileuser->ID, self::META_KEY, true );
+			if ( $pressbooks_saml_identity ) {
 				$show = false;
 			}
 		}
@@ -221,26 +240,21 @@ class Shibboleth {
 	 * @return mixed
 	 */
 	public function authenticate( $user, $username, $password ) {
-
+		$saml_action = '';
 		$use_shibboleth = false;
-		$shibboleth_action = '';
-		if ( $this->shibbolethClientIsReady ) {
-			if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'pb_shibboleth' ) { // @codingStandardsIgnoreLine
-				$use_shibboleth = true;
-				$shibboleth_action = isset( $_REQUEST['saml'] ) ? $_REQUEST['saml'] : ''; // @codingStandardsIgnoreLine
-			}
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'pb_shibboleth' ) { // @codingStandardsIgnoreLine
+			$use_shibboleth = true;
+			$saml_action = isset( $_REQUEST['saml'] ) ? $_REQUEST['saml'] : ''; // @codingStandardsIgnoreLine
 		}
 
-		if ( $use_shibboleth ) {
+		if ( $saml_action === 'metadata' ) {
+			$this->samlMetadata();
+			$this->doExit();
+		} elseif ( $this->samlClientIsReady && $use_shibboleth ) {
 			try {
 				$this->trackHomeUrl();
 				ob_start();
-				switch ( $shibboleth_action ) {
-					case 'metadata':
-						ob_end_clean();
-						$this->samlMetadata();
-						$this->doExit();
-						break;
+				switch ( $saml_action ) {
 					case 'acs':
 						$this->samlAssertionConsumerService();
 						$this->doExit();
@@ -250,11 +264,11 @@ class Shibboleth {
 						$this->doExit();
 						break;
 					default:
-						if ( empty( $_SESSION['samlUserdata'] ) ) {
+						if ( empty( $_SESSION[ self::USER_DATA ] ) ) {
 							$this->auth->login( $this->loginUrl ); // Redirects user to SSO url
 							$this->doExit();
 						} else {
-							$attributes = $_SESSION['samlUserdata'];
+							$attributes = $_SESSION[ self::USER_DATA ];
 							$net_id = $attributes['uid'][0];
 							$email = isset( $attributes['mail'][0] ) ? $attributes['mail'][0] : "{$net_id}@127.0.0.1";
 							ob_end_clean();
@@ -289,20 +303,21 @@ class Shibboleth {
 	}
 
 	/**
-	 * @throws \OneLogin\Saml2\Error
+	 *
 	 */
 	public function samlMetadata() {
-		$settings = $this->auth->getSettings();
-		$metadata = $settings->getSPMetadata( true );
-		$errors = $settings->validateMetadata( $metadata );
-		if ( empty( $errors ) ) {
-			header( 'Content-Type: text/xml' );
-			echo $metadata;
-		} else {
-			throw new \OneLogin\Saml2\Error(
-				'Invalid SP metadata: ' . implode( ', ', $errors ),
-				\OneLogin\Saml2\Error::METADATA_SP_INVALID
-			);
+		try {
+			$settings = new \OneLogin\Saml2\Settings( $this->getSamlSettings(), true );
+			$metadata = $settings->getSPMetadata( true );
+			$errors = $settings->validateMetadata( $metadata );
+			if ( empty( $errors ) ) {
+				header( 'Content-Type: text/xml' );
+				echo $metadata;
+			} else {
+				wp_die( __( 'Invalid SP metadata: ', 'pressbooks-shibboleth-sso' ) . implode( ', ', $errors ) );
+			}
+		} catch ( \Exception $e ) {
+			wp_die( $e->getMessage() );
 		}
 	}
 
@@ -311,18 +326,18 @@ class Shibboleth {
 	 * @throws \OneLogin\Saml2\Error
 	 */
 	public function samlAssertionConsumerService() {
-		$request_id = isset( $_SESSION['AuthNRequestID'] ) ? $_SESSION['AuthNRequestID'] : null;
+		$request_id = isset( $_SESSION[ self::AUTH_N_REQUEST_ID ] ) ? $_SESSION[ self::AUTH_N_REQUEST_ID ] : null;
 		$this->auth->processResponse( $request_id );
 		$errors = $this->auth->getErrors();
 		if ( ! empty( $errors ) ) {
 			throw new \Exception( implode( ', ', $errors ) );
 		}
 		if ( ! $this->auth->isAuthenticated() ) {
-			/* translators: Shibboleth error reason */
+			/* translators: Saml error reason */
 			throw new \Exception( sprintf( __( 'Not authenticated. Reason: %s', 'pressbooks-shibboleth-sso' ), $this->auth->getLastErrorReason() ) );
 		}
-		$_SESSION['samlUserdata'] = $this->auth->getAttributesWithFriendlyName();
-		unset( $_SESSION['AuthNRequestID'] );
+		$_SESSION[ self::USER_DATA ] = $this->auth->getAttributesWithFriendlyName();
+		unset( $_SESSION[ self::AUTH_N_REQUEST_ID ] );
 		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL );
 		if ( $redirect_to && \OneLogin\Saml2\Utils::getSelfURL() !== $redirect_to ) {
 			$this->auth->redirectTo( $redirect_to );
@@ -360,7 +375,7 @@ class Shibboleth {
 			/* translators: %s Pressbooks Network Manager email if found. */
 			$message = sprintf( __( "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s", 'pressbooks-shibboleth-sso' ), $email );
 		} else {
-			$message = __( 'Shibboleth authentication failed.', 'pressbooks-shibboleth-sso' );
+			$message = __( 'Saml authentication failed.', 'pressbooks-shibboleth-sso' );
 		}
 		return wp_strip_all_tags( $message );
 	}
@@ -387,10 +402,13 @@ class Shibboleth {
 	 * @return string
 	 */
 	public function logoutRedirect( $redirect_to ) {
-		if ( $this->shibbolethClientIsReady ) {
-			if ( $this->forcedRedirection || ! empty( $_SESSION['samlUserdata'] ) || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
-				$this->auth->logout( add_query_arg( 'loggedout', true, wp_login_url() ) );
-				$this->doExit();
+		if ( $this->samlClientIsReady ) {
+			if ( $this->forcedRedirection || ! empty( $_SESSION[ self::USER_DATA ] ) || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
+				$config = $this->getSamlSettings();
+				if ( ! empty( $config['idp']['singleLogoutService']['url'] ) ) {
+					$this->auth->logout( add_query_arg( 'loggedout', true, wp_login_url() ) );
+					$this->doExit();
+				}
 			}
 		}
 		return $redirect_to;
@@ -401,21 +419,21 @@ class Shibboleth {
 	 */
 	public function loginEnqueueScripts() {
 		$assets = new Assets( 'pressbooks-shibboleth-sso', 'plugin' );
-		wp_enqueue_style( 'pb-shibboleth-login', $assets->getPath( 'styles/login-form.css' ) );
-		wp_enqueue_script( 'pb-shibboleth-login', $assets->getPath( 'scripts/login-form.js' ), [ 'jquery' ] );
+		wp_enqueue_style( 'pb-saml-login', $assets->getPath( 'styles/login-form.css' ) );
+		wp_enqueue_script( 'pb-saml-login', $assets->getPath( 'scripts/login-form.js' ), [ 'jquery' ] );
 	}
 
 	/**
-	 * Print [ Connect via Shibboleth ] button
+	 * Print [ Connect via Saml ] button
 	 */
 	public function loginForm() {
 
-		if ( ! $this->shibbolethClientIsReady ) {
+		if ( ! $this->samlClientIsReady ) {
 			return;
 		}
 
 		$url = $this->auth->login( $this->loginUrl, [], false, false, true );
-		$_SESSION['AuthNRequestID'] = $this->auth->getLastRequestID();
+		$_SESSION[ self::AUTH_N_REQUEST_ID ] = $this->auth->getLastRequestID();
 
 		$button_text = $this->options['button_text'];
 		if ( empty( $button_text ) ) {
@@ -441,7 +459,7 @@ class Shibboleth {
 	}
 
 	/**
-	 * Login (or register and login) a WordPress user based on their Shibboleth identity.
+	 * Login (or register and login) a WordPress user based on their Saml identity.
 	 *
 	 * @param string $net_id
 	 * @param string $email An email
@@ -450,10 +468,10 @@ class Shibboleth {
 	 */
 	public function handleLoginAttempt( $net_id, $email ) {
 
-		// Keep $_SESSION alive, Shibboleth put info in it
+		// Keep $_SESSION alive, Saml put info in it
 		remove_action( 'wp_login', '_pb_session_kill' );
 
-		// Try to find a matching WordPress user for the now-authenticated user's Shibboleth identity
+		// Try to find a matching WordPress user for the now-authenticated user's Saml identity
 		$user = $this->matchUser( $net_id );
 
 		if ( $user ) {
@@ -496,7 +514,7 @@ class Shibboleth {
 	}
 
 	/**
-	 * Attempt to match a WordPress user to the Shibboleth identity.
+	 * Attempt to match a WordPress user to the Saml identity.
 	 *
 	 * @param string $net_id
 	 *
@@ -512,7 +530,7 @@ class Shibboleth {
 	}
 
 	/**
-	 * Link a user to their Shibboleth identity
+	 * Link a user to their Saml identity
 	 *
 	 * @param int $user_id
 	 * @param string $net_id
@@ -605,7 +623,7 @@ class Shibboleth {
 
 		$user = get_user_by( 'email', $email );
 		if ( $user ) {
-			// Associate existing users with Shibboleth accounts
+			// Associate existing users with Saml accounts
 			$user_id = $user->ID;
 			$username = $user->user_login;
 		} else {

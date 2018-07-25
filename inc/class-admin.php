@@ -33,7 +33,6 @@ class Admin {
 	 *
 	 */
 	public function __construct() {
-
 	}
 
 	/**
@@ -62,6 +61,7 @@ class Admin {
 		$html = blade()->render(
 			'admin', [
 				'form_url' => network_admin_url( '/admin.php?page=pb_shibboleth_admin' ),
+				'metadata_url' => \Pressbooks\Shibboleth\metadata_url(),
 				'options' => $this->getOptions(),
 			]
 		);
@@ -78,7 +78,6 @@ class Admin {
 			$update = [
 				'idp_entity_id' => trim( $_POST['idp_entity_id'] ),
 				'idp_sso_login_url' => trim( $_POST['idp_sso_login_url'] ),
-				'idp_sso_logout_url' => trim( $_POST['idp_sso_logout_url'] ),
 				'idp_x509_cert' => trim( $_POST['idp_x509_cert'] ),
 				'provision' => in_array( $_POST['provision'], [ 'refuse', 'create' ], true ) ? $_POST['provision'] : 'refuse',
 				'button_text' => isset( $_POST['button_text'] ) ? trim( wp_unslash( wp_kses( $_POST['button_text'], [
@@ -105,9 +104,6 @@ class Admin {
 		}
 		if ( empty( $options['idp_sso_login_url'] ) ) {
 			$options['idp_sso_login_url'] = '';
-		}
-		if ( empty( $options['idp_sso_logout_url'] ) ) {
-			$options['idp_sso_logout_url'] = '';
 		}
 		if ( empty( $options['idp_x509_cert'] ) ) {
 			$options['idp_x509_cert'] = '';

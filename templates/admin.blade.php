@@ -1,23 +1,36 @@
 <div class="wrap">
     <h1>{{ __( 'Shibboleth', 'pressbooks-shibboleth-sso') }}</h1>
+    <p>{{ __('When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked for Service Provider (SP) configuration file. Get that here:', 'pressbooks-shibboleth-sso') }} <a
+                href="{!! $metadata_url !!}" target="_blank">{{ __('Metadata XML Configuration', 'pressbooks-shibboleth-sso') }}</a></p>
     <form method="POST" action="{{ $form_url }}" method="post">
         {!! wp_nonce_field( 'pb-shibboleth-sso' ) !!}
         <table class="form-table">
             <tr>
-                <th><label for="idp_entity_id">{{ __('Identifier of the IdP entity (must be a URI)', 'pressbooks-shibboleth-sso') }}</label></th>
-                <td><input name="idp_entity_id" id="idp_entity_id" type="text" value="{{ $options['idp_entity_id'] }}" class="regular-text"/></td>
+                <th><label for="idp_entity_id">EntityID</label></th>
+                <td>
+                    <input name="idp_entity_id" id="idp_entity_id" type="text" value="{{ $options['idp_entity_id'] }}" class="regular-text"/>
+                    <p>
+                        <em>{{ __('Identifier of the IdP entity (must be a URI.)', 'pressbooks-shibboleth-sso') }}</em>
+                    </p>
+                </td>
             </tr>
             <tr>
-                <th><label for="idp_sso_login_url">{{ __('URL Target of the IdP where the Authentication Request Message will be sent', 'pressbooks-shibboleth-sso') }}</label></th>
-                <td><input name="idp_sso_login_url" id="idp_sso_login_url" type="url" value="{{ $options['idp_sso_login_url'] }}" class="regular-text"/></td>
+                <th><label for="idp_sso_login_url">SingleSignOnService</label></th>
+                <td>
+                    <input name="idp_sso_login_url" id="idp_sso_login_url" type="url" value="{{ $options['idp_sso_login_url'] }}" class="regular-text"/>
+                    <p>
+                        <em>{{ __('URL Target of the IdP where the Authentication Request Message will be sent.', 'pressbooks-shibboleth-sso') }}</em>
+                    </p>
+                </td>
             </tr>
             <tr>
-                <th><label for="idp_sso_logout_url">{{ __(' URL Target of the IdP where SLO Request will be sent', 'pressbooks-shibboleth-sso') }}</label></th>
-                <td><input name="idp_sso_logout_url" id="idp_sso_logout_url" type="url" value="{{ $options['idp_sso_logout_url'] }}" class="regular-text"/></td>
-            </tr>
-            <tr>
-                <th><label for="idp_x509_cert">{{ __('Public x509 certificate of the IdP', 'pressbooks-shibboleth-sso') }}</label></th>
-                <td><textarea name="idp_x509_cert" id="idp_x509_cert" type="text" class="large-text code" rows="5">{{ $options['idp_x509_cert'] }}</textarea></td>
+                <th><label for="idp_x509_cert">X509Certificate</label></th>
+                <td>
+                    <textarea name="idp_x509_cert" id="idp_x509_cert" type="text" class="large-text code" rows="5">{{ $options['idp_x509_cert'] }}</textarea>
+                    <p>
+                        <em>{{ __('Public x509 certificate of the IdP.', 'pressbooks-shibboleth-sso') }}</em>
+                    </p>
+                </td>
             </tr>
         </table>
         <table class="form-table">

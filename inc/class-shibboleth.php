@@ -177,11 +177,6 @@ class Shibboleth {
 				],
 				'x509cert' => $idp_x509_cert,
 			],
-			'security' => [
-				'authnRequestsSigned' => false,
-				'wantAssertionsSigned' => false,
-				'signMetadata' => false,
-			],
 		];
 		$this->auth = new \OneLogin\Saml2\Auth( $config );
 	}
@@ -298,7 +293,7 @@ class Shibboleth {
 	 */
 	public function samlMetadata() {
 		$settings = $this->auth->getSettings();
-		$metadata = $settings->getSPMetadata();
+		$metadata = $settings->getSPMetadata( true );
 		$errors = $settings->validateMetadata( $metadata );
 		if ( empty( $errors ) ) {
 			header( 'Content-Type: text/xml' );

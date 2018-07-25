@@ -322,9 +322,6 @@ class Shibboleth {
 			throw new \Exception( sprintf( __( 'Not authenticated. Reason: %s', 'pressbooks-shibboleth-sso' ), $this->auth->getLastErrorReason() ) );
 		}
 		$_SESSION['samlUserdata'] = $this->auth->getAttributesWithFriendlyName();
-		$_SESSION['samlNameId'] = $this->auth->getNameId();
-		$_SESSION['samlNameIdFormat'] = $this->auth->getNameIdFormat();
-		$_SESSION['samlSessionIndex'] = $this->auth->getSessionIndex();
 		unset( $_SESSION['AuthNRequestID'] );
 		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL );
 		if ( $redirect_to && \OneLogin\Saml2\Utils::getSelfURL() !== $redirect_to ) {
@@ -390,12 +387,8 @@ class Shibboleth {
 	 */
 	public function logoutRedirect( $redirect_to ) {
 		if ( $this->shibbolethClientIsReady ) {
-			if ( $this->forcedRedirection || $this->auth->isAuthenticated() || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
-
-				$name_id = isset( $_SESSION['samlNameId'] ) ? $_SESSION['samlNameId'] : null;
-				$session_index = isset( $_SESSION['samlSessionIndex'] ) ? $_SESSION['samlSessionIndex'] : null;
-				$name_id_format = isset( $_SESSION['samlNameIdFormat'] ) ? $_SESSION['samlNameIdFormat'] : null;
-				$this->auth->logout( null, [], $name_id, $session_index, false, $name_id_format );
+			if ( $this->forcedRedirection || ! empty( $_SESSION['samlUserdata'] ) || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
+				$this->auth->logout( add_query_arg( 'loggedout', true, wp_login_url() ) );
 				$this->doExit();
 			}
 		}

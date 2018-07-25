@@ -335,14 +335,15 @@ class Shibboleth {
 	 * @throws \OneLogin\Saml2\Error
 	 */
 	public function samlSingleLogoutService() {
-		if ( is_user_logged_in() ) {
-			wp_logout();
-		}
 		$this->auth->processSLO();
 		$errors = $this->auth->getErrors();
 		if ( ! empty( $errors ) ) {
 			throw new \Exception( implode( ', ', $errors ) );
 		}
+		if ( is_user_logged_in() ) {
+			wp_logout();
+		}
+		wp_safe_redirect( add_query_arg( 'loggedout', true, wp_login_url() );
 	}
 
 	/**

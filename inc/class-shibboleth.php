@@ -250,8 +250,17 @@ class Shibboleth {
 						$this->doExit();
 						break;
 					default:
-						$this->auth->login( $this->loginUrl ); // Redirects user to SSO url
-						$this->doExit();
+						if ( empty( $_SESSION['samlUserdata'] ) ) {
+							$this->auth->login( $this->loginUrl ); // Redirects user to SSO url
+							$this->doExit();
+						} else {
+							$attributes = $_SESSION['samlUserdata'];
+							$net_id = $attributes['uid'][0];
+							$email = isset( $attributes['mail'][0] ) ? $attributes['mail'][0] : "{$net_id}@127.0.0.1";
+							ob_end_clean();
+							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
+							$this->handleLoginAttempt( $net_id, $email );
+						}
 				}
 			} catch ( \Exception $e ) {
 				$buffer = ob_get_clean();
@@ -269,7 +278,6 @@ class Shibboleth {
 					}
 				}
 			}
-			ob_end_clean();
 			$message = $this->authenticationFailedMessage( $this->options['provision'] );
 			if ( $this->forcedRedirection ) {
 				wp_die( $message );
@@ -312,16 +320,15 @@ class Shibboleth {
 		if ( ! $this->auth->isAuthenticated() ) {
 			/* translators: Shibboleth error reason */
 			throw new \Exception( sprintf( __( 'Not authenticated. Reason: %s', 'pressbooks-shibboleth-sso' ), $this->auth->getLastErrorReason() ) );
-		} else {
-			unset( $_SESSION['AuthNRequestID'] );
-			$_SESSION['samlNameId'] = $this->auth->getNameId();
-			$_SESSION['samlNameIdFormat'] = $this->auth->getNameIdFormat();
-			$_SESSION['samlSessionIndex'] = $this->auth->getSessionIndex();
-			$attributes = $this->auth->getAttributes();
-			$net_id = $attributes['uid'][0];
-			$email = $attributes['mail'][0];
-			remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
-			$this->handleLoginAttempt( $net_id, $email );
+		}
+		$_SESSION['samlUserdata'] = $this->auth->getAttributesWithFriendlyName();
+		$_SESSION['samlNameId'] = $this->auth->getNameId();
+		$_SESSION['samlNameIdFormat'] = $this->auth->getNameIdFormat();
+		$_SESSION['samlSessionIndex'] = $this->auth->getSessionIndex();
+		unset( $_SESSION['AuthNRequestID'] );
+		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL );
+		if ( $redirect_to && \OneLogin\Saml2\Utils::getSelfURL() !== $redirect_to ) {
+			$this->auth->redirectTo( $redirect_to );
 		}
 	}
 
@@ -384,6 +391,7 @@ class Shibboleth {
 	public function logoutRedirect( $redirect_to ) {
 		if ( $this->shibbolethClientIsReady ) {
 			if ( $this->forcedRedirection || $this->auth->isAuthenticated() || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
+
 				$name_id = isset( $_SESSION['samlNameId'] ) ? $_SESSION['samlNameId'] : null;
 				$session_index = isset( $_SESSION['samlSessionIndex'] ) ? $_SESSION['samlSessionIndex'] : null;
 				$name_id_format = isset( $_SESSION['samlNameIdFormat'] ) ? $_SESSION['samlNameIdFormat'] : null;

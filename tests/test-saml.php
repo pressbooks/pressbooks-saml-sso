@@ -78,6 +78,52 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->saml = $this->getSaml();
 	}
 
+	public function test_verifyPluginSetup() {
+		$this->assertFalse( $this->saml->verifyPluginSetup( [] ) );
+
+		$options = [
+			'idp_entity_id' => 1,
+			'idp_sso_login_url' => 2,
+			'idp_x509_cert' => 3,
+		];
+		$this->assertFalse( $this->saml->verifyPluginSetup( $options ) );
+
+		$options['idp_sso_login_url'] = 'https://pressbooks.test/login';
+		$this->assertTrue( $this->saml->verifyPluginSetup( $options ) );
+	}
+
+	public function test_getSamlSettings() {
+		$this->assertTrue( is_array( $this->saml->getSamlSettings() ) );
+	}
+
+	public function test_setSamlSettings() {
+		$this->saml->setSamlSettings( 1, 2, 3 );
+		$s = $this->saml->getSamlSettings();
+		$this->assertEquals( $s['idp']['entityId'], 1 );
+		$this->assertEquals( $s['idp']['singleSignOnService']['url'], 2 );
+		$this->assertEquals( $s['idp']['x509cert'], 3 );
+
+		add_filter(
+			'pb_saml_auth_settings',
+			function ( $options ) {
+				$options['sp']['newkey'] = 'hahaha';
+				$options['sp']['entityId'] = 'hahaha';
+				$config['sp']['assertionConsumerService']['url'] = 'hahaha';
+				$config['sp']['singleLogoutService']['url'] = 'hahaha';
+				return $options;
+			}
+		);
+		$this->saml->setSamlSettings( 1, 2, 3 );
+		$s = $this->saml->getSamlSettings();
+		$this->assertEquals( $s['idp']['entityId'], 1 );
+		$this->assertEquals( $s['idp']['singleSignOnService']['url'], 2 );
+		$this->assertEquals( $s['idp']['x509cert'], 3 );
+		$this->assertEquals( $s['sp']['newkey'], 'hahaha' );
+		$this->assertNotEquals( [ 'sp' ]['entityId'], 'hahaha' );
+		$this->assertNotEquals( $s['sp']['assertionConsumerService']['url'], 'hahaha' );
+		$this->assertNotEquals( $s['sp']['singleLogoutService']['url'], 'hahaha' );
+	}
+
 	public function test_changeLoginUrl() {
 		$url = $this->saml->changeLoginUrl( 'https://pressbooks.test' );
 		$this->assertContains( 'action=pb_shibboleth', $url );
@@ -106,7 +152,7 @@ class SamlTest extends \WP_UnitTestCase {
 		$buffer = ob_get_clean();
 		$this->assertTrue( simplexml_load_string( $buffer ) !== false );
 	}
-	
+
 	// TODO
 	// test_samlAssertionConsumerService
 	// test_samlSingleLogoutService

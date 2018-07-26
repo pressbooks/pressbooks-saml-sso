@@ -118,7 +118,7 @@ class SAML {
 		}
 
 		// Set configuration in OneLogin format
-		$this->setSamlSettings( $this->loginUrl, $options['idp_entity_id'], $options['idp_sso_login_url'], $options['idp_x509_cert'] );
+		$this->setSamlSettings( $options['idp_entity_id'], $options['idp_sso_login_url'], $options['idp_x509_cert'] );
 
 		// Verify the integrity of the configuration before passing to Auth to avoid things blowing up
 		if ( ! $this->verifyPluginSetup( $options ) ) {
@@ -168,12 +168,11 @@ class SAML {
 	}
 
 	/**
-	 * @param string $url
 	 * @param string $idp_entity_id
 	 * @param string $idp_sso_login_url
 	 * @param string $idp_x509_cert
 	 */
-	public function setSamlSettings( $url, $idp_entity_id, $idp_sso_login_url, $idp_x509_cert ) {
+	public function setSamlSettings( $idp_entity_id, $idp_sso_login_url, $idp_x509_cert ) {
 		$config = [
 			'strict' => true,
 			'debug' => defined( 'WP_DEBUG' ) && WP_DEBUG ? true : false,
@@ -195,16 +194,10 @@ class SAML {
 		 */
 		$config = apply_filters( 'pb_saml_auth_settings', $config );
 
-		// This comes after filter because we don't want others breaking our SP config
-		$config['sp'] = [
-			'entityId' => \Pressbooks\Shibboleth\metadata_url(),
-			'assertionConsumerService' => [
-				'url' => \Pressbooks\Shibboleth\acs_url(),
-			],
-			'singleLogoutService' => [
-				'url' => \Pressbooks\Shibboleth\sls_url(),
-			],
-		];
+		// This comes after the filter because we don't want others breaking our SP config
+		$config['sp']['entityId'] = \Pressbooks\Shibboleth\metadata_url();
+		$config['sp']['assertionConsumerService']['url'] = \Pressbooks\Shibboleth\acs_url();
+		$config['sp']['singleLogoutService']['url'] = \Pressbooks\Shibboleth\sls_url();
 
 		$this->samlSettings = $config;
 	}
@@ -301,7 +294,7 @@ class SAML {
 					}
 				}
 			}
-			ob_end_clean();
+			@ob_end_clean(); // @codingStandardsIgnoreLine
 			$message = $this->authenticationFailedMessage( $this->options['provision'] );
 			if ( $this->forcedRedirection ) {
 				wp_die( $message );

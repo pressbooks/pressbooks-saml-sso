@@ -6,7 +6,6 @@ Description: Shibboleth Single Sign-On integration for Pressbooks.
 Version: 0.0.1
 Author: Pressbooks (Book Oven Inc.)
 Author URI: https://pressbooks.org
-Requires PHP: 7.0
 Pressbooks tested up to: 5.5.0
 Text Domain: pressbooks-shibboleth-sso
 License: GPL v3 or later

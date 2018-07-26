@@ -15,11 +15,6 @@
   padding-bottom: 26px;
 }
 
-#loginform #pb-shibboleth-wrap,
-#loginform #pb-shibboleth-wrap * {
-  box-sizing: border-box;
-}
-
 #pb-shibboleth-wrap {
   position: absolute;
   bottom: 20px;
@@ -47,6 +42,16 @@
   margin-right: 0;
 }
 
+#loginform #pb-shibboleth-wrap,
+#loginform #pb-shibboleth-wrap * {
+  box-sizing: border-box;
+}
+
+.pb-shibboleth-form-display #loginform > p,
+.pb-shibboleth-form-display #loginform > div {
+  display: none;
+}
+
 #loginform #pb-shibboleth-wrap p {
   color: #777777;
   margin-bottom: 16px;
@@ -57,11 +62,6 @@
   width: 100%;
   text-align: center;
   text-decoration: none;
-}
-
-.pb-shibboleth-form-display #loginform > p,
-.pb-shibboleth-form-display #loginform > div {
-  display: none;
 }
 
 .pb-shibboleth-form-display #loginform #pb-shibboleth-wrap {

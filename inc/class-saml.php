@@ -375,7 +375,7 @@ class SAML {
 			/* translators: %s Pressbooks Network Manager email if found. */
 			$message = sprintf( __( "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s", 'pressbooks-shibboleth-sso' ), $email );
 		} else {
-			$message = __( 'Saml authentication failed.', 'pressbooks-shibboleth-sso' );
+			$message = __( 'SAML authentication failed.', 'pressbooks-shibboleth-sso' );
 		}
 		return wp_strip_all_tags( $message );
 	}

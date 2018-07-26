@@ -136,6 +136,15 @@ class SAML {
 	}
 
 	/**
+	 * For testing purposes only! Useful for setting a mock class.
+	 *
+	 * @param \OneLogin\Saml2\Auth $auth
+	 */
+	public function setAuth( $auth ) {
+		$this->auth = $auth;
+	}
+
+	/**
 	 * @param array $options
 	 *
 	 * @return bool
@@ -268,10 +277,10 @@ class SAML {
 							$this->auth->login( $this->loginUrl ); // Redirects user to SSO url
 							$this->doExit();
 						} else {
+							ob_end_clean();
 							$attributes = $_SESSION[ self::USER_DATA ];
 							$net_id = $attributes['uid'][0];
 							$email = isset( $attributes['mail'][0] ) ? $attributes['mail'][0] : "{$net_id}@127.0.0.1";
-							ob_end_clean();
 							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
 							$this->handleLoginAttempt( $net_id, $email );
 						}
@@ -292,6 +301,7 @@ class SAML {
 					}
 				}
 			}
+			ob_end_clean();
 			$message = $this->authenticationFailedMessage( $this->options['provision'] );
 			if ( $this->forcedRedirection ) {
 				wp_die( $message );

@@ -35,6 +35,24 @@ class SamlTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @return \OneLogin\Saml2\Auth
+	 */
+	protected function getMockAuth() {
+
+		$stub1 = $this
+			->getMockBuilder( '\OneLogin\Saml2\Auth' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$stub1
+			->method( 'login' )
+			->willThrowException( new \LogicException( 'Mock object was here' ) );
+
+		return $stub1;
+
+	}
+
+	/**
 	 * @return \Pressbooks\Shibboleth\SAML
 	 */
 	protected function getSaml() {
@@ -71,8 +89,21 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_bool( $this->saml->showPasswordFields( true, $user ) ) );
 	}
 
-	// test_authenticate
+	public function test_authenticate() {
+		$result = $this->saml->authenticate( null, 'test', 'test' );
+		$this->assertNull( $result );
+
+		$_REQUEST['action'] = 'pb_shibboleth';
+		$this->saml->setAuth( $this->getMockAuth() );
+		$result = $this->saml->authenticate( null, 'test', 'test' );
+		$this->assertTrue( $result instanceof \WP_Error );
+		$this->assertEquals( $result->get_error_message(), 'Mock object was here' );
+	}
+
 	// test_logoutRedirect
+	// test_samlMetadata
+	// test_samlAssertionConsumerService
+	// test_samlSingleLogoutService
 
 	public function test_loginEnqueueScripts() {
 		$this->saml->loginEnqueueScripts();

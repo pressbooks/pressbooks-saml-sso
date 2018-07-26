@@ -49,22 +49,22 @@ script:
 - vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-# before_deploy:
-# - export TRAVIS_PROJECT_SLUG="$(basename $TRAVIS_BUILD_DIR)"
-# - curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-# - chmod +x wp-cli.phar
-# - sudo mv wp-cli.phar /usr/local/bin/wp
-# - wp package install wp-cli/dist-archive-command
-# - composer install --no-dev --optimize-autoloader
-# - cd ../
-# - wp dist-archive $TRAVIS_PROJECT_SLUG $TRAVIS_BUILD_DIR/$TRAVIS_PROJECT_SLUG-$TRAVIS_TAG.zip
-# - cd $TRAVIS_BUILD_DIR
-# deploy:
-#   provider: releases
-#   skip_cleanup: true
-#   api_key:
-#     secure:
-#   file: "pressbooks-shibboleth-sso-$TRAVIS_TAG.zip"
-#   on:
-#     tags: true
-#     repo: pressbooks/pressbooks-shibboleth-sso
+before_deploy:
+- export TRAVIS_PROJECT_SLUG="$(basename $TRAVIS_BUILD_DIR)"
+- curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+- chmod +x wp-cli.phar
+- sudo mv wp-cli.phar /usr/local/bin/wp
+- wp package install wp-cli/dist-archive-command
+- composer install --no-dev --optimize-autoloader
+- cd ../
+- wp dist-archive $TRAVIS_PROJECT_SLUG $TRAVIS_BUILD_DIR/$TRAVIS_PROJECT_SLUG-$TRAVIS_TAG.zip
+- cd $TRAVIS_BUILD_DIR
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: TODO
+  file: "pressbooks-shibboleth-sso-$TRAVIS_TAG.zip"
+  on:
+    tags: true
+    repo: pressbooks/pressbooks-shibboleth-sso

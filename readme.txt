@@ -12,7 +12,13 @@ Shibboleth Single Sign-On integration for Pressbooks.
 
 == Description ==
 
-Plugin to integrate Pressbooks with [Shibboleth](https://en.wikipedia.org/wiki/Shibboleth_(Shibboleth_Consortium)) single sign-on architectures.
+[![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks-shibboleth-sso.svg?style=flat-square)](https://packagist.org/packages/pressbooks/pressbooks-shibboleth-sso) [![GitHub release](https://img.shields.io/github/release/pressbooks/pressbooks-shibboleth-sso.svg?style=flat-square)](https://github.com/pressbooks/pressbooks-shibboleth-sso/releases) [![Travis](https://img.shields.io/travis/pressbooks/pressbooks-shibboleth-sso.svg?style=flat-square)](https://travis-ci.org/pressbooks/pressbooks-shibboleth-sso/) [![Codecov](https://img.shields.io/codecov/c/github/pressbooks/pressbooks-shibboleth-sso.svg?style=flat-square)](https://codecov.io/gh/pressbooks/pressbooks-shibboleth-sso)
+
+Plugin to integrate Pressbooks with a [Shibboleth](https://www.shibboleth.net/) single sign-on service.
+
+Users who attempt to login to Pressbooks are redirected to a Shibboleth or SAML2 Identity Provider. After the user’s credentials are verified, they are redirected back to the
+Pressbooks network. If the Shibboleth UID matches the Pressbooks username, the user is recognized as valid and allowed access. If the CAS user does not have an account in
+Pressbooks, a new user can be created, or access can be refused, depending on the configuration.
 
 == Installation ==
 
@@ -31,8 +37,6 @@ openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out metadata.crt -key
 ```
 
 Then, activate and configure the plugin at the Network level.
-
-Read the developer documentation for more info: TK
 
 == Screenshots ==
 

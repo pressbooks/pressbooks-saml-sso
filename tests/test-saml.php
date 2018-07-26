@@ -100,10 +100,17 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result->get_error_message(), 'Mock object was here' );
 	}
 
-	// test_logoutRedirect
-	// test_samlMetadata
+	public function test_samlMetadata() {
+		ob_start();
+		$this->saml->samlMetadata();
+		$buffer = ob_get_clean();
+		$this->assertTrue( simplexml_load_string( $buffer ) !== false );
+	}
+	
+	// TODO
 	// test_samlAssertionConsumerService
 	// test_samlSingleLogoutService
+	// test_logoutRedirect
 
 	public function test_loginEnqueueScripts() {
 		$this->saml->loginEnqueueScripts();

@@ -7,7 +7,7 @@ use PressbooksMix\Assets;
 /**
  * SAML: Security Assertion Markup Language
  */
-class Saml {
+class SAML {
 
 	const META_KEY = 'pressbooks_saml_identity';
 
@@ -18,7 +18,7 @@ class Saml {
 	const AUTH_N_REQUEST_ID = 'pb_saml_auth_n_request_id';
 
 	/**
-	 * @var Saml
+	 * @var SAML
 	 */
 	private static $instance = null;
 
@@ -75,7 +75,7 @@ class Saml {
 	private $samlSettings = [];
 
 	/**
-	 * @return Saml
+	 * @return SAML
 	 */
 	static public function init() {
 		if ( is_null( self::$instance ) ) {
@@ -87,9 +87,9 @@ class Saml {
 	}
 
 	/**
-	 * @param Saml $obj
+	 * @param SAML $obj
 	 */
-	static public function hooks( Saml $obj ) {
+	static public function hooks( SAML $obj ) {
 		add_filter( 'authenticate', [ $obj, 'authenticate' ], 10, 3 );
 		add_action( 'login_enqueue_scripts', [ $obj, 'loginEnqueueScripts' ] );
 		add_action( 'login_form', [ $obj, 'loginForm' ] );

@@ -58,5 +58,5 @@ require( __DIR__ . '/inc/namespace.php' );
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'plugins_loaded', [ '\Pressbooks\Shibboleth\Updates', 'init' ] );
-add_action( 'plugins_loaded', [ '\Pressbooks\Shibboleth\Saml', 'init' ] );
+add_action( 'plugins_loaded', [ '\Pressbooks\Shibboleth\SAML', 'init' ] );
 add_action( 'plugins_loaded', [ '\Pressbooks\Shibboleth\Admin', 'init' ] );

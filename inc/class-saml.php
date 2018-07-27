@@ -267,6 +267,7 @@ class SAML {
 						break;
 					default:
 						if ( empty( $_SESSION[ self::USER_DATA ] ) ) {
+							unset( $_SESSION[ self::AUTH_N_REQUEST_ID ] ); // Clear AuthNRequest
 							$this->auth->login( $this->loginUrl ); // Redirects user to SSO url
 							$this->doExit();
 						} else {
@@ -330,6 +331,7 @@ class SAML {
 	 */
 	public function samlAssertionConsumerService() {
 		$request_id = isset( $_SESSION[ self::AUTH_N_REQUEST_ID ] ) ? $_SESSION[ self::AUTH_N_REQUEST_ID ] : null;
+		unset( $_SESSION[ self::AUTH_N_REQUEST_ID ] ); // Don't reuse
 		$this->auth->processResponse( $request_id );
 		$errors = $this->auth->getErrors();
 		if ( ! empty( $errors ) ) {
@@ -340,7 +342,6 @@ class SAML {
 			throw new \Exception( sprintf( __( 'Not authenticated. Reason: %s', 'pressbooks-shibboleth-sso' ), $this->auth->getLastErrorReason() ) );
 		}
 		$_SESSION[ self::USER_DATA ] = $this->auth->getAttributesWithFriendlyName();
-		unset( $_SESSION[ self::AUTH_N_REQUEST_ID ] );
 		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL );
 		if ( $redirect_to && \OneLogin\Saml2\Utils::getSelfURL() !== $redirect_to ) {
 			$this->auth->redirectTo( $redirect_to );
@@ -435,6 +436,7 @@ class SAML {
 			return;
 		}
 
+		// Get the url string instead of doing a redirect. Store the AuthNRequest ID in a session in case the user clicks the url.
 		$url = $this->auth->login( $this->loginUrl, [], false, false, true );
 		$_SESSION[ self::AUTH_N_REQUEST_ID ] = $this->auth->getLastRequestID();
 

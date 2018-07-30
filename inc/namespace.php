@@ -52,5 +52,5 @@ function acs_url() {
  * @return string
  */
 function sls_url() {
-	return add_query_arg( 'saml', 'acs', login_url() );
+	return add_query_arg( 'saml', 'sls', login_url() );
 }

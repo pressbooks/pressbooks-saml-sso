@@ -29,21 +29,25 @@ class NamespaceTest extends \WP_UnitTestCase {
 	public function test_login_url() {
 		$url = \Pressbooks\Shibboleth\login_url();
 		$this->assertTrue( filter_var( $url, FILTER_VALIDATE_URL ) !== false );
+		$this->assertContains( 'action=pb_shibboleth', $url );
 	}
 
 	public function test_metadata_url() {
 		$url = \Pressbooks\Shibboleth\metadata_url();
 		$this->assertTrue( filter_var( $url, FILTER_VALIDATE_URL ) !== false );
+		$this->assertContains( 'saml=metadata', $url );
 	}
 
 	public function test_acs_url() {
 		$url = \Pressbooks\Shibboleth\acs_url();
 		$this->assertTrue( filter_var( $url, FILTER_VALIDATE_URL ) !== false );
+		$this->assertContains( 'saml=acs', $url );
 	}
 
 	public function test_sls_url() {
 		$url = \Pressbooks\Shibboleth\sls_url();
 		$this->assertTrue( filter_var( $url, FILTER_VALIDATE_URL ) !== false );
+		$this->assertContains( 'saml=sls', $url );
 	}
 
 }

@@ -151,6 +151,8 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->saml->samlMetadata();
 		$buffer = ob_get_clean();
 		$this->assertTrue( simplexml_load_string( $buffer ) !== false );
+		$this->assertContains( 'AssertionConsumerService', $buffer );
+		$this->assertContains( 'SingleLogoutService', $buffer );
 	}
 
 	// TODO

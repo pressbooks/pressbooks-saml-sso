@@ -20,5 +20,4 @@ class UpdatesTest extends \WP_UnitTestCase {
 		$this->assertTrue( has_filter( 'puc_is_slug_in_use-' ) ); // TODO: https://github.com/YahnisElsts/plugin-update-checker/issues/180 (fix not in a release yet)
 	}
 
-
 }

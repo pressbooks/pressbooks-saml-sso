@@ -1,7 +1,7 @@
 === Pressbooks Shibboleth Single Sign-On ===
 Contributors: conner_bw, greatislander
 Donate link: https://opencollective.com/pressbooks/
-Tags: pressbooks, sso, shibboleth
+Tags: pressbooks, saml, saml2, sso, shibboleth
 Requires at least: 4.9.7
 Tested up to: 4.9
 Stable tag: 0.0.1

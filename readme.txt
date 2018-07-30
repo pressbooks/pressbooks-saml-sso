@@ -26,7 +26,7 @@ Pressbooks, a new user can be created, or access can be refused, depending on th
 composer require pressbooks/pressbooks-shibboleth-sso
 ```
 
-Or, download the latest version from the releases page and unzip it into your WordPress plugin directory): https://github.com/pressbooks/pressbooks-shibboleth-sso/releases
+Or, download the latest version from the releases page and unzip it into your WordPress plugin directory: https://github.com/pressbooks/pressbooks-shibboleth-sso/releases
 
 Then, create the necessary certificates:
 
@@ -37,6 +37,22 @@ openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out metadata.crt -key
 ```
 
 Then, activate and configure the plugin at the Network level.
+
+= Optional Config =
+
+Generating certificates in `vendor/onelogin/php-saml/certs`, without further changes, will expose them to malicious users (Ie. `https://path/to/vendor/onelogin/php-saml/certs/sp.crt`).
+Furthermore, your certificates are at risk of being deleted when updating packages using `composer update` or similar commands. A competent sysadmin must make sure certificates are
+not accessible from the internet nor deleted. It is highly recommended that you pass your certificates via configuration variables. Example:
+
+```php
+add_filter( 'pb_saml_auth_settings', function ( $config ) {
+	$config['sp']['x509cert'] = file_get_contents( '/path/to/sp.key' );
+	$config['sp']['privateKey'] = file_get_contents( '/path/to/sp.crt' );
+	return $config;
+} );
+```
+
+Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/onelogin/php-saml/tree/3.0.0) toolkit, [many other configuration variables can be tweaked](https://github.com/onelogin/php-saml/tree/3.0.0#settings).
 
 == Screenshots ==
 

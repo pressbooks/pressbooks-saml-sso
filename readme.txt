@@ -33,7 +33,6 @@ Then, create the necessary certificates:
 ```
 cd vendor/onelogin/php-saml/certs
 openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out sp.crt -keyout sp.key
-openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out metadata.crt -keyout metadata.key
 ```
 
 Then, activate and configure the plugin at the Network level.
@@ -45,7 +44,7 @@ Furthermore, your certificates are at risk of being deleted when updating packag
 not accessible from the internet nor deleted. It is highly recommended that you pass your certificates via configuration variables. Example:
 
 ```php
-add_filter( 'pb_saml_auth_settings', function ( $config ) {
+add_filter( 'pb_saml_auth_settings', function( $config ) {
 	$config['sp']['x509cert'] = file_get_contents( '/path/to/sp.key' );
 	$config['sp']['privateKey'] = file_get_contents( '/path/to/sp.crt' );
 	return $config;

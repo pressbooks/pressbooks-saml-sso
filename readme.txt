@@ -55,7 +55,7 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 == Screenshots ==
 
-TK
+![Pressbooks Shibboleth Administration.](screenshot-1.png)
 
 == Changelog ==
 

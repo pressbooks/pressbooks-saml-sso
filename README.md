@@ -13,7 +13,7 @@ Shibboleth Single Sign-On integration for Pressbooks.
 
 ## Description 
 
-[![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks-shibboleth-sso.svg?style=flat-square)](https://packagist.org/packages/pressbooks/pressbooks-shibboleth-sso) [![GitHub release](https://badgen.net/github/release/pressbooks/pressbooks-shibboleth-sso/stable?style=flat)](https://github.com/pressbooks/pressbooks-shibboleth-sso/releases) [![Travis](https://badgen.net/travis/pressbooks/pressbooks-shibboleth-sso?style=flat)](https://travis-ci.com/pressbooks/pressbooks-shibboleth-sso/) [![Codecov](https://badgen.net/codecov/c/github/pressbooks/pressbooks-shibboleth-sso?style=flat)](https://codecov.io/gh/pressbooks/pressbooks-shibboleth-sso)
+[![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks-shibboleth-sso.svg?style=flat-square)](https://packagist.org/packages/pressbooks/pressbooks-shibboleth-sso) [![GitHub release](https://badgen.net/github/release/pressbooks/pressbooks-shibboleth-sso/stable?style=flat)](https://github.com/pressbooks/pressbooks-shibboleth-sso/releases) [![Travis](https://badgen.net/travis/pressbooks/pressbooks-shibboleth-sso.svg?style=flat)](https://travis-ci.com/pressbooks/pressbooks-shibboleth-sso/) [![Codecov](https://badgen.net/codecov/c/github/pressbooks/pressbooks-shibboleth-sso?style=flat)](https://codecov.io/gh/pressbooks/pressbooks-shibboleth-sso)
 
 Plugin to integrate Pressbooks with a [Shibboleth](https://www.shibboleth.net/) single sign-on service.
 
@@ -59,7 +59,7 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 ## Screenshots 
 
-TK
+![Pressbooks Shibboleth Administration.](screenshot-1.png)
 
 
 ## Changelog 

@@ -102,6 +102,8 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertEquals( $s['idp']['entityId'], 1 );
 		$this->assertEquals( $s['idp']['singleSignOnService']['url'], 2 );
 		$this->assertEquals( $s['idp']['x509cert'], 3 );
+		$this->assertEmpty( $s['sp']['x509cert'] );
+		$this->assertEmpty( $s['sp']['privateKey'] );
 
 		add_filter(
 			'pb_saml_auth_settings',
@@ -113,12 +115,16 @@ class SamlTest extends \WP_UnitTestCase {
 				return $options;
 			}
 		);
+		define( 'PHP_SAML_SP_CERT_PATH', __DIR__ . '/data/sp.crt' );
+		define( 'PHP_SAML_SP_KEY_PATH', __DIR__ . '/data/sp.key' );
 		$this->saml->setSamlSettings( 1, 2, 3 );
 		$s = $this->saml->getSamlSettings();
 		$this->assertEquals( $s['idp']['entityId'], 1 );
 		$this->assertEquals( $s['idp']['singleSignOnService']['url'], 2 );
 		$this->assertEquals( $s['idp']['x509cert'], 3 );
 		$this->assertEquals( $s['sp']['newkey'], 'hahaha' );
+		$this->assertEquals( $s['sp']['x509cert'], file_get_contents( __DIR__ . '/data/sp.crt' ) );
+		$this->assertEquals( $s['sp']['privateKey'], file_get_contents( __DIR__ . '/data/sp.key' ) );
 		$this->assertNotEquals( [ 'sp' ]['entityId'], 'hahaha' );
 		$this->assertNotEquals( $s['sp']['assertionConsumerService']['url'], 'hahaha' );
 		$this->assertNotEquals( $s['sp']['singleLogoutService']['url'], 'hahaha' );

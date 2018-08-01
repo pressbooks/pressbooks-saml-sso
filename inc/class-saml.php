@@ -186,6 +186,12 @@ class SAML {
 				'x509cert' => $idp_x509_cert,
 			],
 		];
+		if ( defined( 'PHP_SAML_SP_CERT_PATH' ) && is_file( PHP_SAML_SP_CERT_PATH ) ) {
+			$config['sp']['x509cert'] = file_get_contents( PHP_SAML_SP_CERT_PATH );
+		}
+		if ( defined( 'PHP_SAML_SP_KEY_PATH' ) && is_file( PHP_SAML_SP_KEY_PATH ) ) {
+			$config['sp']['privateKey'] = file_get_contents( PHP_SAML_SP_KEY_PATH );
+		}
 
 		/**
 		 * @param array $config

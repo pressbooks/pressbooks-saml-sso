@@ -2,6 +2,8 @@
 
 namespace Pressbooks\Shibboleth;
 
+use function Pressbooks\Utility\str_remove_prefix;
+use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
 
 /**
@@ -250,9 +252,9 @@ class SAML {
 	public function authenticate( $user, $username, $password ) {
 		$saml_action = '';
 		$use_shibboleth = false;
-		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'pb_shibboleth' ) { // @codingStandardsIgnoreLine
+		if ( isset( $_REQUEST['action'] ) && str_starts_with( $_REQUEST['action'], 'pb_shibboleth' ) ) { // @codingStandardsIgnoreLine
 			$use_shibboleth = true;
-			$saml_action = isset( $_REQUEST['saml'] ) ? $_REQUEST['saml'] : ''; // @codingStandardsIgnoreLine
+			$saml_action = ltrim( str_remove_prefix( $_REQUEST['action'], 'pb_shibboleth' ), '_' ); // @codingStandardsIgnoreLine
 		}
 
 		if ( $saml_action === 'metadata' ) {

@@ -34,7 +34,7 @@ function login_url() {
  * @return string
  */
 function metadata_url() {
-	return add_query_arg( 'saml', 'metadata', login_url() );
+	return add_query_arg( 'action', 'pb_shibboleth_metadata', login_url() );
 }
 
 /**
@@ -43,7 +43,7 @@ function metadata_url() {
  * @return string
  */
 function acs_url() {
-	return add_query_arg( 'saml', 'acs', login_url() );
+	return add_query_arg( 'action', 'pb_shibboleth_acs', login_url() );
 }
 
 /**
@@ -52,5 +52,5 @@ function acs_url() {
  * @return string
  */
 function sls_url() {
-	return add_query_arg( 'saml', 'sls', login_url() );
+	return add_query_arg( 'action', 'pb_shibboleth_sls', login_url() );
 }

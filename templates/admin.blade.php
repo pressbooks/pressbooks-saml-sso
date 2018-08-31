@@ -4,7 +4,20 @@
                 href="{!! $metadata_url !!}" target="_blank">{{ __('Metadata XML Configuration', 'pressbooks-shibboleth-sso') }}</a></p>
     <form method="POST" action="{{ $form_url }}" method="post">
         {!! wp_nonce_field( 'pb-shibboleth-sso' ) !!}
-        <table class="form-table">
+        <h2>{{ __('Automatic Configuration', 'pb-shibboleth-sso') }}</h2>
+        <table class="form-table" id="automatic-configuration">
+            <tr>
+                <th><label for="idp_metadata_url">Identity Provider URL</label></th>
+                <td>
+                    <input name="idp_metadata_url" id="idp_metadata_url" type="url" value="{{ $options['idp_metadata_url'] }}" class="regular-text"/>
+                    <p>
+                        <em>{{ __('If you have an IdP metadata URL, paste it here and we will try to configure the app for you.', 'pressbooks-shibboleth-sso') }}</em>
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <h2>{{ __('Manual Configuration', 'pb-shibboleth-sso') }}</h2>
+        <table class="form-table" id="manual-configuration">
             <tr>
                 <th><label for="idp_entity_id">EntityID</label></th>
                 <td>
@@ -73,12 +86,3 @@
         {!! get_submit_button() !!}
     </form>
 </div>
-<script>
-	jQuery( function( $ ) {
-		var checkbox = $( '#forced_redirection' );
-		$( "#button_text" ).prop( "disabled", checkbox.is( ':checked' ) );
-		checkbox.on( "change", function() {
-			$( "#button_text" ).prop( "disabled", $( this ).is( ':checked' ) )
-		} );
-	} );
-</script>

@@ -4,7 +4,7 @@
 **Tags:** pressbooks, saml, saml2, sso, shibboleth  
 **Requires at least:** 4.9.7  
 **Tested up to:** 4.9  
-**Stable tag:** 0.0.1  
+**Stable tag:** 0.0.2  
 **License:** GPLv3 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html  
 
@@ -13,7 +13,7 @@ Shibboleth Single Sign-On integration for Pressbooks.
 
 ## Description 
 
-[![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks-shibboleth-sso.svg)](https://packagist.org/packages/pressbooks/pressbooks-shibboleth-sso) [![GitHub release](https://badgen.net/github/release/pressbooks/pressbooks-shibboleth-sso/stable)](https://github.com/pressbooks/pressbooks-shibboleth-sso/releases) [![Travis](https://travis-ci.com/pressbooks/pressbooks-shibboleth-sso.svg?branch=dev)](https://travis-ci.com/pressbooks/pressbooks-shibboleth-sso/) [![Codecov](https://codecov.io/gh/pressbooks/pressbooks-shibboleth-sso/branch/dev/graph/badge.svg)](https://codecov.io/gh/pressbooks/pressbooks-shibboleth-sso)
+[![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks-shibboleth-sso.svg?style=flat-square)](https://packagist.org/packages/pressbooks/pressbooks-shibboleth-sso) [![GitHub release](https://badgen.net/github/release/pressbooks/pressbooks-shibboleth-sso/stable?style=flat)](https://github.com/pressbooks/pressbooks-shibboleth-sso/releases) [![Travis](https://badgen.net/travis/pressbooks/pressbooks-shibboleth-sso.svg?style=flat)](https://travis-ci.com/pressbooks/pressbooks-shibboleth-sso/) [![Codecov](https://badgen.net/codecov/c/github/pressbooks/pressbooks-shibboleth-sso?style=flat)](https://codecov.io/gh/pressbooks/pressbooks-shibboleth-sso)
 
 Plugin to integrate Pressbooks with a [Shibboleth](https://www.shibboleth.net/) single sign-on service.
 
@@ -65,8 +65,13 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 ## Changelog 
 
 
+### 0.0.2 
+* Add feature to auto-config from IdP metadata
+* Remove ampersand character from SP entityID
+
+
 ### 0.0.1 
-* TK
+* Initial Release
 
 
 ## Upgrade Notice 

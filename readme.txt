@@ -4,7 +4,7 @@ Donate link: https://opencollective.com/pressbooks/
 Tags: pressbooks, saml, saml2, sso, shibboleth
 Requires at least: 4.9.7
 Tested up to: 4.9
-Stable tag: 0.0.1
+Stable tag: 0.0.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -59,8 +59,12 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 == Changelog ==
 
+= 0.0.2 =
+* Add feature to auto-config from IdP metadata
+* Remove ampersand character from SP entityID
+
 = 0.0.1 =
-* TK
+* Initial Release
 
 == Upgrade Notice ==
 

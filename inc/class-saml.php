@@ -214,7 +214,7 @@ class SAML {
 		$config = apply_filters( 'pb_saml_auth_settings', $config );
 
 		// This comes after the filter because we don't want others breaking our SP config
-		$config['sp']['entityId'] = \Pressbooks\Shibboleth\metadata_url();
+		$config['sp']['entityId'] = network_site_url( '/shibboleth', 'https' ); // Doesn't need to resolve
 		$config['sp']['assertionConsumerService']['url'] = \Pressbooks\Shibboleth\acs_url();
 		$config['sp']['singleLogoutService']['url'] = \Pressbooks\Shibboleth\sls_url();
 

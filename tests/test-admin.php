@@ -27,6 +27,22 @@ class AdminTest extends \WP_UnitTestCase {
 		$this->assertContains( '</form>', $buffer );
 	}
 
+	public function test_parseOptionsFromRemoteXML() {
+
+		$update = $this->admin->parseOptionsFromRemoteXML( 'https://www.testshib.org/metadata/testshib-providers.xml' );
+		$this->assertContains( 'testshib', $update['idp_entity_id'] );
+		$this->assertContains( 'testshib', $update['idp_sso_login_url'] );
+		$this->assertNotEmpty( $update['idp_x509_cert'] );
+
+		try {
+			$this->admin->parseOptionsFromRemoteXML( 'garbage' );
+		} catch ( \Exception $e ) {
+			$this->assertTrue( true ); // Expected exception was thrown
+			return;
+		}
+		$this->fail();
+	}
+
 	public function test_options() {
 
 		$options = $this->admin->getOptions();

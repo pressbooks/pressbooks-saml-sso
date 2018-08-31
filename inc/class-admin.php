@@ -40,7 +40,7 @@ class Admin {
 
 	public function adminEnqueueScripts() {
 		$assets = new Assets( 'pressbooks-shibboleth-sso', 'plugin' );
-		wp_enqueue_script( 'pb-saml-login', $assets->getPath( 'scripts/pressbooks-shibboleth-sso.js' ), [ 'jquery' ] );
+		wp_enqueue_script( 'pb-shibboleth-sso', $assets->getPath( 'scripts/pressbooks-shibboleth-sso.js' ), [ 'jquery' ] );
 	}
 
 	/**
@@ -115,6 +115,7 @@ class Admin {
 
 	/**
 	 * @param string $url
+	 * @param \OneLogin\Saml2\IdPMetadataParser $parser (optional)
 	 *
 	 * @throws \Exception
 	 * @return array

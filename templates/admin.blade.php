@@ -11,7 +11,7 @@
                 <td>
                     <input name="idp_metadata_url" id="idp_metadata_url" type="url" value="{{ $options['idp_metadata_url'] }}" class="regular-text"/>
                     <p>
-                        <em>{{ __('If you have an IdP metadata URL enter it here and we will try to configure the app for you.', 'pressbooks-shibboleth-sso') }}</em>
+                        <em>{{ __('If you have an IdP metadata URL, enter it here and save. The fields below should then auto-fill.', 'pressbooks-shibboleth-sso') }}</em>
                     </p>
                 </td>
             </tr>

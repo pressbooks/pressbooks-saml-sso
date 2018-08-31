@@ -4,7 +4,20 @@
                 href="{!! $metadata_url !!}" target="_blank">{{ __('Metadata XML Configuration', 'pressbooks-shibboleth-sso') }}</a></p>
     <form method="POST" action="{{ $form_url }}" method="post">
         {!! wp_nonce_field( 'pb-shibboleth-sso' ) !!}
-        <table class="form-table">
+        <h2>{{ __('Automatic Configuration', 'pb-shibboleth-sso') }}</h2>
+        <table class="form-table" id="automatic-configuration">
+            <tr>
+                <th><label for="idp_metadata_url">IdP metadata URL</label></th>
+                <td>
+                    <input name="idp_metadata_url" id="idp_metadata_url" type="url" value="{{ $options['idp_metadata_url'] }}" class="regular-text"/>
+                    <p>
+                        <em>{{ __('If you have an IdP metadata URL, enter it here and save. The fields below should then auto-fill.', 'pressbooks-shibboleth-sso') }}</em>
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <h2>{{ __('Manual Configuration', 'pb-shibboleth-sso') }}</h2>
+        <table class="form-table" id="manual-configuration">
             <tr>
                 <th><label for="idp_entity_id">EntityID</label></th>
                 <td>
@@ -20,6 +33,15 @@
                     <input name="idp_sso_login_url" id="idp_sso_login_url" type="url" value="{{ $options['idp_sso_login_url'] }}" class="regular-text"/>
                     <p>
                         <em>{{ __('URL Target of the IdP where the Authentication Request Message will be sent.', 'pressbooks-shibboleth-sso') }}</em>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="idp_sso_logout_url">SingleLogoutService</label></th>
+                <td>
+                    <input name="idp_sso_logout_url" id="idp_sso_logout_url" type="url" value="{{ $options['idp_sso_logout_url'] }}" class="regular-text"/>
+                    <p>
+                        <em>{{ __('URL Location of the IdP where SLO Request will be sent.', 'pressbooks-shibboleth-sso') }}</em>
                     </p>
                 </td>
             </tr>
@@ -73,12 +95,3 @@
         {!! get_submit_button() !!}
     </form>
 </div>
-<script>
-	jQuery( function( $ ) {
-		var checkbox = $( '#forced_redirection' );
-		$( "#button_text" ).prop( "disabled", checkbox.is( ':checked' ) );
-		checkbox.on( "change", function() {
-			$( "#button_text" ).prop( "disabled", $( this ).is( ':checked' ) )
-		} );
-	} );
-</script>

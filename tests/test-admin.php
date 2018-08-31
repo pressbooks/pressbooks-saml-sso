@@ -27,13 +27,31 @@ class AdminTest extends \WP_UnitTestCase {
 		$this->assertContains( '</form>', $buffer );
 	}
 
+	public function test_parseOptionsFromRemoteXML() {
+
+		$update = $this->admin->parseOptionsFromRemoteXML( 'https://www.testshib.org/metadata/testshib-providers.xml' );
+		$this->assertContains( 'testshib', $update['idp_entity_id'] );
+		$this->assertContains( 'testshib', $update['idp_sso_login_url'] );
+		$this->assertNotEmpty( $update['idp_x509_cert'] );
+
+		try {
+			$this->admin->parseOptionsFromRemoteXML( 'garbage' );
+		} catch ( \Exception $e ) {
+			$this->assertTrue( true ); // Expected exception was thrown
+			return;
+		}
+		$this->fail();
+	}
+
 	public function test_options() {
 
 		$options = $this->admin->getOptions();
 
+		// idp_metadata_url
 		$this->assertEquals( $options['idp_entity_id'], '' );
 		$this->assertEquals( $options['idp_sso_login_url'], '' );
 		$this->assertEquals( $options['idp_x509_cert'], '' );
+		// idp_sso_logout_url
 		$this->assertEquals( $options['provision'], 'refuse' );
 		$this->assertEquals( $options['button_text'], '' );
 		$this->assertEquals( $options['bypass'], 0 );
@@ -44,6 +62,7 @@ class AdminTest extends \WP_UnitTestCase {
 			'idp_entity_id' => 'https://idp.testshib.org/idp/shibboleth',
 			'idp_sso_login_url' => 'https://idp.testshib.org/idp/profile/SAML2/Redirect/SSO',
 			'idp_x509_cert' => '00bfd57d54f083ce83b773f4332b1258',
+			'idp_sso_logout_url' => '',
 			'provision' => 'create',
 			'button_text' => 'Connect via<br>Some SSO Provider<script src="http://evil-script.com/script.js"></script>',
 			'bypass' => '1',

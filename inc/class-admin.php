@@ -2,6 +2,8 @@
 
 namespace Pressbooks\Shibboleth;
 
+use PressbooksMix\Assets;
+
 class Admin {
 
 	const OPTION = 'pressbooks_shibboleth_sso';
@@ -26,6 +28,7 @@ class Admin {
 	 * @param Admin $obj
 	 */
 	static public function hooks( Admin $obj ) {
+		add_action( 'admin_enqueue_scripts', [ $obj, 'adminEnqueueScripts' ] );
 		add_action( 'network_admin_menu', [ $obj, 'addMenu' ] );
 	}
 
@@ -33,6 +36,11 @@ class Admin {
 	 *
 	 */
 	public function __construct() {
+	}
+
+	public function adminEnqueueScripts() {
+		$assets = new Assets( 'pressbooks-shibboleth-sso', 'plugin' );
+		wp_enqueue_script( 'pb-shibboleth-sso', $assets->getPath( 'scripts/pressbooks-shibboleth-sso.js' ), [ 'jquery' ] );
 	}
 
 	/**
@@ -55,9 +63,14 @@ class Admin {
 	 *
 	 */
 	public function printMenu() {
-		if ( $this->saveOptions() ) {
-			echo '<div id="message" class="updated notice is-dismissible"><p>' . __( 'Settings saved.' ) . '</p></div>';
+		try {
+			if ( $this->saveOptions() ) {
+				echo '<div id="message" class="updated notice is-dismissible"><p>' . __( 'Settings saved.' ) . '</p></div>';
+			}
+		} catch ( \Exception $e ) {
+			echo '<div id="message" class="error notice is-dismissible"><p>' . $e->getMessage() . '</p></div>';
 		}
+
 		$html = blade()->render(
 			'admin', [
 				'form_url' => network_admin_url( '/admin.php?page=pb_shibboleth_admin' ),
@@ -70,15 +83,14 @@ class Admin {
 
 
 	/**
+	 * @throws \Exception
 	 * @return bool
 	 */
 	public function saveOptions() {
 		if ( ! empty( $_POST ) && check_admin_referer( 'pb-shibboleth-sso' ) ) {
 			$fallback = $this->getOptions();
+
 			$update = [
-				'idp_entity_id' => trim( $_POST['idp_entity_id'] ),
-				'idp_sso_login_url' => trim( $_POST['idp_sso_login_url'] ),
-				'idp_x509_cert' => trim( $_POST['idp_x509_cert'] ),
 				'provision' => in_array( $_POST['provision'], [ 'refuse', 'create' ], true ) ? $_POST['provision'] : 'refuse',
 				'button_text' => isset( $_POST['button_text'] ) ? trim( wp_unslash( wp_kses( $_POST['button_text'], [
 					'br' => [],
@@ -86,10 +98,44 @@ class Admin {
 				'bypass' => ! empty( $_POST['bypass'] ) ? 1 : 0,
 				'forced_redirection' => ! empty( $_POST['forced_redirection'] ) ? 1 : 0,
 			];
+
+			if ( ! empty( $_POST['idp_metadata_url'] ) ) {
+				$update = $this->parseOptionsFromRemoteXML( $_POST['idp_metadata_url'] );
+			} else {
+				$update['idp_entity_id'] = trim( $_POST['idp_entity_id'] );
+				$update['idp_sso_login_url'] = trim( $_POST['idp_sso_login_url'] );
+				$update['idp_x509_cert'] = trim( $_POST['idp_x509_cert'] );
+				$update['idp_sso_logout_url'] = trim( $_POST['idp_sso_logout_url'] );
+			}
+
 			$result = update_site_option( self::OPTION, $update );
 			return $result;
 		}
 		return false;
+	}
+
+	/**
+	 * @param string $url
+	 * @param \OneLogin\Saml2\IdPMetadataParser $parser (optional)
+	 *
+	 * @throws \Exception
+	 * @return array
+	 */
+	public function parseOptionsFromRemoteXML( $url ) {
+		$settings = @\OneLogin\Saml2\IdPMetadataParser::parseRemoteXML( $url ); // @codingStandardsIgnoreLine
+		if ( ! isset( $settings['idp'] ) ) {
+			$error = __( 'Failed to get IdP Metadata from URL.', 'pressbooks-shibboleth-sso' );
+			throw new \Exception( $error );
+		}
+
+		$update['idp_entity_id'] = $settings['idp']['entityId'];
+		$update['idp_sso_login_url'] = $settings['idp']['singleSignOnService']['url'];
+		$update['idp_x509_cert'] = $settings['idp']['x509cert'];
+		if ( isset( $settings['idp']['singleLogoutService']['url'] ) ) {
+			$update['idp_sso_logout_url'] = $settings['idp']['singleLogoutService']['url'];
+		}
+
+		return $update;
 	}
 
 	/**
@@ -99,6 +145,9 @@ class Admin {
 
 		$options = get_site_option( self::OPTION, [] );
 
+		if ( empty( $options['idp_metadata_url'] ) ) {
+			$options['idp_metadata_url'] = '';
+		}
 		if ( empty( $options['idp_entity_id'] ) ) {
 			$options['idp_entity_id'] = '';
 		}
@@ -107,6 +156,9 @@ class Admin {
 		}
 		if ( empty( $options['idp_x509_cert'] ) ) {
 			$options['idp_x509_cert'] = '';
+		}
+		if ( empty( $options['idp_sso_logout_url'] ) ) {
+			$options['idp_sso_logout_url'] = '';
 		}
 		if ( empty( $options['provision'] ) ) {
 			$options['provision'] = 'refuse';

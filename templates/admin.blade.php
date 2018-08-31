@@ -7,11 +7,11 @@
         <h2>{{ __('Automatic Configuration', 'pb-shibboleth-sso') }}</h2>
         <table class="form-table" id="automatic-configuration">
             <tr>
-                <th><label for="idp_metadata_url">Identity Provider URL</label></th>
+                <th><label for="idp_metadata_url">IdP metadata URL</label></th>
                 <td>
                     <input name="idp_metadata_url" id="idp_metadata_url" type="url" value="{{ $options['idp_metadata_url'] }}" class="regular-text"/>
                     <p>
-                        <em>{{ __('If you have an IdP metadata URL, paste it here and we will try to configure the app for you.', 'pressbooks-shibboleth-sso') }}</em>
+                        <em>{{ __('If you have an IdP metadata URL enter it here and we will try to configure the app for you.', 'pressbooks-shibboleth-sso') }}</em>
                     </p>
                 </td>
             </tr>
@@ -33,6 +33,15 @@
                     <input name="idp_sso_login_url" id="idp_sso_login_url" type="url" value="{{ $options['idp_sso_login_url'] }}" class="regular-text"/>
                     <p>
                         <em>{{ __('URL Target of the IdP where the Authentication Request Message will be sent.', 'pressbooks-shibboleth-sso') }}</em>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="idp_sso_logout_url">SingleLogoutService</label></th>
+                <td>
+                    <input name="idp_sso_logout_url" id="idp_sso_logout_url" type="url" value="{{ $options['idp_sso_logout_url'] }}" class="regular-text"/>
+                    <p>
+                        <em>{{ __('URL Location of the IdP where SLO Request will be sent.', 'pressbooks-shibboleth-sso') }}</em>
                     </p>
                 </td>
             </tr>

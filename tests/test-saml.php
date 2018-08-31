@@ -117,11 +117,12 @@ class SamlTest extends \WP_UnitTestCase {
 		);
 		define( 'PHP_SAML_SP_CERT_PATH', __DIR__ . '/data/sp.crt' );
 		define( 'PHP_SAML_SP_KEY_PATH', __DIR__ . '/data/sp.key' );
-		$this->saml->setSamlSettings( 1, 2, 3 );
+		$this->saml->setSamlSettings( 1, 2, 3, 4 );
 		$s = $this->saml->getSamlSettings();
 		$this->assertEquals( $s['idp']['entityId'], 1 );
 		$this->assertEquals( $s['idp']['singleSignOnService']['url'], 2 );
 		$this->assertEquals( $s['idp']['x509cert'], 3 );
+		$this->assertEquals( $s['idp']['singleLogoutService']['url'], 4 );
 		$this->assertEquals( $s['sp']['newkey'], 'hahaha' );
 		$this->assertEquals( $s['sp']['x509cert'], file_get_contents( __DIR__ . '/data/sp.crt' ) );
 		$this->assertEquals( $s['sp']['privateKey'], file_get_contents( __DIR__ . '/data/sp.key' ) );

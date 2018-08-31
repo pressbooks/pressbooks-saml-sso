@@ -2,6 +2,7 @@
 
 namespace Pressbooks\Shibboleth;
 
+use function Pressbooks\Utility\empty_space;
 use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
@@ -120,7 +121,12 @@ class SAML {
 		}
 
 		// Set configuration in OneLogin format
-		$this->setSamlSettings( $options['idp_entity_id'], $options['idp_sso_login_url'], $options['idp_x509_cert'] );
+		$this->setSamlSettings(
+			$options['idp_entity_id'],
+			$options['idp_sso_login_url'],
+			$options['idp_x509_cert'],
+			$options['idp_sso_logout_url'] ?? ''
+		);
 
 		// Verify the integrity of the configuration before passing to Auth to avoid things blowing up
 		if ( ! $this->verifyPluginSetup( $options ) ) {
@@ -173,8 +179,9 @@ class SAML {
 	 * @param string $idp_entity_id
 	 * @param string $idp_sso_login_url
 	 * @param string $idp_x509_cert
+	 * @param string $ipd_sso_logout_url (optional)
 	 */
-	public function setSamlSettings( $idp_entity_id, $idp_sso_login_url, $idp_x509_cert ) {
+	public function setSamlSettings( $idp_entity_id, $idp_sso_login_url, $idp_x509_cert, $ipd_sso_logout_url = '' ) {
 		$config = [
 			'strict' => true,
 			'debug' => defined( 'WP_DEBUG' ) && WP_DEBUG ? true : false,
@@ -188,6 +195,10 @@ class SAML {
 				'x509cert' => $idp_x509_cert,
 			],
 		];
+		if ( ! empty_space( $ipd_sso_logout_url ) ) {
+			$config['idp']['singleLogoutService']['url'] = $ipd_sso_logout_url;
+			$config['idp']['singleLogoutService']['binding'] = \OneLogin\Saml2\Constants::BINDING_HTTP_REDIRECT;
+		}
 		if ( defined( 'PHP_SAML_SP_CERT_PATH' ) && is_file( PHP_SAML_SP_CERT_PATH ) ) {
 			$config['sp']['x509cert'] = file_get_contents( PHP_SAML_SP_CERT_PATH );
 		}

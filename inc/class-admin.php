@@ -105,6 +105,7 @@ class Admin {
 				$update['idp_entity_id'] = trim( $_POST['idp_entity_id'] );
 				$update['idp_sso_login_url'] = trim( $_POST['idp_sso_login_url'] );
 				$update['idp_x509_cert'] = trim( $_POST['idp_x509_cert'] );
+				$update['idp_sso_logout_url'] = trim( $_POST['idp_sso_logout_url'] );
 			}
 
 			$result = update_site_option( self::OPTION, $update );
@@ -130,6 +131,9 @@ class Admin {
 		$update['idp_entity_id'] = $settings['idp']['entityId'];
 		$update['idp_sso_login_url'] = $settings['idp']['singleSignOnService']['url'];
 		$update['idp_x509_cert'] = $settings['idp']['x509cert'];
+		if ( isset( $settings['idp']['singleLogoutService']['url'] ) ) {
+			$update['idp_sso_logout_url'] = $settings['idp']['singleLogoutService']['url'];
+		}
 
 		return $update;
 	}
@@ -152,6 +156,9 @@ class Admin {
 		}
 		if ( empty( $options['idp_x509_cert'] ) ) {
 			$options['idp_x509_cert'] = '';
+		}
+		if ( empty( $options['idp_sso_logout_url'] ) ) {
+			$options['idp_sso_logout_url'] = '';
 		}
 		if ( empty( $options['provision'] ) ) {
 			$options['provision'] = 'refuse';

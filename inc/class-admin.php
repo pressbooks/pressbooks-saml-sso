@@ -38,7 +38,10 @@ class Admin {
 	public function __construct() {
 	}
 
-	public function adminEnqueueScripts() {
+	public function adminEnqueueScripts( $hook ) {
+		if ( $hook !== get_plugin_page_hookname( 'pb_shibboleth_admin', 'pb_network_integrations' ) ) {
+			return;
+		}
 		$assets = new Assets( 'pressbooks-shibboleth-sso', 'plugin' );
 		wp_enqueue_script( 'pb-shibboleth-sso', $assets->getPath( 'scripts/pressbooks-shibboleth-sso.js' ), [ 'jquery' ] );
 	}

@@ -17,7 +17,7 @@ Shibboleth Single Sign-On integration for Pressbooks.
 Plugin to integrate Pressbooks with a [Shibboleth](https://www.shibboleth.net/) single sign-on service.
 
 Users who attempt to login to Pressbooks are redirected to a Shibboleth or SAML2 Identity Provider. After the user’s credentials are verified, they are redirected back to the
-Pressbooks network. If the Shibboleth UID matches the Pressbooks username, the user is recognized as valid and allowed access. If the CAS user does not have an account in
+Pressbooks network. If the Shibboleth UID matches the Pressbooks username, the user is recognized as valid and allowed access. If the Shibboleth user does not have an account in
 Pressbooks, a new user can be created, or access can be refused, depending on the configuration.
 
 == Installation ==

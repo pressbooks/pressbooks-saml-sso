@@ -194,6 +194,13 @@ class SAML {
 				],
 				'x509cert' => $idp_x509_cert,
 			],
+			'security' => [
+				// Interoperable SAML 2.0 Web Browser SSO Profile
+				'authnRequestsSigned' => false,
+				'wantAssertionsSigned' => true,
+				'wantAssertionsEncrypted' => true,
+				'wantNameIdEncrypted' => false,
+			],
 		];
 		if ( ! empty_space( $ipd_sso_logout_url ) ) {
 			$config['idp']['singleLogoutService']['url'] = $ipd_sso_logout_url;

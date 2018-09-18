@@ -354,7 +354,11 @@ class SAML {
 		$this->auth->processResponse( $request_id );
 		$errors = $this->auth->getErrors();
 		if ( ! empty( $errors ) ) {
-			throw new \Exception( implode( ', ', $errors ) );
+			$message = ' Errors: ' . implode( ', ', $errors );
+			if ( $this->auth->getLastErrorReason() ) {
+				$message .= '. Reason: ' . $this->auth->getLastErrorReason();
+			}
+			throw new \Exception( $message );
 		}
 		if ( ! $this->auth->isAuthenticated() ) {
 			/* translators: Saml error reason */

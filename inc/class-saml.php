@@ -138,8 +138,16 @@ class SAML {
 				);
 			}
 		} else {
-			$this->auth = new \OneLogin\Saml2\Auth( $this->getSamlSettings() );
-			$this->samlClientIsReady = true;
+			try {
+				$this->auth = new \OneLogin\Saml2\Auth( $this->getSamlSettings() );
+				$this->samlClientIsReady = true;
+			} catch ( \Exception $e ) {
+				add_action(
+					'network_admin_notices', function () use ( $e ) {
+						echo '<div id="message" class="error fade"><p>' . __( 'The Pressbooks Shibboleth Plugin is not configured correctly. Error: ', 'pressbooks-shibboleth-sso' ) . $e->getMessage() . '</p></div>';
+					}
+				);
+			}
 		}
 	}
 
@@ -194,13 +202,6 @@ class SAML {
 				],
 				'x509cert' => $idp_x509_cert,
 			],
-			'security' => [
-				// Interoperable SAML 2.0 Web Browser SSO Profile
-				'authnRequestsSigned' => false,
-				'wantAssertionsSigned' => true,
-				'wantAssertionsEncrypted' => true,
-				'wantNameIdEncrypted' => false,
-			],
 		];
 		if ( ! empty_space( $ipd_sso_logout_url ) ) {
 			$config['idp']['singleLogoutService']['url'] = $ipd_sso_logout_url;
@@ -224,6 +225,16 @@ class SAML {
 		$config['sp']['entityId'] = network_site_url( '/shibboleth', 'https' ); // Doesn't need to resolve
 		$config['sp']['assertionConsumerService']['url'] = \Pressbooks\Shibboleth\acs_url();
 		$config['sp']['singleLogoutService']['url'] = \Pressbooks\Shibboleth\sls_url();
+
+		if ( ! empty( $config['sp']['x509cert'] ) ) {
+			// Interoperable SAML 2.0 Web Browser SSO Profile
+			$config['security'] = [
+				'authnRequestsSigned' => false,
+				'wantAssertionsSigned' => true,
+				'wantAssertionsEncrypted' => true,
+				'wantNameIdEncrypted' => false,
+			];
+		}
 
 		$this->samlSettings = $config;
 	}

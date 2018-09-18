@@ -95,9 +95,15 @@ class Admin {
 
 			$update = [
 				'provision' => in_array( $_POST['provision'], [ 'refuse', 'create' ], true ) ? $_POST['provision'] : 'refuse',
-				'button_text' => isset( $_POST['button_text'] ) ? trim( wp_unslash( wp_kses( $_POST['button_text'], [
-					'br' => [],
-				] ) ) ) : $fallback['button_text'],
+				'button_text' => isset( $_POST['button_text'] ) ? trim(
+					wp_unslash(
+						wp_kses(
+							$_POST['button_text'], [
+								'br' => [],
+							]
+						)
+					)
+				) : $fallback['button_text'],
 				'bypass' => ! empty( $_POST['bypass'] ) ? 1 : 0,
 				'forced_redirection' => ! empty( $_POST['forced_redirection'] ) ? 1 : 0,
 			];

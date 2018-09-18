@@ -4,7 +4,7 @@
 **Tags:** pressbooks, saml, saml2, sso, shibboleth  
 **Requires at least:** 4.9.7  
 **Tested up to:** 4.9  
-**Stable tag:** 0.0.2  
+**Stable tag:** 0.0.3  
 **License:** GPLv3 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html  
 
@@ -54,6 +54,13 @@ add_filter( 'pb_saml_auth_settings', function( $config ) {
 } );
 ```
 
+Or:
+
+```php
+define( 'PHP_SAML_SP_KEY_PATH', '/path/to/sp.key' );
+define( 'PHP_SAML_SP_CERT_PATH', '/path/to/sp.crt' );
+```
+
 Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/onelogin/php-saml/tree/3.0.0) toolkit, [many other configuration variables can be tweaked](https://github.com/onelogin/php-saml/tree/3.0.0#settings).
 
 
@@ -63,6 +70,12 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 
 ## Changelog 
+
+
+### 0.0.3 
+* Use certificate to set Valid Until
+* Interoperable SAML 2.0 Web Browser SSO Profile
+* Improve error message when login fails
 
 
 ### 0.0.2 
@@ -77,5 +90,5 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 ## Upgrade Notice 
 
 
-### 0.0.1 
+### 0.0.3 
 * Pressbooks Shibboleth Single Sign-On requires Pressbooks >= 5.4 and WordPress >= 4.9

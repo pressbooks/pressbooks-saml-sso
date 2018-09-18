@@ -338,7 +338,17 @@ class SAML {
 	public function samlMetadata() {
 		try {
 			$settings = new \OneLogin\Saml2\Settings( $this->getSamlSettings(), true );
-			$metadata = $settings->getSPMetadata( true );
+
+			$valid_until = null;
+			$cert = $settings->getSPcert();
+			if ( ! empty( $cert ) ) {
+				$parsed_cert = openssl_x509_parse( $cert );
+				if ( ! empty( $parsed_cert['validTo_time_t'] ) ) {
+					$valid_until = $parsed_cert['validTo_time_t'];
+				}
+			}
+
+			$metadata = $settings->getSPMetadata( true, $valid_until );
 			$errors = $settings->validateMetadata( $metadata );
 			if ( empty( $errors ) ) {
 				header( 'Content-Type: text/xml' );

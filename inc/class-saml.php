@@ -144,7 +144,7 @@ class SAML {
 			} catch ( \Exception $e ) {
 				add_action(
 					'network_admin_notices', function () use ( $e ) {
-						echo '<div id="message" class="error fade"><p>' . __( 'The Pressbooks Shibboleth Plugin is not configured correctly. Error: ', 'pressbooks-shibboleth-sso' ) . $e->getMessage() . '</p></div>';
+						echo '<div id="message" class="error fade"><p>' . __( 'The Pressbooks Shibboleth Plugin failed to initialize. Error: ', 'pressbooks-shibboleth-sso' ) . $e->getMessage() . '</p></div>';
 					}
 				);
 			}

@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "b6d2efe9603dd15e53a84b203173fe6a",
@@ -132,12 +132,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/onelogin/php-saml.git",
-                "reference": "e0c5827d7ccff72b6cf19f55420cad0e4eea5faf"
+                "reference": "a7e0835630fec86ced78f65e4e45ed27d115137e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/onelogin/php-saml/zipball/e0c5827d7ccff72b6cf19f55420cad0e4eea5faf",
-                "reference": "e0c5827d7ccff72b6cf19f55420cad0e4eea5faf",
+                "url": "https://api.github.com/repos/onelogin/php-saml/zipball/a7e0835630fec86ced78f65e4e45ed27d115137e",
+                "reference": "a7e0835630fec86ced78f65e4e45ed27d115137e",
                 "shasum": ""
             },
             "require": {
@@ -174,7 +174,7 @@
                 "onelogin",
                 "saml"
             ],
-            "time": "2018-08-02T15:43:25+00:00"
+            "time": "2018-09-13T09:23:06+00:00"
         },
         {
             "name": "robrichards/xmlseclibs",

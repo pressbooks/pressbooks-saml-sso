@@ -313,6 +313,13 @@ class SAML {
 							$net_id = $attributes['uid'][0];
 							$email = isset( $attributes['mail'][0] ) ? $attributes['mail'][0] : "{$net_id}@127.0.0.1";
 							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
+							/**
+							 * @since 0.0.4
+							 *
+							 * @param string $email
+							 * @param string $plugin_name
+							 */
+							$email = apply_filters( 'pb_integrations_multidomain_email', $email, 'pressbooks-shibboleth-sso' );
 							$this->handleLoginAttempt( $net_id, $email );
 						}
 				}

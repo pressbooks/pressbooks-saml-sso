@@ -85,4 +85,4 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 == Upgrade Notice ==
 
 = 0.0.4 =
-* Pressbooks Shibboleth Single Sign-On requires Pressbooks >= 5.5.1 and WordPress >= 4.9.8
+* Pressbooks Shibboleth Single Sign-On requires Pressbooks >= 5.5.2 and WordPress >= 4.9.8

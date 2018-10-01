@@ -207,6 +207,26 @@ class SamlTest extends \WP_UnitTestCase {
 		}
 	}
 
+	public function test_findExistingUser() {
+		// Create a new user
+		$prefix = uniqid( 'test' );
+		$email = "{$prefix}@pressbooks.test";
+		$user_id = wp_create_user( $prefix, wp_generate_password(), $email );
+		$this->assertTrue( is_numeric( $user_id ) && $user_id > 0 );
+
+		// Try to find the user and fail
+		$this->assertFalse( $this->saml->findExistingUser( 'nobody@pressbooks.test' ) );
+
+		// Try to find the user and succeed thanks to fallback info in the session
+		$_SESSION[ \Pressbooks\Shibboleth\SAML::USER_DATA ] = [
+			'mail' => [ 'one@pressbooks.test', 'two@pressbooks.test' ],
+			'eduPersonPrincipalName' => [ 'three@pressbooks.test', $email ],
+		];
+		$user = $this->saml->findExistingUser( 'nobody@pressbooks.test' );
+		$this->assertInstanceOf( '\WP_User', $user );
+		unset( $_SESSION[ \Pressbooks\Shibboleth\SAML::USER_DATA ] );
+	}
+
 	public function test_handleLoginAttempt_exceptions() {
 		try {
 			$this->saml->handleLoginAttempt( '1', '1' );

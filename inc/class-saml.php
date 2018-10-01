@@ -677,7 +677,7 @@ class SAML {
 	 */
 	public function associateUser( $net_id, $email ) {
 
-		$user = get_user_by( 'email', $email );
+		$user = $this->findExistingUser( $email );
 		if ( $user ) {
 			// Associate existing users with Saml accounts
 			$user_id = $user->ID;
@@ -700,6 +700,45 @@ class SAML {
 		if ( $logged_in === true ) {
 			$this->endLogin( __( 'Registered and logged in!', 'pressbooks-shibboleth-sso' ) );
 		}
+	}
+
+	/**
+	 * Find existing user
+	 *
+	 * @param string $email
+	 *
+	 * @return bool|\WP_User
+	 */
+	public function findExistingUser( $email ) {
+		// Plan A
+		$user = get_user_by( 'email', $email );
+		if ( $user ) {
+			return $user;
+		}
+		// Plan B
+		if ( isset( $_SESSION[ self::USER_DATA ] ) ) {
+			$attributes = $_SESSION[ self::USER_DATA ];
+			if ( isset( $attributes['mail'] ) ) {
+				foreach ( $attributes['mail'] as $alt_email ) {
+					$user = get_user_by( 'email', $alt_email );
+					if ( $user ) {
+						return $user;
+					}
+				}
+			}
+			// https://wiki.shibboleth.net/confluence/display/SHIB/EduPersonPrincipalName
+			// Note: Syntactically, ePPN looks like an email address but is not intended to be a person's published email address or be used as an email address.
+			if ( isset( $attributes['eduPersonPrincipalName'] ) ) {
+				foreach ( $attributes['eduPersonPrincipalName'] as $alt_email ) {
+					$user = get_user_by( 'email', $alt_email );
+					if ( $user ) {
+						return $user;
+					}
+				}
+			}
+		}
+		// Could not find user
+		return false;
 	}
 
 	/**

@@ -4,7 +4,7 @@
 **Tags:** pressbooks, saml, saml2, sso, shibboleth  
 **Requires at least:** 4.9.7  
 **Tested up to:** 4.9  
-**Stable tag:** 0.0.3  
+**Stable tag:** 0.0.4  
 **License:** GPLv3 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html  
 
@@ -72,6 +72,10 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 ## Changelog 
 
 
+### 0.0.4 
+ * Associate existing users with either mail or eduPersonPrincipalName
+
+
 ### 0.0.3 
 * Use certificate to set Valid Until
 * Interoperable SAML 2.0 Web Browser SSO Profile
@@ -90,5 +94,5 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 ## Upgrade Notice 
 
 
-### 0.0.3 
+### 0.0.4 
 * Pressbooks Shibboleth Single Sign-On requires Pressbooks >= 5.4 and WordPress >= 4.9

@@ -217,7 +217,13 @@ class SamlTest extends \WP_UnitTestCase {
 		// Try to find the user and fail
 		$this->assertFalse( $this->saml->findExistingUser( 'nobody@pressbooks.test' ) );
 
-		// Try to find the user and succeed thanks to fallback info in the session
+		// Try to find the user and fail again
+		$_SESSION[ \Pressbooks\Shibboleth\SAML::USER_DATA ] = [
+			'mail' => [ 'one@pressbooks.test', 'two@pressbooks.test' ],
+		];
+		$this->assertFalse( $this->saml->findExistingUser( 'nobody@pressbooks.test' ) );
+
+		// Try to find the user and succeed thanks to fallback eduPersonPrincipalName info in the session
 		$_SESSION[ \Pressbooks\Shibboleth\SAML::USER_DATA ] = [
 			'mail' => [ 'one@pressbooks.test', 'two@pressbooks.test' ],
 			'eduPersonPrincipalName' => [ 'three@pressbooks.test', $email ],

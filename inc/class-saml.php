@@ -317,9 +317,10 @@ class SAML {
 							 * @since 0.0.4
 							 *
 							 * @param string $email
+							 * @param string $username
 							 * @param string $plugin_name
 							 */
-							$email = apply_filters( 'pb_integrations_multidomain_email', $email, 'pressbooks-shibboleth-sso' );
+							$email = apply_filters( 'pb_integrations_multidomain_email', $email, $net_id, 'pressbooks-shibboleth-sso' );
 							$this->handleLoginAttempt( $net_id, $email );
 						}
 				}

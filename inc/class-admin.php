@@ -38,6 +38,9 @@ class Admin {
 	public function __construct() {
 	}
 
+	/**
+	 * @param string $hook
+	 */
 	public function adminEnqueueScripts( $hook ) {
 		if ( $hook !== get_plugin_page_hookname( 'pb_shibboleth_admin', 'pb_network_integrations' ) ) {
 			return;

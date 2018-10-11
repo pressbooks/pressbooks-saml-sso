@@ -4,7 +4,7 @@
                 href="{!! $metadata_url !!}" target="_blank">{{ __('Metadata XML Configuration', 'pressbooks-shibboleth-sso') }}</a></p>
     <form method="POST" action="{{ $form_url }}" method="post">
         {!! wp_nonce_field( 'pb-shibboleth-sso' ) !!}
-        <h2>{{ __('Automatic Configuration', 'pb-shibboleth-sso') }}</h2>
+        <h2>{{ __('Automatic Configuration', 'pressbooks-shibboleth-sso') }}</h2>
         <table class="form-table" id="automatic-configuration">
             <tr>
                 <th><label for="idp_metadata_url">IdP metadata URL</label></th>
@@ -16,9 +16,9 @@
                 </td>
             </tr>
         </table>
-        <h2>{{ __('Manual Configuration', 'pb-shibboleth-sso') }}</h2>
+        <h2>{{ __('Manual Configuration', 'pressbooks-shibboleth-sso') }}</h2>
         <table class="form-table" id="manual-configuration">
-            <tr>
+            <tr>inc/class-admin.php
                 <th><label for="idp_entity_id">EntityID</label></th>
                 <td>
                     <input name="idp_entity_id" id="idp_entity_id" type="text" value="{{ $options['idp_entity_id'] }}" class="regular-text"/>
@@ -65,29 +65,29 @@
                 </td>
             </tr>
         </table>
-        <h2>{{ __('Optional Information', 'pb-shibboleth-sso') }}</h2>
+        <h2>{{ __('Optional Information', 'pressbooks-shibboleth-sso') }}</h2>
         <table class="form-table">
             <tr>
-                <th>{{ __(' Bypass', 'pb-shibboleth-sso') }}</th>
+                <th>{{ __(' Bypass', 'pressbooks-shibboleth-sso') }}</th>
                 <td><label><input name="bypass" id="bypass" type="checkbox"
                                   value="1" {!! checked( $options['bypass'] ) !!}/> {!!
-                                  sprintf( __('Bypass the "Limited Email Registrations" and "Banned Email Domains" lists under <a href="%s">Network Settings</a>.', 'pb-shibboleth-sso') ,'settings.php' )
+                                  sprintf( __('Bypass the "Limited Email Registrations" and "Banned Email Domains" lists under <a href="%s">Network Settings</a>.', 'pressbooks-shibboleth-sso') ,'settings.php' )
                                    !!}
                     </label></td>
             </tr>
             <tr>
-                <th>{{ __(' Forced Redirection', 'pb-shibboleth-sso') }}</th>
+                <th>{{ __(' Forced Redirection', 'pressbooks-shibboleth-sso') }}</th>
                 <td>
                     <label><input name="forced_redirection" id="forced_redirection" type="checkbox"
-                                  value="1" {!! checked( $options['forced_redirection'] ) !!}/> {{ __('Hide the Pressbooks login page.', 'pb-shibboleth-sso') }}</label>
+                                  value="1" {!! checked( $options['forced_redirection'] ) !!}/> {{ __('Hide the Pressbooks login page.', 'pressbooks-shibboleth-sso') }}</label>
                 </td>
             </tr>
             <tr>
-                <th><label for="button_text">{{ __('Customize Button Text', 'pb-shibboleth-sso') }}</label></th>
+                <th><label for="button_text">{{ __('Customize Button Text', 'pressbooks-shibboleth-sso') }}</label></th>
                 <td>
                     <input name="button_text" id="button_text" type="text" value="{{ $options['button_text'] }}" class="regular-text"/>
                     <p>
-                        <em>{{ __("Change the [ Connect via Shibboleth ] button to something more user-friendly.", 'pb-shibboleth-sso') }}</em>
+                        <em>{{ __("Change the [ Connect via Shibboleth ] button to something more user-friendly.", 'pressbooks-shibboleth-sso') }}</em>
                     </p>
                 </td>
             </tr>

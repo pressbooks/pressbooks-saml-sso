@@ -150,7 +150,7 @@ class Admin {
 	}
 
 	/**
-	 * @return array{idp_metadata_url: string, idp_entity_id: string, idp_sso_login_url: string, idp_x509_cert: string, idp_sso_logout_url: string,	provision: string, button_text: string, bypass: bool, forced_redirection: bool}
+	 * @return array{idp_metadata_url: string, idp_entity_id: string, idp_sso_login_url: string, idp_x509_cert: string, idp_sso_logout_url: string, provision: string, button_text: string, bypass: bool, forced_redirection: bool}
 	 */
 	public function getOptions() {
 

@@ -128,7 +128,6 @@ class Admin {
 
 	/**
 	 * @param string $url
-	 * @param \OneLogin\Saml2\IdPMetadataParser $parser (optional)
 	 *
 	 * @throws \Exception
 	 * @return array

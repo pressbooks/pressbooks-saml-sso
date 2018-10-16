@@ -72,7 +72,7 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 ## Changelog 
 
 
-### 0.0.4 
+### 0.0.5 
 **Patches**
 * [Security] Bump robrichards/xmlseclibs from 3.0.1 to 3.0.2: [#8](https://github.com/pressbooks/pressbooks/shibboleth-sso/pulls/8)
 

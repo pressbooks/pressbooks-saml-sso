@@ -2,9 +2,9 @@
 **Contributors:** conner_bw, greatislander  
 **Donate link:** https://opencollective.com/pressbooks/  
 **Tags:** pressbooks, saml, saml2, sso, shibboleth  
-**Requires at least:** 4.9.7  
-**Tested up to:** 4.9  
-**Stable tag:** 0.0.4  
+**Requires at least:** 4.9.8  
+**Tested up to:** 4.9.8  
+**Stable tag:** 0.0.5  
 **License:** GPLv3 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html  
 
@@ -70,6 +70,11 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 
 ## Changelog 
+
+
+### 0.0.4 
+**Patches**
+* [Security] Bump robrichards/xmlseclibs from 3.0.1 to 3.0.2: [#8](https://github.com/pressbooks/pressbooks/shibboleth-sso/pulls/8)
 
 
 ### 0.0.4 

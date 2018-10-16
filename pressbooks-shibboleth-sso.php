@@ -3,10 +3,10 @@
 Plugin Name: Pressbooks Shibboleth Single Sign-On
 Plugin URI: https://pressbooks.org
 Description: Shibboleth Single Sign-On integration for Pressbooks.
-Version: 0.0.4
+Version: 0.0.5
 Author: Pressbooks (Book Oven Inc.)
 Author URI: https://pressbooks.org
-Pressbooks tested up to: 5.5.2
+Pressbooks tested up to: 5.5.3
 Text Domain: pressbooks-shibboleth-sso
 License: GPL v3 or later
 Network: True

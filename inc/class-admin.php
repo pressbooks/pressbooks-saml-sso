@@ -94,31 +94,40 @@ class Admin {
 	 */
 	public function saveOptions() {
 		if ( ! empty( $_POST ) && check_admin_referer( 'pb-shibboleth-sso' ) ) {
-			$fallback = $this->getOptions();
+			$_POST = array_map( 'trim', $_POST );
+			$update = [];
 
-			$update = [
-				'provision' => in_array( $_POST['provision'], [ 'refuse', 'create' ], true ) ? $_POST['provision'] : 'refuse',
-				'button_text' => isset( $_POST['button_text'] ) ? trim(
-					wp_unslash(
-						wp_kses(
-							$_POST['button_text'], [
-								'br' => [],
-							]
-						)
-					)
-				) : $fallback['button_text'],
-				'bypass' => ! empty( $_POST['bypass'] ) ? 1 : 0,
-				'forced_redirection' => ! empty( $_POST['forced_redirection'] ) ? 1 : 0,
-			];
-
-			if ( ! empty( $_POST['idp_metadata_url'] ) ) {
-				$update = $this->parseOptionsFromRemoteXML( $_POST['idp_metadata_url'] );
-			} else {
-				$update['idp_entity_id'] = trim( $_POST['idp_entity_id'] );
-				$update['idp_sso_login_url'] = trim( $_POST['idp_sso_login_url'] );
-				$update['idp_x509_cert'] = trim( $_POST['idp_x509_cert'] );
-				$update['idp_sso_logout_url'] = trim( $_POST['idp_sso_logout_url'] );
+			if ( isset( $_POST['idp_entity_id'] ) ) {
+				$update['idp_entity_id'] = $_POST['idp_entity_id'];
 			}
+			if ( isset( $_POST['idp_sso_login_url'] ) ) {
+				$update['idp_sso_login_url'] = $_POST['idp_sso_login_url'];
+			}
+			if ( isset( $_POST['idp_x509_cert'] ) ) {
+				$update['idp_x509_cert'] = $_POST['idp_x509_cert'];
+			}
+			if ( isset( $_POST['idp_sso_logout_url'] ) ) {
+				$update['idp_sso_logout_url'] = $_POST['idp_sso_logout_url'];
+			}
+			if ( isset( $_POST['provision'] ) ) {
+				$update['provision'] = in_array( $_POST['provision'], [ 'refuse', 'create' ], true ) ? $_POST['provision'] : 'refuse';
+			}
+			if ( isset( $_POST['button_text'] ) ) {
+				$update['button_text'] = wp_unslash( wp_kses( $_POST['button_text'], [
+					'br' => [],
+				] ) );
+			}
+			// Checkboxes
+			$update['bypass'] = ! empty( $_POST['bypass'] ) ? 1 : 0;
+			$update['forced_redirection'] = ! empty( $_POST['forced_redirection'] ) ? 1 : 0;
+
+			// Auto-config
+			if ( ! empty( $_POST['idp_metadata_url'] ) ) {
+				$update = array_merge( $update, $this->parseOptionsFromRemoteXML( $_POST['idp_metadata_url'] ) );
+			}
+
+			$fallback = $this->getOptions();
+			$update = array_merge( $fallback, $update );
 
 			$result = update_site_option( self::OPTION, $update );
 			return $result;

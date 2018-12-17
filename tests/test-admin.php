@@ -7,12 +7,43 @@ class AdminTest extends \WP_UnitTestCase {
 	 */
 	protected $admin;
 
+	private static $localWebServerId = null;
+
+	/**
+	 * @return string
+	 */
+	private function launchWebPage() {
+		$command = sprintf(
+			'php -S %s -t %s >/dev/null 2>&1 & echo $!',
+			'127.0.0.1:8888',
+			__DIR__ . '/data/'
+		);
+
+		$output = [];
+		exec( $command, $output );
+		self::$localWebServerId = (int) $output[0];
+		sleep( 2 );
+		return 'http://127.0.0.1:8888/testshib-providers.xml';
+	}
+
+	private function killWebPage() {
+		if ( self::$localWebServerId ) {
+			exec( 'kill ' . self::$localWebServerId );
+			self::$localWebServerId = null;
+		}
+	}
+
 	/**
 	 *
 	 */
 	public function setUp() {
 		parent::setUp();
 		$this->admin = new \Pressbooks\Shibboleth\Admin();
+	}
+
+	public function tearDown() {
+		$this->killWebPage();
+		parent::tearDown();
 	}
 
 	public function test_addMenu() {
@@ -28,8 +59,9 @@ class AdminTest extends \WP_UnitTestCase {
 	}
 
 	public function test_parseOptionsFromRemoteXML() {
-
-		$update = $this->admin->parseOptionsFromRemoteXML( 'https://www.testshib.org/metadata/testshib-providers.xml' );
+		$url = $this->launchWebPage();
+		$update = $this->admin->parseOptionsFromRemoteXML( $url );
+		$this->killWebPage();
 		$this->assertContains( 'testshib', $update['idp_entity_id'] );
 		$this->assertContains( 'testshib', $update['idp_sso_login_url'] );
 		$this->assertNotEmpty( $update['idp_x509_cert'] );

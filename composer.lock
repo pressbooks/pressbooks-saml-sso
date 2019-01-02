@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6d2efe9603dd15e53a84b203173fe6a",
+    "content-hash": "25157ac6a98161e65499c2a4a139e378",
     "packages": [
         {
             "name": "composer/installers",
@@ -1147,7 +1147,7 @@
         },
         {
             "name": "pressbooks/coding-standards",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/coding-standards.git",
@@ -2248,8 +2248,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "onelogin/php-saml": 20,
-        "pressbooks/coding-standards": 20
+        "onelogin/php-saml": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

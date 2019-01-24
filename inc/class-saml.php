@@ -305,7 +305,7 @@ class SAML {
 					default:
 						if ( empty( $_SESSION[ self::USER_DATA ] ) ) {
 							unset( $_SESSION[ self::AUTH_N_REQUEST_ID ] ); // Clear AuthNRequest
-							$this->auth->login( $this->loginUrl ); // Redirects user to SSO url
+							$this->auth->login( $this->loginUrl ); // Redirect user to IdP, set RelayState to $this->loginUrl
 							$this->doExit();
 						} else {
 							ob_end_clean();
@@ -400,10 +400,16 @@ class SAML {
 			/* translators: Saml error reason */
 			throw new \Exception( sprintf( __( 'Not authenticated. Reason: %s', 'pressbooks-shibboleth-sso' ), $this->auth->getLastErrorReason() ) );
 		}
+
+		// If we made it to here, then no exceptions were thrown, and everything is fine.
+		// Now that the user has a session the SP allows the request to proceed.
+
 		$_SESSION[ self::USER_DATA ] = $this->auth->getAttributesWithFriendlyName();
 		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL );
 		if ( $redirect_to && \OneLogin\Saml2\Utils::getSelfURL() !== $redirect_to ) {
 			$this->auth->redirectTo( $redirect_to );
+		} else {
+			$this->auth->redirectTo( $this->loginUrl );
 		}
 	}
 
@@ -467,8 +473,7 @@ class SAML {
 	public function logoutRedirect( $redirect_to ) {
 		if ( $this->samlClientIsReady ) {
 			if ( $this->forcedRedirection || ! empty( $_SESSION[ self::USER_DATA ] ) || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
-				$config = $this->getSamlSettings();
-				if ( ! empty( $config['idp']['singleLogoutService']['url'] ) ) {
+				if ( ! empty( $this->auth->getSLOurl() ) ) {
 					$this->auth->logout( add_query_arg( 'loggedout', true, wp_login_url() ) );
 					$this->doExit();
 				}
@@ -703,7 +708,7 @@ class SAML {
 		// associate the WordPress user account with the now-authenticated third party account:
 		$this->linkAccount( $user_id, $net_id );
 
-		// Attempt to login the new user (this could be error prone):
+		// Attempt to login the new user
 		$logged_in = \Pressbooks\Redirect\programmatic_login( $username );
 		if ( $logged_in === true ) {
 			$this->endLogin( __( 'Registered and logged in!', 'pressbooks-shibboleth-sso' ) );

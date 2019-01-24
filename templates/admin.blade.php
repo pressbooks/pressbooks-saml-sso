@@ -18,7 +18,7 @@
         </table>
         <h2>{{ __('Manual Configuration', 'pressbooks-shibboleth-sso') }}</h2>
         <table class="form-table" id="manual-configuration">
-            <tr>inc/class-admin.php
+            <tr>
                 <th><label for="idp_entity_id">EntityID</label></th>
                 <td>
                     <input name="idp_entity_id" id="idp_entity_id" type="text" value="{{ $options['idp_entity_id'] }}" class="regular-text"/>

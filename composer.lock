@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25157ac6a98161e65499c2a4a139e378",
+    "content-hash": "34e2aadecc3e5dbc6733b3249def7002",
     "packages": [
         {
             "name": "composer/installers",
@@ -128,16 +128,16 @@
         },
         {
             "name": "onelogin/php-saml",
-            "version": "3.0.0.x-dev",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/onelogin/php-saml.git",
-                "reference": "874516eb62dd3e11ca3193ae9b72f09694cf2e43"
+                "reference": "15016f9d633614c62fe6bb1d4ec86079b3e13a63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/onelogin/php-saml/zipball/874516eb62dd3e11ca3193ae9b72f09694cf2e43",
-                "reference": "874516eb62dd3e11ca3193ae9b72f09694cf2e43",
+                "url": "https://api.github.com/repos/onelogin/php-saml/zipball/15016f9d633614c62fe6bb1d4ec86079b3e13a63",
+                "reference": "15016f9d633614c62fe6bb1d4ec86079b3e13a63",
                 "shasum": ""
             },
             "require": {
@@ -174,7 +174,7 @@
                 "onelogin",
                 "saml"
             ],
-            "time": "2019-01-22T13:06:40+00:00"
+            "time": "2019-01-28T13:04:13+00:00"
         },
         {
             "name": "robrichards/xmlseclibs",
@@ -2247,9 +2247,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "onelogin/php-saml": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

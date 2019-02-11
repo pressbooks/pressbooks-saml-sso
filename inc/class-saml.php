@@ -404,7 +404,15 @@ class SAML {
 		// If we made it to here, then no exceptions were thrown, and everything is fine.
 		// Now that the user has a session the SP allows the request to proceed.
 
-		$_SESSION[ self::USER_DATA ] = $this->auth->getAttributesWithFriendlyName();
+		$attributes = $this->auth->getAttributesWithFriendlyName();
+		if ( ! isset( $attributes['uid'] ) ) {
+			$attributes = $this->auth->getAttributes();
+			if ( ! isset( $attributes['uid'] ) ) {
+				throw new \Exception( __( 'Missing SAML attributes: uid, mail', 'pressbooks-shibboleth-sso' ) );
+			}
+		}
+		$_SESSION[ self::USER_DATA ] = $attributes;
+
 		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL );
 		if ( $redirect_to && \OneLogin\Saml2\Utils::getSelfURL() !== $redirect_to ) {
 			$this->auth->redirectTo( $redirect_to );

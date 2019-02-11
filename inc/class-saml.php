@@ -385,6 +385,7 @@ class SAML {
 	 * @throws \OneLogin\Saml2\Error
 	 */
 	public function samlAssertionConsumerService() {
+		// Authentication
 		$request_id = isset( $_SESSION[ self::AUTH_N_REQUEST_ID ] ) ? $_SESSION[ self::AUTH_N_REQUEST_ID ] : null;
 		unset( $_SESSION[ self::AUTH_N_REQUEST_ID ] ); // Don't reuse
 		$this->auth->processResponse( $request_id );
@@ -400,10 +401,7 @@ class SAML {
 			/* translators: Saml error reason */
 			throw new \Exception( sprintf( __( 'Not authenticated. Reason: %s', 'pressbooks-shibboleth-sso' ), $this->auth->getLastErrorReason() ) );
 		}
-
-		// If we made it to here, then no exceptions were thrown, and everything is fine.
-		// Now that the user has a session the SP allows the request to proceed.
-
+		// Attributes
 		$attributes = $this->auth->getAttributesWithFriendlyName();
 		if ( ! isset( $attributes['uid'] ) ) {
 			$attributes = $this->auth->getAttributes();
@@ -411,8 +409,11 @@ class SAML {
 				throw new \Exception( __( 'Missing SAML attributes: uid, mail', 'pressbooks-shibboleth-sso' ) );
 			}
 		}
-		$_SESSION[ self::USER_DATA ] = $attributes;
 
+		// If we made it to here, then no exceptions were thrown, and everything is fine.
+		// Now that the user has a session the SP allows the request to proceed.
+
+		$_SESSION[ self::USER_DATA ] = $attributes;
 		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL );
 		if ( $redirect_to && \OneLogin\Saml2\Utils::getSelfURL() !== $redirect_to ) {
 			$this->auth->redirectTo( $redirect_to );

@@ -63,17 +63,19 @@ define( 'PHP_SAML_SP_CERT_PATH', '/path/to/sp.crt' );
 
 = IdP Setup =
 
-This plugin requires the Assertion elements of the Response to be encrypted.
+Upon activation of the plugin, a submenu item ("Shibboleth") is added to the Network Admin interface under "Integrations". This leads to the Shibboleth settings page. Your metadata XML can be downloaded from this page.
 
-This plugin requires the Assertion elements of the Response to be signed.
+The plugin requires the Assertion elements of the Response to be encrypted.
 
-This plugin looks for the following SAML Attributes. Note: For compatibility with a broader range of IdPs we use the FriendlyName parameter.
+The plugin requires the Assertion elements of the Response to be signed.
+
+The plugin looks for the following Attributes in the Response: (For compatibility with a broader range of IdPs we use the FriendlyName parameter.)
 
 + Requires: `uid` (urn:oid:0.9.2342.19200300.100.1.1, samAccountName, or equivalent)
 + Strongly recommends: `mail` (urn:oid:0.9.2342.19200300.100.1.3, email-address, or equivalent) If no value is available we fall back to `uid@127.0.0.1`
 + Optional: `eduPersonPrincipalName` (urn:oid:1.3.6.1.4.1.5923.1.1.1.6, or equivalent) Upon the first launch for a given user, if mail cannot match an existing person, and this value is present, we'll try to use it.
 
-Results can filtered, example: `add_filter( 'pb_integrations_multidomain_email', function( $email, $uid, $plugin ) { /* Custom use case, return $email */ }, 10, 3 );`
+The email can filtered, example: `add_filter( 'pb_integrations_multidomain_email', function( $email, $uid, $plugin ) { /* Custom use case, return $email */ }, 10, 3 );`
 
 Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/onelogin/php-saml/) toolkit, [many other configuration variables can be tweaked](https://github.com/onelogin/php-saml/#settings).
 

@@ -1,6 +1,5 @@
 === Pressbooks Shibboleth Single Sign-On ===
 Contributors: conner_bw, greatislander
-Donate link: https://opencollective.com/pressbooks/
 Tags: pressbooks, saml, saml2, sso, shibboleth
 Requires at least: 5.0.3
 Tested up to: 5.0.3
@@ -110,5 +109,5 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 == Upgrade Notice ==
 
-= 0.0.4 =
-* Pressbooks Shibboleth Single Sign-On requires Pressbooks >= 5.5.2 and WordPress >= 4.9.8
+= 1.0.0 =
+* Pressbooks Shibboleth Single Sign-On requires Pressbooks >= 5.6.5 and WordPress >= 5.0.3

@@ -31,7 +31,7 @@ if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( WP
 // Class autoloader
 // -------------------------------------------------------------------------------------------------------------------
 
-\HM\Autoloader\register_class_path( 'Pressbooks\Shibboleth', __DIR__ . '/inc' );
+\HM\Autoloader\register_class_path( 'PressbooksShibbolethSso', __DIR__ . '/inc' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Composer autoloader
@@ -58,6 +58,6 @@ require( __DIR__ . '/inc/namespace.php' );
 // Hooks
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'plugins_loaded', [ '\Pressbooks\Shibboleth\Updates', 'init' ] );
-add_action( 'plugins_loaded', [ '\Pressbooks\Shibboleth\SAML', 'init' ] );
-add_action( 'plugins_loaded', [ '\Pressbooks\Shibboleth\Admin', 'init' ] );
+add_action( 'plugins_loaded', [ '\PressbooksShibbolethSso\Updates', 'init' ] );
+add_action( 'plugins_loaded', [ '\PressbooksShibbolethSso\SAML', 'init' ] );
+add_action( 'plugins_loaded', [ '\PressbooksShibbolethSso\Admin', 'init' ] );

@@ -3,7 +3,7 @@
 class UpdatesTest extends \WP_UnitTestCase {
 
 	/**
-	 * @var \Pressbooks\Shibboleth\Updates
+	 * @var \PressbooksShibbolethSso\Updates
 	 */
 	protected $updates;
 
@@ -12,7 +12,7 @@ class UpdatesTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->updates = new \Pressbooks\Shibboleth\Updates();
+		$this->updates = new \PressbooksShibbolethSso\Updates();
 	}
 
 	public function test_gitHubUpdater() {

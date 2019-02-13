@@ -1,6 +1,6 @@
 <?php
 
-namespace Pressbooks\Shibboleth;
+namespace PressbooksShibbolethSso;
 
 class Updates {
 

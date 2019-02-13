@@ -18,9 +18,7 @@ Shibboleth Single Sign-On integration for Pressbooks.
 
 Plugin to integrate Pressbooks with a [Shibboleth](https://www.shibboleth.net/) or SAML2 single sign-on service.
 
-Users who attempt to login to Pressbooks are redirected to a Shibboleth or SAML2 Identity Provider. After the user’s credentials are verified, they are redirected back to the
-Pressbooks network. If the Shibboleth UID matches the Pressbooks username, the user is recognized as valid and allowed access. If the Shibboleth user does not have an account in
-Pressbooks, a new user can be created, or access can be refused, depending on the configuration.
+Users who attempt to login to Pressbooks are redirected to a Shibboleth or SAML2 Identity Provider. After the user’s credentials are verified, they are redirected back to the Pressbooks network. If we match a Pressbooks user by Shibboleth UID (stored in user_meta table), the user is recognized as valid and allowed access. If no match, then try to match a Pressbooks user by email (and store a successful match in user_meta table for next time). If the Shibboleth user does not have an account in Pressbooks, a new user can be created, or access can be refused, depending on the configuration.
 
 Limitations: This plugin does not enable authentication with multilateral Shibboleth. For use in a non-federated, bilateral configuration, with a single IdP.
 
@@ -46,8 +44,7 @@ Then, activate and configure the plugin at the Network level.
 ### Security Considerations 
 
 Generating certificates in `vendor/onelogin/php-saml/certs`, without further changes, will expose them to malicious users (Ie. `https://path/to/vendor/onelogin/php-saml/certs/sp.crt`).
-Furthermore, your certificates are at risk of being deleted when updating packages using `composer update` or similar commands. A competent sysadmin must make sure certificates are
-not accessible from the internet nor deleted. It is highly recommended that you pass your certificates via configuration variables. Example:
+Furthermore, your certificates are at risk of being deleted when updating packages using `composer update` or similar commands. A competent sysadmin must make sure certificates are not accessible from the internet nor deleted. It is highly recommended that you pass your certificates via configuration variables. Example:
 
 ```php
 add_filter( 'pb_saml_auth_settings', function( $config ) {

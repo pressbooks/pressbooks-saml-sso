@@ -102,6 +102,9 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertEquals( $s['idp']['entityId'], 1 );
 		$this->assertEquals( $s['idp']['singleSignOnService']['url'], 2 );
 		$this->assertEquals( $s['idp']['x509cert'], 3 );
+		$this->assertEquals( $s['sp']['attributeConsumingService']['serviceName'], 'Pressbooks' );
+		$this->assertEquals( $s['sp']['attributeConsumingService']['requestedAttributes'][0]['friendlyName'], 'uid' );
+		$this->assertEquals( $s['sp']['attributeConsumingService']['requestedAttributes'][1]['friendlyName'], 'mail' );
 		$this->assertEmpty( $s['sp']['x509cert'] );
 		$this->assertEmpty( $s['sp']['privateKey'] );
 
@@ -123,6 +126,9 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertEquals( $s['idp']['singleSignOnService']['url'], 2 );
 		$this->assertEquals( $s['idp']['x509cert'], 3 );
 		$this->assertEquals( $s['idp']['singleLogoutService']['url'], 4 );
+		$this->assertEquals( $s['sp']['attributeConsumingService']['serviceName'], 'Pressbooks' );
+		$this->assertEquals( $s['sp']['attributeConsumingService']['requestedAttributes'][0]['friendlyName'], 'uid' );
+		$this->assertEquals( $s['sp']['attributeConsumingService']['requestedAttributes'][1]['friendlyName'], 'mail' );
 		$this->assertEquals( $s['sp']['newkey'], 'hahaha' );
 		$this->assertEquals( $s['sp']['x509cert'], file_get_contents( __DIR__ . '/data/sp.crt' ) );
 		$this->assertEquals( $s['sp']['privateKey'], file_get_contents( __DIR__ . '/data/sp.key' ) );

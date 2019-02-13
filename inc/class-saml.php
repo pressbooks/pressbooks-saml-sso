@@ -226,6 +226,24 @@ class SAML {
 		$config['sp']['assertionConsumerService']['url'] = \Pressbooks\Shibboleth\acs_url();
 		$config['sp']['singleLogoutService']['url'] = \Pressbooks\Shibboleth\sls_url();
 
+		$config['sp']['attributeConsumingService'] = [
+			'serviceName' => 'Pressbooks',
+			'requestedAttributes' => [
+				[
+					'nameFormat' => \OneLogin\Saml2\Constants::ATTRNAME_FORMAT_URI,
+					'isRequired' => true,
+					'name' => 'urn:oid:0.9.2342.19200300.100.1.1',
+					'friendlyName' => 'uid',
+				],
+				[
+					'nameFormat' => \OneLogin\Saml2\Constants::ATTRNAME_FORMAT_URI,
+					'isRequired' => true,
+					'name' => 'urn:oid:0.9.2342.19200300.100.1.3',
+					'friendlyName' => 'mail',
+				],
+			],
+		];
+
 		if ( ! empty( $config['sp']['x509cert'] ) ) {
 			// Interoperable SAML 2.0 Web Browser SSO Profile
 			$config['security'] = [

@@ -76,7 +76,7 @@ The plugin looks for the following Attributes in the Response: (For compatibilit
 + Strongly recommends: `mail` (urn:oid:0.9.2342.19200300.100.1.3, email-address, or equivalent) If no value is available we fall back to `uid@127.0.0.1`
 + Optional: `eduPersonPrincipalName` (urn:oid:1.3.6.1.4.1.5923.1.1.1.6, or equivalent) Upon the first launch for a given user, if mail cannot match an existing person, and this value is present, we'll try to use it.
 
-The email can filtered, example: `add_filter( 'pb_integrations_multidomain_email', function( $email, $uid, $plugin ) { /* Custom use case, return $email */ }, 10, 3 );`
+The email can be filtered, example: `add_filter( 'pb_integrations_multidomain_email', function( $email, $uid, $plugin ) { /* Custom use case, return $email */ }, 10, 3 );`
 
 Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/onelogin/php-saml/) toolkit, [many other configuration variables can be tweaked](https://github.com/onelogin/php-saml/#settings).
 

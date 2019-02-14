@@ -1,4 +1,4 @@
-# Pressbooks Shibboleth Single Sign-On 
+# Pressbooks SAML2 Single Sign-On 
 **Contributors:** conner_bw, greatislander  
 **Tags:** pressbooks, saml, saml2, sso, shibboleth  
 **Requires at least:** 5.0.3  
@@ -8,16 +8,16 @@
 **License:** GPLv3 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html  
 
-Shibboleth Single Sign-On integration for Pressbooks.
+SAML2 Single Sign-On integration for Pressbooks.
 
 
 ## Description 
 
-[![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks-shibboleth-sso.svg?style=flat-square)](https://packagist.org/packages/pressbooks/pressbooks-shibboleth-sso) [![GitHub release](https://badgen.net/github/release/pressbooks/pressbooks-shibboleth-sso/stable?style=flat)](https://github.com/pressbooks/pressbooks-shibboleth-sso/releases) [![Travis](https://badgen.net/travis/pressbooks/pressbooks-shibboleth-sso.svg?style=flat)](https://travis-ci.com/pressbooks/pressbooks-shibboleth-sso/) [![Codecov](https://badgen.net/codecov/c/github/pressbooks/pressbooks-shibboleth-sso?style=flat)](https://codecov.io/gh/pressbooks/pressbooks-shibboleth-sso)
+[![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks-saml-sso.svg?style=flat-square)](https://packagist.org/packages/pressbooks/pressbooks-saml-sso) [![GitHub release](https://badgen.net/github/release/pressbooks/pressbooks-saml-sso/stable?style=flat)](https://github.com/pressbooks/pressbooks-saml-sso/releases) [![Travis](https://badgen.net/travis/pressbooks/pressbooks-saml-sso.svg?style=flat)](https://travis-ci.com/pressbooks/pressbooks-saml-sso/) [![Codecov](https://badgen.net/codecov/c/github/pressbooks/pressbooks-saml-sso?style=flat)](https://codecov.io/gh/pressbooks/pressbooks-saml-sso)
 
-Plugin to integrate Pressbooks with a [Shibboleth](https://www.shibboleth.net/) or SAML2 single sign-on service.
+Plugin to integrate Pressbooks with a SAML2 single sign-on service. ([Shibboleth](https://www.shibboleth.net/), [Microsoft ADFS](https://support.zendesk.com/hc/en-us/articles/203663886-Setting-up-single-sign-on-using-Active-Directory-with-ADFS-and-SAML-Professional-and-Enterprise-), [Google Apps](https://pantheon.io/docs/wordpress-google-sso/), etc.)
 
-Users who attempt to login to Pressbooks are redirected to a Shibboleth or SAML2 Identity Provider. After the user’s credentials are verified, they are redirected back to the Pressbooks network. If we match a Pressbooks user by Shibboleth UID (stored in user_meta table), the user is recognized as valid and allowed access. If no match, then try to match a Pressbooks user by email (and store a successful match in user_meta table for next time). If the Shibboleth user does not have an account in Pressbooks, a new user can be created, or access can be refused, depending on the configuration.
+Users who attempt to login to Pressbooks are redirected to a Shibboleth or SAML2 Identity Provider. After the user’s credentials are verified, they are redirected back to the Pressbooks network. If we match a Pressbooks user by UID (stored in user_meta table), the user is recognized as valid and allowed access. If no match, then try to match a Pressbooks user by email (and store a successful match in user_meta table for next time). If the user does not have an account in Pressbooks, a new user can be created, or access can be refused, depending on the configuration.
 
 Limitations: This plugin does not enable authentication with multilateral Shibboleth. For use in a non-federated, bilateral configuration, with a single IdP.
 
@@ -25,10 +25,10 @@ Limitations: This plugin does not enable authentication with multilateral Shibbo
 ## Installation 
 
 ```
-composer require pressbooks/pressbooks-shibboleth-sso
+composer require pressbooks/pressbooks-saml-sso
 ```
 
-Or, download the latest version from the releases page and unzip it into your WordPress plugin directory: https://github.com/pressbooks/pressbooks-shibboleth-sso/releases
+Or, download the latest version from the releases page and unzip it into your WordPress plugin directory: https://github.com/pressbooks/pressbooks-saml-sso/releases
 
 Then, create the necessary certificates:
 
@@ -63,7 +63,7 @@ define( 'PHP_SAML_SP_CERT_PATH', '/path/to/sp.crt' );
 
 ### IdP Setup 
 
-Upon activation of the plugin, a submenu item ("Shibboleth") is added to the Network Admin interface under "Integrations". This leads to the Shibboleth settings page. Your metadata XML can be downloaded from this page.
+Upon activation of the plugin, a submenu item ("SAML2") is added to the Network Admin interface under "Integrations". This leads to the SAML2 settings page. Your metadata XML can be downloaded from this page.
 
 The plugin requires the Assertion elements of the Response to be encrypted.
 
@@ -82,7 +82,7 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 ## Screenshots 
 
-![Pressbooks Shibboleth Administration.](screenshot-1.png)
+![Pressbooks SAML Administration.](screenshot-1.png)
 
 
 ## Changelog 
@@ -97,7 +97,7 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 ### 0.0.5 
 **Patches**
-* [Security] Bump robrichards/xmlseclibs from 3.0.1 to 3.0.2: [#8](https://github.com/pressbooks/pressbooks/shibboleth-sso/pulls/8)
+* [Security] Bump robrichards/xmlseclibs from 3.0.1 to 3.0.2: [#8](https://github.com/pressbooks/pressbooks-saml-sso/pull/8)
 
 
 ### 0.0.4 
@@ -124,4 +124,4 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 
 ### 1.0.0 
-* Pressbooks Shibboleth Single Sign-On requires Pressbooks >= 5.6.5 and WordPress >= 5.0.3
+* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.6.5 and WordPress >= 5.0.3

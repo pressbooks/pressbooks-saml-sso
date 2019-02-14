@@ -9,9 +9,9 @@ class NamespaceTest extends \WP_UnitTestCase {
 	public function test_classInitConventions() {
 		global $wp_filter;
 		$classes = [
-			'\PressbooksShibbolethSso\Admin',
-			'\PressbooksShibbolethSso\SAML',
-			'\PressbooksShibbolethSso\Updates',
+			'\PressbooksSamlSso\Admin',
+			'\PressbooksSamlSso\SAML',
+			'\PressbooksSamlSso\Updates',
 		];
 		foreach ( $classes as $class ) {
 			$result = $class::init();
@@ -22,30 +22,30 @@ class NamespaceTest extends \WP_UnitTestCase {
 	}
 
 	public function test_blade() {
-		$blade = \PressbooksShibbolethSso\blade();
+		$blade = \PressbooksSamlSso\blade();
 		$this->assertTrue( is_object( $blade ) );
 	}
 
 	public function test_login_url() {
-		$url = \PressbooksShibbolethSso\login_url();
+		$url = \PressbooksSamlSso\login_url();
 		$this->assertTrue( filter_var( $url, FILTER_VALIDATE_URL ) !== false );
 		$this->assertContains( 'action=pb_shibboleth', $url );
 	}
 
 	public function test_metadata_url() {
-		$url = \PressbooksShibbolethSso\metadata_url();
+		$url = \PressbooksSamlSso\metadata_url();
 		$this->assertTrue( filter_var( $url, FILTER_VALIDATE_URL ) !== false );
 		$this->assertContains( 'action=pb_shibboleth_metadata', $url );
 	}
 
 	public function test_acs_url() {
-		$url = \PressbooksShibbolethSso\acs_url();
+		$url = \PressbooksSamlSso\acs_url();
 		$this->assertTrue( filter_var( $url, FILTER_VALIDATE_URL ) !== false );
 		$this->assertContains( 'action=pb_shibboleth_acs', $url );
 	}
 
 	public function test_sls_url() {
-		$url = \PressbooksShibbolethSso\sls_url();
+		$url = \PressbooksSamlSso\sls_url();
 		$this->assertTrue( filter_var( $url, FILTER_VALIDATE_URL ) !== false );
 		$this->assertContains( 'action=pb_shibboleth_sls', $url );
 	}

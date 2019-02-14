@@ -1,6 +1,6 @@
 <?php
 
-namespace PressbooksShibbolethSso;
+namespace PressbooksSamlSso;
 
 use function Pressbooks\Utility\empty_space;
 use function Pressbooks\Utility\str_remove_prefix;
@@ -19,6 +19,12 @@ class SAML {
 	const USER_DATA = 'pb_saml_user_data';
 
 	const AUTH_N_REQUEST_ID = 'pb_saml_auth_n_request_id';
+
+	// IMPORTANT: Do not rename to `pb_saml` to be compatible with existing integrations
+	const LOGIN_PREFIX = 'pb_shibboleth';
+
+	// IMPORTANT: Do not rename to `/saml` to be compatible with existing integrations
+	const ENTITY_ID = '/shibboleth';
 
 	/**
 	 * @var SAML
@@ -106,7 +112,7 @@ class SAML {
 	public function __construct( Admin $admin ) {
 		$options = $admin->getOptions();
 
-		$this->loginUrl = \PressbooksShibbolethSso\login_url();
+		$this->loginUrl = \PressbooksSamlSso\login_url();
 		$this->currentUserId = get_current_user_id();
 		$this->provision = $options['provision'];
 		$this->bypass = (bool) $options['bypass'];
@@ -130,10 +136,10 @@ class SAML {
 
 		// Verify the integrity of the configuration before passing to Auth to avoid things blowing up
 		if ( ! $this->verifyPluginSetup( $options ) ) {
-			if ( 'pb_shibboleth_admin' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
+			if ( 'pb_saml_admin' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
 				add_action(
 					'network_admin_notices', function () {
-						echo '<div id="message" class="error fade"><p>' . __( 'The Pressbooks Shibboleth Plugin is not configured correctly.', 'pressbooks-shibboleth-sso' ) . '</p></div>';
+						echo '<div id="message" class="error fade"><p>' . __( 'The Pressbooks SAML Plugin is not configured correctly.', 'pressbooks-saml-sso' ) . '</p></div>';
 					}
 				);
 			}
@@ -144,7 +150,7 @@ class SAML {
 			} catch ( \Exception $e ) {
 				add_action(
 					'network_admin_notices', function () use ( $e ) {
-						echo '<div id="message" class="error fade"><p>' . __( 'The Pressbooks Shibboleth Plugin failed to initialize. Error: ', 'pressbooks-shibboleth-sso' ) . $e->getMessage() . '</p></div>';
+						echo '<div id="message" class="error fade"><p>' . __( 'The Pressbooks SAML Plugin failed to initialize. Error: ', 'pressbooks-saml-sso' ) . $e->getMessage() . '</p></div>';
 					}
 				);
 			}
@@ -222,9 +228,9 @@ class SAML {
 		$config = apply_filters( 'pb_saml_auth_settings', $config );
 
 		// This comes after the filter because we don't want others breaking our SP config
-		$config['sp']['entityId'] = network_site_url( '/shibboleth', 'https' ); // Doesn't need to resolve
-		$config['sp']['assertionConsumerService']['url'] = \PressbooksShibbolethSso\acs_url();
-		$config['sp']['singleLogoutService']['url'] = \PressbooksShibbolethSso\sls_url();
+		$config['sp']['entityId'] = network_site_url( self::ENTITY_ID, 'https' ); // This ia a URI, not a URL. Spec says it doesn't need to resolve.
+		$config['sp']['assertionConsumerService']['url'] = \PressbooksSamlSso\acs_url();
+		$config['sp']['singleLogoutService']['url'] = \PressbooksSamlSso\sls_url();
 
 		$config['sp']['attributeConsumingService'] = [
 			'serviceName' => 'Pressbooks',
@@ -262,13 +268,12 @@ class SAML {
 	 *
 	 * Hooked into filter: 'login_url'
 	 *
-	 *
 	 * @param string $login_url The login URL. Not HTML-encoded.
 	 *
 	 * @return string
 	 */
 	public function changeLoginUrl( $login_url ) {
-		$login_url = add_query_arg( 'action', 'pb_shibboleth', $login_url );
+		$login_url = add_query_arg( 'action', self::LOGIN_PREFIX, $login_url );
 		return $login_url;
 	}
 
@@ -298,16 +303,16 @@ class SAML {
 	 */
 	public function authenticate( $user, $username, $password ) {
 		$saml_action = '';
-		$use_shibboleth = false;
-		if ( isset( $_REQUEST['action'] ) && str_starts_with( $_REQUEST['action'], 'pb_shibboleth' ) ) { // @codingStandardsIgnoreLine
-			$use_shibboleth = true;
-			$saml_action = ltrim( str_remove_prefix( $_REQUEST['action'], 'pb_shibboleth' ), '_' ); // @codingStandardsIgnoreLine
+		$use_saml = false;
+		if ( isset( $_REQUEST['action'] ) && str_starts_with( $_REQUEST['action'], self::LOGIN_PREFIX ) ) { // @codingStandardsIgnoreLine
+			$use_saml = true;
+			$saml_action = ltrim( str_remove_prefix( $_REQUEST['action'], self::LOGIN_PREFIX ), '_' ); // @codingStandardsIgnoreLine
 		}
 
 		if ( $saml_action === 'metadata' ) {
 			$this->samlMetadata();
 			$this->doExit();
-		} elseif ( $this->samlClientIsReady && $use_shibboleth ) {
+		} elseif ( $this->samlClientIsReady && $use_saml ) {
 			try {
 				$this->trackHomeUrl();
 				ob_start();
@@ -338,7 +343,7 @@ class SAML {
 							 * @param string $net_id
 							 * @param string $plugin_name
 							 */
-							$email = apply_filters( 'pb_integrations_multidomain_email', $email, $net_id, 'pressbooks-shibboleth-sso' );
+							$email = apply_filters( 'pb_integrations_multidomain_email', $email, $net_id, 'pressbooks-saml-sso' );
 							$this->handleLoginAttempt( $net_id, $email );
 						}
 				}
@@ -391,7 +396,7 @@ class SAML {
 				header( 'Content-Type: text/xml' );
 				echo $metadata;
 			} else {
-				wp_die( __( 'Invalid SP metadata: ', 'pressbooks-shibboleth-sso' ) . implode( ', ', $errors ) );
+				wp_die( __( 'Invalid SP metadata: ', 'pressbooks-saml-sso' ) . implode( ', ', $errors ) );
 			}
 		} catch ( \Exception $e ) {
 			wp_die( $e->getMessage() );
@@ -417,14 +422,14 @@ class SAML {
 		}
 		if ( ! $this->auth->isAuthenticated() ) {
 			/* translators: Saml error reason */
-			throw new \Exception( sprintf( __( 'Not authenticated. Reason: %s', 'pressbooks-shibboleth-sso' ), $this->auth->getLastErrorReason() ) );
+			throw new \Exception( sprintf( __( 'Not authenticated. Reason: %s', 'pressbooks-saml-sso' ), $this->auth->getLastErrorReason() ) );
 		}
 		// Attributes
 		$attributes = $this->auth->getAttributesWithFriendlyName();
 		if ( ! isset( $attributes['uid'] ) ) {
 			$attributes = $this->auth->getAttributes();
 			if ( ! isset( $attributes['uid'] ) ) {
-				throw new \Exception( __( 'Missing SAML attributes: uid, mail', 'pressbooks-shibboleth-sso' ) );
+				throw new \Exception( __( 'Missing SAML attributes: uid, mail', 'pressbooks-saml-sso' ) );
 			}
 		}
 
@@ -469,9 +474,9 @@ class SAML {
 			$email = $this->getAdminEmail();
 			$email = ( ! empty( $email ) ? ": {$email}" : '.' );
 			/* translators: %s Pressbooks Network Manager email if found. */
-			$message = sprintf( __( "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s", 'pressbooks-shibboleth-sso' ), $email );
+			$message = sprintf( __( "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s", 'pressbooks-saml-sso' ), $email );
 		} else {
-			$message = __( 'SAML authentication failed.', 'pressbooks-shibboleth-sso' );
+			$message = __( 'SAML authentication failed.', 'pressbooks-saml-sso' );
 		}
 		return wp_strip_all_tags( $message );
 	}
@@ -513,7 +518,7 @@ class SAML {
 	 * Add login CSS and JS
 	 */
 	public function loginEnqueueScripts() {
-		$assets = new Assets( 'pressbooks-shibboleth-sso', 'plugin' );
+		$assets = new Assets( 'pressbooks-saml-sso', 'plugin' );
 		wp_enqueue_style( 'pb-saml-login', $assets->getPath( 'styles/login-form.css' ) );
 		wp_enqueue_script( 'pb-saml-login', $assets->getPath( 'scripts/login-form.js' ), [ 'jquery' ] );
 	}
@@ -533,19 +538,19 @@ class SAML {
 
 		$button_text = $this->options['button_text'];
 		if ( empty( $button_text ) ) {
-			$button_text = __( 'Connect via Shibboleth', 'pressbooks-shibboleth-sso' );
+			$button_text = __( 'Connect via SAML', 'pressbooks-saml-sso' );
 		}
 
 		$this->trackHomeUrl( true );
 
 		?>
-		<div id="pb-shibboleth-wrap">
-			<div class="pb-shibboleth-or">
-				<span><?php esc_html_e( 'Or', 'pressbooks-shibboleth-sso' ); ?></span>
+		<div id="pb-saml-wrap">
+			<div class="pb-saml-or">
+				<span><?php esc_html_e( 'Or', 'pressbooks-saml-sso' ); ?></span>
 			</div>
 			<?php
 			printf(
-				'<div class="shibboleth"><a href="%1$s" class="button button-hero shibboleth">%2$s</a></div>',
+				'<div class="saml"><a href="%1$s" class="button button-hero saml">%2$s</a></div>',
 				$url,
 				$button_text
 			);
@@ -574,7 +579,7 @@ class SAML {
 			// If a matching user was found, log them in
 			$logged_in = \Pressbooks\Redirect\programmatic_login( $user->user_login );
 			if ( $logged_in === true ) {
-				$this->endLogin( __( 'Logged in!', 'pressbooks-shibboleth-sso' ) );
+				$this->endLogin( __( 'Logged in!', 'pressbooks-saml-sso' ) );
 			}
 		} else {
 			$this->associateUser( $net_id, $email );
@@ -738,7 +743,7 @@ class SAML {
 		// Attempt to login the new user
 		$logged_in = \Pressbooks\Redirect\programmatic_login( $username );
 		if ( $logged_in === true ) {
-			$this->endLogin( __( 'Registered and logged in!', 'pressbooks-shibboleth-sso' ) );
+			$this->endLogin( __( 'Registered and logged in!', 'pressbooks-saml-sso' ) );
 		}
 	}
 

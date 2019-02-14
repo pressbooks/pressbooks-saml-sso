@@ -3,7 +3,7 @@
 class UpdatesTest extends \WP_UnitTestCase {
 
 	/**
-	 * @var \PressbooksShibbolethSso\Updates
+	 * @var \PressbooksSamlSso\Updates
 	 */
 	protected $updates;
 
@@ -12,12 +12,12 @@ class UpdatesTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->updates = new \PressbooksShibbolethSso\Updates();
+		$this->updates = new \PressbooksSamlSso\Updates();
 	}
 
 	public function test_gitHubUpdater() {
 		$this->updates->gitHubUpdater();
-		$this->assertTrue( has_filter( 'puc_is_slug_in_use-pressbooks-shibboleth-sso' ) );
+		$this->assertTrue( has_filter( 'puc_is_slug_in_use-pressbooks-saml-sso' ) );
 	}
 
 }

@@ -15,7 +15,7 @@ function _manually_load_plugin() {
 	require_once( __DIR__ . '/../../pressbooks/pressbooks.php' );
 	require_once( __DIR__ . '/../../pressbooks/requires.php' );
 	require_once( __DIR__ . '/../../pressbooks/requires-admin.php' );
-	require_once( __DIR__ . '/../pressbooks-shibboleth-sso.php' );
+	require_once( __DIR__ . '/../pressbooks-saml-sso.php' );
 }
 
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );

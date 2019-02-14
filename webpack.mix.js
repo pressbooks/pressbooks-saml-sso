@@ -13,9 +13,9 @@ let path = require( 'path' );
  */
 
 mix.setPublicPath( path.join( 'assets', 'dist' ) )
-	.js( 'assets/src/scripts/pressbooks-shibboleth-sso.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/pressbooks-saml-sso.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/login-form.js', 'assets/dist/scripts/' )
-	.sass( 'assets/src/styles/pressbooks-shibboleth-sso.scss', 'assets/dist/styles/' )
+	.sass( 'assets/src/styles/pressbooks-saml-sso.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/login-form.scss', 'assets/dist/styles/' )
 	.copyDirectory( 'assets/src/fonts', 'assets/dist/fonts' )
 	.copyDirectory( 'assets/src/images', 'assets/dist/images' )

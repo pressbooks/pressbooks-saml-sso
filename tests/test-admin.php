@@ -3,7 +3,7 @@
 class AdminTest extends \WP_UnitTestCase {
 
 	/**
-	 * @var \PressbooksShibbolethSso\Admin
+	 * @var \PressbooksSamlSso\Admin
 	 */
 	protected $admin;
 
@@ -38,7 +38,7 @@ class AdminTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->admin = new \PressbooksShibbolethSso\Admin();
+		$this->admin = new \PressbooksSamlSso\Admin();
 	}
 
 	public function tearDown() {
@@ -89,7 +89,7 @@ class AdminTest extends \WP_UnitTestCase {
 		$this->assertEquals( $options['bypass'], 0 );
 		$this->assertEquals( $options['forced_redirection'], 0 );
 
-		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-shibboleth-sso' );
+		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-saml-sso' );
 		$_POST = [
 			'idp_entity_id' => 'https://idp.testshib.org/idp/shibboleth',
 			'idp_sso_login_url' => 'https://idp.testshib.org/idp/profile/SAML2/Redirect/SSO',

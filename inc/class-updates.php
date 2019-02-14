@@ -1,6 +1,6 @@
 <?php
 
-namespace PressbooksShibbolethSso;
+namespace PressbooksSamlSso;
 
 class Updates {
 
@@ -45,9 +45,9 @@ class Updates {
 		static $updater = null;
 		if ( $updater === null ) {
 			$updater = \Puc_v4_Factory::buildUpdateChecker(
-				'https://github.com/pressbooks/pressbooks-shibboleth-sso/',
-				\Pressbooks\Utility\absolute_path( __DIR__ . '/../pressbooks-shibboleth-sso.php' ), // Fully qualified path to the main plugin file
-				'pressbooks-shibboleth-sso',
+				'https://github.com/pressbooks/pressbooks-saml-sso/',
+				\Pressbooks\Utility\absolute_path( __DIR__ . '/../pressbooks-saml-sso.php' ), // Fully qualified path to the main plugin file
+				'pressbooks-saml-sso',
 				24
 			);
 			$updater->setBranch( 'master' );

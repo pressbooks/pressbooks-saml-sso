@@ -39,7 +39,7 @@ before_script:
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 - git clone --depth=1 https://github.com/pressbooks/pressbooks.git ../pressbooks
 - cd ../pressbooks && composer install --no-dev
-- cd ../pressbooks-shibboleth-sso
+- cd ../pressbooks-saml-sso
 script:
 - yarn run lint
 - yarn run build:production
@@ -63,7 +63,7 @@ deploy:
   skip_cleanup: true
   api_key:
     secure: Ofs1q9lqbqWJC6gyMiD0Q+jyfeb6e0ZRH/AN89VpbvFegpGzO+flSw1+n90ThmjZ0nSdHOmAvV4rFgAEiaNJnCOS6uInf1BimzszPxi/n3BfWkayC/68+G8BNU1Itew+7O6/0yYoNXX8a65lNhSJbWjWiJuCKWekbkp57pQYrsDmCQOfKnBg5FtZKdpEDh/rbeST1JIwYjy5h2gHGY6cKfbsawPDt9WLxK/sR4fwZX/TTSuws5nqllfbGJeKc/m7tY7SWoLCGy/2g7E/wCoP2HyImaAsR6TsOJm/QhcapVTnSA6iwXgG+CxCtSIpujet2dQESkW7JdizthBf6Z83wyP1ZbCZILvqfza075dL/CrDkvj2A74UnX+b+3IrTEgwu5RYLFwJCCXrz1mYcWeU0CYDDzni4MpLnjSZHwtNy5rUO9rCieKIOeXWYR/6S4KWbvgF6O59NSX85gtKI8rbIHM9SJnYOXbLLr2CtzV3JuNooql4lrlzNUZc46gopPKpohbIscaQtHkr7ZAs54RIll9RLJs9rqyxs9fZkE9hHj9SjmwS82nk7bsmnZaZrUhwDDWWAjaDFWM4e7JKR969H0vG3fvKRkFKpzNOnCXcLQTbju29/ddAalaA9KeMI/IAbBtMvDFDnNMkpAGLbpdCSENcKdq0BJHyiM/98dq1Mco=
-  file: "pressbooks-shibboleth-sso-$TRAVIS_TAG.zip"
+  file: "pressbooks-saml-sso-$TRAVIS_TAG.zip"
   on:
     tags: true
-    repo: pressbooks/pressbooks-shibboleth-sso
+    repo: pressbooks/pressbooks-saml-sso

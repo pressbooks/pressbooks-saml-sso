@@ -1,11 +1,12 @@
 <?php
 
-namespace PressbooksShibbolethSso;
+namespace PressbooksSamlSso;
 
 use PressbooksMix\Assets;
 
 class Admin {
 
+	// IMPORTANT: Do not rename to `pressbooks_saml_sso` to be compatible with existing integrations
 	const OPTION = 'pressbooks_shibboleth_sso';
 
 	/**
@@ -42,11 +43,11 @@ class Admin {
 	 * @param string $hook
 	 */
 	public function adminEnqueueScripts( $hook ) {
-		if ( $hook !== get_plugin_page_hookname( 'pb_shibboleth_admin', 'pb_network_integrations' ) ) {
+		if ( $hook !== get_plugin_page_hookname( 'pb_saml_admin', 'pb_network_integrations' ) ) {
 			return;
 		}
-		$assets = new Assets( 'pressbooks-shibboleth-sso', 'plugin' );
-		wp_enqueue_script( 'pb-shibboleth-sso', $assets->getPath( 'scripts/pressbooks-shibboleth-sso.js' ), [ 'jquery' ] );
+		$assets = new Assets( 'pressbooks-saml-sso', 'plugin' );
+		wp_enqueue_script( 'pb-saml-sso', $assets->getPath( 'scripts/pressbooks-saml-sso.js' ), [ 'jquery' ] );
 	}
 
 	/**
@@ -57,10 +58,10 @@ class Admin {
 
 		add_submenu_page(
 			$parent_slug,
-			__( 'Shibboleth', 'pressbooks-shibboleth-sso' ),
-			__( 'Shibboleth', 'pressbooks-shibboleth-sso' ),
+			__( 'SAML2', 'pressbooks-saml-sso' ),
+			__( 'SAML2', 'pressbooks-saml-sso' ),
 			'manage_network',
-			'pb_shibboleth_admin',
+			'pb_saml_admin',
 			[ $this, 'printMenu' ]
 		);
 	}
@@ -79,8 +80,8 @@ class Admin {
 
 		$html = blade()->render(
 			'admin', [
-				'form_url' => network_admin_url( '/admin.php?page=pb_shibboleth_admin' ),
-				'metadata_url' => \PressbooksShibbolethSso\metadata_url(),
+				'form_url' => network_admin_url( '/admin.php?page=pb_saml_admin' ),
+				'metadata_url' => \PressbooksSamlSso\metadata_url(),
 				'options' => $this->getOptions(),
 			]
 		);
@@ -93,7 +94,7 @@ class Admin {
 	 * @return bool
 	 */
 	public function saveOptions() {
-		if ( ! empty( $_POST ) && check_admin_referer( 'pb-shibboleth-sso' ) ) {
+		if ( ! empty( $_POST ) && check_admin_referer( 'pb-saml-sso' ) ) {
 			$_POST = array_map( 'trim', $_POST );
 			$update = [];
 
@@ -144,7 +145,7 @@ class Admin {
 	public function parseOptionsFromRemoteXML( $url ) {
 		$settings = @\OneLogin\Saml2\IdPMetadataParser::parseRemoteXML( $url ); // @codingStandardsIgnoreLine
 		if ( ! isset( $settings['idp'] ) ) {
-			$error = __( 'Failed to get IdP Metadata from URL.', 'pressbooks-shibboleth-sso' );
+			$error = __( 'Failed to get IdP Metadata from URL.', 'pressbooks-saml-sso' );
 			throw new \Exception( $error );
 		}
 

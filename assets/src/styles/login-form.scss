@@ -11,11 +11,11 @@
   padding-bottom: 92px;
 }
 
-.pb-shibboleth-repositioned #loginform {
+.pb-saml-repositioned #loginform {
   padding-bottom: 26px;
 }
 
-#pb-shibboleth-wrap {
+#pb-saml-wrap {
   position: absolute;
   bottom: 20px;
   padding: 0 24px;
@@ -24,7 +24,7 @@
   width: 100%;
 }
 
-.pb-shibboleth-repositioned #pb-shibboleth-wrap {
+.pb-saml-repositioned #pb-saml-wrap {
   position: relative;
   bottom: auto;
   padding: 0;
@@ -33,7 +33,7 @@
   margin-right: 0;
 }
 
-.pb-shibboleth-form-display #pb-shibboleth-wrap {
+.pb-saml-form-display #pb-saml-wrap {
   position: relative;
   bottom: auto;
   padding: 0;
@@ -42,43 +42,43 @@
   margin-right: 0;
 }
 
-#loginform #pb-shibboleth-wrap,
-#loginform #pb-shibboleth-wrap * {
+#loginform #pb-saml-wrap,
+#loginform #pb-saml-wrap * {
   box-sizing: border-box;
 }
 
-.pb-shibboleth-form-display #loginform > p,
-.pb-shibboleth-form-display #loginform > div {
+.pb-saml-form-display #loginform > p,
+.pb-saml-form-display #loginform > div {
   display: none;
 }
 
-#loginform #pb-shibboleth-wrap p {
+#loginform #pb-saml-wrap p {
   color: #777777;
   margin-bottom: 16px;
 }
 
-#pb-shibboleth-wrap a {
+#pb-saml-wrap a {
   display: block;
   width: 100%;
   text-align: center;
   text-decoration: none;
 }
 
-.pb-shibboleth-form-display #loginform #pb-shibboleth-wrap {
+.pb-saml-form-display #loginform #pb-saml-wrap {
   display: block;
 }
 
-.pb-shibboleth-form-display #loginform {
+.pb-saml-form-display #loginform {
   padding: 26px 24px;
 }
 
-.pb-shibboleth-or {
+.pb-saml-or {
   margin-bottom: 16px;
   position: relative;
   text-align: center;
 }
 
-.pb-shibboleth-or:before {
+.pb-saml-or:before {
   background: #E5E5E5;
   content: '';
   height: 1px;
@@ -87,7 +87,7 @@
   top: 50%;
   width: 100%;
 }
-.pb-shibboleth-or span {
+.pb-saml-or span {
   background: #fff;
   color: #777;
   position: relative;
@@ -95,20 +95,20 @@
   text-transform: uppercase
 }
 
-.pb-shibboleth-form-display #nav {
+.pb-saml-form-display #nav {
   display: none;
 }
 
-.pb-shibboleth-form-display #backtoblog {
+.pb-saml-form-display #backtoblog {
   margin: 24px 0 0;
 }
 
-.pb-shibboleth-clear:after {
+.pb-saml-clear:after {
   content: "";
   display: table;
   clear: both;
 }
 
-.pb-shibboleth-repositioned #pb-shibboleth-wrap .button .dashicons {
+.pb-saml-repositioned #pb-saml-wrap .button .dashicons {
   font-size: 24px;
 }

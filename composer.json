@@ -1,9 +1,9 @@
 {
-	"name": "pressbooks/pressbooks-shibboleth-sso",
+	"name": "pressbooks/pressbooks-saml-sso",
 	"license": "GPL-3.0-or-later",
 	"type": "wordpress-plugin",
 	"description": "Shibboleth Single Sign-On integration for Pressbooks.",
-	"homepage": "https://github.com/pressbooks/pressbooks-shibboleth-sso",
+	"homepage": "https://github.com/pressbooks/pressbooks-saml-sso",
 	"authors": [
 		{
 			"name": "Book Oven Inc.",
@@ -15,8 +15,8 @@
 	"support": {
 		"email": "code@pressbooks.com",
 		"issues":
-			"https://github.com/pressbooks/pressbooks-shibboleth-sso/issues/",
-		"source": "https://github.com/pressbooks/pressbooks-shibboleth-sso/"
+			"https://github.com/pressbooks/pressbooks-saml-sso/issues/",
+		"source": "https://github.com/pressbooks/pressbooks-saml-sso/"
 	},
 	"config": {
 		"platform": {
@@ -43,7 +43,7 @@
 			"vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/"
 		],
 		"localize": [
-			"wp-pot -s \"**/*.php\" -o languages/pressbooks-shibboleth-sso.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\"",
+			"wp-pot -s \"**/*.php\" -o languages/pressbooks-saml-sso.pot -p \"Pressbooks\" -t \"Pressbooks (Book Oven Inc.) <code@pressbooks.com>\"",
 			"bash bin/i18n.sh"
 		],
 		"readme": ["vendor/bin/wp2md -i readme.txt -o README.md"]

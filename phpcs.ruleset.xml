@@ -7,10 +7,10 @@
     </rule>
     <!-- Disable Side Effects and MissingNamespace rules for bootstrapping files: -->
     <rule ref="PSR1.Files.SideEffects">
-        <exclude-pattern>/pressbooks-shibboleth-sso.php</exclude-pattern>
+        <exclude-pattern>/pressbooks-saml-sso.php</exclude-pattern>
     </rule>
     <rule ref="HM.Functions.NamespacedFunctions.MissingNamespace">
-        <exclude-pattern>/pressbooks-shibboleth-sso.php</exclude-pattern>
+        <exclude-pattern>/pressbooks-saml-sso.php</exclude-pattern>
     </rule>
     <!-- Disable all rules for these files: -->
     <exclude-pattern>*.blade.php</exclude-pattern>

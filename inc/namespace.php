@@ -1,6 +1,6 @@
 <?php
 
-namespace PressbooksShibbolethSso;
+namespace PressbooksSamlSso;
 
 /**
  * @return \Jenssegers\Blade\Blade
@@ -23,7 +23,7 @@ function login_url() {
 	} else {
 		$login_url = wp_login_url();
 	}
-	$login_url = add_query_arg( 'action', 'pb_shibboleth', $login_url );
+	$login_url = add_query_arg( 'action', SAML::LOGIN_PREFIX, $login_url );
 	$login_url = \Pressbooks\Sanitize\maybe_https( $login_url );
 	return $login_url;
 }
@@ -34,7 +34,7 @@ function login_url() {
  * @return string
  */
 function metadata_url() {
-	return add_query_arg( 'action', 'pb_shibboleth_metadata', login_url() );
+	return add_query_arg( 'action', SAML::LOGIN_PREFIX . '_metadata', login_url() );
 }
 
 /**
@@ -43,7 +43,7 @@ function metadata_url() {
  * @return string
  */
 function acs_url() {
-	return add_query_arg( 'action', 'pb_shibboleth_acs', login_url() );
+	return add_query_arg( 'action', SAML::LOGIN_PREFIX . '_acs', login_url() );
 }
 
 /**
@@ -52,5 +52,5 @@ function acs_url() {
  * @return string
  */
 function sls_url() {
-	return add_query_arg( 'action', 'pb_shibboleth_sls', login_url() );
+	return add_query_arg( 'action', SAML::LOGIN_PREFIX . '_sls', login_url() );
 }

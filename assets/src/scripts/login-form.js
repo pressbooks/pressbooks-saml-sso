@@ -5,9 +5,9 @@
 
 jQuery( document ).ready( function ( $ ) {
 	let body = $( 'body' ),
-		ssoWrap = $( '#pb-shibboleth-wrap' ),
+		ssoWrap = $( '#pb-saml-wrap' ),
 		loginForm = $( '#loginform' ),
-		overflow = $( '<div class="pb-shibboleth-clear"></div>' );
+		overflow = $( '<div class="pb-saml-clear"></div>' );
 
 	loginForm.append( overflow );
 
@@ -20,5 +20,5 @@ jQuery( document ).ready( function ( $ ) {
 	// fixes a tab order issue. Then we override any styles for absolute
 	// positioning of the SSO UI.
 	loginForm.append( ssoWrap );
-	body.addClass( 'pb-shibboleth-repositioned' );
+	body.addClass( 'pb-saml-repositioned' );
 } );

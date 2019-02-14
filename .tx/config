@@ -1,9 +1,9 @@
 [main]
 host = https://www.transifex.com
 
-[pressbooks.pressbooks-shibboleth-sso]
-source_file = languages/pressbooks-shibboleth-sso.pot
+[pressbooks.pressbooks-saml-sso]
+source_file = languages/pressbooks-saml-sso.pot
 source_lang = en
 type = PO
-file_filter = languages/pressbooks-shibboleth-sso-<lang>.po
+file_filter = languages/pressbooks-saml-sso-<lang>.po
 lang_map = de:de_DE, es:es_ES, fr:fr_FR, gl:gl_ES, nb:nb_NO, it:it_IT, ka:ka_GE, ru:ru_RU, ta:ta_LK

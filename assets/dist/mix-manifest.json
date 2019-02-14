@@ -1,6 +1,6 @@
 {
-    "/scripts/pressbooks-shibboleth-sso.js": "/scripts/pressbooks-shibboleth-sso.js?id=0900e28805033cb18e30",
-    "/styles/pressbooks-shibboleth-sso.css": "/styles/pressbooks-shibboleth-sso.css?id=d41d8cd98f00b204e980",
-    "/styles/login-form.css": "/styles/login-form.css?id=affb41e33b579ba54dd1",
-    "/scripts/login-form.js": "/scripts/login-form.js?id=09b903690dc0da6e8d4d"
+    "/scripts/pressbooks-saml-sso.js": "/scripts/pressbooks-saml-sso.js?id=7ab40d512f6f95b5ae56",
+    "/styles/pressbooks-saml-sso.css": "/styles/pressbooks-saml-sso.css?id=d41d8cd98f00b204e980",
+    "/styles/login-form.css": "/styles/login-form.css?id=7b79f708cbd53f9aba57",
+    "/scripts/login-form.js": "/scripts/login-form.js?id=35c7ae6074404790548f"
 }

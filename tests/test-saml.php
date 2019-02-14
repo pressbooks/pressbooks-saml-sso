@@ -3,7 +3,7 @@
 class SamlTest extends \WP_UnitTestCase {
 
 	/**
-	 * @var \PressbooksShibbolethSso\SAML
+	 * @var \PressbooksSamlSso\SAML
 	 */
 	protected $saml;
 
@@ -20,12 +20,12 @@ class SamlTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * @return \PressbooksShibbolethSso\Admin
+	 * @return \PressbooksSamlSso\Admin
 	 */
 	protected function getMockAdmin() {
 
 		$stub1 = $this
-			->getMockBuilder( '\PressbooksShibbolethSso\Admin' )
+			->getMockBuilder( '\PressbooksSamlSso\Admin' )
 			->getMock();
 		$stub1
 			->method( 'getOptions' )
@@ -53,7 +53,7 @@ class SamlTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * @return \PressbooksShibbolethSso\SAML
+	 * @return \PressbooksSamlSso\SAML
 	 */
 	protected function getSaml() {
 
@@ -63,7 +63,7 @@ class SamlTest extends \WP_UnitTestCase {
 		ini_set( 'error_reporting', 0 );
 		ini_set( 'display_errors', 0 );
 
-		$saml = new \PressbooksShibbolethSso\SAML( $this->getMockAdmin() );
+		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdmin() );
 
 		PHPUnit_Framework_Error_Notice::$enabled = true;
 		PHPUnit_Framework_Error_Warning::$enabled = true;
@@ -175,14 +175,14 @@ class SamlTest extends \WP_UnitTestCase {
 
 	public function test_loginEnqueueScripts() {
 		$this->saml->loginEnqueueScripts();
-		$this->assertContains( 'pressbooks-shibboleth-sso', get_echo( 'wp_print_scripts' ) );
+		$this->assertContains( 'pressbooks-saml-sso', get_echo( 'wp_print_scripts' ) );
 	}
 
 	public function test_loginForm() {
 		ob_start();
 		$this->saml->loginForm();
 		$buffer = ob_get_clean();
-		$this->assertContains( '<div id="pb-shibboleth-wrap">', $buffer );
+		$this->assertContains( '<div id="pb-saml-wrap">', $buffer );
 	}
 
 	public function test_handleLoginAttempt_and_matchUser_and_so_on() {
@@ -224,19 +224,19 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->saml->findExistingUser( 'nobody@pressbooks.test' ) );
 
 		// Try to find the user and fail again
-		$_SESSION[ \PressbooksShibbolethSso\SAML::USER_DATA ] = [
+		$_SESSION[ \PressbooksSamlSso\SAML::USER_DATA ] = [
 			'mail' => [ 'one@pressbooks.test', 'two@pressbooks.test' ],
 		];
 		$this->assertFalse( $this->saml->findExistingUser( 'nobody@pressbooks.test' ) );
 
 		// Try to find the user and succeed thanks to fallback eduPersonPrincipalName info in the session
-		$_SESSION[ \PressbooksShibbolethSso\SAML::USER_DATA ] = [
+		$_SESSION[ \PressbooksSamlSso\SAML::USER_DATA ] = [
 			'mail' => [ 'one@pressbooks.test', 'two@pressbooks.test' ],
 			'eduPersonPrincipalName' => [ 'three@pressbooks.test', $email ],
 		];
 		$user = $this->saml->findExistingUser( 'nobody@pressbooks.test' );
 		$this->assertInstanceOf( '\WP_User', $user );
-		unset( $_SESSION[ \PressbooksShibbolethSso\SAML::USER_DATA ] );
+		unset( $_SESSION[ \PressbooksSamlSso\SAML::USER_DATA ] );
 	}
 
 	public function test_handleLoginAttempt_exceptions() {

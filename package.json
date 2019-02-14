@@ -1,5 +1,5 @@
 {
-  "name": "@pressbooks/pressbooks-shibboleth-sso",
+  "name": "@pressbooks/pressbooks-saml-sso",
   "description": "Scaffolding for a Pressbooks plugin.",
   "version": "0.0.5",
   "scripts": {
@@ -21,14 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pressbooks/pressbooks-shibboleth-sso.git"
+    "url": "git+https://github.com/pressbooks/pressbooks-saml-sso.git"
   },
   "author": "Book Oven Inc. <code@pressbooks.com>",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/pressbooks/pressbooks-shibboleth-sso/issues"
+    "url": "https://github.com/pressbooks/pressbooks-saml-sso/issues"
   },
-  "homepage": "https://github.com/pressbooks/pressbooks-shibboleth-sso/",
+  "homepage": "https://github.com/pressbooks/pressbooks-saml-sso/",
   "eslintConfig": {
     "extends": "./node_modules/pressbooks-build-tools/config/eslint.js"
   },

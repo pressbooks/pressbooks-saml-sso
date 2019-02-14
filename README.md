@@ -15,7 +15,7 @@ SAML2 Single Sign-On integration for Pressbooks.
 
 [![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks-saml-sso.svg?style=flat-square)](https://packagist.org/packages/pressbooks/pressbooks-saml-sso) [![GitHub release](https://badgen.net/github/release/pressbooks/pressbooks-saml-sso/stable?style=flat)](https://github.com/pressbooks/pressbooks-saml-sso/releases) [![Travis](https://badgen.net/travis/pressbooks/pressbooks-saml-sso.svg?style=flat)](https://travis-ci.com/pressbooks/pressbooks-saml-sso/) [![Codecov](https://badgen.net/codecov/c/github/pressbooks/pressbooks-saml-sso?style=flat)](https://codecov.io/gh/pressbooks/pressbooks-saml-sso)
 
-Plugin to integrate Pressbooks with a SAML2 single sign-on service. ([Shibboleth](https://www.shibboleth.net/), [Microsoft ADFS](https://support.zendesk.com/hc/en-us/articles/203663886-Setting-up-single-sign-on-using-Active-Directory-with-ADFS-and-SAML-Professional-and-Enterprise-), [Google Apps](https://pantheon.io/docs/wordpress-google-sso/), etc.)
+Plugin to integrate Pressbooks with a SAML2 single sign-on service. ([Shibboleth](https://www.shibboleth.net/), [Microsoft ADFS](https://support.zendesk.com/hc/en-us/articles/203663886-Setting-up-single-sign-on-using-Active-Directory-with-ADFS-and-SAML-Professional-and-Enterprise-), [Google Apps](https://pantheon.io/docs/wordpress-google-sso/), Etc.)
 
 Users who attempt to login to Pressbooks are redirected to a Shibboleth or SAML2 Identity Provider. After the user’s credentials are verified, they are redirected back to the Pressbooks network. If we match a Pressbooks user by UID (stored in user_meta table), the user is recognized as valid and allowed access. If no match, then try to match a Pressbooks user by email (and store a successful match in user_meta table for next time). If the user does not have an account in Pressbooks, a new user can be created, or access can be refused, depending on the configuration.
 
@@ -91,10 +91,10 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 
 ### 1.0.0 
-+ Bump onelogin/php-saml from dev-branch to 3.1.0
++ Renamed & refactored plugin to clarify focus (was pressbooks-shibboleth-sso, is now pressbooks-saml-sso)
 + Fix infinite redirects when using ADFS
++ Bump onelogin/php-saml from dev-master to 3.1.0
 + Fix GitHub Updater
-+ Coding standards, README updates
 
 
 ### 0.0.5 

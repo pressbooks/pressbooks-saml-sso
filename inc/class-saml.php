@@ -220,6 +220,14 @@ class SAML {
 			$config['sp']['privateKey'] = file_get_contents( PHP_SAML_SP_KEY_PATH );
 		}
 
+		// Interoperable SAML 2.0 Web Browser SSO Profile
+		$config['security'] = [
+			'authnRequestsSigned' => false,
+			'wantAssertionsSigned' => true,
+			'wantAssertionsEncrypted' => true,
+			'wantNameIdEncrypted' => false,
+		];
+
 		/**
 		 * @param array $config
 		 *
@@ -248,14 +256,6 @@ class SAML {
 					'friendlyName' => 'mail',
 				],
 			],
-		];
-
-		// Interoperable SAML 2.0 Web Browser SSO Profile
-		$config['security'] = [
-			'authnRequestsSigned' => false,
-			'wantAssertionsSigned' => true,
-			'wantAssertionsEncrypted' => true,
-			'wantNameIdEncrypted' => false,
 		];
 
 		$this->samlSettings = $config;

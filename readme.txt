@@ -77,7 +77,9 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 == Screenshots ==
 
-![Pressbooks SAML Administration.](screenshot-1.png)
+![SAML2 Administration.](screenshot-1.png)
+
+![Metadata XML.](screenshot-2.png)
 
 == Changelog ==
 

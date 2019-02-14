@@ -87,7 +87,7 @@
                 <td>
                     <input name="button_text" id="button_text" type="text" value="{{ $options['button_text'] }}" class="regular-text"/>
                     <p>
-                        <em>{{ __("Change the [ Connect via SAML ] button to something more user-friendly.", 'pressbooks-saml-sso') }}</em>
+                        <em>{{ __("Change the [ Connect via SAML2 ] button to something more user-friendly.", 'pressbooks-saml-sso') }}</em>
                     </p>
                 </td>
             </tr>

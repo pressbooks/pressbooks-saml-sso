@@ -250,15 +250,13 @@ class SAML {
 			],
 		];
 
-		if ( ! empty( $config['sp']['x509cert'] ) ) {
-			// Interoperable SAML 2.0 Web Browser SSO Profile
-			$config['security'] = [
-				'authnRequestsSigned' => false,
-				'wantAssertionsSigned' => true,
-				'wantAssertionsEncrypted' => true,
-				'wantNameIdEncrypted' => false,
-			];
-		}
+		// Interoperable SAML 2.0 Web Browser SSO Profile
+		$config['security'] = [
+			'authnRequestsSigned' => false,
+			'wantAssertionsSigned' => true,
+			'wantAssertionsEncrypted' => true,
+			'wantNameIdEncrypted' => false,
+		];
 
 		$this->samlSettings = $config;
 	}
@@ -538,7 +536,7 @@ class SAML {
 
 		$button_text = $this->options['button_text'];
 		if ( empty( $button_text ) ) {
-			$button_text = __( 'Connect via SAML', 'pressbooks-saml-sso' );
+			$button_text = __( 'Connect via SAML2', 'pressbooks-saml-sso' );
 		}
 
 		$this->trackHomeUrl( true );

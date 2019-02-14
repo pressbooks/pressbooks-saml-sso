@@ -3,7 +3,7 @@
 class SamlTest extends \WP_UnitTestCase {
 
 	/**
-	 * @var \Pressbooks\Shibboleth\SAML
+	 * @var \PressbooksShibbolethSso\SAML
 	 */
 	protected $saml;
 
@@ -20,12 +20,12 @@ class SamlTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * @return \Pressbooks\Shibboleth\Admin
+	 * @return \PressbooksShibbolethSso\Admin
 	 */
 	protected function getMockAdmin() {
 
 		$stub1 = $this
-			->getMockBuilder( '\Pressbooks\Shibboleth\Admin' )
+			->getMockBuilder( '\PressbooksShibbolethSso\Admin' )
 			->getMock();
 		$stub1
 			->method( 'getOptions' )
@@ -53,7 +53,7 @@ class SamlTest extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * @return \Pressbooks\Shibboleth\SAML
+	 * @return \PressbooksShibbolethSso\SAML
 	 */
 	protected function getSaml() {
 
@@ -63,7 +63,7 @@ class SamlTest extends \WP_UnitTestCase {
 		ini_set( 'error_reporting', 0 );
 		ini_set( 'display_errors', 0 );
 
-		$saml = new \Pressbooks\Shibboleth\SAML( $this->getMockAdmin() );
+		$saml = new \PressbooksShibbolethSso\SAML( $this->getMockAdmin() );
 
 		PHPUnit_Framework_Error_Notice::$enabled = true;
 		PHPUnit_Framework_Error_Warning::$enabled = true;
@@ -224,19 +224,19 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->saml->findExistingUser( 'nobody@pressbooks.test' ) );
 
 		// Try to find the user and fail again
-		$_SESSION[ \Pressbooks\Shibboleth\SAML::USER_DATA ] = [
+		$_SESSION[ \PressbooksShibbolethSso\SAML::USER_DATA ] = [
 			'mail' => [ 'one@pressbooks.test', 'two@pressbooks.test' ],
 		];
 		$this->assertFalse( $this->saml->findExistingUser( 'nobody@pressbooks.test' ) );
 
 		// Try to find the user and succeed thanks to fallback eduPersonPrincipalName info in the session
-		$_SESSION[ \Pressbooks\Shibboleth\SAML::USER_DATA ] = [
+		$_SESSION[ \PressbooksShibbolethSso\SAML::USER_DATA ] = [
 			'mail' => [ 'one@pressbooks.test', 'two@pressbooks.test' ],
 			'eduPersonPrincipalName' => [ 'three@pressbooks.test', $email ],
 		];
 		$user = $this->saml->findExistingUser( 'nobody@pressbooks.test' );
 		$this->assertInstanceOf( '\WP_User', $user );
-		unset( $_SESSION[ \Pressbooks\Shibboleth\SAML::USER_DATA ] );
+		unset( $_SESSION[ \PressbooksShibbolethSso\SAML::USER_DATA ] );
 	}
 
 	public function test_handleLoginAttempt_exceptions() {

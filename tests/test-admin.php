@@ -3,7 +3,7 @@
 class AdminTest extends \WP_UnitTestCase {
 
 	/**
-	 * @var \Pressbooks\Shibboleth\Admin
+	 * @var \PressbooksShibbolethSso\Admin
 	 */
 	protected $admin;
 
@@ -38,7 +38,7 @@ class AdminTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->admin = new \Pressbooks\Shibboleth\Admin();
+		$this->admin = new \PressbooksShibbolethSso\Admin();
 	}
 
 	public function tearDown() {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pressbooks\Shibboleth;
+namespace PressbooksShibbolethSso;
 
 use PressbooksMix\Assets;
 
@@ -80,7 +80,7 @@ class Admin {
 		$html = blade()->render(
 			'admin', [
 				'form_url' => network_admin_url( '/admin.php?page=pb_shibboleth_admin' ),
-				'metadata_url' => \Pressbooks\Shibboleth\metadata_url(),
+				'metadata_url' => \PressbooksShibbolethSso\metadata_url(),
 				'options' => $this->getOptions(),
 			]
 		);

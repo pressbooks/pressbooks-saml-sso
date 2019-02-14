@@ -1,6 +1,6 @@
 <?php
 
-namespace Pressbooks\Shibboleth;
+namespace PressbooksShibbolethSso;
 
 use function Pressbooks\Utility\empty_space;
 use function Pressbooks\Utility\str_remove_prefix;
@@ -106,7 +106,7 @@ class SAML {
 	public function __construct( Admin $admin ) {
 		$options = $admin->getOptions();
 
-		$this->loginUrl = \Pressbooks\Shibboleth\login_url();
+		$this->loginUrl = \PressbooksShibbolethSso\login_url();
 		$this->currentUserId = get_current_user_id();
 		$this->provision = $options['provision'];
 		$this->bypass = (bool) $options['bypass'];
@@ -223,8 +223,8 @@ class SAML {
 
 		// This comes after the filter because we don't want others breaking our SP config
 		$config['sp']['entityId'] = network_site_url( '/shibboleth', 'https' ); // Doesn't need to resolve
-		$config['sp']['assertionConsumerService']['url'] = \Pressbooks\Shibboleth\acs_url();
-		$config['sp']['singleLogoutService']['url'] = \Pressbooks\Shibboleth\sls_url();
+		$config['sp']['assertionConsumerService']['url'] = \PressbooksShibbolethSso\acs_url();
+		$config['sp']['singleLogoutService']['url'] = \PressbooksShibbolethSso\sls_url();
 
 		$config['sp']['attributeConsumingService'] = [
 			'serviceName' => 'Pressbooks',

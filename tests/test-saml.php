@@ -2,6 +2,10 @@
 
 class SamlTest extends \WP_UnitTestCase {
 
+	// ------------------------------------------------------------------------
+	// Setup
+	// ------------------------------------------------------------------------
+
 	/**
 	 * @var \PressbooksSamlSso\SAML
 	 */
@@ -34,22 +38,68 @@ class SamlTest extends \WP_UnitTestCase {
 		return $stub1;
 	}
 
-	/**
-	 * @return \OneLogin\Saml2\Auth
-	 */
 	protected function getMockAuth() {
-
 		$stub1 = $this
 			->getMockBuilder( '\OneLogin\Saml2\Auth' )
 			->disableOriginalConstructor()
 			->getMock();
+		$stub1
+			->method( 'redirectTo' )
+			->willReturn( null );
 
+		return $stub1;
+	}
+
+	/**
+	 * @return \OneLogin\Saml2\Auth
+	 */
+	protected function getMockAuthForLogin() {
+		$stub1 = $this->getMockAuth();
 		$stub1
 			->method( 'login' )
 			->willThrowException( new \LogicException( 'Mock object was here' ) );
 
 		return $stub1;
 
+	}
+
+	/**
+	 * @return \OneLogin\Saml2\Auth
+	 */
+	protected function getMockAuthForAcs() {
+		$stub1 = $this->getMockAuth();
+		$stub1
+			->method( 'processResponse' )
+			->willReturn( null );
+		$stub1
+			->method( 'isAuthenticated' )
+			->willReturn( true );
+		$stub1
+			->method( 'getAttributesWithFriendlyName' )
+			->willReturn(
+				[
+					'uid' => [ 'uid' ],
+					'mail' => [ 'uid@pressbooks.test' ],
+				]
+			);
+
+		return $stub1;
+	}
+
+	/**
+	 * @return \OneLogin\Saml2\Auth
+	 */
+	protected function getMockAuthForAttributes() {
+		$stub1 = $this->getMockAuth();
+		$stub1
+			->method( 'getAttributes' )
+			->willReturn(
+				[
+					'uid' => [ 'adfs' ],
+					'mail' => [ 'adfs@pressbooks.test' ],
+				]
+			);
+		return $stub1;
 	}
 
 	/**
@@ -75,8 +125,13 @@ class SamlTest extends \WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
+		unset( $_SESSION );
 		$this->saml = $this->getSaml();
 	}
+
+	// ------------------------------------------------------------------------
+	// Tests
+	// ------------------------------------------------------------------------
 
 	public function test_verifyPluginSetup() {
 		$this->assertFalse( $this->saml->verifyPluginSetup( [] ) );
@@ -153,7 +208,7 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertNull( $result );
 
 		$_REQUEST['action'] = 'pb_shibboleth';
-		$this->saml->setAuth( $this->getMockAuth() );
+		$this->saml->setAuth( $this->getMockAuthForLogin() );
 		$result = $this->saml->authenticate( null, 'test', 'test' );
 		$this->assertTrue( $result instanceof \WP_Error );
 		$this->assertEquals( $result->get_error_message(), 'Mock object was here' );
@@ -168,8 +223,35 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertContains( 'SingleLogoutService', $buffer );
 	}
 
+	public function test_samlAssertionConsumerService() {
+		try {
+			$_POST['SAMLResponse'] = '<garbage>';
+			$this->saml->samlAssertionConsumerService();
+		} catch ( Exception $e ) {
+			$this->assertContains( 'SAML Response could not be processed', $e->getMessage() );
+		}
+
+		unset( $_POST['SAMLResponse'] );
+		$this->saml->setAuth( $this->getMockAuthForAcs() );
+		$this->saml->samlAssertionConsumerService();
+		$this->assertEquals( $_SESSION['pb_saml_user_data']['uid'][0], 'uid' );
+		$this->assertEquals( $_SESSION['pb_saml_user_data']['mail'][0], 'uid@pressbooks.test' );
+	}
+
+	public function test_parseAttributeStatement() {
+		try {
+			$this->saml->parseAttributeStatement();
+		} catch ( Exception $e ) {
+			$this->assertContains( 'Missing SAML attributes', $e->getMessage() );
+		}
+
+		$this->saml->setAuth( $this->getMockAuthForAttributes() );
+		$attr = $this->saml->parseAttributeStatement();
+		$this->assertEquals( $attr['uid'][0], 'adfs' );
+		$this->assertEquals( $attr['mail'][0], 'adfs@pressbooks.test' );
+	}
+
 	// TODO
-	// test_samlAssertionConsumerService
 	// test_samlSingleLogoutService
 	// test_logoutRedirect
 

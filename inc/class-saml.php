@@ -20,10 +20,10 @@ class SAML {
 
 	const AUTH_N_REQUEST_ID = 'pb_saml_auth_n_request_id';
 
-	// IMPORTANT: Do not rename to `pb_saml` to be compatible with existing integrations
+	// IMPORTANT: Do not rename to `pb_saml` - kept like this to be compatible with legacy integrations
 	const LOGIN_PREFIX = 'pb_shibboleth';
 
-	// IMPORTANT: Do not rename to `/saml` to be compatible with existing integrations
+	// IMPORTANT: Do not rename to `/saml` - kept like this to be compatible with legacy integrations
 	const ENTITY_ID = '/shibboleth';
 
 	/**
@@ -423,13 +423,7 @@ class SAML {
 			throw new \Exception( sprintf( __( 'Not authenticated. Reason: %s', 'pressbooks-saml-sso' ), $this->auth->getLastErrorReason() ) );
 		}
 		// Attributes
-		$attributes = $this->auth->getAttributesWithFriendlyName();
-		if ( ! isset( $attributes['uid'] ) ) {
-			$attributes = $this->auth->getAttributes();
-			if ( ! isset( $attributes['uid'] ) ) {
-				throw new \Exception( __( 'Missing SAML attributes: uid, mail', 'pressbooks-saml-sso' ) );
-			}
-		}
+		$attributes = $this->parseAttributeStatement();
 
 		// If we made it to here, then no exceptions were thrown, and everything is fine.
 		// Now that the user has a session the SP allows the request to proceed.
@@ -443,6 +437,21 @@ class SAML {
 		}
 	}
 
+	/**
+	 * @return array
+	 * @throws \Exception
+	 */
+	public function parseAttributeStatement() {
+		// Attributes
+		$attributes = $this->auth->getAttributesWithFriendlyName();
+		if ( ! isset( $attributes['uid'] ) ) {
+			$attributes = $this->auth->getAttributes();
+			if ( ! isset( $attributes['uid'] ) ) {
+				throw new \Exception( __( 'Missing SAML attributes: uid, mail', 'pressbooks-saml-sso' ) );
+			}
+		}
+		return $attributes;
+	}
 
 	/**
 	 * @throws \Exception

@@ -1,8 +1,8 @@
 === Pressbooks SAML2 Single Sign-On ===
 Contributors: conner_bw, greatislander
 Tags: pressbooks, saml, saml2, sso, shibboleth
-Requires at least: 5.0.3
-Tested up to: 5.0.3
+Requires at least: 5.1.0
+Tested up to: 5.1.0
 Requires PHP: 7.1
 Stable tag: 1.0.0
 License: GPLv3 or later
@@ -84,10 +84,11 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 == Changelog ==
 
 = 1.0.0 =
-+ Renamed & refactored plugin to clarify focus (was pressbooks-shibboleth-sso, is now pressbooks-saml-sso)
-+ Fix infinite redirects when using ADFS
-+ Bump onelogin/php-saml from dev-master to 3.1.0
-+ Fix GitHub Updater
++ Rename plugin
++ Works with non-federated Shibboleth, Microsoft ADFS, and Google Apps.
++ Refactor code to respect Pressbooks coding standards 1.0.0
++ Fix an issue with GitHub updater not always working
++ Update dependencies to latest versions
 
 = 0.0.5 =
 **Patches**
@@ -112,4 +113,4 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 == Upgrade Notice ==
 
 = 1.0.0 =
-* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.6.5 and WordPress >= 5.0.3
+* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.7.0 and WordPress >= 5.1.0

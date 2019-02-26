@@ -6,7 +6,7 @@ Description: SAML2 Single Sign-On integration for Pressbooks. (Shibboleth, Micro
 Version: 1.0.0
 Author: Pressbooks (Book Oven Inc.)
 Author URI: https://pressbooks.org
-Pressbooks tested up to: 5.6.5
+Pressbooks tested up to: 5.7.0
 Text Domain: pressbooks-saml-sso
 License: GPL v3 or later
 Network: True

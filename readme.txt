@@ -86,6 +86,7 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 = 1.0.0 =
 + Rename plugin
 + Works with non-federated Shibboleth, Microsoft ADFS, and Google Apps.
++ Add localization support
 + Refactor code to respect Pressbooks coding standards 1.0.0
 + Fix an issue with GitHub updater not always working
 + Update dependencies to latest versions

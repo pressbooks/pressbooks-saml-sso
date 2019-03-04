@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f337ce9ae22d04a8ff041477fc5b093",
+    "content-hash": "97bef56f258879e5a7c32b839b707492",
     "packages": [
         {
             "name": "composer/installers",
@@ -216,16 +216,16 @@
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
-            "version": "v4.5",
+            "version": "v4.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
-                "reference": "d98d6bc6caac4b46b61186447a947323a466a021"
+                "reference": "57a25d905a9a4db2fdb60bc8f0b0f861cc3ee110"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/d98d6bc6caac4b46b61186447a947323a466a021",
-                "reference": "d98d6bc6caac4b46b61186447a947323a466a021",
+                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/57a25d905a9a4db2fdb60bc8f0b0f861cc3ee110",
+                "reference": "57a25d905a9a4db2fdb60bc8f0b0f861cc3ee110",
                 "shasum": ""
             },
             "require": {
@@ -257,7 +257,7 @@
                 "theme updates",
                 "wordpress"
             ],
-            "time": "2018-12-30T10:38:32+00:00"
+            "time": "2019-01-04T17:13:39+00:00"
         }
     ],
     "packages-dev": [
@@ -1143,6 +1143,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2018-07-13T03:27:23+00:00"
         },
         {

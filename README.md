@@ -127,4 +127,4 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 
 ### 1.0.0 
-* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.7.0 and WordPress >= 5.1.0
+* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.7.0

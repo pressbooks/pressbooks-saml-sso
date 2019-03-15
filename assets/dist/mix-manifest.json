@@ -1,6 +1,6 @@
 {
-    "/scripts/pressbooks-saml-sso.js": "/scripts/pressbooks-saml-sso.js?id=7ab40d512f6f95b5ae56",
+    "/scripts/login-form.js": "/scripts/login-form.js?id=6f1627245bafa0e8c2da",
+    "/scripts/pressbooks-saml-sso.js": "/scripts/pressbooks-saml-sso.js?id=a41d1512f4eba56b8ab7",
     "/styles/pressbooks-saml-sso.css": "/styles/pressbooks-saml-sso.css?id=d41d8cd98f00b204e980",
-    "/styles/login-form.css": "/styles/login-form.css?id=7b79f708cbd53f9aba57",
-    "/scripts/login-form.js": "/scripts/login-form.js?id=35c7ae6074404790548f"
+    "/styles/login-form.css": "/styles/login-form.css?id=617695fa8eee699936d9"
 }

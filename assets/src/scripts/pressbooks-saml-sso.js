@@ -1,16 +1,21 @@
 jQuery( function ( $ ) {
-	let idp_metadata_url = $( '#idp_metadata_url' );
-	idp_metadata_url.on( 'input', function () {
-		if ( ! this.value.trim() ) {
-			// is empty or whitespace
-			$( '#manual-configuration :input' ).attr( 'disabled', false );
-		} else {
-			$( '#manual-configuration :input' ).attr( 'disabled', 'disabled' );
-		}
+	let idpMetadataUrl = $( '#idp_metadata_url' );
+	idpMetadataUrl.on( 'input', function () {
+		let matches = document.querySelectorAll( '#manual-configuration input, textarea' );
+		matches.forEach( element => {
+			if ( ! this.value.trim() ) {
+				// is empty or whitespace
+				element.removeAttribute( 'disabled' );
+			} else {
+				element.setAttribute( 'disabled', 'disabled' );
+			}
+		} );
 	} );
+	// A jQuery object is an array-like wrapper around one or more DOM elements. To get a reference to the actual DOM elements (instead of the jQuery object) use array notation
+	let buttonText = $( '#button_text' );
 	let checkbox = $( '#forced_redirection' );
-	$( '#button_text' ).prop( 'disabled', checkbox.is( ':checked' ) );
+	checkbox[0].checked ? buttonText[0].setAttribute( 'disabled', 'disabled' ) : buttonText[0].removeAttribute( 'disabled' );
 	checkbox.on( 'change', function () {
-		$( '#button_text' ).prop( 'disabled', $( this ).is( ':checked' ) )
+		this.checked ? buttonText[0].setAttribute( 'disabled', 'disabled' ) : buttonText[0].removeAttribute( 'disabled' );
 	} );
 } );

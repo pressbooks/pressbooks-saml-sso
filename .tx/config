@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[pressbooks.pressbooks-saml-sso]
+[pressbooks-saml-sso.pressbooks-saml-sso]
 source_file = languages/pressbooks-saml-sso.pot
 source_lang = en
 type = PO

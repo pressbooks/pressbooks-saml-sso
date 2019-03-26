@@ -1,8 +1,8 @@
 === Pressbooks SAML2 Single Sign-On ===
 Contributors: conner_bw, greatislander
 Tags: pressbooks, saml, saml2, sso, shibboleth
-Requires at least: 5.1.0
-Tested up to: 5.1.0
+Requires at least: 5.1.1
+Tested up to: 5.1.1
 Requires PHP: 7.1
 Stable tag: 1.0.0
 License: GPLv3 or later

@@ -69,6 +69,16 @@ The plugin requires the Assertion elements of the Response to be encrypted.
 
 The plugin requires the Assertion elements of the Response to be signed.
 
+These settings can be changed using a filter, example:
+
+```php
+add_filter( 'pb_saml_auth_settings', function( $config ) {
+	$config['security']['wantAssertionsEncrypted'] = false;
+	$config['security']['wantAssertionsSigned'] = false;
+	return $config		
+} ); 
+```
+
 The plugin looks for the following Attributes in the Response: (For compatibility with a broader range of IdPs we use the FriendlyName parameter.)
 
 + Requires: `uid` (urn:oid:0.9.2342.19200300.100.1.1, samAccountName, or equivalent)

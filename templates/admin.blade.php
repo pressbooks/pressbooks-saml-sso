@@ -5,7 +5,7 @@
     <form method="POST" action="{{ $form_url }}" method="post">
         {!! wp_nonce_field( 'pb-saml-sso' ) !!}
         <h2>{{ __('Automatic Configuration', 'pressbooks-saml-sso') }}</h2>
-        <table class="form-table" id="automatic-configuration">
+        <table class="form-table" role="none" id="automatic-configuration">
             <tr>
                 <th><label for="idp_metadata_url">IdP metadata URL</label></th>
                 <td>
@@ -17,7 +17,7 @@
             </tr>
         </table>
         <h2>{{ __('Manual Configuration', 'pressbooks-saml-sso') }}</h2>
-        <table class="form-table" id="manual-configuration">
+        <table class="form-table" role="none" id="manual-configuration">
             <tr>
                 <th><label for="idp_entity_id">EntityID</label></th>
                 <td>

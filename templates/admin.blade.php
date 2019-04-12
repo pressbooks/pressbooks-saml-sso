@@ -55,7 +55,7 @@
                 </td>
             </tr>
         </table>
-        <table class="form-table">
+        <table class="form-table" role="none">
             <tr>
                 <th><label for="provision">{{ __('If the user does not have a Pressbooks account', 'pressbooks-saml-sso') }}</label></th>
                 <td><select name="provision" id="provision">
@@ -66,7 +66,7 @@
             </tr>
         </table>
         <h2>{{ __('Optional Information', 'pressbooks-saml-sso') }}</h2>
-        <table class="form-table">
+        <table class="form-table" role="none">
             <tr>
                 <th>{{ __(' Bypass', 'pressbooks-saml-sso') }}</th>
                 <td><label><input name="bypass" id="bypass" type="checkbox"

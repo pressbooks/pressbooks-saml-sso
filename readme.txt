@@ -4,7 +4,7 @@ Tags: pressbooks, saml, saml2, sso, shibboleth
 Requires at least: 5.1.1
 Tested up to: 5.1.1
 Requires PHP: 7.1
-Stable tag: 1.0.1
+Stable tag: 1.1.0-dev
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 

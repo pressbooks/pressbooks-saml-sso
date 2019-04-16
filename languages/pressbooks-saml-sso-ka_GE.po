@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Pressbooks SAML2 Single Sign-On plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.0.0\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.0.1\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
-"POT-Creation-Date: 2019-03-22T14:44:02+00:00\n"
+"POT-Creation-Date: 2019-04-16T11:13:55+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Language-Team: Georgian (https://www.transifex.com/pressbooks/teams/9194/ka/)\n"
 "MIME-Version: 1.0\n"
@@ -34,11 +34,11 @@ msgstr ""
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr ""
 
-#: inc/class-admin.php:61 inc/class-admin.php:62
+#: inc/class-admin.php:63 inc/class-admin.php:64
 msgid "SAML2"
 msgstr ""
 
-#: inc/class-admin.php:148
+#: inc/class-admin.php:150
 msgid "Failed to get IdP Metadata from URL."
 msgstr ""
 

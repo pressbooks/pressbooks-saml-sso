@@ -4,7 +4,7 @@
 **Requires at least:** 5.1.1  
 **Tested up to:** 5.1.1  
 **Requires PHP:** 7.1  
-**Stable tag:** 1.1.0-dev  
+**Stable tag:** 1.0.1  
 **License:** GPLv3 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html  
 
@@ -69,16 +69,6 @@ The plugin requires the Assertion elements of the Response to be encrypted.
 
 The plugin requires the Assertion elements of the Response to be signed.
 
-These settings can be changed using a filter, example:
-
-```php
-add_filter( 'pb_saml_auth_settings', function( $config ) {
-	$config['security']['wantAssertionsEncrypted'] = false;
-	$config['security']['wantAssertionsSigned'] = false;
-	return $config		
-} ); 
-```
-
 The plugin looks for the following Attributes in the Response: (For compatibility with a broader range of IdPs we use the FriendlyName parameter.)
 
 + Requires: `uid` (urn:oid:0.9.2342.19200300.100.1.1, samAccountName, or equivalent)
@@ -98,6 +88,10 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 
 ## Changelog 
+
+### 1.0.1 
++ Fix translations not loading
++ Add ARIA role="none" to presentation tables
 
 
 ### 1.0.0 
@@ -137,5 +131,5 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 ## Upgrade Notice 
 
 
-### 1.0.0 
-* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.7.0
+### 1.0.1 
+* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.7.1

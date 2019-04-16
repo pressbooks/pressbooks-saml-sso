@@ -4,7 +4,7 @@ Tags: pressbooks, saml, saml2, sso, shibboleth
 Requires at least: 5.1.1
 Tested up to: 5.1.1
 Requires PHP: 7.1
-Stable tag: 1.1.0-dev
+Stable tag: 1.0.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,9 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 ![Metadata XML.](screenshot-2.png)
 
 == Changelog ==
+= 1.0.1 =
++ Fix translations not loading
++ Add ARIA role="none" to presentation tables
 
 = 1.0.0 =
 + Rename plugin
@@ -113,5 +116,5 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.7.0
+= 1.0.1 =
+* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.7.1

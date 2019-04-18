@@ -21,7 +21,8 @@ function login_url() {
 	if ( is_subdomain_install() ) {
 		$login_url = network_site_url( '/wp-login.php' );
 	} else {
-		$login_url = wp_login_url();
+		$login_url = get_site_url( 1, 'wp-login.php', 'login' );
+		$login_url = apply_filters( 'login_url', $login_url, '', false );
 	}
 	$login_url = add_query_arg( 'action', SAML::LOGIN_PREFIX, $login_url );
 	$login_url = \Pressbooks\Sanitize\maybe_https( $login_url );

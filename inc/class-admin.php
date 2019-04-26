@@ -74,10 +74,10 @@ class Admin {
 	public function printMenu() {
 		try {
 			if ( $this->saveOptions() ) {
-				echo '<div id="message" class="updated notice is-dismissible"><p>' . __( 'Settings saved.' ) . '</p></div>';
+				echo '<div id="message" role="status" class="updated notice is-dismissible"><p>' . __( 'Settings saved.' ) . '</p></div>';
 			}
 		} catch ( \Exception $e ) {
-			echo '<div id="message" class="error notice is-dismissible"><p>' . $e->getMessage() . '</p></div>';
+			echo '<div id="message" role="alert" class="error notice is-dismissible"><p>' . $e->getMessage() . '</p></div>';
 		}
 
 		$html = blade()->render(

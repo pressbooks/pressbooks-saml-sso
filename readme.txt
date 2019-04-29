@@ -4,7 +4,7 @@ Tags: pressbooks, saml, saml2, sso, shibboleth
 Requires at least: 5.1.1
 Tested up to: 5.1.1
 Requires PHP: 7.1
-Stable tag: 1.1.0-dev
+Stable tag: 1.0.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,39 +82,12 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 ![Metadata XML.](screenshot-2.png)
 
 == Changelog ==
-= 1.0.1 =
-+ Fix translations not loading
-+ Add ARIA role="none" to presentation tables
+= 1.0.2 =
 
-= 1.0.0 =
-+ Rename plugin
-+ Works with non-federated Shibboleth, Microsoft ADFS, and Google Apps
-+ Add localization support
-+ Refactor code to respect Pressbooks coding standards 1.0.0
-+ Fix an issue with GitHub updater not always working
-+ Update dependencies to latest versions
-
-= 0.0.5 =
-**Patches**
-* [Security] Bump robrichards/xmlseclibs from 3.0.1 to 3.0.2: [#8](https://github.com/pressbooks/pressbooks-saml-sso/pull/8)
-
-= 0.0.4 =
- * New `pb_integrations_multidomain_email` filter
- * Associate existing users with either mail or eduPersonPrincipalName
-
-= 0.0.3 =
-* Use certificate to set Valid Until
-* Interoperable SAML 2.0 Web Browser SSO Profile
-* Improve error message when login fails
-
-= 0.0.2 =
-* Add feature to auto-config from IdP metadata
-* Remove ampersand character from SP entityID
-
-= 0.0.1 =
-* Initial Release
+* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.0.2
+* Full release history available at: https://github.com/pressbooks/pressbooks-saml-sso/releases
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.7.1
+= 1.0.2 =
+* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.7.2

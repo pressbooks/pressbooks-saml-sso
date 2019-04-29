@@ -139,7 +139,7 @@ class SAML {
 			if ( 'pb_saml_admin' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
 				add_action(
 					'network_admin_notices', function () {
-						echo '<div id="message" class="error fade"><p>' . __( 'The Pressbooks SAML Plugin is not configured correctly.', 'pressbooks-saml-sso' ) . '</p></div>';
+						echo '<div id="message" role="alert" class="error fade"><p>' . __( 'The Pressbooks SAML Plugin is not configured correctly.', 'pressbooks-saml-sso' ) . '</p></div>';
 					}
 				);
 			}
@@ -150,7 +150,7 @@ class SAML {
 			} catch ( \Exception $e ) {
 				add_action(
 					'network_admin_notices', function () use ( $e ) {
-						echo '<div id="message" class="error fade"><p>' . __( 'The Pressbooks SAML Plugin failed to initialize. Error: ', 'pressbooks-saml-sso' ) . $e->getMessage() . '</p></div>';
+						echo '<div id="message" role="alert" class="error fade"><p>' . __( 'The Pressbooks SAML Plugin failed to initialize. Error: ', 'pressbooks-saml-sso' ) . $e->getMessage() . '</p></div>';
 					}
 				);
 			}

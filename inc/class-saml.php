@@ -577,7 +577,7 @@ class SAML {
 	public function handleLoginAttempt( $net_id, $email ) {
 
 		// Keep $_SESSION alive, Saml put info in it
-		remove_action( 'wp_login', '_pb_session_kill' );
+		remove_action( 'wp_login', '\Pressbooks\session_kill' );
 
 		// Try to find a matching WordPress user for the now-authenticated user's Saml identity
 		$user = $this->matchUser( $net_id );

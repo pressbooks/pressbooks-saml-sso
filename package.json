@@ -1,7 +1,6 @@
 {
   "name": "@pressbooks/pressbooks-saml-sso",
   "description": "Scaffolding for a Pressbooks plugin.",
-  "version": "0.0.5",
   "scripts": {
     "build": "cross-env NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",

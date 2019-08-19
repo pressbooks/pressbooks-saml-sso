@@ -323,11 +323,12 @@ class SamlTest extends \WP_UnitTestCase {
 
 	public function test_handleLoginAttempt_exceptions() {
 		try {
-			$this->saml->handleLoginAttempt( '1', '1' );
+			$bad_net_id = '111111111111111111111111111111111111111111111111111111111111'; // 61 characters
+			$bad_email = '1';
+			$this->saml->handleLoginAttempt( $bad_net_id, $bad_email );
 		} catch ( \Exception $e ) {
 			$this->assertContains( 'Please enter a valid email address', $e->getMessage() );
-			$this->assertContains( 'Username must be at least 4 characters', $e->getMessage() );
-			$this->assertContains( 'usernames must have letters too', $e->getMessage() );
+			$this->assertContains( 'Username may not be longer than 60 characters', $e->getMessage() );
 			return;
 		}
 		$this->fail();
@@ -363,6 +364,17 @@ class SamlTest extends \WP_UnitTestCase {
 	public function test_getAdminEmail() {
 		$email = $this->saml->getAdminEmail();
 		$this->assertContains( '@', $email );
+	}
+
+	public function test_sanitizeUser() {
+		$this->assertEquals( 'test', $this->saml->sanitizeUser( 'test' ) );
+		$this->assertEquals( 'test', $this->saml->sanitizeUser( '(:test:)' ) );
+		$this->assertEquals( 'tst1', $this->saml->sanitizeUser( 'tst' ) );
+		$this->assertEquals( 'tst1', $this->saml->sanitizeUser( '(:tst:)' ) );
+		$this->assertEquals( 'yo11', $this->saml->sanitizeUser( 'yo' ) );
+		$this->assertEquals( 'yo11', $this->saml->sanitizeUser( '(:yo:)' ) );
+		$this->assertEquals( '1111a', $this->saml->sanitizeUser( '1111' ) );
+		$this->assertEquals( '1a11', $this->saml->sanitizeUser( '1' ) );
 	}
 
 }

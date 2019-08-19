@@ -2,17 +2,17 @@
 # This file is distributed under the same license as the Pressbooks SAML2 Single Sign-On plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.0.1\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.0.4\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
-"POT-Creation-Date: 2019-04-16T11:13:55+00:00\n"
-"PO-Revision-Date: 2019-04-16T11:13:55+00:00\n"
+"POT-Creation-Date: 2019-08-19T21:53:39+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Domain: pressbooks-saml-sso\n"
-"X-Generator: WP-CLI 2.0.1\n"
+"X-Generator: WP-CLI 2.2.0\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks SAML2 Single Sign-On"
@@ -91,7 +91,7 @@ msgstr "Or"
 msgid "Logged in!"
 msgstr "Logged in!"
 
-#: inc/class-saml.php:753
+#: inc/class-saml.php:757
 msgid "Registered and logged in!"
 msgstr "Registered and logged in!"
 

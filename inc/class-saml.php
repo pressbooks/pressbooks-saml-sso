@@ -716,6 +716,10 @@ class SAML {
 		$unique_username = sanitize_user( $username, true );
 		$unique_username = strtolower( $unique_username );
 		$unique_username = preg_replace( '/[^a-z0-9]/', '', $unique_username );
+		if ( preg_match( '/^[0-9]*$/', $unique_username ) ) {
+			$unique_username .= 'a'; // usernames must have letters too
+		}
+		$unique_username = str_pad( $unique_username, 4, '1' );
 		return $unique_username;
 	}
 

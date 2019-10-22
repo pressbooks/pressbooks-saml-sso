@@ -312,7 +312,7 @@ class SAML {
 			$this->doExit();
 		} elseif ( $this->samlClientIsReady && $use_saml ) {
 			try {
-				$this->trackHomeUrl();
+				$this->trackRedirectUrl();
 				ob_start();
 				switch ( $saml_action ) {
 					case 'acs':
@@ -429,7 +429,7 @@ class SAML {
 		// Now that the user has a session the SP allows the request to proceed.
 
 		$_SESSION[ self::USER_DATA ] = $attributes;
-		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL );
+		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL ); // TODO
 		if ( $redirect_to && \OneLogin\Saml2\Utils::getSelfURL() !== $redirect_to ) {
 			$this->auth->redirectTo( $redirect_to );
 		} else {
@@ -548,7 +548,7 @@ class SAML {
 			$button_text = __( 'Connect via SAML2', 'pressbooks-saml-sso' );
 		}
 
-		$this->trackHomeUrl( true );
+		$this->trackRedirectUrl( true );
 
 		?>
 		<div id="pb-saml-wrap">
@@ -798,15 +798,24 @@ class SAML {
 	}
 
 	/**
-	 * Default behaviour: User is always redirected to the page they signed in from (network homepage or book homepage).
-	 * To accomplish this we track home_url() in $_SESSION
+	 * Look for `?redirect_to=` parameter, if yes and it passes `wp_validate_redirect()` rules, use it.
+	 * Else, user is always redirected to the page they signed in from (network homepage or book homepage).
+	 * To accomplish this we track $sign_in_page in $_SESSION
 	 * Dev should unset() on success.
 	 *
 	 * @param bool $overwrite
 	 */
-	public function trackHomeUrl( $overwrite = false ) {
+	public function trackRedirectUrl( $overwrite = false ) {
 		if ( empty( $_SESSION[ self::SIGN_IN_PAGE ] ) || $overwrite ) {
-			$_SESSION[ self::SIGN_IN_PAGE ] = home_url();
+			$home_url = home_url();
+			$redirect_to = $_REQUEST['redirect_to'] ?? '';
+			if ( $redirect_to ) {
+				$sign_in_page = wp_sanitize_redirect( $redirect_to );
+				$sign_in_page = wp_validate_redirect( $sign_in_page, $home_url );
+			} else {
+				$sign_in_page = $home_url;
+			}
+			$_SESSION[ self::SIGN_IN_PAGE ] = $sign_in_page;
 		}
 	}
 

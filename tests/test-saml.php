@@ -347,10 +347,24 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertTrue( in_array( 'My second message', $_SESSION['pb_notices'] ) );
 	}
 
-	public function test_trackHomeUrl() {
+	public function test_trackRedirectUrl() {
+		$home_url = home_url();
 		unset( $_SESSION[ $this->saml::SIGN_IN_PAGE ] );
-		$this->saml->trackHomeUrl();
-		$this->assertNotEmpty( $_SESSION[ $this->saml::SIGN_IN_PAGE ] );
+		$this->saml->trackRedirectUrl(); // Initial default
+		$this->assertEquals( $home_url, $_SESSION[ $this->saml::SIGN_IN_PAGE ] );
+
+		$redirect_to = home_url( '/some/path' );
+		$_REQUEST['redirect_to'] = $redirect_to;
+		$this->saml->trackRedirectUrl(); // No reset
+		$this->assertNotEquals( $redirect_to, $_SESSION[ $this->saml::SIGN_IN_PAGE ] );
+
+		$this->saml->trackRedirectUrl( true ); // Yes reset
+		$this->assertEquals( $redirect_to, $_SESSION[ $this->saml::SIGN_IN_PAGE ] );
+
+		$redirect_to = 'https://google.com';
+		$_REQUEST['redirect_to'] = $redirect_to;
+		$this->saml->trackRedirectUrl( true ); // Yes reset, invalid redirect URL
+		$this->assertEquals( $home_url, $_SESSION[ $this->saml::SIGN_IN_PAGE ] );
 	}
 
 	public function test_authenticationFailedMessage() {

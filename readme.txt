@@ -1,10 +1,10 @@
 === Pressbooks SAML2 Single Sign-On ===
 Contributors: conner_bw, greatislander
 Tags: pressbooks, saml, saml2, sso, shibboleth
-Requires at least: 5.2.2
-Tested up to: 5.2.2
+Requires at least: 5.2.4
+Tested up to: 5.2.4
 Requires PHP: 7.1
-Stable tag: 1.0.4
+Stable tag: 1.1.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,12 +82,12 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 ![Metadata XML.](screenshot-2.png)
 
 == Changelog ==
-= 1.0.4 =
+= 1.1.0 =
 
-* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.0.4
+* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.1.0
 * Full release history available at: https://github.com/pressbooks/pressbooks-saml-sso/releases
 
 == Upgrade Notice ==
 
-= 1.0.4 =
-* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.9.2
+= 1.1.0 =
+* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.10.0

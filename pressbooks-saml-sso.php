@@ -2,11 +2,12 @@
 /*
 Plugin Name: Pressbooks SAML2 Single Sign-On
 Plugin URI: https://pressbooks.org
+GitHub Plugin URI: pressbooks/pressbooks-saml-sso
+Release Asset: true
 Description: SAML2 Single Sign-On integration for Pressbooks. (Shibboleth, Microsoft ADFS, Google Apps, etc.)
 Version: 1.1.1
 Author: Pressbooks (Book Oven Inc.)
 Author URI: https://pressbooks.org
-Pressbooks tested up to: 5.10.1
 Text Domain: pressbooks-saml-sso
 License: GPL v3 or later
 Network: True

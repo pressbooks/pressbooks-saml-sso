@@ -26,7 +26,6 @@
 	"require": {
 		"php": ">=7.1",
 		"composer/installers": "^1.7",
-		"yahnis-elsts/plugin-update-checker": "^4.8",
 		"onelogin/php-saml": "^3.3"
 	},
 	"require-dev": {

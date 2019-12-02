@@ -59,6 +59,5 @@ require( __DIR__ . '/inc/namespace.php' );
 // Hooks
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'plugins_loaded', [ '\PressbooksSamlSso\Updates', 'init' ] );
 add_action( 'plugins_loaded', [ '\PressbooksSamlSso\SAML', 'init' ] );
 add_action( 'plugins_loaded', [ '\PressbooksSamlSso\Admin', 'init' ] );

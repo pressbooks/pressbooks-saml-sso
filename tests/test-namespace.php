@@ -11,7 +11,6 @@ class NamespaceTest extends \WP_UnitTestCase {
 		$classes = [
 			'\PressbooksSamlSso\Admin',
 			'\PressbooksSamlSso\SAML',
-			'\PressbooksSamlSso\Updates',
 		];
 		foreach ( $classes as $class ) {
 			$result = $class::init();

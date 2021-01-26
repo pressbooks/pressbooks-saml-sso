@@ -26,6 +26,12 @@ class SAML {
 	// IMPORTANT: Do not rename to `/saml` - kept like this to be compatible with legacy integrations
 	const ENTITY_ID = '/shibboleth';
 
+	const SAML_MAP_FIELDS = [
+		'eduPersonPrincipalName' => 'urn:oid:1.3.6.1.4.1.5923.1.1.1.6',
+		'mail' => 'urn:oid:0.9.2342.19200300.100.1.3',
+		'uid' => 'urn:oid:0.9.2342.19200300.100.1.1',
+	];
+
 	/**
 	 * @var SAML
 	 */
@@ -331,8 +337,8 @@ class SAML {
 						} else {
 							ob_end_clean();
 							$attributes = $_SESSION[ self::USER_DATA ];
-							$net_id = $attributes['uid'][0];
-							$email = isset( $attributes['mail'][0] ) ? $attributes['mail'][0] : "{$net_id}@127.0.0.1";
+							$net_id = $attributes[ self::SAML_MAP_FIELDS['uid'] ][0];
+							$email = isset( $attributes[ self::SAML_MAP_FIELDS['mail'] ][0] ) ? $attributes[ self::SAML_MAP_FIELDS['mail'] ][0] : "{$net_id}@127.0.0.1";
 							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
 							/**
 							 * @since 0.0.4
@@ -443,12 +449,12 @@ class SAML {
 	 */
 	public function parseAttributeStatement() {
 		// Attributes
-		$attributes = $this->auth->getAttributesWithFriendlyName();
-		if ( ! isset( $attributes['uid'] ) ) {
-			$attributes = $this->auth->getAttributes();
-			if ( ! isset( $attributes['uid'] ) ) {
-				throw new \Exception( __( 'Missing SAML attributes: uid, mail', 'pressbooks-saml-sso' ) );
-			}
+		$attributes = $this->auth->getAttributes();
+		if (
+			! isset( $attributes[ self::SAML_MAP_FIELDS['uid'] ] ) ||
+			! isset( $attributes[ self::SAML_MAP_FIELDS['mail'] ] )
+		) {
+			throw new \Exception( __( 'Missing SAML attributes: uid, mail', 'pressbooks-saml-sso' ) );
 		}
 		return $attributes;
 	}
@@ -774,8 +780,8 @@ class SAML {
 		// Plan B
 		if ( isset( $_SESSION[ self::USER_DATA ] ) ) {
 			$attributes = $_SESSION[ self::USER_DATA ];
-			if ( isset( $attributes['mail'] ) ) {
-				foreach ( $attributes['mail'] as $alt_email ) {
+			if ( isset( $attributes[ self::SAML_MAP_FIELDS['mail'] ] ) ) {
+				foreach ( $attributes[ self::SAML_MAP_FIELDS['mail'] ] as $alt_email ) {
 					$user = get_user_by( 'email', $alt_email );
 					if ( $user ) {
 						return $user;
@@ -784,8 +790,8 @@ class SAML {
 			}
 			// https://wiki.shibboleth.net/confluence/display/SHIB/EduPersonPrincipalName
 			// Note: Syntactically, ePPN looks like an email address but is not intended to be a person's published email address or be used as an email address.
-			if ( isset( $attributes['eduPersonPrincipalName'] ) ) {
-				foreach ( $attributes['eduPersonPrincipalName'] as $alt_email ) {
+			if ( isset( $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ] ) ) {
+				foreach ( $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ] as $alt_email ) {
 					$user = get_user_by( 'email', $alt_email );
 					if ( $user ) {
 						return $user;

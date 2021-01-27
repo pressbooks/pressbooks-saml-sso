@@ -75,11 +75,11 @@ class SamlTest extends \WP_UnitTestCase {
 			->method( 'isAuthenticated' )
 			->willReturn( true );
 		$stub1
-			->method( 'getAttributesWithFriendlyName' )
+			->method( 'getAttributes' )
 			->willReturn(
 				[
-					'uid' => [ 'uid' ],
-					'mail' => [ 'uid@pressbooks.test' ],
+					$this->saml::SAML_MAP_FIELDS['uid'] => [ 'uid' ],
+					$this->saml::SAML_MAP_FIELDS['mail'] => [ 'uid@pressbooks.test' ],
 				]
 			);
 
@@ -95,8 +95,8 @@ class SamlTest extends \WP_UnitTestCase {
 			->method( 'getAttributes' )
 			->willReturn(
 				[
-					'uid' => [ 'adfs' ],
-					'mail' => [ 'adfs@pressbooks.test' ],
+					$this->saml::SAML_MAP_FIELDS['uid'] => [ 'adfs' ],
+					$this->saml::SAML_MAP_FIELDS['mail'] => [ 'adfs@pressbooks.test' ],
 				]
 			);
 		return $stub1;
@@ -234,8 +234,8 @@ class SamlTest extends \WP_UnitTestCase {
 		unset( $_POST['SAMLResponse'] );
 		$this->saml->setAuth( $this->getMockAuthForAcs() );
 		$this->saml->samlAssertionConsumerService();
-		$this->assertEquals( $_SESSION['pb_saml_user_data']['uid'][0], 'uid' );
-		$this->assertEquals( $_SESSION['pb_saml_user_data']['mail'][0], 'uid@pressbooks.test' );
+		$this->assertEquals( $_SESSION['pb_saml_user_data'][ $this->saml::SAML_MAP_FIELDS['uid'] ][0], 'uid' );
+		$this->assertEquals( $_SESSION['pb_saml_user_data'][ $this->saml::SAML_MAP_FIELDS['mail'] ][0], 'uid@pressbooks.test' );
 	}
 
 	public function test_parseAttributeStatement() {
@@ -247,8 +247,8 @@ class SamlTest extends \WP_UnitTestCase {
 
 		$this->saml->setAuth( $this->getMockAuthForAttributes() );
 		$attr = $this->saml->parseAttributeStatement();
-		$this->assertEquals( $attr['uid'][0], 'adfs' );
-		$this->assertEquals( $attr['mail'][0], 'adfs@pressbooks.test' );
+		$this->assertEquals( $attr[ $this->saml::SAML_MAP_FIELDS['uid'] ][0], 'adfs' );
+		$this->assertEquals( $attr[ $this->saml::SAML_MAP_FIELDS['mail'] ][0], 'adfs@pressbooks.test' );
 	}
 
 	// TODO
@@ -313,8 +313,8 @@ class SamlTest extends \WP_UnitTestCase {
 
 		// Try to find the user and succeed thanks to fallback eduPersonPrincipalName info in the session
 		$_SESSION[ \PressbooksSamlSso\SAML::USER_DATA ] = [
-			'mail' => [ 'one@pressbooks.test', 'two@pressbooks.test' ],
-			'eduPersonPrincipalName' => [ 'three@pressbooks.test', $email ],
+			$this->saml::SAML_MAP_FIELDS['mail'] => [ 'one@pressbooks.test', 'two@pressbooks.test' ],
+			$this->saml::SAML_MAP_FIELDS['eduPersonPrincipalName'] => [ 'three@pressbooks.test', $email ],
 		];
 		$user = $this->saml->findExistingUser( 'nobody@pressbooks.test' );
 		$this->assertInstanceOf( '\WP_User', $user );

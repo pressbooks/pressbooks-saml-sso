@@ -31,6 +31,7 @@ cache:
   - vendor
 before_install:
 - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
+- composer self-update 1.10.17
 install:
 - node -v
 - npm install

@@ -214,6 +214,16 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result->get_error_message(), 'Mock object was here' );
 	}
 
+	public function test_authenticate_session() {
+		$_SESSION['pb_saml_user_data'] = [
+			$this->saml::SAML_MAP_FIELDS['uid'] => [ 'uid' ],
+			$this->saml::SAML_MAP_FIELDS['mail'] => [ 'uid@pressbooks.test' ],
+		];
+		ob_start();
+		$result = $this->saml->authenticate( null, 'test', 'test' );
+		$this->assertInstanceOf( '\WP_Error', $result );
+	}
+
 	public function test_samlMetadata() {
 		ob_start();
 		$this->saml->samlMetadata();

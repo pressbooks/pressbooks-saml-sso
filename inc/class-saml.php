@@ -450,11 +450,8 @@ class SAML {
 	public function parseAttributeStatement() {
 		// Attributes
 		$attributes = $this->auth->getAttributes();
-		if (
-			! isset( $attributes[ self::SAML_MAP_FIELDS['uid'] ] ) ||
-			! isset( $attributes[ self::SAML_MAP_FIELDS['mail'] ] )
-		) {
-			throw new \Exception( __( 'Missing SAML attributes: uid, mail', 'pressbooks-saml-sso' ) );
+		if ( ! isset( $attributes[ self::SAML_MAP_FIELDS['uid'] ] ) ) {
+			throw new \Exception( __( 'Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute', 'pressbooks-saml-sso' ) );
 		}
 		return $attributes;
 	}

@@ -14,8 +14,6 @@ branches:
   - dev
   - "/\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
 php:
-- 7.1
-- 7.2
 - 7.3
 env:
 - WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="10"
@@ -31,6 +29,7 @@ cache:
   - vendor
 before_install:
 - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
+- composer self-update 1.10.17
 install:
 - node -v
 - npm install

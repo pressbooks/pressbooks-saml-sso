@@ -252,7 +252,7 @@ class SamlTest extends \WP_UnitTestCase {
 		try {
 			$this->saml->parseAttributeStatement();
 		} catch ( Exception $e ) {
-			$this->assertContains( 'Missing SAML attributes', $e->getMessage() );
+			$this->assertContains( 'Missing SAML', $e->getMessage() );
 		}
 
 		$this->saml->setAuth( $this->getMockAuthForAttributes() );

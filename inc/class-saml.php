@@ -187,6 +187,24 @@ class SAML {
 		return true;
 	}
 
+	/**
+	 * @param array $net_id
+	 * @param array $attributes
+	 *
+	 * @return string
+	 */
+	public function getEmail( $net_id, $attributes ) {
+		if ( isset( $attributes[ self::SAML_MAP_FIELDS['mail'] ][0] ) ) {
+			$email = $attributes[ self::SAML_MAP_FIELDS['mail'] ][0];
+		}
+		elseif ( isset ( $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0] ) ) {
+			$email = $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0];
+		}
+		else {
+			$email = "{$net_id}@127.0.0.1";
+		}
+		return $email;
+	}
 
 	/**
 	 * @return array
@@ -338,7 +356,7 @@ class SAML {
 							ob_end_clean();
 							$attributes = $_SESSION[ self::USER_DATA ];
 							$net_id = $attributes[ self::SAML_MAP_FIELDS['uid'] ][0];
-							$email = isset( $attributes[ self::SAML_MAP_FIELDS['mail'] ][0] ) ? $attributes[ self::SAML_MAP_FIELDS['mail'] ][0] : "{$net_id}@127.0.0.1";
+							$email = getEmail( $net_id, $attributes);
 							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
 							/**
 							 * @since 0.0.4

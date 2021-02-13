@@ -188,25 +188,6 @@ class SAML {
 	}
 
 	/**
-	 * @param array $net_id
-	 * @param array $attributes
-	 *
-	 * @return string
-	 */
-	public function getEmail( $net_id, $attributes ) {
-		if ( isset( $attributes[ self::SAML_MAP_FIELDS['mail'] ][0] ) ) {
-			$email = $attributes[ self::SAML_MAP_FIELDS['mail'] ][0];
-		}
-		elseif ( isset ( $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0] ) ) {
-			$email = $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0];
-		}
-		else {
-			$email = "{$net_id}@127.0.0.1";
-		}
-		return $email;
-	}
-
-	/**
 	 * @return array
 	 */
 	public function getSamlSettings() {
@@ -722,6 +703,25 @@ class SAML {
 		remove_user_from_blog( $user_id, 1 );
 
 		return [ $user_id, $username ];
+	}
+
+	/**
+	 * @param string $net_id
+	 * @param array $attributes
+	 *
+	 * @return string
+	 */
+	public function getEmail( $net_id, $attributes ) {
+		if ( isset( $attributes[ self::SAML_MAP_FIELDS['mail'] ][0] ) ) {
+			$email = $attributes[ self::SAML_MAP_FIELDS['mail'] ][0];
+		}
+		elseif ( isset ( $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0] ) ) {
+			$email = $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0];
+		}
+		else {
+			$email = "{$net_id}@127.0.0.1";
+		}
+		return $email;
 	}
 
 	/**

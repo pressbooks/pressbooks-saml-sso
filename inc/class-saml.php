@@ -337,8 +337,8 @@ class SAML {
 						} else {
 							ob_end_clean();
 							$attributes = $_SESSION[ self::USER_DATA ];
-							$net_id = $attributes[ self::SAML_MAP_FIELDS['uid'] ][0];
-							$email = isset( $attributes[ self::SAML_MAP_FIELDS['mail'] ][0] ) ? $attributes[ self::SAML_MAP_FIELDS['mail'] ][0] : "{$net_id}@127.0.0.1";
+							$net_id = $this->getUsernameByAttributes( $attributes );
+							$email = $this->getEmailByAttributes( $attributes, $net_id );
 							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
 							/**
 							 * @since 0.0.4
@@ -376,6 +376,50 @@ class SAML {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Return username from attributes given.
+	 *
+	 * @param $attributes
+	 * @return mixed
+	 * @throws \Exception
+	 */
+	public function getUsernameByAttributes( $attributes ) {
+		if ( isset( $attributes[ self::SAML_MAP_FIELDS['uid'] ] ) ) {
+			return $attributes[ self::SAML_MAP_FIELDS['uid'] ][0];
+		}
+		if ( isset( $attributes['friendlyAttributes']['uid'] ) ) {
+			return $attributes['friendlyAttributes']['uid'][0];
+		}
+		if ( isset( $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ] ) ) {
+			return strstr(
+				$attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0],
+				'@',
+				true
+			);
+		}
+		return false;
+	}
+
+	/**
+	 * Get username from attributes given.
+	 *
+	 * @param $attributes
+	 * @param $net_id
+	 * @return mixed|string
+	 */
+	public function getEmailByAttributes( $attributes, $net_id ) {
+		if ( isset( $attributes[ self::SAML_MAP_FIELDS['mail'] ] ) ) {
+			return $attributes[ self::SAML_MAP_FIELDS['mail'] ][0] ;
+		}
+		if ( isset( $attributes['friendlyAttributes']['mail'] ) ) {
+			return $attributes['friendlyAttributes']['mail'][0];
+		}
+		if ( isset( $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ] ) ) {
+			return $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0];
+		}
+		return "{$net_id}@127.0.0.1";
 	}
 
 	/**
@@ -450,9 +494,15 @@ class SAML {
 	public function parseAttributeStatement() {
 		// Attributes
 		$attributes = $this->auth->getAttributes();
-		if ( ! isset( $attributes[ self::SAML_MAP_FIELDS['uid'] ] ) ) {
+		$friendly_name_attributes = $this->auth->getAttributesWithFriendlyName();
+		if (
+			! isset( $attributes[ self::SAML_MAP_FIELDS['uid'] ] ) &&
+			! isset( $friendly_name_attributes['uid'] ) &&
+			! isset( $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ] )
+		) {
 			throw new \Exception( __( 'Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute', 'pressbooks-saml-sso' ) );
 		}
+		$attributes['friendlyAttributes'] = $friendly_name_attributes;
 		return $attributes;
 	}
 

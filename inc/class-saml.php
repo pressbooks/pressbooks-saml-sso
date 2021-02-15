@@ -411,7 +411,7 @@ class SAML {
 	 */
 	public function getEmailByAttributes( $attributes, $net_id ) {
 		if ( isset( $attributes[ self::SAML_MAP_FIELDS['mail'] ] ) ) {
-			return $attributes[ self::SAML_MAP_FIELDS['mail'] ][0] ;
+			return $attributes[ self::SAML_MAP_FIELDS['mail'] ][0];
 		}
 		if ( isset( $attributes['friendlyAttributes']['mail'] ) ) {
 			return $attributes['friendlyAttributes']['mail'][0];

@@ -351,6 +351,15 @@ class SamlTest extends \WP_UnitTestCase {
 
 		$attributes = [
 			'nomail' => 'nomail@nomail.com',
+			$this->saml::SAML_MAP_FIELDS['eduPersonPrincipalName'] => [ 'fake_eppn@fake.com' ],
+			'friendlyAttributes' => [
+				'noMail' => [ 'fake_mail@fake.com' ],
+			],
+		];
+		$this->assertEquals( $this->saml->getEmailByAttributes( $attributes, 'fakeuid' ), 'fake_eppn@fake.com' );
+
+		$attributes = [
+			'nomail' => 'nomail@nomail.com',
 			'friendlyAttributes' => [
 				'noMail' => [ 'fake_mail@fake.com' ],
 			],

@@ -87,18 +87,26 @@ class SamlTest extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * @param $attributes - Attributes to mock
 	 * @return \OneLogin\Saml2\Auth
 	 */
-	protected function getMockAuthForAttributes() {
+	protected function getMockAuthForAttributes( $attributes ) {
 		$stub1 = $this->getMockAuth();
 		$stub1
 			->method( 'getAttributes' )
-			->willReturn(
-				[
-					$this->saml::SAML_MAP_FIELDS['uid'] => [ 'adfs' ],
-					$this->saml::SAML_MAP_FIELDS['mail'] => [ 'adfs@pressbooks.test' ],
-				]
-			);
+			->willReturn( $attributes );
+		return $stub1;
+	}
+
+	/**
+	 * @param $attributes - Attributes to mock
+	 * @return \OneLogin\Saml2\Auth
+	 */
+	protected function getMockAuthForFriendlyAttributes( $attributes ) {
+		$stub1 = $this->getMockAuth();
+		$stub1
+			->method( 'getAttributesWithFriendlyName' )
+			->willReturn( $attributes );
 		return $stub1;
 	}
 
@@ -255,10 +263,108 @@ class SamlTest extends \WP_UnitTestCase {
 			$this->assertContains( 'Missing SAML', $e->getMessage() );
 		}
 
-		$this->saml->setAuth( $this->getMockAuthForAttributes() );
+		$mock_attributes = [
+			$this->saml::SAML_MAP_FIELDS['uid'] => [ 'adfs' ],
+			$this->saml::SAML_MAP_FIELDS['mail'] => [ 'adfs@pressbooks.test' ],
+		];
+		$this->saml->setAuth( $this->getMockAuthForAttributes( $mock_attributes ) );
 		$attr = $this->saml->parseAttributeStatement();
 		$this->assertEquals( $attr[ $this->saml::SAML_MAP_FIELDS['uid'] ][0], 'adfs' );
 		$this->assertEquals( $attr[ $this->saml::SAML_MAP_FIELDS['mail'] ][0], 'adfs@pressbooks.test' );
+	}
+
+	public function test_parseAttributeStatementFriendlyAttributes() {
+		$mock_attributes = [
+			'wrongUid' => [ 'Wrong UID Friendly' ],
+			'mail' => [ 'mailFriendly@pressbooks.test' ],
+		];
+		$this->saml->setAuth( $this->getMockAuthForAttributes( $mock_attributes ) );
+		try {
+			$this->saml->parseAttributeStatement();
+		} catch ( Exception $e ) {
+			$this->assertContains( 'Missing SAML', $e->getMessage() );
+		}
+
+		$mock_attributes = [
+			'uid' => [ 'fake_friendly_uid' ],
+		];
+		$this->saml->setAuth( $this->getMockAuthForFriendlyAttributes( $mock_attributes ) );
+		$attributes = $this->saml->parseAttributeStatement();
+		$this->assertEquals( $attributes['friendlyAttributes'][ 'uid' ][0], 'fake_friendly_uid' );
+
+		$mock_attributes = [
+			$this->saml::SAML_MAP_FIELDS['eduPersonPrincipalName'] => [ 'fake_eppn@fake.com' ]
+		];
+		$this->saml->setAuth( $this->getMockAuthForAttributes( $mock_attributes ) );
+		$attributes = $this->saml->parseAttributeStatement();
+		$this->assertEquals( $attributes[ $this->saml::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0], 'fake_eppn@fake.com' );
+	}
+
+	public function test_getUsernameByAttributes() {
+		$attributes = [
+			'nonuid' => ['novalue'],
+			'friendlyAttributes' => [],
+			$this->saml::SAML_MAP_FIELDS['eduPersonPrincipalName'] => [ 'fake_eppn@fake.com' ]
+		];
+		$this->assertEquals( $this->saml->getUsernameByAttributes( $attributes ), 'fake_eppn' );
+
+		$attributes = [
+			'nonuid' => ['novalue'],
+			'nonEduPersonPrincipalName' => [ 'novalue' ],
+			'friendlyAttributes' => [
+				'uid' => ['fake_uid'],
+			],
+		];
+		$this->assertEquals( $this->saml->getUsernameByAttributes( $attributes ), 'fake_uid' );
+
+		$attributes = [
+			$this->saml::SAML_MAP_FIELDS['uid'] => ['fake_uid'],
+			'nonEduPersonPrincipalName' => [ 'eppn@fake.com' ],
+			'friendlyAttributes' => [
+				'uid' => ['fake_uid_friendly'],
+			],
+		];
+		$this->assertEquals( $this->saml->getUsernameByAttributes( $attributes ), 'fake_uid' );
+		$attributes = [
+			'nonuid' => ['fake_uid'],
+			'nonEduPersonPrincipalName' => [ 'eppn@fake.com' ],
+			'friendlyAttributes' => [
+				'nonuid' => ['fake_uid_friendly'],
+			],
+		];
+		$this->assertFalse( $this->saml->getUsernameByAttributes( $attributes ) );
+	}
+
+	public function test_getEmailByAttributes() {
+		$attributes = [
+			'friendlyAttributes' => [],
+			$this->saml::SAML_MAP_FIELDS['mail'] => [ 'fake_mail@fake.com' ],
+		];
+		$this->assertEquals( $this->saml->getEmailByAttributes( $attributes, 'fakeuid' ), 'fake_mail@fake.com' );
+
+		$attributes = [
+			'friendlyAttributes' => [
+				'mail' => [ 'fake_mail@fake.com' ],
+			],
+		];
+		$this->assertEquals( $this->saml->getEmailByAttributes( $attributes, 'fakeuid' ), 'fake_mail@fake.com' );
+
+		$attributes = [
+			'nomail' => 'nomail@nomail.com',
+			$this->saml::SAML_MAP_FIELDS['eduPersonPrincipalName'] => [ 'fake_eppn@fake.com' ],
+			'friendlyAttributes' => [
+				'noMail' => [ 'fake_mail@fake.com' ],
+			],
+		];
+		$this->assertEquals( $this->saml->getEmailByAttributes( $attributes, 'fakeuid' ), 'fake_eppn@fake.com' );
+
+		$attributes = [
+			'nomail' => 'nomail@nomail.com',
+			'friendlyAttributes' => [
+				'noMail' => [ 'fake_mail@fake.com' ],
+			],
+		];
+		$this->assertEquals( $this->saml->getEmailByAttributes( $attributes, 'fakeuid' ), 'fakeuid@127.0.0.1' );
 	}
 
 	// TODO

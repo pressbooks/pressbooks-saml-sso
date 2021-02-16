@@ -1,10 +1,10 @@
 # Pressbooks SAML2 Single Sign-On 
 **Contributors:** conner_bw, greatislander  
 **Tags:** pressbooks, saml, saml2, sso, shibboleth  
-**Requires at least:** 5.2.4  
-**Tested up to:** 5.2.4  
-**Requires PHP:** 7.1  
-**Stable tag:** 1.1.0  
+**Requires at least:** 5.5.3  
+**Tested up to:** 5.5.3  
+**Requires PHP:** 7.2  
+**Stable tag:** 1.2.0  
 **License:** GPLv3 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html  
 
@@ -69,11 +69,11 @@ The plugin requires the Assertion elements of the Response to be encrypted.
 
 The plugin requires the Assertion elements of the Response to be signed.
 
-The plugin looks for the following Attributes in the Response: (For compatibility with a broader range of IdPs we use the FriendlyName parameter.)
+The plugin looks for the following Attributes in the Response:
 
-+ Requires: `uid` (urn:oid:0.9.2342.19200300.100.1.1, samAccountName, or equivalent)
-+ Strongly recommends: `mail` (urn:oid:0.9.2342.19200300.100.1.3, email-address, or equivalent) If no value is available we fall back to `uid@127.0.0.1`
-+ Optional: `eduPersonPrincipalName` (urn:oid:1.3.6.1.4.1.5923.1.1.1.6, or equivalent) Upon the first launch for a given user, if mail cannot match an existing person, and this value is present, we'll try to use it.
++ Requires: urn:oid:0.9.2342.19200300.100.1.1 (samAccountName or equivalent, ideally with FriendlyName `uid`)
++ Strongly recommends: urn:oid:0.9.2342.19200300.100.1.3 (email-address, or equivalent, ideally with FriendlyName `mail`). If no value is available we fall back to `uid@127.0.0.1`
++ Optional: urn:oid:1.3.6.1.4.1.5923.1.1.1.6 (eduPersonPrincipalName or equivalent). Upon the first launch for a given user, if mail cannot match an existing person, and this value is present, we'll try to use it.
 
 The email can be filtered, example: `add_filter( 'pb_integrations_multidomain_email', function( $email, $uid, $plugin ) { /* Custom use case, return $email */ }, 10, 3 );`
 
@@ -89,14 +89,13 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 ## Changelog 
 
-### 1.1.0 
+### 1.2.0 
 
-* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.1.0
+* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.2.0
 * Full release history available at: https://github.com/pressbooks/pressbooks-saml-sso/releases
 
 
 ## Upgrade Notice 
-
 
 ### 1.1.0 
 * Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.10.0

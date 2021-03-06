@@ -5,6 +5,9 @@ namespace PressbooksSamlSso;
 use function Pressbooks\Utility\empty_space;
 use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
+use Pressbooks\Log\Log;
+use Pressbooks\Log\S3StorageProvider as S3StorageProvider;
+use Pressbooks\Log\CloudWatchProvider as CloudWatchProvider;
 use PressbooksMix\Assets;
 
 /**
@@ -90,12 +93,21 @@ class SAML {
 	private $samlSettings = [];
 
 	/**
+	 * @var Log
+	 */
+	private $log;
+
+	/**
 	 * @return SAML
 	 */
 	static public function init() {
 		if ( is_null( self::$instance ) ) {
 			$admin = Admin::init();
-			self::$instance = new self( $admin );
+			$log = null;
+			if ( CloudWatchProvider::areEnvironmentVariablesPresent() ) {
+				$log = new Log( new CloudWatchProvider() );
+			}
+			self::$instance = new self( $admin, $log );
 			self::hooks( self::$instance );
 		}
 		return self::$instance;
@@ -114,8 +126,9 @@ class SAML {
 
 	/**
 	 * @param Admin $admin
+	 * @param Log $log
 	 */
-	public function __construct( Admin $admin ) {
+	public function __construct( Admin $admin, Log $log = null ) {
 		$options = $admin->getOptions();
 
 		$this->loginUrl = \PressbooksSamlSso\login_url();
@@ -125,6 +138,7 @@ class SAML {
 		$this->forcedRedirection = (bool) $options['forced_redirection'];
 		$this->admin = $admin;
 		$this->options = $options;
+		$this->log = $log;
 		if ( $this->forcedRedirection ) {
 			// TODO:
 			// This hijacks the same logic as seen in the saml plugin.
@@ -339,6 +353,11 @@ class SAML {
 							$attributes = $_SESSION[ self::USER_DATA ];
 							$net_id = $this->getUsernameByAttributes( $attributes );
 							$email = $this->getEmailByAttributes( $attributes, $net_id );
+
+							$this->logData( 'Session data', $_SESSION );
+							$this->logData( "User's email", [ $email ] );
+							$this->logData( "User's net_id", [ $net_id ] );
+
 							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
 							/**
 							 * @since 0.0.4
@@ -466,6 +485,10 @@ class SAML {
 			if ( $this->auth->getLastErrorReason() ) {
 				$message .= '. Reason: ' . $this->auth->getLastErrorReason();
 			}
+
+			$this->logData( 'Errors from SAML Auth', $errors );
+			$this->logData( 'Last SAML Error Reason', $message );
+
 			throw new \Exception( $message );
 		}
 		if ( ! $this->auth->isAuthenticated() ) {
@@ -636,6 +659,7 @@ class SAML {
 		$user = $this->matchUser( $net_id );
 
 		if ( $user ) {
+			$this->logData( 'Username matched', [ $user->user_login ] );
 			// If a matching user was found, log them in
 			$logged_in = \Pressbooks\Redirect\programmatic_login( $user->user_login );
 			if ( $logged_in === true ) {
@@ -644,6 +668,15 @@ class SAML {
 		} else {
 			$this->associateUser( $net_id, $email );
 		}
+	}
+
+	private function logData( $key, $data ) {
+		if ( ! is_null( $this->log ) ) {
+			$this->log->addRowToData( $key, $data );
+			$this->log->store();
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -799,6 +832,7 @@ class SAML {
 				return;
 			}
 		}
+		$this->logData( 'Username associated', [ $username ] );
 
 		// Registration was successful, the user account was created (or associated), proceed to login the user automatically...
 		// associate the WordPress user account with the now-authenticated third party account:

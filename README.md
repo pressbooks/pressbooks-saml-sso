@@ -79,6 +79,34 @@ The email can be filtered, example: `add_filter( 'pb_integrations_multidomain_em
 
 Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/onelogin/php-saml/) toolkit, [many other configuration variables can be tweaked](https://github.com/onelogin/php-saml/#settings).
 
+## Sending logs 
+If you use AWS and wish to log SAML attempts on your server, you will need define some environment variables on the server which is hosting your Pressbooks instance.
+### AWS S3
+Define the following envirnoment variables:
+
+ ```
+  LOG_LOGIN_ATTEMPTS (setting this value to true will enable this feature at the infrastructure level)
+  AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY
+  AWS_S3_OIDC_BUCKET
+  AWS_S3_REGION
+  AWS_S3_VERSION
+```
+After these variables have been properly defined, basic information about SAML login attempts will be logged to your S3 bucket. A new CSV file will be created each month so that the logs remain readable. Log storage will take place in a folder structure that looks like this `S3 Bucket > saml_logs > {ENVIRONMENT} > {Network URL hashed though wp_hash function} > {YYYY-MM} > saml_logs.log`.
+
+### AWS CloudWatch Logs
+Define the following envirnoment variables:
+
+ ```
+  LOG_LOGIN_ATTEMPTS (setting this value to true will enable this feature at the infrastructure level)
+  AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY
+  AWS_S3_REGION
+  AWS_S3_VERSION
+```
+After these variables have been properly defined, basic information about SAML login attempts will be logged in your AWS CloudWatch Logs service in JSON format
+
+You will need to create a new Log group called `pressbooks-logs`.
 
 ## Screenshots 
 
@@ -86,14 +114,12 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 ![Metadata XML.](screenshot-2.png)
 
-
 ## Changelog 
 
 ### 1.2.0 
 
 * See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.2.0
 * Full release history available at: https://github.com/pressbooks/pressbooks-saml-sso/releases
-
 
 ## Upgrade Notice 
 

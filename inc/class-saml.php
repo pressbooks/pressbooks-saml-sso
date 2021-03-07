@@ -5,10 +5,9 @@ namespace PressbooksSamlSso;
 use function Pressbooks\Utility\empty_space;
 use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
-use Pressbooks\Log\Log;
-use Pressbooks\Log\S3StorageProvider as S3StorageProvider;
-use Pressbooks\Log\CloudWatchProvider as CloudWatchProvider;
 use PressbooksMix\Assets;
+use Pressbooks\Log\CloudWatchProvider as CloudWatchProvider;
+use Pressbooks\Log\Log;
 
 /**
  * SAML: Security Assertion Markup Language

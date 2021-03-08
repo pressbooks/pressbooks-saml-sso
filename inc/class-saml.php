@@ -104,7 +104,7 @@ class SAML {
 			$admin = Admin::init();
 			$log = null;
 			if ( CloudWatchProvider::areEnvironmentVariablesPresent() ) {
-				$log = new Log( new CloudWatchProvider() );
+				$log = new Log( new CloudWatchProvider( 90, 'pressbooks-logs', 'pressbooks-plugin', 'saml-logs' ) );
 			}
 			self::$instance = new self( $admin, $log );
 			self::hooks( self::$instance );

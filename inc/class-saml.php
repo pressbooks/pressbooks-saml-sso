@@ -666,7 +666,6 @@ class SAML {
 			$logged_in = \Pressbooks\Redirect\programmatic_login( $user->user_login );
 			if ( $logged_in === true ) {
 				$this->logData( 'Username matched', [ $user->user_login ] );
-				$this->logData( "Cookies after logged [Matched]", [ $_COOKIE ] );
 				$this->logData( 'Session after logged [Matched]', [ $_SESSION ], true );
 				$this->endLogin( __( 'Logged in!', 'pressbooks-saml-sso' ) );
 			}
@@ -847,7 +846,6 @@ class SAML {
 		$logged_in = \Pressbooks\Redirect\programmatic_login( $username );
 		if ( $logged_in === true ) {
 			$this->logData( 'Username associated', [ $username ] );
-			$this->logData( 'Cookies after logged [Associated]', [ $_COOKIE ] );
 			$this->logData( 'Session after logged [Associated]', [ $_SESSION ], true );
 			$this->endLogin( __( 'Registered and logged in!', 'pressbooks-saml-sso' ) );
 		}

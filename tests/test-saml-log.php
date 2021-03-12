@@ -30,10 +30,16 @@ class LogTest extends \WP_UnitTestCase {
 	}
 
 	private function setSaml( string $storage_provider ) {
-		if ( $storage_provider === 'S3' ) {
-			$this->setS3ClientMock();
-		} else {
-			$this->setLoggerMock();
+		switch ( $storage_provider ) {
+			case 'S3':
+				$this->setS3ClientMock();
+				break;
+			case 'CloudWatch':
+				$this->setLoggerMock();
+				break;
+			default:
+				$this->log = null;
+				break;
 		}
 		$this->saml = new SAML( $this->getMockAdmin(), $this->log );
 	}
@@ -187,9 +193,9 @@ class LogTest extends \WP_UnitTestCase {
 				'logData',
 				[
 					'Test key 2', [
-					'Test a' => 'Test b',
-					'Test c' => 'Test d',
-				],
+						'Test a' => 'Test b',
+						'Test c' => 'Test d',
+					],
 					true
 				]
 			)
@@ -203,6 +209,19 @@ class LogTest extends \WP_UnitTestCase {
 		$this->assertContains( 'Test d', $file_content[4] );
 		$this->assertContains( '[Test a] =>', $file_content[4] );
 		$this->assertContains( '[Test c] =>', $file_content[4] );
+	}
+
+	/**
+	 * @group log
+	 */
+	public function test_avoid_log() {
+		if (file_exists(self::TEST_FILE_PATH)) {
+			unlink(self::TEST_FILE_PATH);
+		}
+		$this->setSaml('NoLog');
+		$this->assertFalse(
+			$this->callMethodForReflection($this->saml, 'logData', ['Test key 1', ['Test value']])
+		);
 	}
 
 }

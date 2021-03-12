@@ -159,6 +159,11 @@ class SamlTest extends \WP_UnitTestCase {
 		}
 	}
 
+	public function test_getInstance() {
+		$saml = $this->saml->init();
+		$this->assertInstanceOf( '\PressbooksSamlSso\SAML', $saml );
+	}
+
 	// ------------------------------------------------------------------------
 	// Tests
 	// ------------------------------------------------------------------------

@@ -692,9 +692,9 @@ class SAML {
 					$key_exploded = explode( '_', $key );
 					$hash_present_in_key = $key_exploded[ array_key_last( $key_exploded ) ];
 					$key_exploded[ array_key_last( $key_exploded ) ] = substr( $hash_present_in_key, 0, 4 );
-					$key_to_store = join('_', $key_exploded ) . '...';
+					$key_to_store = join( '_', $key_exploded ) . '...';
 					$value_exploded = explode( '|', $cookie );
-					$value_to_store = $value_exploded[0] . '|'  .
+					$value_to_store = $value_exploded[0] . '|' .
 						substr( $value_exploded[1], 0, 4 ) .
 						'...' . '|' . substr( $value_exploded[2], 0, 4 ) . '...' . '|' .
 						substr( $value_exploded[3], 0, 4 ) . '...';

@@ -433,6 +433,9 @@ class SamlTest extends \WP_UnitTestCase {
 	public function test_handleLoginAttempt_and_matchUser_and_so_on() {
 		$prefix = uniqid( 'test' );
 		$email = "{$prefix}@pressbooks.test";
+		$_COOKIE['PHPSESSID'] = 'fakeSessionID';
+		$_COOKIE['wordpress_sec_123123'] = 'fake wp session';
+		$_COOKIE['wordpress_logged_in_123123'] = 'fake wp session login';
 
 		// User doesn't exist
 		$user = $this->saml->matchUser( $prefix );
@@ -447,6 +450,9 @@ class SamlTest extends \WP_UnitTestCase {
 
 		$file_content = str_getcsv( file_get_contents( self::TEST_FILE_PATH ) );
 		$this->assertEquals( 'Cookies', $file_content[1] );
+		$this->assertContains( 'wordpress_sec_', $file_content[2] );
+		$this->assertContains( 'PHPSESSID', $file_content[2] );
+		$this->assertContains( 'wordpress_logged_in_', $file_content[2] );
 		$this->assertEquals( 'Username associated', $file_content[3] );
 		$this->assertContains( $prefix, $file_content[4] );
 		$this->assertEquals( 'Session after logged [Associated]', $file_content[5] );

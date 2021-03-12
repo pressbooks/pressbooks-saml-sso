@@ -1,6 +1,11 @@
 <?php
 
+use Aws\S3\S3Client as S3Client;
+use Pressbooks\Log;
+
 class SamlTest extends \WP_UnitTestCase {
+
+	const TEST_FILE_PATH = 'tests/data/saml-log.csv';
 
 	// ------------------------------------------------------------------------
 	// Setup
@@ -121,7 +126,7 @@ class SamlTest extends \WP_UnitTestCase {
 		ini_set( 'error_reporting', 0 );
 		ini_set( 'display_errors', 0 );
 
-		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdmin() );
+		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdmin(), $this->setS3ClientMock() );
 
 		PHPUnit_Framework_Error_Notice::$enabled = true;
 		PHPUnit_Framework_Error_Warning::$enabled = true;
@@ -131,10 +136,27 @@ class SamlTest extends \WP_UnitTestCase {
 		return $saml;
 	}
 
+	private function setS3ClientMock() {
+		$s3_client_mock = $this
+			->getMockBuilder( S3Client::class )
+			->disableOriginalConstructor()
+			->setMethods([
+				'registerStreamWrapper',
+			])
+			->getMock();
+		$s3_provider_mock = new Log\S3StorageProvider( 'tests/data', 'log.csv' );
+		$s3_provider_mock->setClient( $s3_client_mock );
+		$s3_provider_mock->setFilePath( self::TEST_FILE_PATH );
+		return new Log\Log( $s3_provider_mock );
+	}
+
 	public function setUp() {
 		parent::setUp();
 		unset( $_SESSION );
 		$this->saml = $this->getSaml();
+		if( file_exists( self::TEST_FILE_PATH ) ){
+			unlink( self::TEST_FILE_PATH );
+		}
 	}
 
 	// ------------------------------------------------------------------------
@@ -229,6 +251,12 @@ class SamlTest extends \WP_UnitTestCase {
 		];
 		ob_start();
 		$result = $this->saml->authenticate( null, 'test', 'test' );
+		$file_content = str_getcsv( file_get_contents( self::TEST_FILE_PATH ) );
+		$this->assertEquals( 'email from SAML attributes', $file_content[1] );
+		$this->assertContains(
+			$_SESSION['pb_saml_user_data'][ $this->saml::SAML_MAP_FIELDS['mail'] ][0],
+			$file_content[2]
+		);
 		$this->assertInstanceOf( '\WP_Error', $result );
 	}
 
@@ -254,6 +282,9 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->saml->samlAssertionConsumerService();
 		$this->assertEquals( $_SESSION['pb_saml_user_data'][ $this->saml::SAML_MAP_FIELDS['uid'] ][0], 'uid' );
 		$this->assertEquals( $_SESSION['pb_saml_user_data'][ $this->saml::SAML_MAP_FIELDS['mail'] ][0], 'uid@pressbooks.test' );
+		$file_content = str_getcsv( file_get_contents( self::TEST_FILE_PATH ) );
+		$this->assertEquals( 'NameID of the assertion', $file_content[1] );
+		$this->assertEquals( 'NameID SP NameQualifier of the assertion', $file_content[3] );
 	}
 
 	public function test_parseAttributeStatement() {
@@ -397,6 +428,11 @@ class SamlTest extends \WP_UnitTestCase {
 		} catch ( \Exception $e ) {
 			$this->fail( $e->getMessage() );
 		}
+
+		$file_content = str_getcsv( file_get_contents( self::TEST_FILE_PATH ) );
+		$this->assertEquals( 'Username associated', $file_content[1] );
+		$this->assertEquals( 'Session after logged [Associated]', $file_content[3] );
+		$this->assertContains( $prefix, $file_content[2] );
 
 		// User was created
 		$user = $this->saml->matchUser( $prefix );

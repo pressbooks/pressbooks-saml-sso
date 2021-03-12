@@ -160,8 +160,18 @@ class SamlTest extends \WP_UnitTestCase {
 	}
 
 	public function test_getInstance() {
+		$this->setEnvironmentVariablesForStorageProvider();
 		$saml = $this->saml->init();
 		$this->assertInstanceOf( '\PressbooksSamlSso\SAML', $saml );
+	}
+
+	private function setEnvironmentVariablesForStorageProvider() {
+		putenv( 'LOG_LOGIN_ATTEMPTS=1' );
+		putenv( 'AWS_S3_OIDC_BUCKET=fakeBucket' );
+		putenv( 'AWS_SECRET_ACCESS_KEY=fakeAccessKey' );
+		putenv( 'AWS_ACCESS_KEY_ID=fakeKeyId' );
+		putenv( 'AWS_S3_VERSION=fake' );
+		putenv( 'AWS_S3_REGION=fakeRegion' );
 	}
 
 	// ------------------------------------------------------------------------

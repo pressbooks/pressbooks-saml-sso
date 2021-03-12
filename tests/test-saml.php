@@ -446,9 +446,9 @@ class SamlTest extends \WP_UnitTestCase {
 		}
 
 		$file_content = str_getcsv( file_get_contents( self::TEST_FILE_PATH ) );
-		$this->assertEquals( 'Username associated', $file_content[1] );
-		$this->assertEquals( 'Session after logged [Associated]', $file_content[3] );
-		$this->assertContains( $prefix, $file_content[2] );
+		$this->assertEquals( 'Cookies', $file_content[1] );
+		$this->assertEquals( 'Username associated', $file_content[3] );
+		$this->assertContains( $prefix, $file_content[4] );
 
 		// User was created
 		$user = $this->saml->matchUser( $prefix );

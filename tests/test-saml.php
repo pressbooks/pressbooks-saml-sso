@@ -161,6 +161,7 @@ class SamlTest extends \WP_UnitTestCase {
 
 	public function test_getInstance() {
 		$this->setEnvironmentVariablesForStorageProvider();
+		$this->saml = $this->getSaml();
 		$saml = $this->saml->init();
 		$this->assertInstanceOf( '\PressbooksSamlSso\SAML', $saml );
 	}

@@ -665,12 +665,45 @@ class SAML {
 			// If a matching user was found, log them in
 			$logged_in = \Pressbooks\Redirect\programmatic_login( $user->user_login );
 			if ( $logged_in === true ) {
+				$this->logData( 'Cookies', $this->getPartialCookies() );
 				$this->logData( 'Username matched', [ $user->user_login ] );
 				$this->logData( 'Session after logged [Matched]', [ $_SESSION ], true );
 				$this->endLogin( __( 'Logged in!', 'pressbooks-saml-sso' ) );
 			}
 		} else {
 			$this->associateUser( $net_id, $email );
+		}
+	}
+
+	private function getPartialCookies() {
+		if ( ! is_null( $this->log ) ) {
+			$cookie_info_to_store = [];
+			foreach ( $_COOKIE as $key => $cookie ) {
+				$value_to_store = false;
+				$key_to_store = false;
+				if ( $key === 'PHPSESSID' ) {
+					$value_to_store = substr( $cookie, 0, 4 ) . '...';
+					$key_to_store = $key;
+				}
+				if (
+					strpos( $key, 'wordpress_sec_' ) !== false ||
+					strpos( $key, 'wordpress_logged_in_' ) !== false
+				) {
+					$key_exploded = explode( '_', $key );
+					$hash_present_in_key = $key_exploded[ array_key_last( $key_exploded ) ];
+					$key_exploded[ array_key_last( $key_exploded ) ] = substr( $hash_present_in_key, 0, 4 );
+					$key_to_store = join('_', $key_exploded ) . '...';
+					$value_exploded = explode( '|', $cookie );
+					$value_to_store = $value_exploded[0] . '|'  .
+						substr( $value_exploded[1], 0, 4 ) .
+						'...' . '|' . substr( $value_exploded[2], 0, 4 ) . '...' . '|' .
+						substr( $value_exploded[3], 0, 4 ) . '...';
+				}
+				if ( $key_to_store && $value_to_store ) {
+					$cookie_info_to_store[ $key_to_store ] = $value_to_store;
+				}
+			}
+			return $cookie_info_to_store;
 		}
 	}
 
@@ -845,6 +878,7 @@ class SAML {
 		// Attempt to login the new user
 		$logged_in = \Pressbooks\Redirect\programmatic_login( $username );
 		if ( $logged_in === true ) {
+			$this->logData( 'Cookies', $this->getPartialCookies() );
 			$this->logData( 'Username associated', [ $username ] );
 			$this->logData( 'Session after logged [Associated]', [ $_SESSION ], true );
 			$this->endLogin( __( 'Registered and logged in!', 'pressbooks-saml-sso' ) );

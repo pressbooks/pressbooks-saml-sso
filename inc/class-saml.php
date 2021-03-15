@@ -6,6 +6,8 @@ use function Pressbooks\Utility\empty_space;
 use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksMix\Assets;
+use Pressbooks\Log\CloudWatchProvider as CloudWatchProvider;
+use Pressbooks\Log\Log;
 
 /**
  * SAML: Security Assertion Markup Language
@@ -90,12 +92,21 @@ class SAML {
 	private $samlSettings = [];
 
 	/**
+	 * @var Log
+	 */
+	private $log;
+
+	/**
 	 * @return SAML
 	 */
 	static public function init() {
 		if ( is_null( self::$instance ) ) {
 			$admin = Admin::init();
-			self::$instance = new self( $admin );
+			$log = null;
+			if ( CloudWatchProvider::areEnvironmentVariablesPresent() ) {
+				$log = new Log( new CloudWatchProvider( 90, 'pressbooks-logs', 'pressbooks-plugin', 'saml-logs' ) );
+			}
+			self::$instance = new self( $admin, $log );
 			self::hooks( self::$instance );
 		}
 		return self::$instance;
@@ -114,8 +125,9 @@ class SAML {
 
 	/**
 	 * @param Admin $admin
+	 * @param Log $log
 	 */
-	public function __construct( Admin $admin ) {
+	public function __construct( Admin $admin, Log $log = null ) {
 		$options = $admin->getOptions();
 
 		$this->loginUrl = \PressbooksSamlSso\login_url();
@@ -125,6 +137,7 @@ class SAML {
 		$this->forcedRedirection = (bool) $options['forced_redirection'];
 		$this->admin = $admin;
 		$this->options = $options;
+		$this->log = $log;
 		if ( $this->forcedRedirection ) {
 			// TODO:
 			// This hijacks the same logic as seen in the saml plugin.
@@ -340,6 +353,11 @@ class SAML {
 							$net_id = $this->getUsernameByAttributes( $attributes );
 							$email = $this->getEmailByAttributes( $attributes, $net_id );
 							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
+
+							$this->logData( 'email from SAML attributes', [ $email ] );
+							$this->logData( 'net_id from SAML attributes', [ $net_id ] );
+							$this->logData( 'SAML Settings', [ $this->getSamlSettings() ] );
+
 							/**
 							 * @since 0.0.4
 							 *
@@ -466,12 +484,20 @@ class SAML {
 			if ( $this->auth->getLastErrorReason() ) {
 				$message .= '. Reason: ' . $this->auth->getLastErrorReason();
 			}
+
+			$this->logData( 'Errors from SAML Auth', $errors );
+			$this->logData( 'Last SAML Error Reason', $message, true );
+
 			throw new \Exception( $message );
 		}
 		if ( ! $this->auth->isAuthenticated() ) {
 			/* translators: Saml error reason */
 			throw new \Exception( sprintf( __( 'Not authenticated. Reason: %s', 'pressbooks-saml-sso' ), $this->auth->getLastErrorReason() ) );
 		}
+
+		$this->logData( 'NameID of the assertion', [ $this->auth->getNameId() ] );
+		$this->logData( 'NameID SP NameQualifier of the assertion', [ $this->auth->getNameIdSPNameQualifier() ], true );
+
 		// Attributes
 		$attributes = $this->parseAttributeStatement();
 
@@ -639,11 +665,57 @@ class SAML {
 			// If a matching user was found, log them in
 			$logged_in = \Pressbooks\Redirect\programmatic_login( $user->user_login );
 			if ( $logged_in === true ) {
+				$this->logData( 'Cookies', $this->getPartialCookies() );
+				$this->logData( 'Username matched', [ $user->user_login ] );
+				$this->logData( 'Session after logged [Matched]', [ $_SESSION ], true );
 				$this->endLogin( __( 'Logged in!', 'pressbooks-saml-sso' ) );
 			}
 		} else {
 			$this->associateUser( $net_id, $email );
 		}
+	}
+
+	private function getPartialCookies() {
+		if ( ! is_null( $this->log ) ) {
+			$cookie_info_to_store = [];
+			foreach ( $_COOKIE as $key => $cookie ) {
+				$value_to_store = false;
+				$key_to_store = false;
+				if ( $key === 'PHPSESSID' ) {
+					$value_to_store = substr( $cookie, 0, 4 ) . '...';
+					$key_to_store = $key;
+				}
+				if (
+					strpos( $key, 'wordpress_sec_' ) !== false ||
+					strpos( $key, 'wordpress_logged_in_' ) !== false
+				) {
+					$key_exploded = explode( '_', $key );
+					$hash_present_in_key = $key_exploded[ array_key_last( $key_exploded ) ];
+					$key_exploded[ array_key_last( $key_exploded ) ] = substr( $hash_present_in_key, 0, 4 );
+					$key_to_store = join( '_', $key_exploded ) . '...';
+					$value_exploded = explode( '|', $cookie );
+					$value_to_store = $value_exploded[0] . '|' .
+						substr( $value_exploded[1], 0, 4 ) .
+						'...' . '|' . substr( $value_exploded[2], 0, 4 ) . '...' . '|' .
+						substr( $value_exploded[3], 0, 4 ) . '...';
+				}
+				if ( $key_to_store && $value_to_store ) {
+					$cookie_info_to_store[ $key_to_store ] = $value_to_store;
+				}
+			}
+			return $cookie_info_to_store;
+		}
+	}
+
+	private function logData( string $key, array $data, bool $store = false ) {
+		if ( ! is_null( $this->log ) ) {
+			$this->log->addRowToData( $key, $data );
+			if ( $store ) {
+				$this->log->store();
+			}
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -799,7 +871,6 @@ class SAML {
 				return;
 			}
 		}
-
 		// Registration was successful, the user account was created (or associated), proceed to login the user automatically...
 		// associate the WordPress user account with the now-authenticated third party account:
 		$this->linkAccount( $user_id, $net_id );
@@ -807,6 +878,9 @@ class SAML {
 		// Attempt to login the new user
 		$logged_in = \Pressbooks\Redirect\programmatic_login( $username );
 		if ( $logged_in === true ) {
+			$this->logData( 'Cookies', $this->getPartialCookies() );
+			$this->logData( 'Username associated', [ $username ] );
+			$this->logData( 'Session after logged [Associated]', [ $_SESSION ], true );
 			$this->endLogin( __( 'Registered and logged in!', 'pressbooks-saml-sso' ) );
 		}
 	}

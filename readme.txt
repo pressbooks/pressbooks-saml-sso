@@ -89,5 +89,8 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 
 == Upgrade Notice ==
 
+= 1.3.0 =
+* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.19.0
+
 = 1.1.1 =
 * Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.10.1

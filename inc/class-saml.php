@@ -356,7 +356,7 @@ class SAML {
 
 							$this->logData( 'email from SAML attributes', [ $email ] );
 							$this->logData( 'net_id from SAML attributes', [ $net_id ] );
-							$this->logData( 'SAML Settings', [ $this->getSamlSettings() ] );
+							$this->logData( 'SAML Settings', [ $this->getCertificatesFilteredFromSettingsForLog() ] );
 
 							/**
 							 * @since 0.0.4
@@ -394,6 +394,35 @@ class SAML {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Get substring of certificates for log the information.
+	 *
+	 * @param int $number_of_chars
+	 * @return array
+	 */
+	private function getCertificatesFilteredFromSettingsForLog( int $number_of_chars = 10 ) {
+		$settings = $this->samlSettings;
+		if (
+			array_key_exists( 'idp', $this->samlSettings ) &&
+			array_key_exists( 'x509cert', $this->samlSettings['idp'] )
+		) {
+			$settings['idp']['x509cert'] = substr( $settings['idp']['x509cert'], 0, $number_of_chars ) . '...';
+		}
+		if (
+				array_key_exists( 'sp', $this->samlSettings ) &&
+				array_key_exists( 'x509cert', $this->samlSettings['sp'] )
+		) {
+			$settings['sp']['x509cert'] = substr( $settings['sp']['x509cert'], 0, $number_of_chars ) . '...';
+		}
+		if (
+				array_key_exists( 'sp', $this->samlSettings ) &&
+				array_key_exists( 'privateKey', $this->samlSettings['sp'] )
+		) {
+			$settings['sp']['privateKey'] = substr( $settings['sp']['privateKey'], 0, $number_of_chars ) . '...';
+		}
+		return $settings;
 	}
 
 	/**

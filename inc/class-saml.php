@@ -356,7 +356,7 @@ class SAML {
 
 							$this->logData( 'email from SAML attributes', [ $email ] );
 							$this->logData( 'net_id from SAML attributes', [ $net_id ] );
-							$this->logData( 'SAML Settings', [ $this->getSamlSettings() ] );
+							$this->logData( 'SAML Settings', [ $this->getSettingsWithoutCertificatesAndPrivateKey() ] );
 
 							/**
 							 * @since 0.0.4
@@ -394,6 +394,34 @@ class SAML {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Get SAML settings without certificates and private keys
+	 *
+	 * @return array
+	 */
+	private function getSettingsWithoutCertificatesAndPrivateKey() {
+		$settings = $this->samlSettings;
+		if (
+			array_key_exists( 'idp', $this->samlSettings ) &&
+			array_key_exists( 'x509cert', $this->samlSettings['idp'] )
+		) {
+			unset( $settings['idp']['x509cert'] );
+		}
+		if (
+				array_key_exists( 'sp', $this->samlSettings ) &&
+				array_key_exists( 'x509cert', $this->samlSettings['sp'] )
+		) {
+			unset( $settings['sp']['x509cert'] );
+		}
+		if (
+				array_key_exists( 'sp', $this->samlSettings ) &&
+				array_key_exists( 'privateKey', $this->samlSettings['sp'] )
+		) {
+			unset( $settings['sp']['privateKey'] );
+		}
+		return $settings;
 	}
 
 	/**

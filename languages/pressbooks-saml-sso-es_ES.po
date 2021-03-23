@@ -1,14 +1,14 @@
 # Copyright (C) 2021 Pressbooks (Book Oven Inc.)
 # This file is distributed under the same license as the Pressbooks SAML2 Single Sign-On plugin.
 # Translators:
-# Eduardo Vera-Palomino <info@yachaypuriq.xyz>, 2021
+# Eduardo Vera <info@yachaypuriq.xyz>, 2021
 # Ho Man Chan <homan@pressbooks.com>, 2021
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.2.0\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
-"POT-Creation-Date: 2021-02-16T17:00:30+00:00\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.3.0\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso\n"
+"POT-Creation-Date: 2021-03-23T21:07:46+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>, 2021\n"
 "Language-Team: Spanish (https://www.transifex.com/pressbooks/teams/9194/es/)\n"
@@ -49,29 +49,29 @@ msgstr "SAML2"
 msgid "Failed to get IdP Metadata from URL."
 msgstr "Fallo al obtener los metadatos IdP de la URL."
 
-#: inc/class-saml.php:148
+#: inc/class-saml.php:161
 msgid "The Pressbooks SAML Plugin is not configured correctly."
 msgstr "El plugin Pressbooks SAML no está configurado correctamente."
 
-#: inc/class-saml.php:159
+#: inc/class-saml.php:172
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
 msgstr "Fallo al iniciar el plugin Pressbooks SAML. Error: "
 
-#: inc/class-saml.php:447
+#: inc/class-saml.php:493
 msgid "Invalid SP metadata: "
 msgstr "Metadatos SP no válidos: "
 
 #. translators: Saml error reason
-#: inc/class-saml.php:473
+#: inc/class-saml.php:523
 msgid "Not authenticated. Reason: %s"
 msgstr "No identificado. Razón: %s"
 
-#: inc/class-saml.php:503
+#: inc/class-saml.php:557
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 msgstr "Falta el atributo SAML urn:oid:0.9.2342.19200300.100.1.1"
 
 #. translators: %s Pressbooks Network Manager email if found.
-#: inc/class-saml.php:537
+#: inc/class-saml.php:591
 msgid ""
 "Unable to log in: You do not have an account on this Pressbooks network. To "
 "request an account, please contact your institution's Pressbooks Network "
@@ -81,23 +81,23 @@ msgstr ""
 "Para solicitar una cuenta, contacta con el administrador%s de la red de "
 "Pressbooks de tu institución."
 
-#: inc/class-saml.php:539
+#: inc/class-saml.php:593
 msgid "SAML authentication failed."
 msgstr "La identificación mediante SAML ha fallado."
 
-#: inc/class-saml.php:601
+#: inc/class-saml.php:655
 msgid "Connect via SAML2"
 msgstr "Conectar mediante SAML"
 
-#: inc/class-saml.php:609
+#: inc/class-saml.php:663
 msgid "Or"
 msgstr "O"
 
-#: inc/class-saml.php:642
+#: inc/class-saml.php:699
 msgid "Logged in!"
 msgstr "¡Ya estás conectado!"
 
-#: inc/class-saml.php:810
+#: inc/class-saml.php:912
 msgid "Registered and logged in!"
 msgstr "¡Ya estás registrado y conectado!"
 

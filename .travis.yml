@@ -52,6 +52,7 @@ after_success:
 - bash <(curl -s https://codecov.io/bash)
 before_deploy:
 - export TRAVIS_PROJECT_SLUG="$(basename $TRAVIS_BUILD_DIR)"
+- export COMPOSER_MEMORY_LIMIT=2G
 - curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 - chmod +x wp-cli.phar
 - sudo mv wp-cli.phar /usr/local/bin/wp

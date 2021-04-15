@@ -514,7 +514,7 @@ class SAML {
 			}
 
 			$this->logData( 'Errors from SAML Auth', $errors );
-			$this->logData( 'Last SAML Error Reason', $message, true );
+			$this->logData( 'Last SAML Error Reason', [ $message ], true );
 
 			throw new \Exception( $message );
 		}

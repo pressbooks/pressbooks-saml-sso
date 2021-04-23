@@ -51,6 +51,9 @@ jobs:
           export PATH="$HOME/.composer/vendor/bin:$PATH"
           composer install --no-interaction
           composer global require "phpunit/phpunit:7.5.20"
+          git clone --depth=1 https://github.com/pressbooks/pressbooks.git ../pressbooks
+          cd ../pressbooks && composer install --no-dev
+          cd ../pressbooks-saml-sso
 
       - name: Run Lint
         run: vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/

@@ -1,10 +1,10 @@
 # Pressbooks SAML2 Single Sign-On 
 **Contributors:** conner_bw, greatislander  
 **Tags:** pressbooks, saml, saml2, sso, shibboleth  
-**Requires at least:** 5.5.3  
+**Requires at least:** 5.6.2
 **Tested up to:** 5.6.2
 **Requires PHP:** 7.3
-**Stable tag:** 1.3.0  
+**Stable tag:** 1.3.1
 **License:** GPLv3 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html  
 
@@ -116,12 +116,15 @@ You will need to create a new Log group called `pressbooks-logs`.
 
 ## Changelog 
 
-### 1.3.0 
+### 1.3.1
 
-* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.3.0
+* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.3.1
 * Full release history available at: https://github.com/pressbooks/pressbooks-saml-sso/releases
 
 ## Upgrade Notice 
+
+### 1.3.1
+* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.20.1
 
 ### 1.3.0 
 * Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.19.0

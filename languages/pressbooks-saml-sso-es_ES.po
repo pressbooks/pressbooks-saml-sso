@@ -1,14 +1,14 @@
 # Copyright (C) 2021 Pressbooks (Book Oven Inc.)
 # This file is distributed under the same license as the Pressbooks SAML2 Single Sign-On plugin.
 # Translators:
-# Eduardo Vera <info@yachaypuriq.xyz>, 2021
+# Eduardo Vera <info@mirimiri.xyz>, 2021
 # Ho Man Chan <homan@pressbooks.com>, 2021
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.3.0\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso\n"
-"POT-Creation-Date: 2021-03-23T21:07:46+00:00\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.3.1\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
+"POT-Creation-Date: 2021-04-27T16:47:44+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>, 2021\n"
 "Language-Team: Spanish (https://www.transifex.com/pressbooks/teams/9194/es/)\n"

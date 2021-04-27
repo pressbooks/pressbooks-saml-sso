@@ -461,6 +461,11 @@ class SamlTest extends \WP_UnitTestCase {
 		$user = $this->saml->matchUser( $prefix );
 		$this->assertInstanceOf( '\WP_User', $user );
 
+		$this->saml->linkAccount( $user->ID, $email );
+		$user_meta = get_user_meta( $user->ID, \PressbooksSamlSso\SAML::META_KEY );
+		$this->assertContains( $prefix, $user_meta[0] );
+		$this->assertContains( $email, $user_meta[1] );
+
 		// User exists
 		try {
 			$this->saml->handleLoginAttempt( $prefix, $email );

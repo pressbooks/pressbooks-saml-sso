@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Pressbooks SAML2 Single Sign-On plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.3.0\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso\n"
-"POT-Creation-Date: 2021-03-23T21:07:46+00:00\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.3.1\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
+"POT-Creation-Date: 2021-04-27T16:47:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"

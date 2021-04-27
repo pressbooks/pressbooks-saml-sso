@@ -124,7 +124,7 @@ You will need to create a new Log group called `pressbooks-logs`.
 ## Upgrade Notice 
 
 ### 1.3.1
-* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.19.1
+* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.20.1
 
 ### 1.3.0 
 * Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.19.0

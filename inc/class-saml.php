@@ -912,7 +912,7 @@ class SAML {
 		}
 		// Registration was successful, the user account was created (or associated), proceed to login the user automatically...
 		// associate the WordPress user account with the now-authenticated third party account:
-		$this->linkAccount( $user_id, $net_id );
+		$this->linkAccount( $user_id, $username );
 
 		// Attempt to login the new user
 		$logged_in = \Pressbooks\Redirect\programmatic_login( $username );

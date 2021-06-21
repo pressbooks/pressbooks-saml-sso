@@ -12,12 +12,12 @@ require_once $_tests_dir . '/includes/functions.php';
  * Manually load the plugin being tested.
  */
 function _manually_load_plugin() {
-	echo __DIR__ . "/../../pressbooks/pressbooks.php\n";
-	echo file_exists( __DIR__ . '/../../pressbooks/pressbooks.php' );
-	require_once( __DIR__ . '/../../pressbooks/pressbooks.php' );
-	require_once( __DIR__ . '/../../pressbooks/requires.php' );
-	require_once( __DIR__ . '/../../pressbooks/requires-admin.php' );
-	require_once( __DIR__ . '/../pressbooks-saml-sso.php' );
+	$plugin_dir = dirname( __DIR__ );
+	$app_dir = dirname( dirname( __DIR__ ) );
+	require  $app_dir . '/pressbooks/pressbooks.php';
+	require  $app_dir . '/pressbooks/requires.php';
+	require  $app_dir . '/pressbooks/requires-admin.php';
+	require  $plugin_dir . '/pressbooks-saml-sso.php';
 }
 
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );

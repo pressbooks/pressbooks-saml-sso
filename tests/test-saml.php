@@ -347,6 +347,14 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertEquals( $attributes[ $this->saml::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0], 'fake_eppn@fake.com' );
 	}
 
+	public function test_usernameAttributeWithAt() {
+		$attributes = [
+			'urn:oid:0.9.2342.19200300.100.1.1' => ['michael@jackson.com'],
+			'urn:oid:0.9.2342.19200300.100.1.3' => ['michaeljackson@jackson5.com']
+		];
+		$this->assertEquals( $this->saml->getUsernameByAttributes( $attributes ), 'michael' );
+	}
+
 	public function test_getUsernameByAttributes() {
 		$attributes = [
 			'nonuid' => ['novalue'],
@@ -428,6 +436,10 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->saml->loginForm();
 		$buffer = ob_get_clean();
 		$this->assertContains( '<div id="pb-saml-wrap">', $buffer );
+	}
+
+	public function test_matchUserEmpty() {
+		$this->assertFalse( $this->saml->matchUser( false ) );
 	}
 
 	public function test_handleLoginAttempt_and_matchUser_and_so_on() {

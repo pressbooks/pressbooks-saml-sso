@@ -352,6 +352,10 @@ class SAML {
 							$attributes = $_SESSION[ self::USER_DATA ];
 							$net_id = $this->getUsernameByAttributes( $attributes );
 							$email = $this->getEmailByAttributes( $attributes, $net_id );
+							if ( ! $net_id && ! $email ) {
+								throw new \Exception( 'Attributes not found.' );
+							}
+
 							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
 
 							$this->logData( 'email from SAML attributes', [ $email ] );
@@ -433,7 +437,9 @@ class SAML {
 	 */
 	public function getUsernameByAttributes( $attributes ) {
 		if ( isset( $attributes[ self::SAML_MAP_FIELDS['uid'] ] ) ) {
-			return $attributes[ self::SAML_MAP_FIELDS['uid'] ][0];
+			$uid = $attributes[ self::SAML_MAP_FIELDS['uid'] ][0];
+			return strpos( $uid, '@' ) !== false ?
+				strstr( $uid, '@', true ) : $uid;
 		}
 		if ( isset( $attributes['friendlyAttributes']['uid'] ) ) {
 			return $attributes['friendlyAttributes']['uid'][0];
@@ -465,7 +471,7 @@ class SAML {
 		if ( isset( $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ] ) ) {
 			return $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0];
 		}
-		return "{$net_id}@127.0.0.1";
+		return $net_id ? "{$net_id}@127.0.0.1" : false;
 	}
 
 	/**
@@ -687,7 +693,7 @@ class SAML {
 		remove_action( 'wp_login', '\Pressbooks\session_kill' );
 
 		// Try to find a matching WordPress user for the now-authenticated user's Saml identity
-		$user = $this->matchUser( $net_id );
+		$user = $net_id ? $this->matchUser( $net_id ) : false;
 
 		if ( $user ) {
 			// If a matching user was found, log them in
@@ -782,6 +788,9 @@ class SAML {
 	 * @return false|\WP_User
 	 */
 	public function matchUser( $net_id ) {
+		if ( ! $net_id ) {
+			return false;
+		}
 		global $wpdb;
 		$condition = "{$net_id}|%";
 		$query_result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = %s AND meta_value LIKE %s", self::META_KEY, $condition ) );
@@ -812,6 +821,7 @@ class SAML {
 	 * @return array [ (int) user_id, (string) sanitized username ]
 	 */
 	public function createUser( $username, $email ) {
+		$username = ! $username ? strstr( $email, '@', true ) : $username;
 		$i = 1;
 		$unique_username = $this->sanitizeUser( $username );
 		while ( username_exists( $unique_username ) ) {
@@ -891,6 +901,7 @@ class SAML {
 			// Associate existing users with Saml accounts
 			$user_id = $user->ID;
 			$username = $user->user_login;
+			$net_id = ! $net_id ? $username : $net_id;
 		} else {
 			if ( $this->provision === 'create' ) {
 				list( $user_id, $username ) = $this->createUser( $net_id, $email );

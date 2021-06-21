@@ -260,6 +260,19 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result->get_error_message(), 'Mock object was here' );
 	}
 
+	public function test_authenticateFalseNetIdAndMail() {
+		$_REQUEST['action'] = 'pb_shibboleth_nothing';
+		$_SESSION[ \PressbooksSamlSso\SAML::USER_DATA ] = [ 'nothing' ];
+		$result = $this->saml->authenticate( null, 'test22', 'test' );
+		$this->assertInstanceOf( '\WP_Error', $result );
+	}
+
+	public function test_associateUser() {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		$user = get_userdata( $user_id );
+		$this->assertTrue( $this->saml->associateUser( false, $user->user_email ) );
+	}
+
 	public function test_authenticate_session() {
 		$_SESSION['pb_saml_user_data'] = [
 			$this->saml::SAML_MAP_FIELDS['uid'] => [ 'uid' ],

@@ -353,7 +353,7 @@ class SAML {
 							$net_id = $this->getUsernameByAttributes( $attributes );
 							$email = $this->getEmailByAttributes( $attributes, $net_id );
 							if ( ! $net_id && ! $email ) {
-								throw new \Exception( 'Attributes not found.' );
+								return new \WP_Error( 'authentication_failed', 'Attributes not found.' );
 							}
 
 							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
@@ -922,6 +922,7 @@ class SAML {
 			$this->logData( 'Session after logged [Associated]', [ $_SESSION ], true );
 			$this->endLogin( __( 'Registered and logged in!', 'pressbooks-saml-sso' ) );
 		}
+		return true;
 	}
 
 	/**

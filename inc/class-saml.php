@@ -813,6 +813,7 @@ class SAML {
 	public function linkAccount( $user_id, $net_id ) {
 		$condition = "{$net_id}|" . time();
 		add_user_meta( $user_id, self::META_KEY, $condition );
+		$this->logData( 'User metadata stored', [ $user_id, $condition ] );
 	}
 
 	/**

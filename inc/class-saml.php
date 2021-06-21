@@ -351,10 +351,13 @@ class SAML {
 							ob_end_clean();
 							$attributes = $_SESSION[ self::USER_DATA ];
 							$net_id = $this->getUsernameByAttributes( $attributes );
-							$email = $this->getEmailByAttributes( $attributes, $net_id );
-							if ( ! $net_id && ! $email ) {
-								return new \WP_Error( 'authentication_failed', 'Attributes not found.' );
+							if ( ! $net_id ) {
+								return new \WP_Error(
+									'authentication_failed',
+									'Attribute ' . self::SAML_MAP_FIELDS['uid'] . ' not found.'
+								);
 							}
+							$email = $this->getEmailByAttributes( $attributes, $net_id );
 
 							remove_filter( 'authenticate', [ $this, 'authenticate' ], 10 ); // Fix infinite loop
 
@@ -442,7 +445,9 @@ class SAML {
 				strstr( $uid, '@', true ) : $uid;
 		}
 		if ( isset( $attributes['friendlyAttributes']['uid'] ) ) {
-			return $attributes['friendlyAttributes']['uid'][0];
+			$friendly_uid = $attributes['friendlyAttributes']['uid'][0];
+			return strpos( $friendly_uid, '@' ) !== false ?
+					strstr( $friendly_uid, '@', true ) : $friendly_uid;
 		}
 		if ( isset( $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ] ) ) {
 			return strstr(
@@ -471,7 +476,7 @@ class SAML {
 		if ( isset( $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ] ) ) {
 			return $attributes[ self::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0];
 		}
-		return $net_id ? "{$net_id}@127.0.0.1" : false;
+		return "{$net_id}@127.0.0.1";
 	}
 
 	/**
@@ -693,7 +698,7 @@ class SAML {
 		remove_action( 'wp_login', '\Pressbooks\session_kill' );
 
 		// Try to find a matching WordPress user for the now-authenticated user's Saml identity
-		$user = $net_id ? $this->matchUser( $net_id ) : false;
+		$user = $this->matchUser( $net_id );
 
 		if ( $user ) {
 			// If a matching user was found, log them in
@@ -909,7 +914,7 @@ class SAML {
 				return;
 			}
 		}
-		$net_id = ! $net_id ? $username : $net_id;
+
 		// Registration was successful, the user account was created (or associated), proceed to login the user automatically...
 		// associate the WordPress user account with the now-authenticated third party account:
 		$this->linkAccount( $user_id, $net_id );

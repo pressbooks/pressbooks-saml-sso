@@ -17,7 +17,7 @@ function _manually_load_plugin() {
 	require_once( __DIR__ . '/../../pressbooks/requires-admin.php' );
 	require_once( __DIR__ . '/../pressbooks-saml-sso.php' );
 }
-
+_manually_load_plugin();
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 // Start up the WP testing environment.

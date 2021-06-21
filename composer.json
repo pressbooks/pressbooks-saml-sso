@@ -18,6 +18,9 @@
 			"https://github.com/pressbooks/pressbooks-saml-sso/issues/",
 		"source": "https://github.com/pressbooks/pressbooks-saml-sso/"
 	},
+  "autoload": {
+    "files": ["./inc/class-admin.php","./inc/class-saml.php"]
+  },
 	"config": {
 		"platform": {
 			"php": "7.1"
@@ -26,7 +29,7 @@
 	"require": {
 		"php": ">=7.1",
 		"composer/installers": "^1.7",
-		"onelogin/php-saml": "^3.3"
+		"onelogin/php-saml": "^3.3",
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^7",

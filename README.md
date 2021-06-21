@@ -103,9 +103,7 @@ Define the following envirnoment variables:
   AWS_S3_REGION
   AWS_S3_VERSION
 ```
-After these variables have been properly defined, basic information about SAML login attempts will be logged in your AWS CloudWatch Logs service in JSON format
-
-You will need to create a new Log group called `pressbooks-logs`.
+After these variables have been properly defined, basic information about SAML login attempts will be logged in your AWS CloudWatch Logs service in JSON format. You will need to create a new Log group called `pressbooks-logs`.
 
 ## Screenshots 
 

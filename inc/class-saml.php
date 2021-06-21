@@ -901,7 +901,6 @@ class SAML {
 			// Associate existing users with Saml accounts
 			$user_id = $user->ID;
 			$username = $user->user_login;
-			$net_id = ! $net_id ? $username : $net_id;
 		} else {
 			if ( $this->provision === 'create' ) {
 				list( $user_id, $username ) = $this->createUser( $net_id, $email );
@@ -910,9 +909,10 @@ class SAML {
 				return;
 			}
 		}
+		$net_id = ! $net_id ? $username : $net_id;
 		// Registration was successful, the user account was created (or associated), proceed to login the user automatically...
 		// associate the WordPress user account with the now-authenticated third party account:
-		$this->linkAccount( $user_id, $username );
+		$this->linkAccount( $user_id, $net_id );
 
 		// Attempt to login the new user
 		$logged_in = \Pressbooks\Redirect\programmatic_login( $username );

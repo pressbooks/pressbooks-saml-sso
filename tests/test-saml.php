@@ -5,7 +5,7 @@ use Pressbooks\Log;
 
 class SamlTest extends \WP_UnitTestCase {
 
-	const TEST_FILE_PATH = 'tests/data/saml-log.csv';
+	const TEST_FILE_PATH = __DIR__ . '/data/saml-log.csv';
 
 	// ------------------------------------------------------------------------
 	// Setup
@@ -474,13 +474,14 @@ class SamlTest extends \WP_UnitTestCase {
 		}
 
 		$file_content = str_getcsv( file_get_contents( self::TEST_FILE_PATH ) );
-		$this->assertEquals( 'Cookies', $file_content[1] );
-		$this->assertContains( 'wordpress_sec_', $file_content[2] );
-		$this->assertContains( 'PHPSESSID', $file_content[2] );
-		$this->assertContains( 'wordpress_logged_in_', $file_content[2] );
-		$this->assertEquals( 'Username associated', $file_content[3] );
-		$this->assertContains( $prefix, $file_content[4] );
-		$this->assertEquals( 'Session after logged [Associated]', $file_content[5] );
+		$this->assertEquals( 'User metadata stored', $file_content[1] );
+		$this->assertEquals( 'Cookies', $file_content[3] );
+		$this->assertContains( 'wordpress_sec_', $file_content[4] );
+		$this->assertContains( 'PHPSESSID', $file_content[4] );
+		$this->assertContains( 'wordpress_logged_in_', $file_content[4] );
+		$this->assertEquals( 'Username associated', $file_content[5] );
+		$this->assertContains( $prefix, $file_content[6] );
+		$this->assertEquals( 'Session after logged [Associated]', $file_content[7] );
 
 		// User was created
 		$user = $this->saml->matchUser( $prefix );

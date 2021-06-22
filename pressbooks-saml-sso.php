@@ -5,7 +5,7 @@ Plugin URI: https://pressbooks.org
 GitHub Plugin URI: pressbooks/pressbooks-saml-sso
 Release Asset: true
 Description: SAML2 Single Sign-On integration for Pressbooks. (Shibboleth, Microsoft ADFS, Google Apps, etc.)
-Version: 1.4.0
+Version: 1.4.0-dev
 Author: Pressbooks (Book Oven Inc.)
 Author URI: https://pressbooks.org
 Text Domain: pressbooks-saml-sso

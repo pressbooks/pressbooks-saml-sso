@@ -25,6 +25,7 @@ jobs:
 
       - name: Install OS dependencies
         run: |
+          sudo apt update
           sudo apt-get install libxml2-utils ghostscript poppler-utils imagemagick
           sudo systemctl start mysql.service
 

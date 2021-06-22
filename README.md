@@ -1,15 +1,14 @@
 # Pressbooks SAML2 Single Sign-On 
-**Contributors:** conner_bw, greatislander  
+**Contributors:** conner_bw, greatislander, richard015ar, steelwagstaff
 **Tags:** pressbooks, saml, saml2, sso, shibboleth  
 **Requires at least:** 5.6.2
-**Tested up to:** 5.6.2
+**Tested up to:** 5.7.2
 **Requires PHP:** 7.3
-**Stable tag:** 1.3.1
+**Stable tag:** 1.4.0
 **License:** GPLv3 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html  
 
 SAML2 Single Sign-On integration for Pressbooks.
-
 
 ## Description 
 
@@ -82,7 +81,7 @@ Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/one
 ## Sending logs 
 If you use AWS and wish to log SAML attempts on your server, you will need define some environment variables on the server which is hosting your Pressbooks instance.
 ### AWS S3
-Define the following envirnoment variables:
+Define the following environment variables:
 
  ```
   LOG_LOGIN_ATTEMPTS (setting this value to true will enable this feature at the infrastructure level)
@@ -104,9 +103,7 @@ Define the following envirnoment variables:
   AWS_S3_REGION
   AWS_S3_VERSION
 ```
-After these variables have been properly defined, basic information about SAML login attempts will be logged in your AWS CloudWatch Logs service in JSON format
-
-You will need to create a new Log group called `pressbooks-logs`.
+After these variables have been properly defined, basic information about SAML login attempts will be logged in your AWS CloudWatch Logs service in JSON format. You will need to create a new Log group called `pressbooks-logs`.
 
 ## Screenshots 
 
@@ -116,9 +113,9 @@ You will need to create a new Log group called `pressbooks-logs`.
 
 ## Changelog 
 
-### 1.3.1
+### 1.4.0
 
-* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.3.1
+* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.4.0
 * Full release history available at: https://github.com/pressbooks/pressbooks-saml-sso/releases
 
 ## Upgrade Notice 

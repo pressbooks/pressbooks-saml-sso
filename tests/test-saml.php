@@ -5,7 +5,7 @@ use Pressbooks\Log;
 
 class SamlTest extends \WP_UnitTestCase {
 
-	const TEST_FILE_PATH = 'tests/data/saml-log.csv';
+	const TEST_FILE_PATH = __DIR__ . '/data/saml-log.csv';
 
 	// ------------------------------------------------------------------------
 	// Setup
@@ -260,6 +260,19 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result->get_error_message(), 'Mock object was here' );
 	}
 
+	public function test_authenticateFalseNetIdAndMail() {
+		$_REQUEST['action'] = 'pb_shibboleth_nothing';
+		$_SESSION[ \PressbooksSamlSso\SAML::USER_DATA ] = [ 'nothing' ];
+		$result = $this->saml->authenticate( null, 'test22', 'test' );
+		$this->assertInstanceOf( '\WP_Error', $result );
+	}
+
+	public function test_associateUser() {
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		$user = get_userdata( $user_id );
+		$this->assertTrue( $this->saml->associateUser( false, $user->user_email ) );
+	}
+
 	public function test_authenticate_session() {
 		$_SESSION['pb_saml_user_data'] = [
 			$this->saml::SAML_MAP_FIELDS['uid'] => [ 'uid' ],
@@ -347,6 +360,14 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertEquals( $attributes[ $this->saml::SAML_MAP_FIELDS['eduPersonPrincipalName'] ][0], 'fake_eppn@fake.com' );
 	}
 
+	public function test_usernameAttributeWithAt() {
+		$attributes = [
+			'urn:oid:0.9.2342.19200300.100.1.1' => ['michael@jackson.com'],
+			'urn:oid:0.9.2342.19200300.100.1.3' => ['michaeljackson@jackson5.com']
+		];
+		$this->assertEquals( $this->saml->getUsernameByAttributes( $attributes ), 'michael' );
+	}
+
 	public function test_getUsernameByAttributes() {
 		$attributes = [
 			'nonuid' => ['novalue'],
@@ -430,6 +451,10 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->assertContains( '<div id="pb-saml-wrap">', $buffer );
 	}
 
+	public function test_matchUserEmpty() {
+		$this->assertFalse( $this->saml->matchUser( false ) );
+	}
+
 	public function test_handleLoginAttempt_and_matchUser_and_so_on() {
 		$prefix = uniqid( 'test' );
 		$email = "{$prefix}@pressbooks.test";
@@ -449,13 +474,14 @@ class SamlTest extends \WP_UnitTestCase {
 		}
 
 		$file_content = str_getcsv( file_get_contents( self::TEST_FILE_PATH ) );
-		$this->assertEquals( 'Cookies', $file_content[1] );
-		$this->assertContains( 'wordpress_sec_', $file_content[2] );
-		$this->assertContains( 'PHPSESSID', $file_content[2] );
-		$this->assertContains( 'wordpress_logged_in_', $file_content[2] );
-		$this->assertEquals( 'Username associated', $file_content[3] );
-		$this->assertContains( $prefix, $file_content[4] );
-		$this->assertEquals( 'Session after logged [Associated]', $file_content[5] );
+		$this->assertEquals( 'User metadata stored', $file_content[1] );
+		$this->assertEquals( 'Cookies', $file_content[3] );
+		$this->assertContains( 'wordpress_sec_', $file_content[4] );
+		$this->assertContains( 'PHPSESSID', $file_content[4] );
+		$this->assertContains( 'wordpress_logged_in_', $file_content[4] );
+		$this->assertEquals( 'Username associated', $file_content[5] );
+		$this->assertContains( $prefix, $file_content[6] );
+		$this->assertEquals( 'Session after logged [Associated]', $file_content[7] );
 
 		// User was created
 		$user = $this->saml->matchUser( $prefix );

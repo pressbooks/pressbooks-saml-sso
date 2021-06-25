@@ -715,8 +715,8 @@ class SAML {
 	}
 
 	private function getPartialCookies() {
+		$cookie_info_to_store = [];
 		if ( ! is_null( $this->log ) ) {
-			$cookie_info_to_store = [];
 			foreach ( $_COOKIE as $key => $cookie ) {
 				$value_to_store = false;
 				$key_to_store = false;
@@ -742,8 +742,8 @@ class SAML {
 					$cookie_info_to_store[ $key_to_store ] = $value_to_store;
 				}
 			}
-			return $cookie_info_to_store;
 		}
+		return $cookie_info_to_store;
 	}
 
 	private function logData( string $key, array $data, bool $store = false ) {

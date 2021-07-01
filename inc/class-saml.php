@@ -651,7 +651,7 @@ class SAML {
 			if ( $this->forcedRedirection || ! empty( $_SESSION[ self::USER_DATA ] ) || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
 				if ( ! empty( $this->auth->getSLOurl() ) ) {
 					$this->auth->logout(
-						add_query_arg( 'loggedout', true, wp_login_url() ) ,
+						add_query_arg( 'loggedout', true, wp_login_url() ),
 						[],
 						$_SESSION[ self::AUTH_DATA ]['nameId'],
 						$_SESSION[ self::AUTH_DATA ]['sessionIndex'],

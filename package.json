@@ -3,10 +3,9 @@
   "description": "Scaffolding for a Pressbooks plugin.",
   "scripts": {
     "install-build-tools": "npm install --no-save pressbooks-build-tools",
-    "watch": "npm run production -- --watch",
-    "prod": "npm run production",
-    "build:production": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "mix watch",
+    "build": "npm run production",
+    "production": "mix --production",
     "test": "npm run lint",
     "lint": "npm run -s lint:scripts && npm run -s lint:styles",
     "lint:scripts": "cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js \"assets/src/scripts/*.js\"",

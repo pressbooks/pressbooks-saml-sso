@@ -19,8 +19,4 @@ mix.setPublicPath( path.join( 'assets', 'dist' ) )
 	.sass( 'assets/src/styles/pressbooks-saml-sso.scss', 'assets/dist/styles/' )
 	.sass( 'assets/src/styles/login-form.scss', 'assets/dist/styles/' )
 	.copyDirectory( 'assets/src/fonts', 'assets/dist/fonts' )
-	.copyDirectory( 'assets/src/images', 'assets/dist/images' )
-	.then( () => {
-		normalizeNewlines( 'assets/dist/scripts/' );
-		normalizeNewlines( 'assets/dist/styles/' );
-	} );
+	.copyDirectory( 'assets/src/images', 'assets/dist/images' );

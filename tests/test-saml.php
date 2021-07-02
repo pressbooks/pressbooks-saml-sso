@@ -469,6 +469,7 @@ class SamlTest extends \WP_UnitTestCase {
 	public function test_logoutRedirect() {
 		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdminWithForcedRedirection() );
 		$saml->setAuth( $this->getMockAuthSLO() );
+		$_SESSION[ \PressbooksSamlSso\SAML::AUTH_DATA ] = ['fake auth data'];
 		$this->assertTrue( $saml->logoutRedirect('https://pressbooks.test') );
 	}
 

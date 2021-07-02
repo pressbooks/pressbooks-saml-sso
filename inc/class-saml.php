@@ -649,7 +649,7 @@ class SAML {
 	public function logoutRedirect( $redirect_to ) {
 		if ( $this->samlClientIsReady ) {
 			if ( $this->forcedRedirection || ! empty( $_SESSION[ self::USER_DATA ] ) || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
-				if ( ! empty( $this->auth->getSLOurl() ) ) {
+				if ( ! empty( $this->auth->getSLOurl() ) && ! empty( $_SESSION[ self::AUTH_DATA ] ) ) {
 					$this->auth->logout(
 						add_query_arg( 'loggedout', true, wp_login_url() ),
 						[],
@@ -660,6 +660,8 @@ class SAML {
 						$_SESSION[ self::AUTH_DATA ]['nameIdNameQualifier'],
 						$_SESSION[ self::AUTH_DATA ]['nameIdSPNameQualifier']
 					);
+					unset( $_SESSION[ self::USER_DATA ] );
+					unset( $_SESSION[ self::AUTH_DATA ] );
 					$this->doExit();
 					return true;
 				}

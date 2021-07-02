@@ -43,6 +43,22 @@ class SamlTest extends \WP_UnitTestCase {
 		return $stub1;
 	}
 
+	protected function getMockAdminWithForcedRedirection() {
+		$options = $this->getTestOptions();
+		$options['idp_entity_id'] = 'fake entity id';
+		$options['idp_sso_login_url'] = 'https://pressbooks.test';
+		$options['idp_x509_cert'] = 'fake cert';
+		$options['forced_redirection'] = true;
+		$stub1 = $this
+			->getMockBuilder( '\PressbooksSamlSso\Admin' )
+			->getMock();
+		$stub1
+			->method( 'getOptions' )
+			->willReturn( $options );
+
+		return $stub1;
+	}
+
 	protected function getMockAuth() {
 		$stub1 = $this
 			->getMockBuilder( '\OneLogin\Saml2\Auth' )
@@ -51,6 +67,18 @@ class SamlTest extends \WP_UnitTestCase {
 		$stub1
 			->method( 'redirectTo' )
 			->willReturn( null );
+
+		return $stub1;
+	}
+
+	protected function getMockAuthSLO() {
+		$stub1 = $this
+			->getMockBuilder( '\OneLogin\Saml2\Auth' )
+			->disableOriginalConstructor()
+			->getMock();
+		$stub1
+			->method( 'getSLOurl' )
+			->willReturn( 'fake url' );
 
 		return $stub1;
 	}
@@ -437,7 +465,12 @@ class SamlTest extends \WP_UnitTestCase {
 
 	// TODO
 	// test_samlSingleLogoutService
-	// test_logoutRedirect
+
+	public function test_logoutRedirect() {
+		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdminWithForcedRedirection() );
+		$saml->setAuth( $this->getMockAuthSLO() );
+		$this->assertTrue( $saml->logoutRedirect('https://pressbooks.test') );
+	}
 
 	public function test_loginEnqueueScripts() {
 		$this->saml->loginEnqueueScripts();

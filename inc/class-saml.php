@@ -661,6 +661,7 @@ class SAML {
 						$_SESSION[ self::AUTH_DATA ]['nameIdSPNameQualifier']
 					);
 					$this->doExit();
+					return true;
 				}
 			}
 		}

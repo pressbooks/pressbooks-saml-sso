@@ -20,6 +20,8 @@ class SAML {
 
 	const USER_DATA = 'pb_saml_user_data';
 
+	const AUTH_DATA = 'pb_saml_auth_data';
+
 	const AUTH_N_REQUEST_ID = 'pb_saml_auth_n_request_id';
 
 	// IMPORTANT: Do not rename to `pb_saml` - kept like this to be compatible with legacy integrations
@@ -245,6 +247,7 @@ class SAML {
 			'wantAssertionsSigned' => true,
 			'wantAssertionsEncrypted' => true,
 			'wantNameIdEncrypted' => false,
+			'logoutRequestSigned' => true,
 		];
 
 		/**
@@ -258,6 +261,7 @@ class SAML {
 		$config['sp']['entityId'] = network_site_url( self::ENTITY_ID, 'https' ); // This ia a URI, not a URL. Spec says it doesn't need to resolve.
 		$config['sp']['assertionConsumerService']['url'] = \PressbooksSamlSso\acs_url();
 		$config['sp']['singleLogoutService']['url'] = \PressbooksSamlSso\sls_url();
+		$config['sp']['singleLogoutService']['binding'] = \OneLogin\Saml2\Constants::BINDING_HTTP_REDIRECT;
 
 		$config['sp']['attributeConsumingService'] = [
 			'serviceName' => 'Pressbooks',
@@ -539,17 +543,32 @@ class SAML {
 
 		// Attributes
 		$attributes = $this->parseAttributeStatement();
+		$this->storeAuthDataInSession();
 
 		// If we made it to here, then no exceptions were thrown, and everything is fine.
 		// Now that the user has a session the SP allows the request to proceed.
 
 		$_SESSION[ self::USER_DATA ] = $attributes;
+
 		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL ); // TODO
 		if ( $redirect_to && \OneLogin\Saml2\Utils::getSelfURL() !== $redirect_to ) {
 			$this->auth->redirectTo( $redirect_to );
 		} else {
 			$this->auth->redirectTo( $this->loginUrl );
 		}
+	}
+
+	private function storeAuthDataInSession() {
+		$_SESSION[ self::AUTH_DATA ] = [
+			'sessionIndex' => $this->auth->getSessionIndex(),
+			'nameId' => $this->auth->getNameId(),
+			'nameFormat' => $this->auth->getNameIdFormat(),
+			'nameIdNameQualifier' => $this->auth->getNameIdNameQualifier(),
+			'nameIdSPNameQualifier' => $this->auth->getNameIdSPNameQualifier(),
+		];
+		$log_auth_data = $_SESSION[ self::AUTH_DATA ];
+		$log_auth_data['sessionIndex'] = substr( $this->auth->getSessionIndex(), 0, 5 );
+		$this->logData( 'Auth SAML data', $log_auth_data );
 	}
 
 	/**
@@ -630,9 +649,21 @@ class SAML {
 	public function logoutRedirect( $redirect_to ) {
 		if ( $this->samlClientIsReady ) {
 			if ( $this->forcedRedirection || ! empty( $_SESSION[ self::USER_DATA ] ) || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
-				if ( ! empty( $this->auth->getSLOurl() ) ) {
-					$this->auth->logout( add_query_arg( 'loggedout', true, wp_login_url() ) );
+				if ( ! empty( $this->auth->getSLOurl() ) && ! empty( $_SESSION[ self::AUTH_DATA ] ) ) {
+					$this->auth->logout(
+						add_query_arg( 'loggedout', true, wp_login_url() ),
+						[],
+						$_SESSION[ self::AUTH_DATA ]['nameId'],
+						$_SESSION[ self::AUTH_DATA ]['sessionIndex'],
+						false,
+						$_SESSION[ self::AUTH_DATA ]['nameFormat'],
+						$_SESSION[ self::AUTH_DATA ]['nameIdNameQualifier'],
+						$_SESSION[ self::AUTH_DATA ]['nameIdSPNameQualifier']
+					);
+					unset( $_SESSION[ self::USER_DATA ] );
+					unset( $_SESSION[ self::AUTH_DATA ] );
 					$this->doExit();
+					return true;
 				}
 			}
 		}

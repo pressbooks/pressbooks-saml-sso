@@ -568,7 +568,7 @@ class SAML {
 		];
 		$log_auth_data = $_SESSION[ self::AUTH_DATA ];
 		$log_auth_data['sessionIndex'] = substr( $this->auth->getSessionIndex(), 0, 5 );
-		$this->logData( 'Auth SAML data', $log_auth_data );
+		$this->logData( 'Auth SAML data', $log_auth_data, true );
 	}
 
 	/**

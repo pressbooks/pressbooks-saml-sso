@@ -675,6 +675,10 @@ class SAML {
 					$this->doExit();
 					return true;
 				}
+				if ( $this->forcedRedirection && ! empty( $_SESSION[ self::USER_DATA ] ) ) {
+					remove_filter( 'login_url', [ $this, 'changeLoginUrl' ], 999 );
+					return wp_login_url();
+				}
 			}
 		}
 		return $redirect_to;

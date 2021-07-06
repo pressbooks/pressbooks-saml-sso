@@ -566,10 +566,18 @@ class SAML {
 			'nameIdNameQualifier' => $this->auth->getNameIdNameQualifier(),
 			'nameIdSPNameQualifier' => $this->auth->getNameIdSPNameQualifier(),
 		];
-		$log_auth_data = $_SESSION[ self::AUTH_DATA ];
-		$log_auth_data['sessionIndex'] = substr( $this->auth->getSessionIndex(), 0, 7 );
-		$log_auth_data['nameId'] = substr( $this->auth->getNameId(), 0, 7 );
-		$this->logData( 'Auth SAML data', $log_auth_data, true );
+		$this->logAuthData();
+	}
+
+	private function logAuthData() {
+		if ( array_key_exists( self::AUTH_DATA, $_SESSION ) ) {
+			$log_auth_data = $_SESSION[ self::AUTH_DATA ];
+			$log_auth_data['sessionIndex'] = substr( $this->auth->getSessionIndex(), 0, 7 ) . '...';
+			$log_auth_data['nameId'] = substr( $this->auth->getNameId(), 0, 7 ) . '...';
+			$this->logData( 'Auth SAML data', $log_auth_data, true );
+			return true;
+		}
+		return false;
 	}
 
 	/**

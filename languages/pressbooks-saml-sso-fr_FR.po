@@ -6,9 +6,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.4.0\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
-"POT-Creation-Date: 2021-06-22T04:55:24+00:00\n"
+"POT-Creation-Date: 2021-07-06T20:20:14+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: Hubert GB <hgblouin@tciinc.ca>, 2019\n"
 "Language-Team: French (https://www.transifex.com/pressbooks/teams/9194/fr/)\n"
@@ -51,33 +51,33 @@ msgstr ""
 "Impossible d&rsquo;obtenir les métadonnées du fournisseur d&rsquo;identité "
 "(IdP) de l&rsquo;adresse URL."
 
-#: inc/class-saml.php:161
+#: inc/class-saml.php:163
 msgid "The Pressbooks SAML Plugin is not configured correctly."
 msgstr ""
 "Le module d&rsquo;extension SAML de Pressbooks n&rsquo;est pas configuré "
 "adéquatement."
 
-#: inc/class-saml.php:172
+#: inc/class-saml.php:174
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
 msgstr ""
 "Le module d&rsquo;extension SAML de Pressbook n&rsquo;a pas été initialisé. "
 "Erreur&nbsp;:"
 
-#: inc/class-saml.php:504
+#: inc/class-saml.php:508
 msgid "Invalid SP metadata: "
 msgstr "Métadonnées FS invalides&nbsp;:"
 
 #. translators: Saml error reason
-#: inc/class-saml.php:534
+#: inc/class-saml.php:538
 msgid "Not authenticated. Reason: %s"
 msgstr "Échec de l&rsquo;authentification. Raison&nbsp;:%s"
 
-#: inc/class-saml.php:568
+#: inc/class-saml.php:596
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 msgstr ""
 
 #. translators: %s Pressbooks Network Manager email if found.
-#: inc/class-saml.php:602
+#: inc/class-saml.php:630
 msgid ""
 "Unable to log in: You do not have an account on this Pressbooks network. To "
 "request an account, please contact your institution's Pressbooks Network "
@@ -87,23 +87,23 @@ msgstr ""
 "Pressbooks. Pour demander un compte, veuillez contacter "
 "l&rsquo;administrateur réseau Pressbooks de votre établissement %s"
 
-#: inc/class-saml.php:604
+#: inc/class-saml.php:632
 msgid "SAML authentication failed."
 msgstr "Échec de l&rsquo;authentification SAML."
 
-#: inc/class-saml.php:666
+#: inc/class-saml.php:711
 msgid "Connect via SAML2"
 msgstr "Se connecter par SAML2"
 
-#: inc/class-saml.php:674
+#: inc/class-saml.php:719
 msgid "Or"
 msgstr "Ou"
 
-#: inc/class-saml.php:710
+#: inc/class-saml.php:755
 msgid "Logged in!"
 msgstr "Vous êtes connecté!"
 
-#: inc/class-saml.php:929
+#: inc/class-saml.php:974
 msgid "Registered and logged in!"
 msgstr "Vous êtes inscrit et connecté!"
 

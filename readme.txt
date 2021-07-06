@@ -4,7 +4,7 @@ Tags: pressbooks, saml, saml2, sso, shibboleth
 Requires at least: 5.6.2
 Tested up to: 5.7.2
 Requires PHP: 7.3
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -75,7 +75,7 @@ The email can be filtered, example: `add_filter( 'pb_integrations_multidomain_em
 
 Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/onelogin/php-saml/) toolkit, [many other configuration variables can be tweaked](https://github.com/onelogin/php-saml/#settings).
 
-## Sending logs 
+## Sending logs
 If you use AWS and wish to log SAML attempts on your server, you will need define some environment variables on the server which is hosting your Pressbooks instance.
 ### AWS S3
 Define the following environment variables:
@@ -109,9 +109,9 @@ After these variables have been properly defined, basic information about SAML l
 ![Metadata XML.](screenshot-2.png)
 
 == Changelog ==
-= 1.4.0 =
+= 1.5.0 =
 
-* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.4.0
+* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.5.0
 * Full release history available at: https://github.com/pressbooks/pressbooks-saml-sso/releases
 
 == Upgrade Notice ==

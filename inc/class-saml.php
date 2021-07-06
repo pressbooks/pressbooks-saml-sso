@@ -20,6 +20,8 @@ class SAML {
 
 	const USER_DATA = 'pb_saml_user_data';
 
+	const AUTH_DATA = 'pb_saml_auth_data';
+
 	const AUTH_N_REQUEST_ID = 'pb_saml_auth_n_request_id';
 
 	// IMPORTANT: Do not rename to `pb_saml` - kept like this to be compatible with legacy integrations
@@ -245,6 +247,7 @@ class SAML {
 			'wantAssertionsSigned' => true,
 			'wantAssertionsEncrypted' => true,
 			'wantNameIdEncrypted' => false,
+			'logoutRequestSigned' => true,
 		];
 
 		/**
@@ -258,6 +261,7 @@ class SAML {
 		$config['sp']['entityId'] = network_site_url( self::ENTITY_ID, 'https' ); // This ia a URI, not a URL. Spec says it doesn't need to resolve.
 		$config['sp']['assertionConsumerService']['url'] = \PressbooksSamlSso\acs_url();
 		$config['sp']['singleLogoutService']['url'] = \PressbooksSamlSso\sls_url();
+		$config['sp']['singleLogoutService']['binding'] = \OneLogin\Saml2\Constants::BINDING_HTTP_REDIRECT;
 
 		$config['sp']['attributeConsumingService'] = [
 			'serviceName' => 'Pressbooks',
@@ -539,17 +543,41 @@ class SAML {
 
 		// Attributes
 		$attributes = $this->parseAttributeStatement();
+		$this->storeAuthDataInSession();
 
 		// If we made it to here, then no exceptions were thrown, and everything is fine.
 		// Now that the user has a session the SP allows the request to proceed.
 
 		$_SESSION[ self::USER_DATA ] = $attributes;
+
 		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL ); // TODO
 		if ( $redirect_to && \OneLogin\Saml2\Utils::getSelfURL() !== $redirect_to ) {
 			$this->auth->redirectTo( $redirect_to );
 		} else {
 			$this->auth->redirectTo( $this->loginUrl );
 		}
+	}
+
+	private function storeAuthDataInSession() {
+		$_SESSION[ self::AUTH_DATA ] = [
+			'sessionIndex' => $this->auth->getSessionIndex(),
+			'nameId' => $this->auth->getNameId(),
+			'nameFormat' => $this->auth->getNameIdFormat(),
+			'nameIdNameQualifier' => $this->auth->getNameIdNameQualifier(),
+			'nameIdSPNameQualifier' => $this->auth->getNameIdSPNameQualifier(),
+		];
+		$this->logAuthData();
+	}
+
+	private function logAuthData() {
+		if ( array_key_exists( self::AUTH_DATA, $_SESSION ) ) {
+			$log_auth_data = $_SESSION[ self::AUTH_DATA ];
+			$log_auth_data['sessionIndex'] = substr( $this->auth->getSessionIndex(), 0, 7 ) . '...';
+			$log_auth_data['nameId'] = substr( $this->auth->getNameId(), 0, 7 ) . '...';
+			$this->logData( 'Auth SAML data', $log_auth_data, true );
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -630,9 +658,26 @@ class SAML {
 	public function logoutRedirect( $redirect_to ) {
 		if ( $this->samlClientIsReady ) {
 			if ( $this->forcedRedirection || ! empty( $_SESSION[ self::USER_DATA ] ) || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
-				if ( ! empty( $this->auth->getSLOurl() ) ) {
-					$this->auth->logout( add_query_arg( 'loggedout', true, wp_login_url() ) );
+				if ( ! empty( $this->auth->getSLOurl() ) && ! empty( $_SESSION[ self::AUTH_DATA ] ) ) {
+					$user_auth_data = $_SESSION[ self::AUTH_DATA ];
+					unset( $_SESSION[ self::USER_DATA ] );
+					unset( $_SESSION[ self::AUTH_DATA ] );
+					$this->auth->logout(
+						add_query_arg( 'loggedout', true, wp_login_url() ),
+						[],
+						$user_auth_data['nameId'],
+						$user_auth_data['sessionIndex'],
+						false,
+						$user_auth_data['nameFormat'],
+						$user_auth_data['nameIdNameQualifier'],
+						$user_auth_data['nameIdSPNameQualifier']
+					);
 					$this->doExit();
+					return true;
+				}
+				if ( $this->forcedRedirection && empty( $_SESSION[ self::USER_DATA ] ) ) {
+					remove_filter( 'login_url', [ $this, 'changeLoginUrl' ], 999 );
+					return wp_login_url();
 				}
 			}
 		}
@@ -715,8 +760,8 @@ class SAML {
 	}
 
 	private function getPartialCookies() {
+		$cookie_info_to_store = [];
 		if ( ! is_null( $this->log ) ) {
-			$cookie_info_to_store = [];
 			foreach ( $_COOKIE as $key => $cookie ) {
 				$value_to_store = false;
 				$key_to_store = false;
@@ -742,8 +787,8 @@ class SAML {
 					$cookie_info_to_store[ $key_to_store ] = $value_to_store;
 				}
 			}
-			return $cookie_info_to_store;
 		}
+		return $cookie_info_to_store;
 	}
 
 	private function logData( string $key, array $data, bool $store = false ) {

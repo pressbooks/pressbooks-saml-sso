@@ -567,7 +567,8 @@ class SAML {
 			'nameIdSPNameQualifier' => $this->auth->getNameIdSPNameQualifier(),
 		];
 		$log_auth_data = $_SESSION[ self::AUTH_DATA ];
-		$log_auth_data['sessionIndex'] = substr( $this->auth->getSessionIndex(), 0, 5 );
+		$log_auth_data['sessionIndex'] = substr( $this->auth->getSessionIndex(), 0, 7 );
+		$log_auth_data['nameId'] = substr( $this->auth->getNameId(), 0, 7 );
 		$this->logData( 'Auth SAML data', $log_auth_data, true );
 	}
 
@@ -650,18 +651,19 @@ class SAML {
 		if ( $this->samlClientIsReady ) {
 			if ( $this->forcedRedirection || ! empty( $_SESSION[ self::USER_DATA ] ) || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
 				if ( ! empty( $this->auth->getSLOurl() ) && ! empty( $_SESSION[ self::AUTH_DATA ] ) ) {
+					$user_auth_data = $_SESSION[ self::AUTH_DATA ];
+					unset( $_SESSION[ self::USER_DATA ] );
+					unset( $_SESSION[ self::AUTH_DATA ] );
 					$this->auth->logout(
 						add_query_arg( 'loggedout', true, wp_login_url() ),
 						[],
-						$_SESSION[ self::AUTH_DATA ]['nameId'],
-						$_SESSION[ self::AUTH_DATA ]['sessionIndex'],
+						$user_auth_data['nameId'],
+						$user_auth_data['sessionIndex'],
 						false,
-						$_SESSION[ self::AUTH_DATA ]['nameFormat'],
-						$_SESSION[ self::AUTH_DATA ]['nameIdNameQualifier'],
-						$_SESSION[ self::AUTH_DATA ]['nameIdSPNameQualifier']
+						$user_auth_data['nameFormat'],
+						$user_auth_data['nameIdNameQualifier'],
+						$user_auth_data['nameIdSPNameQualifier']
 					);
-					unset( $_SESSION[ self::USER_DATA ] );
-					unset( $_SESSION[ self::AUTH_DATA ] );
 					$this->doExit();
 					return true;
 				}

@@ -47,7 +47,6 @@ jobs:
         run: |
           node -v
           npm install
-          npm run install-build-tools
           npm run build
           export PATH="$HOME/.composer/vendor/bin:$PATH"
           composer install --no-interaction
@@ -56,7 +55,10 @@ jobs:
           cd ../pressbooks && composer install --no-dev
           cd ../pressbooks-saml-sso
 
-      - name: Run Lint
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run PHP CodeSniffer
         run: vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
 
       - name: Install WP tests

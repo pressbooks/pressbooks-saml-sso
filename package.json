@@ -1,8 +1,7 @@
 {
   "name": "@pressbooks/pressbooks-saml-sso",
-  "description": "Scaffolding for a Pressbooks plugin.",
+  "description": "SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, Google Apps, etc.).",
   "scripts": {
-    "install-build-tools": "npm install --no-save pressbooks-build-tools",
     "watch": "mix watch",
     "build": "npm run production",
     "production": "mix --production",
@@ -15,7 +14,9 @@
     "node": ">= 10"
   },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "pressbooks-build-tools": "^3.0.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pressbooks/pressbooks-saml-sso.git"

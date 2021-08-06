@@ -24,8 +24,7 @@ jobs:
             os: ubuntu-20.04
             wordpress: latest
             experimental: true
-    name: PHPUnit - ${{ matrix.php }}
-
+    name: PHPUnit - PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2

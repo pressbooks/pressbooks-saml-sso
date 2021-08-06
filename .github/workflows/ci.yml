@@ -11,12 +11,19 @@ on:
 jobs:
   phpunit:
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
+      fail-fast: false
       matrix:
-        php: [7.3] # TODO: Add 7.4 and fix the errors.
+        php: [7.3]
         os: [ubuntu-18.04]
         wordpress: [5.7.2, latest]
-
+        experimental: [false]
+        include:
+          - php: 7.4
+            os: ubuntu-20.04
+            wordpress: latest
+            experimental: true
     name: PHPUnit - ${{ matrix.php }}
 
     steps:
@@ -24,10 +31,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install OS dependencies
-        run: |
-          sudo apt update
-          sudo apt-get install libxml2-utils ghostscript poppler-utils imagemagick
-          sudo systemctl start mysql.service
+        run: sudo systemctl start mysql.service
 
       - name: Cache Composer packages
         uses: actions/cache@v2
@@ -35,19 +39,28 @@ jobs:
           path: vendor
           key: ${{ matrix.php }}-php-${{ hashFiles('**/composer.lock') }}
 
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           tools: composer:v1
           coverage: pcov
-          extensions: imagick
 
-      - name: Install dependencies
+      - name: Install Node dependencies
         run: |
           node -v
           npm install
           npm run build
+        if: matrix.experimental == false
+
+      - name: Install PHP dependencies
+        run: |
           export PATH="$HOME/.composer/vendor/bin:$PATH"
           composer install --no-interaction
           composer global require "phpunit/phpunit:7.5.20"
@@ -57,15 +70,16 @@ jobs:
 
       - name: Run lint
         run: npm run lint
+        if: matrix.experimental == false
 
       - name: Run PHP CodeSniffer
-        run: vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/
+        run: composer standards
 
       - name: Install WP tests
         run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
 
       - name: Run PHP Tests
-        run: vendor/bin/phpunit --configuration phpunit.xml
+        run: composer test
         if: matrix.php != 7.3
 
       - name: Run PHP Tests and PCOV

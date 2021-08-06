@@ -30,7 +30,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install OS dependencies
+      - name: Start required services
         run: sudo systemctl start mysql.service
 
       - name: Cache Composer packages

@@ -539,7 +539,7 @@ class SAML {
 		}
 
 		$this->logData( 'NameID of the assertion', [ $this->auth->getNameId() ] );
-		$this->logData( 'NameID SP NameQualifier of the assertion', [ $this->auth->getNameIdSPNameQualifier() ], true );
+		$this->logData( 'NameID SP NameQualifier of the assertion', [ $this->auth->getNameIdSPNameQualifier() ] );
 
 		// Attributes
 		$attributes = $this->parseAttributeStatement();
@@ -549,6 +549,11 @@ class SAML {
 		// Now that the user has a session the SP allows the request to proceed.
 
 		$_SESSION[ self::USER_DATA ] = $attributes;
+		$this->logData(
+			'SAML raw attributes',
+			is_array( $attributes ) ? $attributes : [ $attributes ],
+			true
+		);
 
 		$redirect_to = filter_input( INPUT_POST, 'RelayState', FILTER_SANITIZE_URL ); // TODO
 		if ( $redirect_to && \OneLogin\Saml2\Utils::getSelfURL() !== $redirect_to ) {
@@ -574,7 +579,7 @@ class SAML {
 			$log_auth_data = $_SESSION[ self::AUTH_DATA ];
 			$log_auth_data['sessionIndex'] = substr( $this->auth->getSessionIndex(), 0, 7 ) . '...';
 			$log_auth_data['nameId'] = substr( $this->auth->getNameId(), 0, 7 ) . '...';
-			$this->logData( 'Auth SAML data', $log_auth_data, true );
+			$this->logData( 'Auth SAML data', $log_auth_data );
 			return true;
 		}
 		return false;

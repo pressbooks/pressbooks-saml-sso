@@ -1,0 +1,208 @@
+# Copyright (C) 2021 Pressbooks (Book Oven Inc.)
+# This file is distributed under the same license as the Pressbooks SAML2 Single Sign-On plugin.
+# Translators:
+# Omshivaprakash H L <omshivaprakash@gmail.com>, 2021
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.6.0\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
+"POT-Creation-Date: 2021-10-12T18:39:28+00:00\n"
+"PO-Revision-Date: 2019-02-28 19:57+0000\n"
+"Last-Translator: Omshivaprakash H L <omshivaprakash@gmail.com>, 2021\n"
+"Language-Team: Kannada (https://www.transifex.com/pressbooks/teams/9194/kn/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: kn\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Domain: pressbooks-saml-sso\n"
+"X-Generator: WP-CLI 2.3.0\n"
+
+#. Plugin Name of the plugin
+msgid "Pressbooks SAML2 Single Sign-On"
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ SMAL2 ಸಿಂಗಲ್ ಸೈನ್-ಆನ್"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://pressbooks.org"
+msgstr "https://pressbooks.org"
+
+#. Description of the plugin
+msgid ""
+"SAML2 Single Sign-On integration for Pressbooks. (Shibboleth, Microsoft "
+"ADFS, Google Apps, etc.)"
+msgstr ""
+"ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಗಾಗಿ ಎಸ್ಎಎಂಎಲ್2 ಸಿಂಗಲ್ ಸೈನ್-ಆನ್ ಏಕೀಕರಣ. (ಶಿಬೋಲೆತ್, "
+"ಮೈಕ್ರೋಸಾಫ್ಟ್ ಎಡಿಎಫ್ಎಸ್, ಗೂಗಲ್ ಆಪ್ಸ್, ಇತ್ಯಾದಿ)"
+
+#. Author of the plugin
+msgid "Pressbooks (Book Oven Inc.)"
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ (ಬುಕ್ ಓವನ್ ಇಂಕ್.)"
+
+#: inc/class-admin.php:63 inc/class-admin.php:64
+msgid "SAML2"
+msgstr "ಎಸ್.ಎ.ಎಂ.ಎಲ್.2"
+
+#: inc/class-admin.php:150
+msgid "Failed to get IdP Metadata from URL."
+msgstr "ಯುಆರ್‍ಎಲ್ ನಿಂದ ಐಡಿಪಿ ಮೆಟಾಡೇಟಾ ಪಡೆಯಲು ವಿಫಲವಾಗಿದೆ."
+
+#: inc/class-saml.php:163
+msgid "The Pressbooks SAML Plugin is not configured correctly."
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಎಸ್ಎಎಂಎಲ್ ಪ್ಲಗಿನ್ ಸರಿಯಾಗಿ ಕಾನ್ಫಿಗರ್ ಆಗಿಲ್ಲ."
+
+#: inc/class-saml.php:174
+msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಎಸ್ಎಎಂಎಲ್ ಪ್ಲಗಿನ್ ಅನ್ನು ಆರಂಭಿಸಲು ವಿಫಲವಾಗಿದೆ. ದೋಷ: "
+
+#: inc/class-saml.php:508
+msgid "Invalid SP metadata: "
+msgstr "ಅಮಾನ್ಯ ಎಸ್‍ಪಿ ಮೆಟಾಡೇಟಾ: "
+
+#. translators: Saml error reason
+#: inc/class-saml.php:538
+msgid "Not authenticated. Reason: %s"
+msgstr "ದೃಢೀಕರಿಸಿಲ್ಲ. ಕಾರಣ: %s"
+
+#: inc/class-saml.php:601
+msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
+msgstr "ಕಾಣೆಯಾದ ಎಸ್ಎಎಂಎಲ್ urn:oid:0.9.2342.19200300.100.1.1 ಗುಣಲಕ್ಷಣ"
+
+#. translators: %s Pressbooks Network Manager email if found.
+#: inc/class-saml.php:635
+msgid ""
+"Unable to log in: You do not have an account on this Pressbooks network. To "
+"request an account, please contact your institution's Pressbooks Network "
+"Manager%s"
+msgstr ""
+"ಲಾಗ್ ಇನ್ ಮಾಡಲು ಅಸಮರ್ಥ: ಈ ಪ್ರೆಸ್ ಬುಕ್ಸ್ ನೆಟ್ ವರ್ಕ್ ನಲ್ಲಿ ನಿಮ್ಮ ಬಳಿ ಖಾತೆ ಇಲ್ಲ."
+" ಖಾತೆಯನ್ನು ವಿನಂತಿಸಲು, ದಯವಿಟ್ಟು ನಿಮ್ಮ ಸಂಸ್ಥೆಯ ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ನೆಟ್ ವರ್ಕ್ "
+"ಮ್ಯಾನೇಜರ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿ%s"
+
+#: inc/class-saml.php:637
+msgid "SAML authentication failed."
+msgstr "ಎಸ್ಎಎಂಎಲ್ ದೃಢೀಕರಣ ವಿಫಲವಾಗಿದೆ."
+
+#: inc/class-saml.php:716
+msgid "Connect via SAML2"
+msgstr "ಎಸ್ಎಎಂಎಲ್2 ಮೂಲಕ ಸಂಪರ್ಕಿಸು"
+
+#: inc/class-saml.php:724
+msgid "Or"
+msgstr "ಅಥವಾ"
+
+#: inc/class-saml.php:760
+msgid "Logged in!"
+msgstr "ನೀವು ಲಾಗ್ ಇನ್ ಆಗಿದ್ದೀರಿ!"
+
+#: inc/class-saml.php:979
+msgid "Registered and logged in!"
+msgstr "ನೋಂದಾಯಿಸಲಾಗಿದೆ ಮತ್ತು ಲಾಗ್ ಇನ್ ಮಾಡಲಾಗಿದೆ!"
+
+#: pressbooks-saml-sso.php:23
+msgid "Cannot find Pressbooks install."
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಸ್ಥಾಪಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
+
+#: pressbooks-saml-sso.php:46
+msgid ""
+"Please run <code>composer install</code> from the root of the Pressbooks "
+"SAML2 Single Sign-On plugin directory."
+msgstr ""
+"ದಯವಿಟ್ಟು <code>composer install</code> ಪ್ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಎಎಂಎಲ್2 ಸಿಂಗಲ್ "
+"ಸೈನ್-ಆನ್ ಪ್ಲಗಿನ್ ಡೈರೆಕ್ಟರಿ ಮೂಲದಿಂದ ಚಲಿಸಿ."
+
+#: templates/admin.blade.php:2
+msgid "SAML2 (Security Assertion Markup Language)"
+msgstr "SAML2 (Security Assertion Markup Language)"
+
+#: templates/admin.blade.php:3
+msgid ""
+"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked"
+" for Service Provider (SP) configuration file. Get that here:"
+msgstr ""
+"ಶಿಬೋಲೆತ್ ಅಥವಾ ಎಸ್ಎಎಂಎಲ್2 ಗುರುತಿನ ಪೂರೈಕೆದಾರ (ಐಡಿಪಿ) ಗೆ ಸೇರುವಾಗ ನಿಮ್ಮನ್ನು ಸೇವಾ"
+" ಪೂರೈಕೆದಾರ (ಎಸ್‍ಪಿ) ಕಾನ್ಫಿಗರೇಶನ್ ಫೈಲ್‍ಗಾಗಿ ಕೇಳಲಾಗುತ್ತದೆ. ಅದನ್ನು ಇಲ್ಲಿ "
+"ಪಡೆಯಿರಿ:"
+
+#: templates/admin.blade.php:4
+msgid "Metadata XML Configuration"
+msgstr "ಮೆಟಾಡೇಟಾ ಎಕ್ಸ್ ಎಂಎಲ್ ಕಾನ್ಫಿಗರೇಶನ್"
+
+#: templates/admin.blade.php:8
+msgid "Automatic Configuration"
+msgstr "ಸ್ವಯಂಚಾಲಿತ ಕಾನ್ಫಿಗರೇಶನ್"
+
+#: templates/admin.blade.php:15
+msgid ""
+"If you have an IdP metadata URL, enter it here and save. The fields below "
+"should then auto-fill."
+msgstr ""
+"ನೀವು ಐಡಿಪಿ ಮೆಟಾಡೇಟಾ ಯುಆರ್ ಎಲ್ ಹೊಂದಿದ್ದರೆ, ಅದನ್ನು ಇಲ್ಲಿ ನಮೂದಿಸಿ ಮತ್ತು ಉಳಿಸಿ. "
+"ಕೆಳಗಿನ ಹೊಲಗಳು ನಂತರ ಸ್ವಯಂ ಭರ್ತಿ ಮಾಡಬೇಕು."
+
+#: templates/admin.blade.php:20
+msgid "Manual Configuration"
+msgstr "ಮ್ಯಾನುಯಲ್ ಕಾನ್ಪಿಗರೇಷ್‍ನ್"
+
+#: templates/admin.blade.php:27
+msgid "Identifier of the IdP entity (must be a URI.)"
+msgstr "ಐಡಿಪಿ ಸಂಸ್ಥೆಯ ಐಡೆಂಟಿಫೈಯರ್ (ಯುಆರ್ಐ ಆಗಿರಬೇಕು.)"
+
+#: templates/admin.blade.php:36
+msgid ""
+"URL Target of the IdP where the Authentication Request Message will be sent."
+msgstr "ದೃಢೀಕರಣ ವಿನಂತಿ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸುವ ಐಡಿಪಿಯ ಯುಆರ್‍ಎಲ್ ಗುರಿ."
+
+#: templates/admin.blade.php:45
+msgid "URL Location of the IdP where SLO Request will be sent."
+msgstr "ಎಸ್‍ಎಲ್‍ಒ ವಿನಂತಿಯನ್ನು ಕಳುಹಿಸುವ ಐಡಿಪಿಯ ಯುಆರ್ ಎಲ್ ಸ್ಥಳ."
+
+#: templates/admin.blade.php:54
+msgid "Public x509 certificate of the IdP."
+msgstr "ಐಡಿಪಿಯ ಸಾರ್ವಜನಿಕ x509 ಪ್ರಮಾಣಪತ್ರ."
+
+#: templates/admin.blade.php:61
+msgid "If the user does not have a Pressbooks account"
+msgstr "ಬಳಕೆದಾರನು ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಖಾತೆಯನ್ನು ಹೊಂದಿಲ್ಲದಿದ್ದರೆ"
+
+#: templates/admin.blade.php:63
+msgid "Refuse Access"
+msgstr "ಪ್ರವೇಶ ನಿರಾಕರಿಸು"
+
+#: templates/admin.blade.php:64
+msgid "Add New User"
+msgstr "ಬಳಕೆದಾರರನ್ನು ಸೇರಿಸಿ"
+
+#: templates/admin.blade.php:69
+msgid "Optional Information"
+msgstr "ಐಚ್ಛಿಕ ಮಾಹಿತಿ"
+
+#: templates/admin.blade.php:72
+msgid " Bypass"
+msgstr " ಬೈಪಾಸ್"
+
+#: templates/admin.blade.php:74
+msgid ""
+"Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" "
+"lists under <a href=\"%s\">Network Settings</a>."
+msgstr ""
+"<a href=\"%s\">ನೆಟ್ವರ್ಕ್ ಸೆಟ್ಟಿಂಗ್ಗಳ</a>ಅಡಿಯಲ್ಲಿ \"ಸೀಮಿತ ಇಮೇಲ್ ನೋಂದಣಿಗಳು\" "
+"ಮತ್ತು \"ನಿಷೇಧಿತ ಇಮೇಲ್ ಡೊಮೇನ್ ಗಳು\" ಪಟ್ಟಿಗಳನ್ನು ಬೈಪಾಸ್ ಮಾಡಿ."
+
+#: templates/admin.blade.php:79
+msgid " Forced Redirection"
+msgstr " ಬಲವಂತದ ಮರುನಿರ್ದೇಶನ"
+
+#: templates/admin.blade.php:82
+msgid "Hide the Pressbooks login page."
+msgstr "ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಲಾಗಿನ್ ಪುಟವನ್ನು ಮರೆಮಾಡಿ."
+
+#: templates/admin.blade.php:86
+msgid "Customize Button Text"
+msgstr "ಬಟನ್ ಪಠ್ಯವನ್ನು ಅಗತ್ಯಾನುಗುಣಗೊಳಿಸು"
+
+#: templates/admin.blade.php:90
+msgid ""
+"Change the [ Connect via SAML2 ] button to something more user-friendly."
+msgstr "[ಎಸ್ಎಎಂಎಲ್2 ಮೂಲಕ ಸಂಪರ್ಕ] ಬಟನ್ ಅನ್ನು ಹೆಚ್ಚು ಬಳಕೆದಾರ ಸ್ನೇಹಿಯಾಗಿ ಬದಲಿಸಿ."

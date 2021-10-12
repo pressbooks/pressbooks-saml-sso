@@ -4,7 +4,7 @@ Tags: pressbooks, saml, saml2, sso, shibboleth
 Requires at least: 5.6.2
 Tested up to: 5.7.2
 Requires PHP: 7.3
-Stable tag: 1.5.0
+Stable tag: 1.6.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -109,9 +109,9 @@ After these variables have been properly defined, basic information about SAML l
 ![Metadata XML.](screenshot-2.png)
 
 == Changelog ==
-= 1.5.0 =
+= 1.6.0 =
 
-* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.5.0
+* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.6.0
 * Full release history available at: https://github.com/pressbooks/pressbooks-saml-sso/releases
 
 == Upgrade Notice ==

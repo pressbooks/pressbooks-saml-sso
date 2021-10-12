@@ -1,14 +1,14 @@
 # Copyright (C) 2021 Pressbooks (Book Oven Inc.)
 # This file is distributed under the same license as the Pressbooks SAML2 Single Sign-On plugin.
 # Translators:
-# Eduardo Vera <info@mirimiri.xyz>, 2021
+# Eduardo Vera <evera@shinydreamer.xyz>, 2021
 # Ho Man Chan <homan@pressbooks.com>, 2021
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.5.0\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.6.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
-"POT-Creation-Date: 2021-07-06T20:20:14+00:00\n"
+"POT-Creation-Date: 2021-10-12T18:39:28+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: Ho Man Chan <homan@pressbooks.com>, 2021\n"
 "Language-Team: Spanish (https://www.transifex.com/pressbooks/teams/9194/es/)\n"
@@ -66,12 +66,12 @@ msgstr "Metadatos SP no válidos: "
 msgid "Not authenticated. Reason: %s"
 msgstr "No identificado. Razón: %s"
 
-#: inc/class-saml.php:596
+#: inc/class-saml.php:601
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 msgstr "Falta el atributo SAML urn:oid:0.9.2342.19200300.100.1.1"
 
 #. translators: %s Pressbooks Network Manager email if found.
-#: inc/class-saml.php:630
+#: inc/class-saml.php:635
 msgid ""
 "Unable to log in: You do not have an account on this Pressbooks network. To "
 "request an account, please contact your institution's Pressbooks Network "
@@ -81,23 +81,23 @@ msgstr ""
 "Para solicitar una cuenta, contacta con el administrador%s de la red de "
 "Pressbooks de tu institución."
 
-#: inc/class-saml.php:632
+#: inc/class-saml.php:637
 msgid "SAML authentication failed."
 msgstr "La identificación mediante SAML ha fallado."
 
-#: inc/class-saml.php:711
+#: inc/class-saml.php:716
 msgid "Connect via SAML2"
 msgstr "Conectar mediante SAML"
 
-#: inc/class-saml.php:719
+#: inc/class-saml.php:724
 msgid "Or"
 msgstr "O"
 
-#: inc/class-saml.php:755
+#: inc/class-saml.php:760
 msgid "Logged in!"
 msgstr "¡Ya estás conectado!"
 
-#: inc/class-saml.php:974
+#: inc/class-saml.php:979
 msgid "Registered and logged in!"
 msgstr "¡Ya estás registrado y conectado!"
 

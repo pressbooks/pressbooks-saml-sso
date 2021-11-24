@@ -1,14 +1,10 @@
 name: Update translations from Transifex
 
-on:
-  push:
-    branches:
-    - dev
+on: workflow_dispatch
 
 jobs:
   update-translations:
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, '[tx-pull]')"
     steps:
     - uses: actions/checkout@v2
     - name: Install Transifex Client
@@ -21,11 +17,15 @@ jobs:
       run: sudo apt-get install -y gettext
     - name: Generate MO files
       run: for file in languages/*.po ; do msgfmt $file -o `echo $file | sed 's/\(.*\.\)po/\1mo/'` ; done
-    - name: Create pull request with updated content
-      uses: peter-evans/create-pull-request@v3
+    # Remove the next four lines and uncomment the last six lines once the process has been confirmed to work as desired.
+    - uses: actions/upload-artifact@v2
       with:
-        commit-message: 'chore: update translations'
-        title: 'chore: update translations'
-        body: 'Update translations from [Transifex](https://www.transifex.com/pressbooks/pressbooks-saml-sso/).'
-        branch: update-translations
-        base: dev
+        name: pressbooks-saml-sso-languages
+        path: languages/
+    - name: Stage updated files
+      run: sudo apt-get install -y gettext
+    # - name: Commit updated translation files
+    #   uses: stefanzweifel/git-auto-commit-action@v4.1.1
+    #   with:
+    #     commit_message: 'chore(l10n): update languages/pressbooks.pot'
+    #     file_pattern: *.mo *.po

@@ -202,7 +202,6 @@ class SAML {
 		return true;
 	}
 
-
 	/**
 	 * @return array
 	 */

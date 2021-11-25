@@ -90,7 +90,6 @@ class Admin {
 		echo $html;
 	}
 
-
 	/**
 	 * @throws \Exception
 	 * @return bool

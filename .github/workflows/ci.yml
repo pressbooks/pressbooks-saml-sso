@@ -56,14 +56,6 @@ jobs:
           coverage: pcov
         if: matrix.experimental == false
 
-      - name: Setup PHP with Composer 2
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          tools: composer
-          coverage: pcov
-        if: matrix.experimental == true
-
       - name: Install Node dependencies
         run: |
           node -v
@@ -95,7 +87,7 @@ jobs:
 
       - name: Run PHP Tests with PHPUnit 9
         run: |
-          composer remove --dev phpunit/phpunit --with-all-dependencies
+          composer remove --dev phpunit/phpunit
           composer update --dev yoast/phpunit-polyfills --with-dependencies --ignore-platform-reqs
           vendor/bin/phpunit --configuration phpunit9.xml
         if: matrix.experimental == true && matrix.wordpress == 'trunk'

@@ -56,6 +56,14 @@ jobs:
           coverage: pcov
         if: matrix.experimental == false
 
+      - name: Setup PHP with Composer 2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer
+          coverage: pcov
+        if: matrix.experimental == true
+
       - name: Install Node dependencies
         run: |
           node -v

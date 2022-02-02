@@ -41,9 +41,9 @@ class AdminTest extends \WP_UnitTestCase {
 		$this->admin = new \PressbooksSamlSso\Admin();
 	}
 
-	public function tearDown() {
+	public function tear_down() {
 		$this->killWebPage();
-		parent::tearDown();
+		parent::tear_down();
 	}
 
 	public function test_addMenu() {

@@ -3,6 +3,10 @@
 use Aws\S3\S3Client as S3Client;
 use Pressbooks\Log;
 
+/**
+ * @group saml
+ */
+
 class SamlTest extends \WP_UnitTestCase {
 
 	const TEST_FILE_PATH = __DIR__ . '/data/saml-log.csv';
@@ -148,16 +152,11 @@ class SamlTest extends \WP_UnitTestCase {
 	 */
 	protected function getSaml() {
 
-		// Ignore session warnings
-		PHPUnit_Framework_Error_Notice::$enabled = false;
-		PHPUnit_Framework_Error_Warning::$enabled = false;
 		ini_set( 'error_reporting', 0 );
 		ini_set( 'display_errors', 0 );
 
 		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdmin(), $this->setS3ClientMock() );
 
-		PHPUnit_Framework_Error_Notice::$enabled = true;
-		PHPUnit_Framework_Error_Warning::$enabled = true;
 		ini_set( 'error_reporting', 1 );
 		ini_set( 'display_errors', 1 );
 
@@ -178,11 +177,15 @@ class SamlTest extends \WP_UnitTestCase {
 		return new Log\Log( $s3_provider_mock );
 	}
 
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		unset( $_SESSION );
 		$this->saml = $this->getSaml();
-		if( file_exists( self::TEST_FILE_PATH ) ){
+	}
+
+	public function tear_down() {
+		parent::tear_down();
+		if ( file_exists( self::TEST_FILE_PATH ) ) {
 			unlink( self::TEST_FILE_PATH );
 		}
 	}
@@ -268,7 +271,7 @@ class SamlTest extends \WP_UnitTestCase {
 
 	public function test_changeLoginUrl() {
 		$url = $this->saml->changeLoginUrl( 'https://pressbooks.test' );
-		$this->assertContains( 'action=pb_shibboleth', $url );
+		$this->assertStringContainsString( 'action=pb_shibboleth', $url );
 	}
 
 	public function test_showPasswordFields() {
@@ -281,7 +284,7 @@ class SamlTest extends \WP_UnitTestCase {
 		$result = $this->saml->authenticate( null, 'test', 'test' );
 		$this->assertNull( $result );
 
-		$_REQUEST['action'] = 'pb_shibboleth';
+		$_REQUEST['action'] = \PressbooksSamlSso\SAML::LOGIN_PREFIX;
 		$this->saml->setAuth( $this->getMockAuthForLogin() );
 		$result = $this->saml->authenticate( null, 'test', 'test' );
 		$this->assertTrue( $result instanceof \WP_Error );
@@ -307,10 +310,12 @@ class SamlTest extends \WP_UnitTestCase {
 			$this->saml::SAML_MAP_FIELDS['mail'] => [ 'uid@pressbooks.test' ],
 		];
 		ob_start();
+		$_REQUEST['action'] = \PressbooksSamlSso\SAML::LOGIN_PREFIX;
+		$this->saml->setAuth( $this->getMockAuthForLogin() );
 		$result = $this->saml->authenticate( null, 'test', 'test' );
 		$file_content = str_getcsv( file_get_contents( self::TEST_FILE_PATH ) );
 		$this->assertEquals( 'email from SAML attributes', $file_content[1] );
-		$this->assertContains(
+		$this->assertStringContainsString(
 			$_SESSION['pb_saml_user_data'][ $this->saml::SAML_MAP_FIELDS['mail'] ][0],
 			$file_content[2]
 		);
@@ -322,8 +327,8 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->saml->samlMetadata();
 		$buffer = ob_get_clean();
 		$this->assertTrue( simplexml_load_string( $buffer ) !== false );
-		$this->assertContains( 'AssertionConsumerService', $buffer );
-		$this->assertContains( 'SingleLogoutService', $buffer );
+		$this->assertStringContainsString( 'AssertionConsumerService', $buffer );
+		$this->assertStringContainsString( 'SingleLogoutService', $buffer );
 	}
 
 	public function test_samlAssertionConsumerService() {
@@ -331,7 +336,7 @@ class SamlTest extends \WP_UnitTestCase {
 			$_POST['SAMLResponse'] = '<garbage>';
 			$this->saml->samlAssertionConsumerService();
 		} catch ( Exception $e ) {
-			$this->assertContains( 'SAML Response could not be processed', $e->getMessage() );
+			$this->assertStringContainsString( 'SAML Response could not be processed', $e->getMessage() );
 		}
 
 		unset( $_POST['SAMLResponse'] );
@@ -348,7 +353,7 @@ class SamlTest extends \WP_UnitTestCase {
 		try {
 			$this->saml->parseAttributeStatement();
 		} catch ( Exception $e ) {
-			$this->assertContains( 'Missing SAML', $e->getMessage() );
+			$this->assertStringContainsString( 'Missing SAML', $e->getMessage() );
 		}
 
 		$mock_attributes = [
@@ -370,7 +375,7 @@ class SamlTest extends \WP_UnitTestCase {
 		try {
 			$this->saml->parseAttributeStatement();
 		} catch ( Exception $e ) {
-			$this->assertContains( 'Missing SAML', $e->getMessage() );
+			$this->assertStringContainsString( 'Missing SAML', $e->getMessage() );
 		}
 
 		$mock_attributes = [
@@ -475,14 +480,14 @@ class SamlTest extends \WP_UnitTestCase {
 
 	public function test_loginEnqueueScripts() {
 		$this->saml->loginEnqueueScripts();
-		$this->assertContains( 'pressbooks-saml-sso', get_echo( 'wp_print_scripts' ) );
+		$this->assertStringContainsString( 'pressbooks-saml-sso', get_echo( 'wp_print_scripts' ) );
 	}
 
 	public function test_loginForm() {
 		ob_start();
 		$this->saml->loginForm();
 		$buffer = ob_get_clean();
-		$this->assertContains( '<div id="pb-saml-wrap">', $buffer );
+		$this->assertStringContainsString( '<div id="pb-saml-wrap">', $buffer );
 	}
 
 	public function test_matchUserEmpty() {
@@ -502,7 +507,7 @@ class SamlTest extends \WP_UnitTestCase {
 		try {
 			$this->saml->handleLoginAttempt( $prefix, $email );
 			$this->assertInstanceOf( '\WP_User', get_user_by( 'email', $email ) );
-			$this->assertContains( $_SESSION['pb_notices'][0], 'Registered and logged in!' );
+			$this->assertStringContainsString( $_SESSION['pb_notices'][0], 'Registered and logged in!' );
 		} catch ( \Exception $e ) {
 			$this->fail( $e->getMessage() );
 		}
@@ -510,11 +515,11 @@ class SamlTest extends \WP_UnitTestCase {
 		$file_content = str_getcsv( file_get_contents( self::TEST_FILE_PATH ) );
 		$this->assertEquals( 'User metadata stored', $file_content[1] );
 		$this->assertEquals( 'Cookies', $file_content[3] );
-		$this->assertContains( 'wordpress_sec_', $file_content[4] );
-		$this->assertContains( 'PHPSESSID', $file_content[4] );
-		$this->assertContains( 'wordpress_logged_in_', $file_content[4] );
+		$this->assertStringContainsString( 'wordpress_sec_', $file_content[4] );
+		$this->assertStringContainsString( 'PHPSESSID', $file_content[4] );
+		$this->assertStringContainsString( 'wordpress_logged_in_', $file_content[4] );
 		$this->assertEquals( 'Username associated', $file_content[5] );
-		$this->assertContains( $prefix, $file_content[6] );
+		$this->assertStringContainsString( $prefix, $file_content[6] );
 		$this->assertEquals( 'Session after logged [Associated]', $file_content[7] );
 
 		// User was created
@@ -523,13 +528,13 @@ class SamlTest extends \WP_UnitTestCase {
 
 		$this->saml->linkAccount( $user->ID, $email );
 		$user_meta = get_user_meta( $user->ID, \PressbooksSamlSso\SAML::META_KEY );
-		$this->assertContains( $prefix, $user_meta[0] );
-		$this->assertContains( $email, $user_meta[1] );
+		$this->assertStringContainsString( $prefix, $user_meta[0] );
+		$this->assertStringContainsString( $email, $user_meta[1] );
 
 		// User exists
 		try {
 			$this->saml->handleLoginAttempt( $prefix, $email );
-			$this->assertContains( $_SESSION['pb_notices'][0], 'Logged in!' );
+			$this->assertStringContainsString( $_SESSION['pb_notices'][0], 'Logged in!' );
 		} catch ( \Exception $e ) {
 			$this->fail( $e->getMessage() );
 		}
@@ -567,8 +572,8 @@ class SamlTest extends \WP_UnitTestCase {
 			$bad_email = '1';
 			$this->saml->handleLoginAttempt( $bad_net_id, $bad_email );
 		} catch ( \Exception $e ) {
-			$this->assertContains( 'Please enter a valid email address', $e->getMessage() );
-			$this->assertContains( 'Username may not be longer than 60 characters', $e->getMessage() );
+			$this->assertStringContainsString( 'Please enter a valid email address', $e->getMessage() );
+			$this->assertStringContainsString( 'Username may not be longer than 60 characters', $e->getMessage() );
 			return;
 		}
 		$this->fail();
@@ -611,13 +616,13 @@ class SamlTest extends \WP_UnitTestCase {
 		$msg = $this->saml->authenticationFailedMessage( 'create' );
 		$this->assertEquals( 'SAML authentication failed.', $msg );
 		$msg = $this->saml->authenticationFailedMessage( 'refuse' );
-		$this->assertContains( 'To request an account', $msg );
-		$this->assertContains( '@', $msg );
+		$this->assertStringContainsString( 'To request an account', $msg );
+		$this->assertStringContainsString( '@', $msg );
 	}
 
 	public function test_getAdminEmail() {
 		$email = $this->saml->getAdminEmail();
-		$this->assertContains( '@', $email );
+		$this->assertStringContainsString( '@', $email );
 	}
 
 	public function test_sanitizeUser() {

@@ -36,14 +36,14 @@ class AdminTest extends \WP_UnitTestCase {
 	/**
 	 *
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		$this->admin = new \PressbooksSamlSso\Admin();
 	}
 
-	public function tearDown() {
+	public function tear_down() {
 		$this->killWebPage();
-		parent::tearDown();
+		parent::tear_down();
 	}
 
 	public function test_addMenu() {
@@ -55,15 +55,15 @@ class AdminTest extends \WP_UnitTestCase {
 		ob_start();
 		$this->admin->printMenu();
 		$buffer = ob_get_clean();
-		$this->assertContains( '</form>', $buffer );
+		$this->assertStringContainsString( '</form>', $buffer );
 	}
 
 	public function test_parseOptionsFromRemoteXML() {
 		$url = $this->launchWebPage();
 		$update = $this->admin->parseOptionsFromRemoteXML( $url );
 		$this->killWebPage();
-		$this->assertContains( 'testshib', $update['idp_entity_id'] );
-		$this->assertContains( 'testshib', $update['idp_sso_login_url'] );
+		$this->assertStringContainsString( 'testshib', $update['idp_entity_id'] );
+		$this->assertStringContainsString( 'testshib', $update['idp_sso_login_url'] );
 		$this->assertNotEmpty( $update['idp_x509_cert'] );
 
 		try {

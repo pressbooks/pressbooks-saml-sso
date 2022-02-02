@@ -3,6 +3,10 @@
 use Aws\S3\S3Client as S3Client;
 use Pressbooks\Log;
 
+/**
+ * @group saml
+ */
+
 class SamlTest extends \WP_UnitTestCase {
 
 	const TEST_FILE_PATH = __DIR__ . '/data/saml-log.csv';
@@ -177,7 +181,11 @@ class SamlTest extends \WP_UnitTestCase {
 		parent::set_up();
 		unset( $_SESSION );
 		$this->saml = $this->getSaml();
-		if( file_exists( self::TEST_FILE_PATH ) ){
+	}
+
+	public function tear_down() {
+		parent::tear_down();
+		if ( file_exists( self::TEST_FILE_PATH ) ) {
 			unlink( self::TEST_FILE_PATH );
 		}
 	}
@@ -276,7 +284,7 @@ class SamlTest extends \WP_UnitTestCase {
 		$result = $this->saml->authenticate( null, 'test', 'test' );
 		$this->assertNull( $result );
 
-		$_REQUEST['action'] = 'pb_shibboleth';
+		$_REQUEST['action'] = \PressbooksSamlSso\SAML::LOGIN_PREFIX;
 		$this->saml->setAuth( $this->getMockAuthForLogin() );
 		$result = $this->saml->authenticate( null, 'test', 'test' );
 		$this->assertTrue( $result instanceof \WP_Error );
@@ -302,6 +310,8 @@ class SamlTest extends \WP_UnitTestCase {
 			$this->saml::SAML_MAP_FIELDS['mail'] => [ 'uid@pressbooks.test' ],
 		];
 		ob_start();
+		$_REQUEST['action'] = \PressbooksSamlSso\SAML::LOGIN_PREFIX;
+		$this->saml->setAuth( $this->getMockAuthForLogin() );
 		$result = $this->saml->authenticate( null, 'test', 'test' );
 		$file_content = str_getcsv( file_get_contents( self::TEST_FILE_PATH ) );
 		$this->assertEquals( 'email from SAML attributes', $file_content[1] );

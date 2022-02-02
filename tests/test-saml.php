@@ -148,16 +148,11 @@ class SamlTest extends \WP_UnitTestCase {
 	 */
 	protected function getSaml() {
 
-		// Ignore session warnings
-		PHPUnit_Framework_Error_Notice::$enabled = false;
-		PHPUnit_Framework_Error_Warning::$enabled = false;
 		ini_set( 'error_reporting', 0 );
 		ini_set( 'display_errors', 0 );
 
 		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdmin(), $this->setS3ClientMock() );
 
-		PHPUnit_Framework_Error_Notice::$enabled = true;
-		PHPUnit_Framework_Error_Warning::$enabled = true;
 		ini_set( 'error_reporting', 1 );
 		ini_set( 'display_errors', 1 );
 

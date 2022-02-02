@@ -178,8 +178,8 @@ class SamlTest extends \WP_UnitTestCase {
 		return new Log\Log( $s3_provider_mock );
 	}
 
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		unset( $_SESSION );
 		$this->saml = $this->getSaml();
 		if( file_exists( self::TEST_FILE_PATH ) ){

@@ -24,7 +24,7 @@ class LogTest extends \WP_UnitTestCase {
 	/**
 	 * Test setup
 	 */
-	public function setUp() {
+	public function set_up() {
 		$this->setEnvironmentVariables();
 		unset( $_SESSION );
 	}

@@ -27,7 +27,8 @@
 	"require": {
 		"php": ">=7.3",
 		"composer/installers": "^1.7",
-		"onelogin/php-saml": "^3.3"
+		"onelogin/php-saml": "^3.3",
+		"phpcompatibility/php-compatibility": "^9.3"
 	},
 	"require-dev": {
 		"pressbooks/coding-standards": "^1.1",

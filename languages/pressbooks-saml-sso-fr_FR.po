@@ -75,7 +75,7 @@ msgstr "Échec de l&rsquo;authentification. Raison&nbsp;:%s"
 
 #: inc/class-saml.php:601
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
-msgstr ""
+msgstr "L'attribut SAML urn:oid:0.9.2342.19200300.100.1.1 est manquant"
 
 #. translators: %s Pressbooks Network Manager email if found.
 #: inc/class-saml.php:635

@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        token: ${{ secrets.PAT_TESTING }}
+        token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
     - name: Install Transifex Client
       run: sudo pip install transifex-client
     - name: Pull translations from Transifex

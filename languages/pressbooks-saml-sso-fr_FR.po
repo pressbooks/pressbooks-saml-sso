@@ -157,8 +157,8 @@ msgstr "Configuration manuelle"
 #: templates/admin.blade.php:27
 msgid "Identifier of the IdP entity (must be a URI.)"
 msgstr ""
-"Identifiant de l&rsquo;entité du fournisseur d&rsquo;identité (IdP) (doit "
-"être une adresse URI)"
+"Identifiant de l'entité du fournisseur d'identité (IdP) (doit être une "
+"adresse URI)"
 
 #: templates/admin.blade.php:36
 msgid ""

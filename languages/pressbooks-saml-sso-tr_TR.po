@@ -1,13 +1,13 @@
-# Copyright (C) 2021 Pressbooks (Book Oven Inc.)
-# This file is distributed under the same license as the Pressbooks SAML2 Single Sign-On plugin.
+# Copyright (C) 2022 Pressbooks (Book Oven Inc.)
+# This file is distributed under the GPL v3 or later.
 # Translators:
 # Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2020
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.6.0\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.6.1\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
-"POT-Creation-Date: 2021-10-12T18:39:28+00:00\n"
+"POT-Creation-Date: 2022-05-03T20:46:46+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2020\n"
 "Language-Team: Turkish (Turkey) (https://www.transifex.com/pressbooks/teams/9194/tr_TR/)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Domain: pressbooks-saml-sso\n"
-"X-Generator: WP-CLI 2.3.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks SAML2 Single Sign-On"
@@ -44,7 +44,7 @@ msgstr "Pressbooks (Book Oven Inc.)"
 msgid "SAML2"
 msgstr "SAML2"
 
-#: inc/class-admin.php:150
+#: inc/class-admin.php:149
 msgid "Failed to get IdP Metadata from URL."
 msgstr "URL'den IdP Meta Verileri alınamadı."
 
@@ -56,21 +56,21 @@ msgstr "Pressbooks SAML Eklentisi doğru yapılandırılmamış."
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
 msgstr "Pressbooks SAML Eklentisi başlatılamadı. Hata:"
 
-#: inc/class-saml.php:508
+#: inc/class-saml.php:507
 msgid "Invalid SP metadata: "
 msgstr "Geçersiz SP meta verileri:"
 
 #. translators: Saml error reason
-#: inc/class-saml.php:538
+#: inc/class-saml.php:537
 msgid "Not authenticated. Reason: %s"
 msgstr "Kimlik doğrulanmadı. Nedeni: %s"
 
-#: inc/class-saml.php:601
+#: inc/class-saml.php:600
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 msgstr ""
 
 #. translators: %s Pressbooks Network Manager email if found.
-#: inc/class-saml.php:635
+#: inc/class-saml.php:634
 msgid ""
 "Unable to log in: You do not have an account on this Pressbooks network. To "
 "request an account, please contact your institution's Pressbooks Network "
@@ -79,23 +79,23 @@ msgstr ""
 "Oturum açılamıyor: Bu Pressbooks ağında hesabınız yok. Bir hesap talep etmek"
 " için lütfen kurumunuzun Pressbooks Ağ Yöneticisi ile iletişime geçin%s"
 
-#: inc/class-saml.php:637
+#: inc/class-saml.php:636
 msgid "SAML authentication failed."
 msgstr "SAML kimlik doğrulaması başarısız oldu."
 
-#: inc/class-saml.php:716
+#: inc/class-saml.php:715
 msgid "Connect via SAML2"
 msgstr "SAML2 ile bağlanın"
 
-#: inc/class-saml.php:724
+#: inc/class-saml.php:723
 msgid "Or"
 msgstr "Veya"
 
-#: inc/class-saml.php:760
+#: inc/class-saml.php:759
 msgid "Logged in!"
 msgstr "Giriş yapıldı"
 
-#: inc/class-saml.php:979
+#: inc/class-saml.php:978
 msgid "Registered and logged in!"
 msgstr "Kayıt olundu ve giriş yapıldı"
 

@@ -1,17 +1,17 @@
-# Copyright (C) 2021 Pressbooks (Book Oven Inc.)
-# This file is distributed under the same license as the Pressbooks SAML2 Single Sign-On plugin.
+# Copyright (C) 2022 Pressbooks (Book Oven Inc.)
+# This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.6.0\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.6.1\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-12T18:39:28+00:00\n"
+"POT-Creation-Date: 2022-05-03T20:46:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.3.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: pressbooks-saml-sso\n"
 
 #. Plugin Name of the plugin
@@ -36,7 +36,7 @@ msgstr ""
 msgid "SAML2"
 msgstr ""
 
-#: inc/class-admin.php:150
+#: inc/class-admin.php:149
 msgid "Failed to get IdP Metadata from URL."
 msgstr ""
 
@@ -48,41 +48,41 @@ msgstr ""
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
 msgstr ""
 
-#: inc/class-saml.php:508
+#: inc/class-saml.php:507
 msgid "Invalid SP metadata: "
 msgstr ""
 
 #. translators: Saml error reason
-#: inc/class-saml.php:538
+#: inc/class-saml.php:537
 msgid "Not authenticated. Reason: %s"
 msgstr ""
 
-#: inc/class-saml.php:601
+#: inc/class-saml.php:600
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 msgstr ""
 
 #. translators: %s Pressbooks Network Manager email if found.
-#: inc/class-saml.php:635
+#: inc/class-saml.php:634
 msgid "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s"
 msgstr ""
 
-#: inc/class-saml.php:637
+#: inc/class-saml.php:636
 msgid "SAML authentication failed."
 msgstr ""
 
-#: inc/class-saml.php:716
+#: inc/class-saml.php:715
 msgid "Connect via SAML2"
 msgstr ""
 
-#: inc/class-saml.php:724
+#: inc/class-saml.php:723
 msgid "Or"
 msgstr ""
 
-#: inc/class-saml.php:760
+#: inc/class-saml.php:759
 msgid "Logged in!"
 msgstr ""
 
-#: inc/class-saml.php:979
+#: inc/class-saml.php:978
 msgid "Registered and logged in!"
 msgstr ""
 

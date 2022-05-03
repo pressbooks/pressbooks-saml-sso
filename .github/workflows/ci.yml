@@ -44,21 +44,12 @@ jobs:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          tools: composer:v1
-          coverage: pcov
-        if: matrix.experimental == false
-
       - name: Setup PHP with Composer 2
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           tools: composer
           coverage: pcov
-        if: matrix.experimental == true
 
       - name: Install Node dependencies
         run: |

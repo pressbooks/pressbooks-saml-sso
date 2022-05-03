@@ -1,16 +1,17 @@
-# Pressbooks SAML2 Single Sign-On 
-**Contributors:** conner_bw, greatislander, richard015ar, steelwagstaff
-**Tags:** pressbooks, saml, saml2, sso, shibboleth  
-**Requires at least:** 5.6.2
-**Tested up to:** 5.7.2
-**Requires PHP:** 7.3
-**Stable tag:** 1.6.0
-**License:** GPLv3 or later  
-**License URI:** https://www.gnu.org/licenses/gpl-3.0.html  
+# Pressbooks SAML2 Single Sign-On
+
+**Contributors:** conner_bw, greatislander, richard015ar, steelwagstaff \
+**Tags:** pressbooks, saml, saml2, sso, shibboleth \
+**Requires at least:** 5.9.3 \
+**Tested up to:** 5.9.3 \
+**Requires PHP:** 7.4 \
+**Stable tag:** 1.6.1 \
+**License:** GPLv3 or later \
+**License URI:** https://www.gnu.org/licenses/gpl-3.0.html
 
 SAML2 Single Sign-On integration for Pressbooks.
 
-## Description 
+## Description
 
 [![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks-saml-sso.svg?style=flat-square)](https://packagist.org/packages/pressbooks/pressbooks-saml-sso) [![GitHub release](https://badgen.net/github/release/pressbooks/pressbooks-saml-sso/stable?style=flat)](https://github.com/pressbooks/pressbooks-saml-sso/releases) [![Travis](https://badgen.net/travis/pressbooks/pressbooks-saml-sso.svg?style=flat)](https://travis-ci.com/pressbooks/pressbooks-saml-sso/) [![Codecov](https://badgen.net/codecov/c/github/pressbooks/pressbooks-saml-sso?style=flat)](https://codecov.io/gh/pressbooks/pressbooks-saml-sso)
 
@@ -20,8 +21,7 @@ Users who attempt to login to Pressbooks are redirected to a Shibboleth or SAML2
 
 Limitations: This plugin does not enable authentication with multilateral Shibboleth. For use in a non-federated, bilateral configuration, with a single IdP.
 
-
-## Installation 
+## Installation
 
 ```
 composer require pressbooks/pressbooks-saml-sso
@@ -38,8 +38,7 @@ openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out sp.crt -keyout sp
 
 Then, activate and configure the plugin at the Network level.
 
-
-### Security Considerations 
+### Security Considerations
 
 Generating certificates in `vendor/onelogin/php-saml/certs`, without further changes, will expose them to malicious users (Ie. `https://path/to/vendor/onelogin/php-saml/certs/sp.crt`).
 Furthermore, your certificates are at risk of being deleted when updating packages using `composer update` or similar commands. A competent sysadmin must make sure certificates are not accessible from the internet nor deleted. It is highly recommended that you pass your certificates via configuration variables. Example:
@@ -59,8 +58,7 @@ define( 'PHP_SAML_SP_KEY_PATH', '/path/to/sp.key' );
 define( 'PHP_SAML_SP_CERT_PATH', '/path/to/sp.crt' );
 ```
 
-
-### IdP Setup 
+### IdP Setup
 
 Upon activation of the plugin, a submenu item ("SAML2") is added to the Network Admin interface under "Integrations". This leads to the SAML2 settings page. Your metadata XML can be downloaded from this page.
 
@@ -70,15 +68,15 @@ The plugin requires the Assertion elements of the Response to be signed.
 
 The plugin looks for the following Attributes in the Response:
 
-+ Requires: urn:oid:0.9.2342.19200300.100.1.1 (samAccountName or equivalent, ideally with FriendlyName `uid`)
-+ Strongly recommends: urn:oid:0.9.2342.19200300.100.1.3 (email-address, or equivalent, ideally with FriendlyName `mail`). If no value is available we fall back to `uid@127.0.0.1`
-+ Optional: urn:oid:1.3.6.1.4.1.5923.1.1.1.6 (eduPersonPrincipalName or equivalent). Upon the first launch for a given user, if mail cannot match an existing person, and this value is present, we'll try to use it.
++ Requires: `urn:oid:0.9.2342.19200300.100.1.1` (samAccountName or equivalent, ideally with FriendlyName `uid`)
++ Strongly recommends: `urn:oid:0.9.2342.19200300.100.1.3` (email-address or equivalent, ideally with FriendlyName `mail`). If no value is available we fall back to `uid@127.0.0.1`
++ Optional: `urn:oid:1.3.6.1.4.1.5923.1.1.1.6` (eduPersonPrincipalName or equivalent). Upon the first launch for a given user, if mail cannot match an existing person, and this value is present, we'll try to use it.
 
 The email can be filtered, example: `add_filter( 'pb_integrations_multidomain_email', function( $email, $uid, $plugin ) { /* Custom use case, return $email */ }, 10, 3 );`
 
 Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/onelogin/php-saml/) toolkit, [many other configuration variables can be tweaked](https://github.com/onelogin/php-saml/#settings).
 
-## Sending logs 
+## Sending logs
 If you use AWS and wish to log SAML attempts on your server, you will need define some environment variables on the server which is hosting your Pressbooks instance.
 ### AWS S3
 Define the following environment variables:
@@ -105,26 +103,33 @@ Define the following envirnoment variables:
 ```
 After these variables have been properly defined, basic information about SAML login attempts will be logged in your AWS CloudWatch Logs service in JSON format. You will need to create a new Log group called `pressbooks-logs`.
 
-## Screenshots 
+## Screenshots
 
 ![SAML2 Administration.](screenshot-1.png)
 
 ![Metadata XML.](screenshot-2.png)
 
-## Changelog 
+## Changelog
 
-### 1.6.0
+### 1.6.1
 
-* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.6.0
+* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/1.6.1
 * Full release history available at: https://github.com/pressbooks/pressbooks-saml-sso/releases
 
-## Upgrade Notice 
+## Upgrade Notice
+
+### 1.6.1
+
+Pressbooks SAML2 Single Sing-On Requires Pressbooks >= 5.34.1
 
 ### 1.3.1
+
 * Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.20.1
 
-### 1.3.0 
+### 1.3.0
+
 * Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.19.0
 
-### 1.1.0 
-* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.10.0
+### 1.1.1
+
+* Pressbooks SAML2 Single Sign-On requires Pressbooks >= 5.10.1

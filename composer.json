@@ -20,19 +20,19 @@
 	},
 	"config": {
 		"platform": {
-			"php": "7.3"
+			"php": "7.4"
 		},
     "sort-packages": true
 	},
 	"require": {
-		"php": ">=7.3",
+		"php": ">=7.4",
 		"composer/installers": "^2.1",
 		"onelogin/php-saml": "^3.3",
 		"phpcompatibility/php-compatibility": "^9.3"
 	},
 	"require-dev": {
 		"pressbooks/coding-standards": "^1.1",
-		"wpreadme2markdown/wp2md": "^3.0",
+		"wpreadme2markdown/wp2md": "^4.0",
 		"yoast/phpunit-polyfills": "^1.0.1"
 	},
 	"scripts": {

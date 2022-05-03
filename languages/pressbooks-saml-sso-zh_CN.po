@@ -1,13 +1,13 @@
-# Copyright (C) 2021 Pressbooks (Book Oven Inc.)
-# This file is distributed under the same license as the Pressbooks SAML2 Single Sign-On plugin.
+# Copyright (C) 2022 Pressbooks (Book Oven Inc.)
+# This file is distributed under the GPL v3 or later.
 # Translators:
 # fish free <winofchina@hotmail.com>, 2021
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.6.0\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.6.1\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
-"POT-Creation-Date: 2021-10-12T18:39:28+00:00\n"
+"POT-Creation-Date: 2022-05-03T20:46:46+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: fish free <winofchina@hotmail.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/pressbooks/teams/9194/zh_CN/)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: pressbooks-saml-sso\n"
-"X-Generator: WP-CLI 2.3.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks SAML2 Single Sign-On"
@@ -42,7 +42,7 @@ msgstr "Pressbooks (Book Oven 有限公司)"
 msgid "SAML2"
 msgstr "SAML2"
 
-#: inc/class-admin.php:150
+#: inc/class-admin.php:149
 msgid "Failed to get IdP Metadata from URL."
 msgstr "从URL获取IdP元数据失败。"
 
@@ -54,44 +54,44 @@ msgstr "Pressbooks SAML插件配置错误。"
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
 msgstr "Pressbooks SAML插件初始化失败。错误："
 
-#: inc/class-saml.php:508
+#: inc/class-saml.php:507
 msgid "Invalid SP metadata: "
 msgstr "无效的SP元数据："
 
 #. translators: Saml error reason
-#: inc/class-saml.php:538
+#: inc/class-saml.php:537
 msgid "Not authenticated. Reason: %s"
 msgstr "未认证。原因：%s"
 
-#: inc/class-saml.php:601
+#: inc/class-saml.php:600
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 msgstr "缺失SAML属性 urn:oid:0.9.2342.19200300.100.1.1"
 
 #. translators: %s Pressbooks Network Manager email if found.
-#: inc/class-saml.php:635
+#: inc/class-saml.php:634
 msgid ""
 "Unable to log in: You do not have an account on this Pressbooks network. To "
 "request an account, please contact your institution's Pressbooks Network "
 "Manager%s"
 msgstr "无法登入：您在此Pressbooks网络中无账号。请和管理员联系账号事宜。%s"
 
-#: inc/class-saml.php:637
+#: inc/class-saml.php:636
 msgid "SAML authentication failed."
 msgstr "SAML认证失败。"
 
-#: inc/class-saml.php:716
+#: inc/class-saml.php:715
 msgid "Connect via SAML2"
 msgstr "使用SMAL2登录"
 
-#: inc/class-saml.php:724
+#: inc/class-saml.php:723
 msgid "Or"
 msgstr "或"
 
-#: inc/class-saml.php:760
+#: inc/class-saml.php:759
 msgid "Logged in!"
 msgstr "已登入！"
 
-#: inc/class-saml.php:979
+#: inc/class-saml.php:978
 msgid "Registered and logged in!"
 msgstr "注册成功并已登入！"
 

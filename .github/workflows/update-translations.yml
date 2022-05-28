@@ -30,7 +30,7 @@ jobs:
       uses: peter-evans/create-pull-request@v4
       with:
         title: 'chore(l10n): update translations'
-    # - name: Commit updated POT file
+    # - name: Commit updated translation files
     #   uses: stefanzweifel/git-auto-commit-action@v4.13.1
     #   with:
     #     commit_message: 'chore(l10n): update translations'

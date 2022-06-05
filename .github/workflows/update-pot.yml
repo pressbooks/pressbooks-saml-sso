@@ -22,7 +22,7 @@ jobs:
     - name: Install WP CLI
       run: curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli-nightly.phar
     - name: Update POT file
-      run: php wp-cli.phar i18n make-pot . languages/pressbooks-saml-sso.pot --domain=pressbooks-saml-sso --slug=pressbooks-saml-sso --package-name="Pressbooks SAML SSO" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks-saml-sso/issues\"}"
+      run: php wp-cli-nightly.phar i18n make-pot . languages/pressbooks-saml-sso.pot --domain=pressbooks-saml-sso --slug=pressbooks-saml-sso --package-name="Pressbooks SAML SSO" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks-saml-sso/issues\"}"
     # Remove this step once you are satisfied with the results; alternatively, you can leave it in place and remove
     # the commented out step that follows.
     - name: Open PR with changes

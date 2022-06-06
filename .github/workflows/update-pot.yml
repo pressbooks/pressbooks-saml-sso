@@ -18,13 +18,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '7.4'
-        tools: composer
-    - name: Install WP CLI
-      run: |
-        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli-nightly.phar
-        chmod +x wp-cli-nightly.phar
-        sudo mv wp-cli-nightly.phar /usr/local/bin/wp
-        wp package install wp-cli/i18n-command
+        tools: composer, wp-cli/wp-cli-bundle
     - name: Update POT file
       run: wp i18n make-pot . languages/pressbooks-saml-sso.pot --domain=pressbooks-saml-sso --slug=pressbooks-saml-sso --package-name="Pressbooks SAML SSO" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks-saml-sso/issues\"}"
     # Remove this step once you are satisfied with the results; alternatively, you can leave it in place and remove

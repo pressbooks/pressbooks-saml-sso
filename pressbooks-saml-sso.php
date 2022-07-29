@@ -1,17 +1,20 @@
 <?php
-/*
-Plugin Name: Pressbooks SAML2 Single Sign-On
-Plugin URI: https://pressbooks.org
-GitHub Plugin URI: pressbooks/pressbooks-saml-sso
-Release Asset: true
-Description: SAML2 Single Sign-On integration for Pressbooks. (Shibboleth, Microsoft ADFS, Google Apps, etc.)
-Version: 1.7.0-dev
-Author: Pressbooks (Book Oven Inc.)
-Author URI: https://pressbooks.org
-Text Domain: pressbooks-saml-sso
-License: GPL v3 or later
-Network: True
-*/
+/**
+ * Plugin Name:         Pressbooks SAML2 Single Sign-On
+ * Plugin URI:          https://pressbooks.org
+ * Description:         SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, Google Apps, etc.)
+ * Version:             1.7.0-dev
+ * Requires at least:   5.9.3
+ * Requires PHP:        7.4
+ * Author:              Pressbooks (Book Oven Inc.)
+ * Author URI:          https://pressbooks.org
+ * License:             GPL v3 or later
+ * License URI:         https://www.gnu.org/licenses/gpl-3.0.html
+ * Text Domain:         pressbooks-saml-sso
+ * Network:             True
+ * GitHub Plugin URI:   pressbooks/pressbooks-saml-sso
+ * Release Asset:       true
+ */
 
 // -------------------------------------------------------------------------------------------------------------------
 // Check requirements

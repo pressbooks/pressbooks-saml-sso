@@ -36,7 +36,6 @@
 	},
 	"require-dev": {
 		"pressbooks/coding-standards": "^1.1",
-		"wpreadme2markdown/wp2md": "^4.0",
 		"yoast/phpunit-polyfills": "^1.0.1"
 	},
 	"scripts": {
@@ -51,7 +50,6 @@
 		],
     "fix": [
       "vendor/bin/phpcbf --standard=phpcs.ruleset.xml *.php inc/ bin/"
-    ],
-		"readme": ["vendor/bin/wp2md -i readme.txt -o README.md"]
+    ]
 	}
 }

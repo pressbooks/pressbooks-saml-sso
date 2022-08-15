@@ -62,7 +62,7 @@ require( __DIR__ . '/inc/namespace.php' );
 // Hooks
 // -------------------------------------------------------------------------------------------------------------------
 add_action( 'plugins_loaded', function() {
-	\Pressbooks\Container::get( 'Blade' )->addNamespace( 'PressbooksSamlSso', __DIR__ . '/templates' );
+	\Pressbooks\Container::get( 'PBlade' )->addNamespace( 'PressbooksSamlSso', __DIR__ . '/templates' );
 } );
 add_action( 'plugins_loaded', [ '\PressbooksSamlSso\SAML', 'init' ] );
 add_action( 'plugins_loaded', [ '\PressbooksSamlSso\Admin', 'init' ] );

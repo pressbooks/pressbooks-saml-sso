@@ -5,7 +5,7 @@ namespace PressbooksSamlSso;
 use Pressbooks\Container;
 
 function blade() {
-	return Container::get( 'PBlade' );
+	return Container::get( 'Blade' );
 }
 
 /**

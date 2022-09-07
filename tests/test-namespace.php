@@ -21,8 +21,9 @@ class NamespaceTest extends \WP_UnitTestCase {
 	}
 
 	public function test_blade() {
-		$blade = \PressbooksSamlSso\blade();
-		$this->assertTrue( is_object( $blade ) );
+		$this->assertTrue(
+			is_object( \PressbooksSamlSso\blade() )
+		);
 	}
 
 	public function test_login_url() {

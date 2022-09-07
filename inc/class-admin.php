@@ -80,14 +80,13 @@ class Admin {
 			echo '<div id="message" role="alert" class="error notice is-dismissible"><p>' . $e->getMessage() . '</p></div>';
 		}
 
-		$html = blade()->render(
-			'admin', [
+		echo blade()->render(
+			'PressbooksSamlSso::admin', [
 				'form_url' => network_admin_url( '/admin.php?page=pb_saml_admin' ),
 				'metadata_url' => \PressbooksSamlSso\metadata_url(),
 				'options' => $this->getOptions(),
 			]
 		);
-		echo $html;
 	}
 
 	/**

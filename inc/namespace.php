@@ -2,14 +2,10 @@
 
 namespace PressbooksSamlSso;
 
-/**
- * @return \Jenssegers\Blade\Blade
- */
+use Pressbooks\Container;
+
 function blade() {
-	$views = __DIR__ . '/../templates';
-	$cache = \Pressbooks\Utility\get_cache_path();
-	$blade = new \Jenssegers\Blade\Blade( $views, $cache, new \Pressbooks\Container() );
-	return $blade;
+	return Container::get( 'Blade' );
 }
 
 /**

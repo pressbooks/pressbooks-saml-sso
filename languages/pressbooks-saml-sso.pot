@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-31T20:30:37+00:00\n"
+"POT-Creation-Date: 2022-09-07T21:49:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: pressbooks-saml-sso\n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "SAML2"
 msgstr ""
 
-#: inc/class-admin.php:149
+#: inc/class-admin.php:148
 msgid "Failed to get IdP Metadata from URL."
 msgstr ""
 

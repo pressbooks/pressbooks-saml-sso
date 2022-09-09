@@ -7,11 +7,13 @@
     "production": "mix --production",
     "test": "npm run lint",
     "lint": "npm run -s lint:scripts && npm run -s lint:styles",
-    "lint:scripts": "cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js \"assets/src/scripts/*.js\"",
-    "lint:styles": "cross-env NODE_ENV=development node_modules/stylelint/bin/stylelint.js \"assets/src/styles/**/*.scss\" --syntax scss"
+    "lint:scripts": "eslint \"assets/src/scripts/*.js\"",
+    "lint:fix-scripts": "eslint \"assets/src/scripts/*.js\" --fix",
+    "lint:styles": "stylelint \"assets/src/styles/**/*.scss\" scss",
+    "lint:fix-styles": "stylelint \"assets/src/styles/**/*.scss\" scss --fix"
   },
   "engines": {
-    "node": ">= 10"
+    "node": ">= 14"
   },
   "dependencies": {},
   "devDependencies": {

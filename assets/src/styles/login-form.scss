@@ -53,7 +53,7 @@
 }
 
 #loginform #pb-saml-wrap p {
-  color: #777777;
+  color: #777;
   margin-bottom: 16px;
 }
 
@@ -78,7 +78,7 @@
   text-align: center;
 }
 
-.pb-saml-or:before {
+.pb-saml-or::before {
   background: #E5E5E5;
   content: '';
   height: 1px;
@@ -87,6 +87,7 @@
   top: 50%;
   width: 100%;
 }
+
 .pb-saml-or span {
   background: #fff;
   color: #777;
@@ -103,7 +104,7 @@
   margin: 24px 0 0;
 }
 
-.pb-saml-clear:after {
+.pb-saml-clear::after {
   content: "";
   display: table;
   clear: both;

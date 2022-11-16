@@ -247,6 +247,7 @@ class SAML {
 			'wantAssertionsEncrypted' => true,
 			'wantNameIdEncrypted' => false,
 			'logoutRequestSigned' => true,
+			'requestedAuthnContext' => false,
 		];
 
 		/**

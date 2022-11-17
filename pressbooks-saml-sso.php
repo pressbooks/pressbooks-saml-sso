@@ -3,9 +3,9 @@
  * Plugin Name:         Pressbooks SAML2 Single Sign-On
  * Plugin URI:          https://pressbooks.org
  * Description:         SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, Google Apps, etc.)
- * Version:             2.1.0
- * Requires at least:   6.0.3
- * Requires PHP:        7.4
+ * Version:             2.2.0
+ * Requires at least:   6.1.1
+ * Requires PHP:        8.0
  * Author:              Pressbooks (Book Oven Inc.)
  * Author URI:          https://pressbooks.org
  * License:             GPL v3 or later

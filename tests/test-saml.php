@@ -35,14 +35,14 @@ class SamlTest extends \WP_UnitTestCase {
 	/**
 	 * @return \PressbooksSamlSso\Admin
 	 */
-	protected function getMockAdmin() {
+	protected function getMockAdmin( array $options = null ): \PressbooksSamlSso\Admin {
 
 		$stub1 = $this
 			->getMockBuilder( '\PressbooksSamlSso\Admin' )
 			->getMock();
 		$stub1
 			->method( 'getOptions' )
-			->willReturn( $this->getTestOptions() );
+			->willReturn( $options ?? $this->getTestOptions() );
 
 		return $stub1;
 	}
@@ -150,12 +150,12 @@ class SamlTest extends \WP_UnitTestCase {
 	/**
 	 * @return \PressbooksSamlSso\SAML
 	 */
-	protected function getSaml() {
+	protected function getSaml( array $options = null ): \PressbooksSamlSso\SAML {
 
 		ini_set( 'error_reporting', 0 );
 		ini_set( 'display_errors', 0 );
 
-		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdmin(), $this->setS3ClientMock() );
+		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdmin( $options ), $this->setS3ClientMock() );
 
 		ini_set( 'error_reporting', 1 );
 		ini_set( 'display_errors', 1 );
@@ -221,6 +221,31 @@ class SamlTest extends \WP_UnitTestCase {
 			'idp_x509_cert' => 3,
 		];
 		$this->assertFalse( $this->saml->areOptionsEmpty( $options ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_renders_network_admin_notices(): void {
+		ob_start();
+		$this->getSaml( [] );
+		do_action( 'network_admin_notices' );
+		$buffer = ob_get_clean();
+		$this->assertStringContainsString( 'The Pressbooks SAML Plugin has not been', $buffer );
+		$this->assertStringContainsString( 'configured', $buffer );
+		$this->assertStringContainsString( 'yet', $buffer );
+
+		ob_start();
+		$this->getSaml( [
+			'idp_entity_id' => 'https://idp.testshib.org/idp/shibboleth',
+			'idp_sso_login_url' => 'https://idp.testshib.org/idp/profile/SAML2/Redirect/SSO',
+		] );
+		do_action( 'network_admin_notices' );
+		$buffer = ob_get_clean();
+
+		$this->assertStringContainsString( 'The Pressbooks SAML Plugin is not', $buffer );
+		$this->assertStringContainsString( 'configured', $buffer );
+		$this->assertStringContainsString( 'correctly', $buffer );
 	}
 
 	public function test_getSamlSettings() {

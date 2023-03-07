@@ -155,26 +155,46 @@ class SAML {
 			$options['idp_sso_logout_url'] ?? ''
 		);
 
-		// Verify the integrity of the configuration before passing to Auth to avoid things blowing up
 		if ( ! $this->verifyPluginSetup( $options ) ) {
 			if ( 'pb_saml_admin' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
 				add_action(
 					'network_admin_notices', function () {
-						echo '<div id="message" role="alert" class="error fade"><p>' . __( 'The Pressbooks SAML Plugin is not configured correctly.', 'pressbooks-saml-sso' ) . '</p></div>';
+						echo '<div id="message" role="alert" class="error fade"><p>' .
+							__( 'The Pressbooks SAML Plugin has not been <a href="' .
+							network_admin_url( 'admin.php?page=pb_saml_admin' ) .
+							'">configured</a> yet.', 'pressbooks-saml-sso' ) . '</p></div>';
 					}
 				);
 			}
-		} else {
-			try {
-				$this->auth = new \OneLogin\Saml2\Auth( $this->getSamlSettings() );
-				$this->samlClientIsReady = true;
-			} catch ( \Exception $e ) {
-				add_action(
-					'network_admin_notices', function () use ( $e ) {
-						echo '<div id="message" role="alert" class="error fade"><p>' . __( 'The Pressbooks SAML Plugin failed to initialize. Error: ', 'pressbooks-saml-sso' ) . $e->getMessage() . '</p></div>';
-					}
-				);
-			}
+			return;
+		}
+
+		$configuration_error_message = __( 'The Pressbooks SAML Plugin is not <a href="' .
+				network_admin_url( 'admin.php?page=pb_saml_admin' ) .
+				'">configured</a> correctly.', 'pressbooks-saml-sso' );
+
+		if ( ! filter_var( $options['idp_sso_login_url'], FILTER_VALIDATE_URL ) ) {
+			add_action(
+				'network_admin_notices', function () use ( $configuration_error_message ) {
+					echo '<div id="message" role="alert" class="error fade"><p>' . $configuration_error_message . '</p></div>';
+				}
+			);
+			return;
+		}
+
+		try {
+			$this->auth = new \OneLogin\Saml2\Auth( $this->getSamlSettings() );
+			$this->samlClientIsReady = true;
+		} catch ( \Exception $e ) {
+			$error_message = 'pb_saml_admin' !== @$_REQUEST['page'] ? // @codingStandardsIgnoreLine
+				$configuration_error_message :
+				__( 'The Pressbooks SAML Plugin failed to initialize. Error: ', 'pressbooks-saml-sso' )
+					. $e->getMessage();
+			add_action(
+				'network_admin_notices', function () use ( $error_message ) {
+					echo '<div id="message" role="alert" class="error fade"><p>' . $error_message . '</p></div>';
+				}
+			);
 		}
 	}
 
@@ -192,15 +212,11 @@ class SAML {
 	 *
 	 * @return bool
 	 */
-	public function verifyPluginSetup( $options ) {
-		if ( empty( $options['idp_entity_id'] ) || empty( $options['idp_sso_login_url'] ) || empty( $options['idp_x509_cert'] ) ) {
-			return false;
-		}
-		if ( ! filter_var( $options['idp_sso_login_url'], FILTER_VALIDATE_URL ) ) {
-			return false;
-		}
-		return true;
-	}
+	public function verifyPluginSetup( array $options ): bool {
+		return ! empty( $options['idp_entity_id'] ) &&
+			! empty( $options['idp_sso_login_url'] ) &&
+			! empty( $options['idp_x509_cert'] );
+}
 
 	/**
 	 * @return array
@@ -218,12 +234,12 @@ class SAML {
 	public function setSamlSettings( $idp_entity_id, $idp_sso_login_url, $idp_x509_cert, $ipd_sso_logout_url = '' ) {
 		$config = [
 			'strict' => true,
-			'debug' => defined( 'WP_DEBUG' ) && WP_DEBUG ? true : false,
+			'debug' => defined( 'WP_DEBUG' ) && WP_DEBUG,
 			'baseurl' => null,
 			'idp' => [
 				'entityId' => $idp_entity_id,
 				'singleSignOnService' => [
-					'url' => $idp_sso_login_url,
+					'url' => filter_var( $idp_sso_login_url, FILTER_VALIDATE_URL ) ? $idp_sso_login_url : null,
 					'binding' => \OneLogin\Saml2\Constants::BINDING_HTTP_REDIRECT,
 				],
 				'x509cert' => $idp_x509_cert,

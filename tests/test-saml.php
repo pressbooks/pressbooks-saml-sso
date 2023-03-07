@@ -215,7 +215,6 @@ class SamlTest extends \WP_UnitTestCase {
 
 		$options = [
 			'idp_entity_id' => 1,
-			'idp_sso_login_url' => 2,
 			'idp_x509_cert' => 3,
 		];
 		$this->assertFalse( $this->saml->verifyPluginSetup( $options ) );
@@ -232,7 +231,7 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->saml->setSamlSettings( 1, 2, 3 );
 		$s = $this->saml->getSamlSettings();
 		$this->assertEquals( $s['idp']['entityId'], 1 );
-		$this->assertEquals( $s['idp']['singleSignOnService']['url'], 2 );
+		$this->assertNull( $s['idp']['singleSignOnService']['url'] );
 		$this->assertEquals( $s['idp']['x509cert'], 3 );
 		$this->assertEquals( $s['sp']['attributeConsumingService']['serviceName'], 'Pressbooks' );
 		$this->assertEquals( $s['sp']['attributeConsumingService']['requestedAttributes'][0]['friendlyName'], 'uid' );
@@ -255,7 +254,7 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->saml->setSamlSettings( 1, 2, 3, 4 );
 		$s = $this->saml->getSamlSettings();
 		$this->assertEquals( $s['idp']['entityId'], 1 );
-		$this->assertEquals( $s['idp']['singleSignOnService']['url'], 2 );
+		$this->assertNull( $s['idp']['singleSignOnService']['url'] );
 		$this->assertEquals( $s['idp']['x509cert'], 3 );
 		$this->assertEquals( $s['idp']['singleLogoutService']['url'], 4 );
 		$this->assertEquals( $s['sp']['attributeConsumingService']['serviceName'], 'Pressbooks' );

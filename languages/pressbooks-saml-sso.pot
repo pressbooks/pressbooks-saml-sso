@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-02T00:00:49+00:00\n"
+"POT-Creation-Date: 2023-03-07T21:05:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pressbooks-saml-sso\n"
@@ -40,49 +40,53 @@ msgstr ""
 msgid "Failed to get IdP Metadata from URL."
 msgstr ""
 
-#: inc/class-saml.php:163
-msgid "The Pressbooks SAML Plugin is not configured correctly."
+#: inc/class-saml.php:164
+msgid "The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
 msgstr ""
 
-#: inc/class-saml.php:174
+#: inc/class-saml.php:177
+msgid "The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
+msgstr ""
+
+#: inc/class-saml.php:199
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
 msgstr ""
 
-#: inc/class-saml.php:508
+#: inc/class-saml.php:532
 msgid "Invalid SP metadata: "
 msgstr ""
 
 #. translators: Saml error reason
-#: inc/class-saml.php:538
+#: inc/class-saml.php:562
 msgid "Not authenticated. Reason: %s"
 msgstr ""
 
-#: inc/class-saml.php:601
+#: inc/class-saml.php:625
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 msgstr ""
 
 #. translators: %s Pressbooks Network Manager email if found.
-#: inc/class-saml.php:635
+#: inc/class-saml.php:659
 msgid "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s"
 msgstr ""
 
-#: inc/class-saml.php:637
+#: inc/class-saml.php:661
 msgid "SAML authentication failed."
 msgstr ""
 
-#: inc/class-saml.php:716
+#: inc/class-saml.php:740
 msgid "Connect via SAML2"
 msgstr ""
 
-#: inc/class-saml.php:724
+#: inc/class-saml.php:748
 msgid "Or"
 msgstr ""
 
-#: inc/class-saml.php:760
+#: inc/class-saml.php:784
 msgid "Logged in!"
 msgstr ""
 
-#: inc/class-saml.php:979
+#: inc/class-saml.php:1003
 msgid "Registered and logged in!"
 msgstr ""
 

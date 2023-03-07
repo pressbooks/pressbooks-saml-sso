@@ -35,14 +35,14 @@ class SamlTest extends \WP_UnitTestCase {
 	/**
 	 * @return \PressbooksSamlSso\Admin
 	 */
-	protected function getMockAdmin() {
+	protected function getMockAdmin( array $options = null ): \PressbooksSamlSso\Admin {
 
 		$stub1 = $this
 			->getMockBuilder( '\PressbooksSamlSso\Admin' )
 			->getMock();
 		$stub1
 			->method( 'getOptions' )
-			->willReturn( $this->getTestOptions() );
+			->willReturn( $options ?? $this->getTestOptions() );
 
 		return $stub1;
 	}
@@ -150,12 +150,12 @@ class SamlTest extends \WP_UnitTestCase {
 	/**
 	 * @return \PressbooksSamlSso\SAML
 	 */
-	protected function getSaml() {
+	protected function getSaml( array $options = null ): \PressbooksSamlSso\SAML {
 
 		ini_set( 'error_reporting', 0 );
 		ini_set( 'display_errors', 0 );
 
-		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdmin(), $this->setS3ClientMock() );
+		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdmin( $options ), $this->setS3ClientMock() );
 
 		ini_set( 'error_reporting', 1 );
 		ini_set( 'display_errors', 1 );
@@ -210,18 +210,42 @@ class SamlTest extends \WP_UnitTestCase {
 	// Tests
 	// ------------------------------------------------------------------------
 
-	public function test_verifyPluginSetup() {
-		$this->assertFalse( $this->saml->verifyPluginSetup( [] ) );
+	/**
+	 * @test
+	 */
+	public function it_checks_empty_options(): void {
+		$this->assertTrue( $this->saml->areOptionsEmpty( [] ) );
 
 		$options = [
 			'idp_entity_id' => 1,
-			'idp_sso_login_url' => 2,
 			'idp_x509_cert' => 3,
 		];
-		$this->assertFalse( $this->saml->verifyPluginSetup( $options ) );
+		$this->assertFalse( $this->saml->areOptionsEmpty( $options ) );
+	}
 
-		$options['idp_sso_login_url'] = 'https://pressbooks.test/login';
-		$this->assertTrue( $this->saml->verifyPluginSetup( $options ) );
+	/**
+	 * @test
+	 */
+	public function it_renders_network_admin_notices(): void {
+		ob_start();
+		$this->getSaml( [] );
+		do_action( 'network_admin_notices' );
+		$buffer = ob_get_clean();
+		$this->assertStringContainsString( 'The Pressbooks SAML Plugin has not been', $buffer );
+		$this->assertStringContainsString( 'configured', $buffer );
+		$this->assertStringContainsString( 'yet', $buffer );
+
+		ob_start();
+		$this->getSaml( [
+			'idp_entity_id' => 'https://idp.testshib.org/idp/shibboleth',
+			'idp_sso_login_url' => 'https://idp.testshib.org/idp/profile/SAML2/Redirect/SSO',
+		] );
+		do_action( 'network_admin_notices' );
+		$buffer = ob_get_clean();
+
+		$this->assertStringContainsString( 'The Pressbooks SAML Plugin is not', $buffer );
+		$this->assertStringContainsString( 'configured', $buffer );
+		$this->assertStringContainsString( 'correctly', $buffer );
 	}
 
 	public function test_getSamlSettings() {
@@ -232,7 +256,7 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->saml->setSamlSettings( 1, 2, 3 );
 		$s = $this->saml->getSamlSettings();
 		$this->assertEquals( $s['idp']['entityId'], 1 );
-		$this->assertEquals( $s['idp']['singleSignOnService']['url'], 2 );
+		$this->assertNull( $s['idp']['singleSignOnService']['url'] );
 		$this->assertEquals( $s['idp']['x509cert'], 3 );
 		$this->assertEquals( $s['sp']['attributeConsumingService']['serviceName'], 'Pressbooks' );
 		$this->assertEquals( $s['sp']['attributeConsumingService']['requestedAttributes'][0]['friendlyName'], 'uid' );
@@ -255,7 +279,7 @@ class SamlTest extends \WP_UnitTestCase {
 		$this->saml->setSamlSettings( 1, 2, 3, 4 );
 		$s = $this->saml->getSamlSettings();
 		$this->assertEquals( $s['idp']['entityId'], 1 );
-		$this->assertEquals( $s['idp']['singleSignOnService']['url'], 2 );
+		$this->assertNull( $s['idp']['singleSignOnService']['url'] );
 		$this->assertEquals( $s['idp']['x509cert'], 3 );
 		$this->assertEquals( $s['idp']['singleLogoutService']['url'], 4 );
 		$this->assertEquals( $s['sp']['attributeConsumingService']['serviceName'], 'Pressbooks' );

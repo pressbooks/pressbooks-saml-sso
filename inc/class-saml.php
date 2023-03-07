@@ -160,18 +160,26 @@ class SAML {
 				add_action(
 					'network_admin_notices', function () {
 						echo '<div id="message" role="alert" class="error fade"><p>' .
-							__( 'The Pressbooks SAML Plugin has not been <a href="' .
-							network_admin_url( 'admin.php?page=pb_saml_admin' ) .
-							'">configured</a> yet.', 'pressbooks-saml-sso' ) . '</p></div>';
+							sprintf(
+								__(
+									'The Pressbooks SAML Plugin has not been <a href="%1$s">configured</a> yet.',
+									'pressbooks-saml-sso'
+								),
+								network_admin_url( 'admin.php?page=pb_saml_admin' )
+							) . '</p></div>';
 					}
 				);
 			}
 			return;
 		}
 
-		$configuration_error_message = __( 'The Pressbooks SAML Plugin is not <a href="' .
-				network_admin_url( 'admin.php?page=pb_saml_admin' ) .
-				'">configured</a> correctly.', 'pressbooks-saml-sso' );
+		$configuration_error_message = sprintf(
+			__(
+				'The Pressbooks SAML Plugin is not <a href="%1$s">configured</a> correctly.',
+				'pressbooks-saml-sso'
+			),
+			network_admin_url( 'admin.php?page=pb_saml_admin' )
+		);
 
 		if ( ! filter_var( $options['idp_sso_login_url'], FILTER_VALIDATE_URL ) ) {
 			add_action(
@@ -216,7 +224,7 @@ class SAML {
 		return empty( $options['idp_entity_id'] ) &&
 			empty( $options['idp_sso_login_url'] ) &&
 			empty( $options['idp_x509_cert'] );
-}
+	}
 
 	/**
 	 * @return array

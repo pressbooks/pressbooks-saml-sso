@@ -210,17 +210,17 @@ class SamlTest extends \WP_UnitTestCase {
 	// Tests
 	// ------------------------------------------------------------------------
 
-	public function test_verifyPluginSetup() {
-		$this->assertFalse( $this->saml->verifyPluginSetup( [] ) );
+	/**
+	 * @test
+	 */
+	public function it_checks_empty_options(): void {
+		$this->assertTrue( $this->saml->areOptionsEmpty( [] ) );
 
 		$options = [
 			'idp_entity_id' => 1,
 			'idp_x509_cert' => 3,
 		];
-		$this->assertFalse( $this->saml->verifyPluginSetup( $options ) );
-
-		$options['idp_sso_login_url'] = 'https://pressbooks.test/login';
-		$this->assertTrue( $this->saml->verifyPluginSetup( $options ) );
+		$this->assertFalse( $this->saml->areOptionsEmpty( $options ) );
 	}
 
 	public function test_getSamlSettings() {

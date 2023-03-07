@@ -155,7 +155,7 @@ class SAML {
 			$options['idp_sso_logout_url'] ?? ''
 		);
 
-		if ( ! $this->verifyPluginSetup( $options ) ) {
+		if ( $this->areOptionsEmpty( $options ) ) {
 			if ( 'pb_saml_admin' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
 				add_action(
 					'network_admin_notices', function () {
@@ -212,10 +212,10 @@ class SAML {
 	 *
 	 * @return bool
 	 */
-	public function verifyPluginSetup( array $options ): bool {
-		return ! empty( $options['idp_entity_id'] ) &&
-			! empty( $options['idp_sso_login_url'] ) &&
-			! empty( $options['idp_x509_cert'] );
+	public function areOptionsEmpty( array $options ): bool {
+		return empty( $options['idp_entity_id'] ) &&
+			empty( $options['idp_sso_login_url'] ) &&
+			empty( $options['idp_x509_cert'] );
 }
 
 	/**

@@ -1,13 +1,13 @@
-# Copyright (C) 2022 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2023 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2020
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.6.1\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
-"POT-Creation-Date: 2022-05-03T20:46:46+00:00\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.3.0\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
+"POT-Creation-Date: 2023-03-07T21:05:26+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2020\n"
 "Language-Team: Turkish (Turkey) (https://www.transifex.com/pressbooks/teams/9194/tr_TR/)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Domain: pressbooks-saml-sso\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks SAML2 Single Sign-On"
@@ -30,11 +30,9 @@ msgstr "https://pressbooks.org"
 
 #. Description of the plugin
 msgid ""
-"SAML2 Single Sign-On integration for Pressbooks. (Shibboleth, Microsoft "
-"ADFS, Google Apps, etc.)"
+"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS,"
+" Google Apps, etc.)"
 msgstr ""
-"Pressbooks için SAML2 Single Sign-On entegrasyonu. (Shibboleth, Microsoft "
-"ADFS, Google Apps, etc.)"
 
 #. Author of the plugin
 msgid "Pressbooks (Book Oven Inc.)"
@@ -44,33 +42,39 @@ msgstr "Pressbooks (Book Oven Inc.)"
 msgid "SAML2"
 msgstr "SAML2"
 
-#: inc/class-admin.php:149
+#: inc/class-admin.php:148
 msgid "Failed to get IdP Metadata from URL."
 msgstr "URL'den IdP Meta Verileri alınamadı."
 
-#: inc/class-saml.php:163
-msgid "The Pressbooks SAML Plugin is not configured correctly."
-msgstr "Pressbooks SAML Eklentisi doğru yapılandırılmamış."
+#: inc/class-saml.php:164
+msgid ""
+"The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
+msgstr ""
 
-#: inc/class-saml.php:174
+#: inc/class-saml.php:177
+msgid ""
+"The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
+msgstr ""
+
+#: inc/class-saml.php:199
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
 msgstr "Pressbooks SAML Eklentisi başlatılamadı. Hata:"
 
-#: inc/class-saml.php:507
+#: inc/class-saml.php:532
 msgid "Invalid SP metadata: "
 msgstr "Geçersiz SP meta verileri:"
 
 #. translators: Saml error reason
-#: inc/class-saml.php:537
+#: inc/class-saml.php:562
 msgid "Not authenticated. Reason: %s"
 msgstr "Kimlik doğrulanmadı. Nedeni: %s"
 
-#: inc/class-saml.php:600
+#: inc/class-saml.php:625
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 msgstr ""
 
 #. translators: %s Pressbooks Network Manager email if found.
-#: inc/class-saml.php:634
+#: inc/class-saml.php:659
 msgid ""
 "Unable to log in: You do not have an account on this Pressbooks network. To "
 "request an account, please contact your institution's Pressbooks Network "
@@ -79,31 +83,31 @@ msgstr ""
 "Oturum açılamıyor: Bu Pressbooks ağında hesabınız yok. Bir hesap talep etmek"
 " için lütfen kurumunuzun Pressbooks Ağ Yöneticisi ile iletişime geçin%s"
 
-#: inc/class-saml.php:636
+#: inc/class-saml.php:661
 msgid "SAML authentication failed."
 msgstr "SAML kimlik doğrulaması başarısız oldu."
 
-#: inc/class-saml.php:715
+#: inc/class-saml.php:740
 msgid "Connect via SAML2"
 msgstr "SAML2 ile bağlanın"
 
-#: inc/class-saml.php:723
+#: inc/class-saml.php:748
 msgid "Or"
 msgstr "Veya"
 
-#: inc/class-saml.php:759
+#: inc/class-saml.php:784
 msgid "Logged in!"
 msgstr "Giriş yapıldı"
 
-#: inc/class-saml.php:978
+#: inc/class-saml.php:1003
 msgid "Registered and logged in!"
 msgstr "Kayıt olundu ve giriş yapıldı"
 
-#: pressbooks-saml-sso.php:23
+#: pressbooks-saml-sso.php:26
 msgid "Cannot find Pressbooks install."
 msgstr "Pressbooks yüklemesi bulunamıyor."
 
-#: pressbooks-saml-sso.php:46
+#: pressbooks-saml-sso.php:49
 msgid ""
 "Please run <code>composer install</code> from the root of the Pressbooks "
 "SAML2 Single Sign-On plugin directory."

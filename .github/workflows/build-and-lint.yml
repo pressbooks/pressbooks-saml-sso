@@ -9,4 +9,4 @@ on:
 
 jobs:
   build:
-    uses: pressbooks/composer-autoupdate-bedrock/.github/workflows/lint-build.yml@v1
+    uses: pressbooks/composer-autoupdate-bedrock/.github/workflows/lint-build.yml@v2

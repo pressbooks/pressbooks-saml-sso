@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-01T20:33:16+00:00\n"
+"POT-Creation-Date: 2023-06-15T22:31:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.0\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: pressbooks-saml-sso\n"
 
 #. Plugin Name of the plugin
@@ -74,19 +74,19 @@ msgstr ""
 msgid "SAML authentication failed."
 msgstr ""
 
-#: inc/class-saml.php:740
+#: inc/class-saml.php:739
 msgid "Connect via SAML2"
 msgstr ""
 
-#: inc/class-saml.php:748
+#: inc/class-saml.php:747
 msgid "Or"
 msgstr ""
 
-#: inc/class-saml.php:784
+#: inc/class-saml.php:783
 msgid "Logged in!"
 msgstr ""
 
-#: inc/class-saml.php:1003
+#: inc/class-saml.php:1002
 msgid "Registered and logged in!"
 msgstr ""
 

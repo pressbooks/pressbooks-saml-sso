@@ -268,7 +268,7 @@ class SAML {
 		$config['security'] = [
 			'authnRequestsSigned' => false,
 			'wantAssertionsSigned' => true,
-			'wantAssertionsEncrypted' => true,
+			'wantAssertionsEncrypted' => false,
 			'wantNameIdEncrypted' => false,
 			'logoutRequestSigned' => true,
 			'requestedAuthnContext' => false,

@@ -2,9 +2,9 @@
 
 Contributors: conner_bw, greatislander, richard015ar, steelwagstaff
 Tags: pressbooks, saml, saml2, sso, shibboleth
-Requires at least: 6.1.1
-Tested up to: 6.1.1
-Stable tag: 2.3.0
+Requires at least: 6.2.2
+Tested up to: 6.2.2
+Stable tag: 2.4.0
 Requires PHP: 8.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -62,8 +62,6 @@ define( 'PHP_SAML_SP_CERT_PATH', '/path/to/sp.crt' );
 
 Upon activation of the plugin, a submenu item ("SAML2") is added to the Network Admin interface under "Integrations". This leads to the SAML2 settings page. Your metadata XML can be downloaded from this page.
 
-The plugin requires the Assertion elements of the Response to be encrypted.
-
 The plugin requires the Assertion elements of the Response to be signed.
 
 The plugin looks for the following Attributes in the Response:
@@ -77,7 +75,7 @@ The email can be filtered, example: `add_filter( 'pb_integrations_multidomain_em
 Because this plugin uses the fabulous [onelogin/php-saml](https://github.com/onelogin/php-saml/) toolkit, [many other configuration variables can be tweaked](https://github.com/onelogin/php-saml/#settings).
 
 ## Sending logs
-If you use AWS and wish to log SAML attempts on your server, you will need define some environment variables on the server which is hosting your Pressbooks instance.
+If you use AWS and want to log SAML attempts on your server, you will need define some environment variables on the server which is hosting your Pressbooks instance.
 ### AWS S3
 Define the following environment variables:
 
@@ -111,9 +109,8 @@ After these variables have been properly defined, basic information about SAML l
 
 ## Changelog
 
-### 2.2.0
-
-* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/2.2.0
+### 2.4.0
+* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/2.4.0
 * Full release history available at: https://github.com/pressbooks/pressbooks-saml-sso/releases
 
 ## Upgrade Notices

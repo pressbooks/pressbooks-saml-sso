@@ -2,9 +2,9 @@
 
 Contributors: conner_bw, greatislander, richard015ar, steelwagstaff
 Tags: pressbooks, saml, saml2, sso, shibboleth
-Requires at least: 6.2.2
-Tested up to: 6.2.2
-Stable tag: 2.4.0
+Requires at least: 6.3.2
+Tested up to: 6.3.2
+Stable tag: 2.4.1
 Requires PHP: 8.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -109,11 +109,18 @@ After these variables have been properly defined, basic information about SAML l
 
 ## Changelog
 
-### 2.4.0
-* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/2.4.0
+### 2.4.1
+* See: https://github.com/pressbooks/pressbooks-saml-sso/releases/tag/2.4.1
 * Full release history available at: https://github.com/pressbooks/pressbooks-saml-sso/releases
 
 ## Upgrade Notices
+### 2.4.1
+Pressbooks SAML2 Single Sign-On 2.4.1 requires WordPress >= 6.3.2
+
+### 2.3.0
+Pressbooks SAML2 Single Sign-On 2.4.0 requires PHP >= 8.1
+Pressbooks SAML2 Single Sign-On 2.4.0 requires Pressbooks >= 6.9.0
+
 ### 2.2.0
 Pressbooks SAML2 Single Sign-On 2.2.0 requires PHP >= 8.0
 Pressbooks SAML2 Single Sign-On 2.2.0 requires WordPress >= 6.1.1

@@ -34,5 +34,5 @@ jobs:
       - name: Commit and push .mo files
         run: |
           git add -A
-          git commit -m "chore: update .mo files" --allow-empty
+          git commit -m "chore: update .mo files"
           git push origin ${{ github.head_ref }}

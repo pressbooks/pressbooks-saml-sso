@@ -33,7 +33,7 @@ jobs:
         run: sudo systemctl start mysql.service
 
       - name: Cache Composer packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor
           key: ${{ matrix.php }}-php-${{ hashFiles('**/composer.lock') }}

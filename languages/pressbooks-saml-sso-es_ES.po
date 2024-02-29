@@ -187,7 +187,7 @@ msgstr "Información opcional"
 
 #: templates/admin.blade.php:72
 msgid " Bypass"
-msgstr ""
+msgstr "Ignorar"
 
 #: templates/admin.blade.php:74
 msgid ""

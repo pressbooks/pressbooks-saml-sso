@@ -167,7 +167,7 @@ msgstr "Ubicación URL del IdP donde se enviará la solicitud de SLO."
 
 #: templates/admin.blade.php:54
 msgid "Public x509 certificate of the IdP."
-msgstr ""
+msgstr "Certificado público X.509 del IdP."
 
 #: templates/admin.blade.php:61
 msgid "If the user does not have a Pressbooks account"

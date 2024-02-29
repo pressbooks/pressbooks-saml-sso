@@ -208,7 +208,7 @@ msgstr "Ocultar la página de acceso de Pressbooks."
 
 #: templates/admin.blade.php:86
 msgid "Customize Button Text"
-msgstr ""
+msgstr "Personalizar el texto del botón"
 
 #: templates/admin.blade.php:90
 msgid ""

@@ -194,6 +194,9 @@ msgid ""
 "Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" "
 "lists under <a href=\"%s\">Network Settings</a>."
 msgstr ""
+"Ignorar las listas de «Limitar el registro por correo electrónico» y "
+"«Dominios de correo electrónico no permitidos» establecidas en <a "
+"href=\"%s\">Ajustes de la red</a>."
 
 #: templates/admin.blade.php:79
 msgid " Forced Redirection"

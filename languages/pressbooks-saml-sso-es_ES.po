@@ -183,7 +183,7 @@ msgstr "Añadir nuevo usuario"
 
 #: templates/admin.blade.php:69
 msgid "Optional Information"
-msgstr ""
+msgstr "Información opcional"
 
 #: templates/admin.blade.php:72
 msgid " Bypass"

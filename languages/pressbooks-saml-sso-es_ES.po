@@ -126,6 +126,9 @@ msgid ""
 "When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked"
 " for Service Provider (SP) configuration file. Get that here:"
 msgstr ""
+"Al unirte a un proveedor de identidad (IdP) Shibboleth o SAML2, se te pedirá"
+" el archivo de configuración del proveedor del servicio (SP). Consíguelo "
+"aquí:"
 
 #: templates/admin.blade.php:4
 msgid "Metadata XML Configuration"
@@ -133,17 +136,19 @@ msgstr ""
 
 #: templates/admin.blade.php:8
 msgid "Automatic Configuration"
-msgstr ""
+msgstr "Configuración automática"
 
 #: templates/admin.blade.php:15
 msgid ""
 "If you have an IdP metadata URL, enter it here and save. The fields below "
 "should then auto-fill."
 msgstr ""
+"Si tienes una URL de metadatos del IdP, escríbela aquí y guarda los cambios."
+" Los campos siguientes deberían autocompletarse."
 
 #: templates/admin.blade.php:20
 msgid "Manual Configuration"
-msgstr ""
+msgstr "Configuración manual"
 
 #: templates/admin.blade.php:27
 msgid "Identifier of the IdP entity (must be a URI.)"

@@ -171,11 +171,11 @@ msgstr "Certificado público X.509 del IdP."
 
 #: templates/admin.blade.php:61
 msgid "If the user does not have a Pressbooks account"
-msgstr ""
+msgstr "Si el usuario no tiene una cuenta de Pressbooks"
 
 #: templates/admin.blade.php:63
 msgid "Refuse Access"
-msgstr ""
+msgstr "Rechazar el acceso"
 
 #: templates/admin.blade.php:64
 msgid "Add New User"

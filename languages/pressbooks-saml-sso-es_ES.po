@@ -91,7 +91,7 @@ msgstr "La identificación mediante SAML ha fallado."
 
 #: inc/class-saml.php:739
 msgid "Connect via SAML2"
-msgstr "Acceder mediante SAML"
+msgstr "Acceder mediante SAML2"
 
 #: inc/class-saml.php:747
 msgid "Or"

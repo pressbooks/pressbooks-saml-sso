@@ -179,7 +179,7 @@ msgstr "Rechazar el acceso"
 
 #: templates/admin.blade.php:64
 msgid "Add New User"
-msgstr ""
+msgstr "Añadir nuevo usuario"
 
 #: templates/admin.blade.php:69
 msgid "Optional Information"

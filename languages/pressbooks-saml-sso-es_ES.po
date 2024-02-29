@@ -164,6 +164,8 @@ msgstr ""
 #: templates/admin.blade.php:45
 msgid "URL Location of the IdP where SLO Request will be sent."
 msgstr ""
+"Ubicación URL del IdP a la que se enviará la solicitud de salida única "
+"(SLO)."
 
 #: templates/admin.blade.php:54
 msgid "Public x509 certificate of the IdP."

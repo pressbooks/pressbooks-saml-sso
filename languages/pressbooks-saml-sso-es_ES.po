@@ -152,12 +152,14 @@ msgstr "Configuración manual"
 
 #: templates/admin.blade.php:27
 msgid "Identifier of the IdP entity (must be a URI.)"
-msgstr ""
+msgstr "Identificador de la entidad del IdP (debe ser una URI)."
 
 #: templates/admin.blade.php:36
 msgid ""
 "URL Target of the IdP where the Authentication Request Message will be sent."
 msgstr ""
+"Destino URL del IdP al que se enviará el mensaje de solicitud de "
+"identificación."
 
 #: templates/admin.blade.php:45
 msgid "URL Location of the IdP where SLO Request will be sent."

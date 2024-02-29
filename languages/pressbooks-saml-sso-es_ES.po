@@ -204,7 +204,7 @@ msgstr "Redirección forzada"
 
 #: templates/admin.blade.php:82
 msgid "Hide the Pressbooks login page."
-msgstr ""
+msgstr "Ocultar la página de acceso de Pressbooks."
 
 #: templates/admin.blade.php:86
 msgid "Customize Button Text"

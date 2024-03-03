@@ -89,6 +89,9 @@ msgid ""
 "request an account, please contact your institution's Pressbooks Network "
 "Manager%s"
 msgstr ""
+"No se puede acceder. No tienes una cuenta en esta red de Pressbooks. Para "
+"solicitar una cuenta, contacta con el administrador de la red de Pressbooks "
+"de tu institución%s"
 
 #: inc/class-saml.php:661
 msgid "SAML authentication failed."
@@ -137,7 +140,7 @@ msgstr ""
 
 #: templates/admin.blade.php:4
 msgid "Metadata XML Configuration"
-msgstr ""
+msgstr "Configuración de los metadatos XML"
 
 #: templates/admin.blade.php:8
 msgid "Automatic Configuration"

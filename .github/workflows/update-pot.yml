@@ -23,7 +23,7 @@ jobs:
       run: wp i18n make-pot . languages/pressbooks-saml-sso.pot --domain=pressbooks-saml-sso --slug=pressbooks-saml-sso --package-name="Pressbooks SAML2 Single Sign-On" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks-saml-sso/issues\"}"
     - name: Create Pull Request for POT file
       id: cprpot
-      uses: peter-evans/create-pull-request@v5
+      uses: peter-evans/create-pull-request@v6
       with:
         token: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
         labels: automerge-pot

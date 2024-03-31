@@ -4,8 +4,9 @@
  * Plugin URI:          https://pressbooks.org
  * Description:         SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, Google Apps, etc.)
  * Version:             2.4.2
- * Requires at least:   6.4.3
+ * Requires at least:   6.5
  * Requires PHP:        8.1
+ * Requires Plugins:    pressbooks
  * Author:              Pressbooks (Book Oven Inc.)
  * Author URI:          https://pressbooks.org
  * License:             GPL v3 or later
@@ -15,21 +16,6 @@
  * GitHub Plugin URI:   pressbooks/pressbooks-saml-sso
  * Release Asset:       true
  */
-
-// -------------------------------------------------------------------------------------------------------------------
-// Check requirements
-// -------------------------------------------------------------------------------------------------------------------
-
-if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) { // @codingStandardsIgnoreLine
-	add_action(
-		'admin_notices', function () {
-			echo '<div id="message" role="alert" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks-saml-sso' ) . '</p></div>';
-		}
-	);
-	return;
-} elseif ( ! pb_meets_minimum_requirements() ) {
-	return;
-}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Class autoloader

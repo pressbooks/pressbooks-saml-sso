@@ -1,13 +1,13 @@
-# Copyright (C) 2023 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # Steel Wagstaff <steel@pressbooks.com>, 2024
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.4.1\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.4.2\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
-"POT-Creation-Date: 2023-10-26T03:00:27+00:00\n"
+"POT-Creation-Date: 2024-04-08T17:49:09+00:00\n"
 "PO-Revision-Date: 2024-02-29 15:01+0000\n"
 "Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/pressbooks/teams/9194/zh_CN/)\n"
@@ -17,24 +17,28 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: pressbooks-saml-sso\n"
-"X-Generator: WP-CLI 2.9.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 
 #. Plugin Name of the plugin
+#: pressbooks-saml-sso.php
 msgid "Pressbooks SAML2 Single Sign-On"
 msgstr "Pressbooks SAML2单点登录"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
+#: pressbooks-saml-sso.php
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
 
 #. Description of the plugin
+#: pressbooks-saml-sso.php
 msgid ""
 "SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS,"
 " Google Apps, etc.)"
 msgstr ""
 
 #. Author of the plugin
+#: pressbooks-saml-sso.php
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven 有限公司)"
 
@@ -101,11 +105,7 @@ msgstr "已登入！"
 msgid "Registered and logged in!"
 msgstr "注册成功并已登入！"
 
-#: pressbooks-saml-sso.php:26
-msgid "Cannot find Pressbooks install."
-msgstr "未找到安装好的Pressbooks。"
-
-#: pressbooks-saml-sso.php:49
+#: pressbooks-saml-sso.php:35
 msgid ""
 "Please run <code>composer install</code> from the root of the Pressbooks "
 "SAML2 Single Sign-On plugin directory."

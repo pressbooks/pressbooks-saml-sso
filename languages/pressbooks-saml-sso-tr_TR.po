@@ -2,14 +2,15 @@
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # Steel Wagstaff <steel@pressbooks.com>, 2024
+# Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2024
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.4.2\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
-"POT-Creation-Date: 2024-04-08T17:49:09+00:00\n"
+"POT-Creation-Date: 2024-04-10T16:11:49+00:00\n"
 "PO-Revision-Date: 2024-02-29 15:01+0000\n"
-"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
+"Last-Translator: Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2024\n"
 "Language-Team: Turkish (Turkey) (https://app.transifex.com/pressbooks/teams/9194/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -117,88 +118,95 @@ msgstr ""
 
 #: templates/admin.blade.php:2
 msgid "SAML2 (Security Assertion Markup Language)"
-msgstr ""
+msgstr "SAML2 (Security Assertion Markup Language)"
 
 #: templates/admin.blade.php:3
 msgid ""
 "When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked"
 " for Service Provider (SP) configuration file. Get that here:"
 msgstr ""
+"Bir Shibboleth veya SAML2 Kimlik Sağlayıcıya (IdP) katılırken, Servis "
+"Sağlayıcı (SP) yapılandırma dosyası istenir. Buradan alın:"
 
 #: templates/admin.blade.php:4
 msgid "Metadata XML Configuration"
-msgstr ""
+msgstr "Meta Veri XML Yapılandırması"
 
 #: templates/admin.blade.php:8
 msgid "Automatic Configuration"
-msgstr ""
+msgstr "Otomatik Yapılandırma"
 
 #: templates/admin.blade.php:15
 msgid ""
 "If you have an IdP metadata URL, enter it here and save. The fields below "
 "should then auto-fill."
 msgstr ""
+"Bir IdP meta veri URL'niz varsa, buraya girin ve kaydedin. Aşağıdaki alanlar"
+" daha sonra otomatik olarak doldurulmalıdır."
 
 #: templates/admin.blade.php:20
 msgid "Manual Configuration"
-msgstr ""
+msgstr "Manuel Yapılandırma"
 
 #: templates/admin.blade.php:27
 msgid "Identifier of the IdP entity (must be a URI.)"
-msgstr ""
+msgstr "IdP varlığının tanımlayıcısı (bir URI olmalıdır.)"
 
 #: templates/admin.blade.php:36
 msgid ""
 "URL Target of the IdP where the Authentication Request Message will be sent."
-msgstr ""
+msgstr "Kimlik Doğrulama İsteği Mesajının gönderileceği IdP'nin URL Hedefi."
 
 #: templates/admin.blade.php:45
 msgid "URL Location of the IdP where SLO Request will be sent."
-msgstr ""
+msgstr "SLO Talebinin gönderileceği IdP'nin URL Konumu."
 
 #: templates/admin.blade.php:54
 msgid "Public x509 certificate of the IdP."
-msgstr ""
+msgstr "IdP'nin genel x509 sertifikası."
 
 #: templates/admin.blade.php:61
 msgid "If the user does not have a Pressbooks account"
-msgstr ""
+msgstr "Kullanıcının Pressbooks hesabı yoksa"
 
 #: templates/admin.blade.php:63
 msgid "Refuse Access"
-msgstr ""
+msgstr "Erişimi Reddet"
 
 #: templates/admin.blade.php:64
 msgid "Add New User"
-msgstr ""
+msgstr "Yeni Kullanıcı Ekle"
 
 #: templates/admin.blade.php:69
 msgid "Optional Information"
-msgstr ""
+msgstr "İsteğe Bağlı Bilgi"
 
 #: templates/admin.blade.php:72
 msgid " Bypass"
-msgstr ""
+msgstr " Atla"
 
 #: templates/admin.blade.php:74
 msgid ""
 "Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" "
 "lists under <a href=\"%s\">Network Settings</a>."
 msgstr ""
+"<a href=\"%s\">Ağ Ayarları</a>altındaki \"Sınırlı E-posta Kayıtları\" ve "
+"\"Yasaklanmış E-posta Etki Alanları\" listelerini atlayın."
 
 #: templates/admin.blade.php:79
 msgid " Forced Redirection"
-msgstr ""
+msgstr "Zorunlu Yeniden Yönlendirme"
 
 #: templates/admin.blade.php:82
 msgid "Hide the Pressbooks login page."
-msgstr ""
+msgstr "Pressbooks giriş sayfasını gizleyin."
 
 #: templates/admin.blade.php:86
 msgid "Customize Button Text"
-msgstr ""
+msgstr "Düğme Metnini Özelleştir"
 
 #: templates/admin.blade.php:90
 msgid ""
 "Change the [ Connect via SAML2 ] button to something more user-friendly."
 msgstr ""
+"[SAML2 ile Bağlan] düğmesini daha kullanıcı dostu bir şekle değiştirin."

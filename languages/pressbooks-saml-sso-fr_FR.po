@@ -1,42 +1,44 @@
-# Copyright (C) 2023 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Amelie Roberge <aroberge@tciinc.ca>, 2019
-# Hubert GB <hgblouin@tciinc.ca>, 2019
-# Steel Wagstaff <steel@pressbooks.com>, 2022
+# Steel Wagstaff <steel@pressbooks.com>, 2024
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.3.0\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
-"POT-Creation-Date: 2023-03-07T21:05:26+00:00\n"
-"PO-Revision-Date: 2019-02-28 19:57+0000\n"
-"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2022\n"
-"Language-Team: French (https://www.transifex.com/pressbooks/teams/9194/fr/)\n"
+"POT-Creation-Date: 2024-04-10T16:11:49+00:00\n"
+"PO-Revision-Date: 2024-02-29 15:01+0000\n"
+"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
+"Language-Team: French (https://app.transifex.com/pressbooks/teams/9194/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 "X-Domain: pressbooks-saml-sso\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.10.0\n"
 
 #. Plugin Name of the plugin
+#: pressbooks-saml-sso.php
 msgid "Pressbooks SAML2 Single Sign-On"
 msgstr "SAML2 à signature unique pour Pressbooks"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
+#: pressbooks-saml-sso.php
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
 
 #. Description of the plugin
+#: pressbooks-saml-sso.php
 msgid ""
 "SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS,"
 " Google Apps, etc.)"
 msgstr ""
 
 #. Author of the plugin
+#: pressbooks-saml-sso.php
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven Inc.)"
 
@@ -94,27 +96,23 @@ msgstr ""
 msgid "SAML authentication failed."
 msgstr "Échec de l&rsquo;authentification SAML."
 
-#: inc/class-saml.php:740
+#: inc/class-saml.php:739
 msgid "Connect via SAML2"
 msgstr "Se connecter par SAML2"
 
-#: inc/class-saml.php:748
+#: inc/class-saml.php:747
 msgid "Or"
 msgstr "Ou"
 
-#: inc/class-saml.php:784
+#: inc/class-saml.php:783
 msgid "Logged in!"
 msgstr "Vous êtes connecté!"
 
-#: inc/class-saml.php:1003
+#: inc/class-saml.php:1002
 msgid "Registered and logged in!"
 msgstr "Vous êtes inscrit et connecté!"
 
-#: pressbooks-saml-sso.php:26
-msgid "Cannot find Pressbooks install."
-msgstr "Erreur lors de ld&rsquo;installation de Pressbooks."
-
-#: pressbooks-saml-sso.php:49
+#: pressbooks-saml-sso.php:35
 msgid ""
 "Please run <code>composer install</code> from the root of the Pressbooks "
 "SAML2 Single Sign-On plugin directory."

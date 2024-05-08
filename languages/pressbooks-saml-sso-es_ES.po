@@ -1,16 +1,16 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Mario Badilla <mario.badilla@gmail.com>, 2024
-# Eduardo Vera, 2024
+# Ho Man Chan <homan@pressbooks.com>, 2021
+# Eduardo Vera, 2023
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.4.2\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
-"POT-Creation-Date: 2024-04-08T17:49:09+00:00\n"
-"PO-Revision-Date: 2024-02-29 15:01+0000\n"
-"Last-Translator: Eduardo Vera, 2024\n"
+"POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
+"PO-Revision-Date: 2019-02-28 19:57+0000\n"
+"Last-Translator: Eduardo Vera, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/pressbooks/teams/9194/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgid ""
 " Google Apps, etc.)"
 msgstr ""
 "Integración con la identificación única mediante SAML2 para Pressbooks "
-"(Shibboleth, Microsoft ADFS, Google Apps, etc.)"
+"(Shibboleth, Microsoft ADFS, Google Apps, etc.)."
 
 #. Author of the plugin
 #: pressbooks-saml-sso.php
@@ -80,7 +80,7 @@ msgstr "La identificación ha fallado. Razón: %s"
 
 #: inc/class-saml.php:625
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
-msgstr "Falta el atributo SAML urn:oid:0.9.2342.19200300.100.1.1"
+msgstr "Falta el atributo SAML urn:oid:0.9.2342.19200300.100.1.1."
 
 #. translators: %s Pressbooks Network Manager email if found.
 #: inc/class-saml.php:659
@@ -99,7 +99,7 @@ msgstr "La identificación mediante SAML ha fallado."
 
 #: inc/class-saml.php:739
 msgid "Connect via SAML2"
-msgstr "Acceder mediante SAML2"
+msgstr "Acceder mediante SAML"
 
 #: inc/class-saml.php:747
 msgid "Or"
@@ -123,7 +123,7 @@ msgstr ""
 
 #: templates/admin.blade.php:2
 msgid "SAML2 (Security Assertion Markup Language)"
-msgstr "SAML2 (Security Assertion Markup Language)"
+msgstr "SAML2 (Lenguaje de marcado para confirmaciones de seguridad)"
 
 #: templates/admin.blade.php:3
 msgid ""
@@ -167,7 +167,9 @@ msgstr ""
 
 #: templates/admin.blade.php:45
 msgid "URL Location of the IdP where SLO Request will be sent."
-msgstr "Ubicación URL del IdP donde se enviará la solicitud de SLO."
+msgstr ""
+"Ubicación URL del IdP a la que se enviará la solicitud de salida única "
+"(SLO)."
 
 #: templates/admin.blade.php:54
 msgid "Public x509 certificate of the IdP."

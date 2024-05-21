@@ -1,40 +1,44 @@
-# Copyright (C) 2023 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # fish free <winofchina@hotmail.com>, 2021
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.3.0\n"
+"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
-"POT-Creation-Date: 2023-03-07T21:05:26+00:00\n"
+"POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: fish free <winofchina@hotmail.com>, 2021\n"
-"Language-Team: Chinese (China) (https://www.transifex.com/pressbooks/teams/9194/zh_CN/)\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/pressbooks/teams/9194/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: pressbooks-saml-sso\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.10.0\n"
 
 #. Plugin Name of the plugin
+#: pressbooks-saml-sso.php
 msgid "Pressbooks SAML2 Single Sign-On"
 msgstr "Pressbooks SAML2单点登录"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
+#: pressbooks-saml-sso.php
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
 
 #. Description of the plugin
+#: pressbooks-saml-sso.php
 msgid ""
 "SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS,"
 " Google Apps, etc.)"
 msgstr ""
 
 #. Author of the plugin
+#: pressbooks-saml-sso.php
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven 有限公司)"
 
@@ -85,27 +89,23 @@ msgstr "无法登入：您在此Pressbooks网络中无账号。请和管理员�
 msgid "SAML authentication failed."
 msgstr "SAML认证失败。"
 
-#: inc/class-saml.php:740
+#: inc/class-saml.php:739
 msgid "Connect via SAML2"
 msgstr "使用SMAL2登录"
 
-#: inc/class-saml.php:748
+#: inc/class-saml.php:747
 msgid "Or"
 msgstr "或"
 
-#: inc/class-saml.php:784
+#: inc/class-saml.php:783
 msgid "Logged in!"
 msgstr "已登入！"
 
-#: inc/class-saml.php:1003
+#: inc/class-saml.php:1002
 msgid "Registered and logged in!"
 msgstr "注册成功并已登入！"
 
-#: pressbooks-saml-sso.php:26
-msgid "Cannot find Pressbooks install."
-msgstr "未找到安装好的Pressbooks。"
-
-#: pressbooks-saml-sso.php:49
+#: pressbooks-saml-sso.php:35
 msgid ""
 "Please run <code>composer install</code> from the root of the Pressbooks "
 "SAML2 Single Sign-On plugin directory."

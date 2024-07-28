@@ -2,6 +2,7 @@
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # Steel Wagstaff <steel@pressbooks.com>, 2024
+# fish free <winofchina@hotmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -9,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
 "POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
-"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
+"Last-Translator: fish free <winofchina@hotmail.com>, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/pressbooks/teams/9194/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +36,7 @@ msgstr "https://pressbooks.org"
 msgid ""
 "SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS,"
 " Google Apps, etc.)"
-msgstr ""
+msgstr "Pressbooks 的 SAML2 单点登录集成（Shibboleth、Microsoft ADFS、Google Apps 等）"
 
 #. Author of the plugin
 #: pressbooks-saml-sso.php
@@ -53,7 +54,7 @@ msgstr "从URL获取IdP元数据失败。"
 #: inc/class-saml.php:164
 msgid ""
 "The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
-msgstr ""
+msgstr "Pressbooks SAML 插件尚未<a href=\"%1$s\">配置</a>。"
 
 #: inc/class-saml.php:177
 msgid ""

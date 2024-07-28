@@ -53,12 +53,12 @@ msgstr "从URL获取IdP元数据失败。"
 #: inc/class-saml.php:164
 msgid ""
 "The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
-msgstr ""
+msgstr "Pressbooks SAML 插件尚未<a href=\"%1$s\">配置</a>。"
 
 #: inc/class-saml.php:177
 msgid ""
 "The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
-msgstr ""
+msgstr "Pressbooks SAML 插件<a href=\"%1$s\">配置</a>不正确。"
 
 #: inc/class-saml.php:199
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "

@@ -1,12 +1,13 @@
 name: Update .pot file 🌐
 
 on:
-  pull_request:
+  push:
     branches: [dev]
     paths:
-      - "**.php"
-      - "**.js"
+      - "**/*.php"
+      - "**/*.js"
   workflow_dispatch:
+
 
 jobs:
   update-pot-file:

@@ -613,10 +613,16 @@ class SAML {
 	 * @return array
 	 * @throws \Exception
 	 */
-	public function parseAttributeStatement() {
+	public function parseAttributeStatement(): array {
 		// Attributes
 		$attributes = $this->auth->getAttributes();
 		$friendly_name_attributes = $this->auth->getAttributesWithFriendlyName();
+
+		if ( isset( $attributes['id'], $attributes['email'] ) ) {
+			$attributes[ self::SAML_MAP_FIELDS['uid'] ] = $attributes['id'];
+			$attributes[ self::SAML_MAP_FIELDS['mail'] ] = $attributes['email'];
+		}
+
 		if (
 			! isset( $attributes[ self::SAML_MAP_FIELDS['uid'] ] ) &&
 			! isset( $friendly_name_attributes['uid'] ) &&
@@ -900,7 +906,8 @@ class SAML {
 	 * @return array [ (int) user_id, (string) sanitized username ]
 	 */
 	public function createUser( $username, $email ) {
-		$username = ! $username ? strstr( $email, '@', true ) : $username;
+		// username should not have more than 60 characters
+		$username = $username ?? strstr( $email, '@', true );
 		$i = 1;
 		$unique_username = $this->sanitizeUser( $username );
 		while ( username_exists( $unique_username ) ) {
@@ -954,7 +961,9 @@ class SAML {
 	 *
 	 * @return string
 	 */
-	public function sanitizeUser( $username ) {
+	public function sanitizeUser( $username ): string{
+		$username = substr( $username, 0, 60 );
+
 		$unique_username = sanitize_user( $username, true );
 		$unique_username = strtolower( $unique_username );
 		$unique_username = preg_replace( '/[^a-z0-9]/', '', $unique_username );

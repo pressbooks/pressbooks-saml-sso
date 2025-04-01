@@ -29,11 +29,6 @@ class Admin {
 	 * @param Admin $obj
 	 */
 	static public function hooks( Admin $obj ) {
-		load_plugin_textdomain(
-			'pressbooks-saml-sso',
-			false,
-			'pressbooks-saml-sso/languages/'
-		);
 		add_action( 'admin_enqueue_scripts', [ $obj, 'adminEnqueueScripts' ] );
 		add_action( 'network_admin_menu', [ $obj, 'addMenu' ] );
 		add_action( 'init', function() {

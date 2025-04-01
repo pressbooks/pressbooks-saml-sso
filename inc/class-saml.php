@@ -961,8 +961,8 @@ class SAML {
 	 *
 	 * @return string
 	 */
-	public function sanitizeUser( $username ): string{
-		$username = substr( $username, 0, 60 );
+	public function sanitizeUser( string $username ): string {
+		$username = substr( $username, 0, 59 );
 
 		$unique_username = sanitize_user( $username, true );
 		$unique_username = strtolower( $unique_username );
@@ -970,8 +970,8 @@ class SAML {
 		if ( preg_match( '/^[0-9]*$/', $unique_username ) ) {
 			$unique_username .= 'a'; // usernames must have letters too
 		}
-		$unique_username = str_pad( $unique_username, 4, '1' );
-		return $unique_username;
+
+		return str_pad( $unique_username, 4, '1' );
 	}
 
 	/**

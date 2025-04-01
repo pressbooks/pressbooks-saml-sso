@@ -597,7 +597,6 @@ class SamlTest extends \WP_UnitTestCase {
 			$this->saml->handleLoginAttempt( $bad_net_id, $bad_email );
 		} catch ( \Exception $e ) {
 			$this->assertStringContainsString( 'Please enter a valid email address', $e->getMessage() );
-			$this->assertStringContainsString( 'Username may not be longer than 60 characters', $e->getMessage() );
 			return;
 		}
 		$this->fail();

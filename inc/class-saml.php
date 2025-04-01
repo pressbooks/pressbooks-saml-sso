@@ -618,10 +618,8 @@ class SAML {
 		$attributes = $this->auth->getAttributes();
 		$friendly_name_attributes = $this->auth->getAttributesWithFriendlyName();
 
-		if ( isset( $attributes['id'], $attributes['email'] ) ) {
-			$attributes[ self::SAML_MAP_FIELDS['uid'] ] = $attributes['id'];
-			$attributes[ self::SAML_MAP_FIELDS['mail'] ] = $attributes['email'];
-		}
+		$attributes[ self::SAML_MAP_FIELDS['uid'] ] = $attributes['id'] ?? null;
+		$attributes[ self::SAML_MAP_FIELDS['mail'] ] = $attributes['email'] ?? null;
 
 		if (
 			! isset( $attributes[ self::SAML_MAP_FIELDS['uid'] ] ) &&

@@ -691,12 +691,6 @@ class SAML {
 		return $email ? $email : '';
 	}
 
-	/**
-	 * @param string $redirect_to
-	 *
-	 * @throws Error
-	 * @return ?string
-	 */
 	public function logoutRedirect( string $redirect_to ): ?string {
 		if ( $this->samlClientIsReady ) {
 			$user_auth_data = $_COOKIE[ self::AUTH_DATA ] ?? null;

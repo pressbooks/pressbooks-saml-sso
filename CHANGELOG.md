@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.2](https://github.com/pressbooks/pressbooks-saml-sso/compare/2.5.1...2.5.2) (2025-04-03)
+
+
+### Bug Fixes
+
+* SAML logout action ([#226](https://github.com/pressbooks/pressbooks-saml-sso/issues/226)) ([66d325e](https://github.com/pressbooks/pressbooks-saml-sso/commit/66d325ecd5d188dd9357b3eca69dd0dbc3874c8b))
+
 ## [2.5.1](https://github.com/pressbooks/pressbooks-saml-sso/compare/2.5.0...2.5.1) (2024-05-30)
 
 

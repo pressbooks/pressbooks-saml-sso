@@ -2,6 +2,7 @@
 
 use Aws\S3\S3Client as S3Client;
 use Pressbooks\Log;
+use PressbooksSamlSso\SAML;
 
 /**
  * @group saml
@@ -498,8 +499,17 @@ class SamlTest extends \WP_UnitTestCase {
 	public function test_logoutRedirect() {
 		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdminWithForcedRedirection() );
 		$saml->setAuth( $this->getMockAuthSLO() );
-		$_SESSION[ \PressbooksSamlSso\SAML::AUTH_DATA ] = ['fake auth data'];
-		$this->assertTrue( $saml->logoutRedirect('https://pressbooks.test') );
+		setcookie(
+			SAML::AUTH_DATA,
+			base64_encode( json_encode( [ 'foo' => 'bar' ] ) ),
+			0,
+			COOKIEPATH,
+			COOKIE_DOMAIN,
+			is_ssl(),
+			true
+		);
+
+		$this->assertEquals( 'https://pressbooks.test', $saml->logoutRedirect( 'https://pressbooks.test' ) );
 	}
 
 	public function test_loginEnqueueScripts() {
@@ -597,7 +607,6 @@ class SamlTest extends \WP_UnitTestCase {
 			$this->saml->handleLoginAttempt( $bad_net_id, $bad_email );
 		} catch ( \Exception $e ) {
 			$this->assertStringContainsString( 'Please enter a valid email address', $e->getMessage() );
-			$this->assertStringContainsString( 'Username may not be longer than 60 characters', $e->getMessage() );
 			return;
 		}
 		$this->fail();

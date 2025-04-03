@@ -538,7 +538,7 @@ class SAML {
 
 	/**
 	 * @throws \Exception
-	 * @throws \OneLogin\Saml2\Error
+	 * @throws Error
 	 */
 	public function samlAssertionConsumerService() {
 		// Authentication
@@ -567,7 +567,7 @@ class SAML {
 
 		// Attributes
 		$attributes = $this->parseAttributeStatement();
-		$this->storeAuthDataInSession();
+		$this->persistSessionData();
 
 		// If we made it to here, then no exceptions were thrown, and everything is fine.
 		// Now that the user has a session the SP allows the request to proceed.
@@ -587,36 +587,49 @@ class SAML {
 		}
 	}
 
-	private function storeAuthDataInSession() {
-		$_SESSION[ self::AUTH_DATA ] = [
+	private function persistSessionData(): void {
+		$auth_data = [
 			'sessionIndex' => $this->auth->getSessionIndex(),
 			'nameId' => $this->auth->getNameId(),
 			'nameFormat' => $this->auth->getNameIdFormat(),
 			'nameIdNameQualifier' => $this->auth->getNameIdNameQualifier(),
 			'nameIdSPNameQualifier' => $this->auth->getNameIdSPNameQualifier(),
 		];
+
+		setcookie(
+			self::AUTH_DATA,
+			base64_encode( json_encode( $auth_data ) ),
+			0,
+			COOKIEPATH,
+			COOKIE_DOMAIN,
+			is_ssl(),
+			true
+		);
+
 		$this->logAuthData();
 	}
 
-	private function logAuthData() {
-		if ( array_key_exists( self::AUTH_DATA, $_SESSION ) ) {
-			$log_auth_data = $_SESSION[ self::AUTH_DATA ];
-			$log_auth_data['sessionIndex'] = substr( $this->auth->getSessionIndex(), 0, 7 ) . '...';
-			$log_auth_data['nameId'] = substr( $this->auth->getNameId(), 0, 7 ) . '...';
-			$this->logData( 'Auth SAML data', $log_auth_data );
-			return true;
+	private function logAuthData(): bool {
+		$log_auth_data = $_COOKIE[ self::AUTH_DATA ] ?? null;
+		if ( ! $log_auth_data ) {
+			return false;
 		}
-		return false;
+
+		$log_auth_data['sessionIndex'] = substr( $this->auth->getSessionIndex(), 0, 7 ) . '...';
+		$log_auth_data['nameId'] = substr( $this->auth->getNameId(), 0, 7 ) . '...';
+		$this->logData( 'Auth SAML data', $log_auth_data );
+		return true;
 	}
 
 	/**
 	 * @return array
 	 * @throws \Exception
 	 */
-	public function parseAttributeStatement() {
+	public function parseAttributeStatement(): array {
 		// Attributes
 		$attributes = $this->auth->getAttributes();
 		$friendly_name_attributes = $this->auth->getAttributesWithFriendlyName();
+
 		if (
 			! isset( $attributes[ self::SAML_MAP_FIELDS['uid'] ] ) &&
 			! isset( $friendly_name_attributes['uid'] ) &&
@@ -630,7 +643,7 @@ class SAML {
 
 	/**
 	 * @throws \Exception
-	 * @throws \OneLogin\Saml2\Error
+	 * @throws Error
 	 */
 	public function samlSingleLogoutService() {
 		$this->auth->processSLO();
@@ -678,19 +691,17 @@ class SAML {
 		return $email ? $email : '';
 	}
 
-	/**
-	 * @param string $redirect_to
-	 *
-	 * @throws \OneLogin\Saml2\Error
-	 * @return string
-	 */
-	public function logoutRedirect( $redirect_to ) {
+	public function logoutRedirect( string $redirect_to ): ?string {
 		if ( $this->samlClientIsReady ) {
-			if ( $this->forcedRedirection || ! empty( $_SESSION[ self::USER_DATA ] ) || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
-				if ( ! empty( $this->auth->getSLOurl() ) && ! empty( $_SESSION[ self::AUTH_DATA ] ) ) {
-					$user_auth_data = $_SESSION[ self::AUTH_DATA ];
-					unset( $_SESSION[ self::USER_DATA ] );
-					unset( $_SESSION[ self::AUTH_DATA ] );
+			$user_auth_data = $_COOKIE[ self::AUTH_DATA ] ?? null;
+
+			if ( $user_auth_data ) {
+				$user_auth_data = json_decode( base64_decode( $user_auth_data ), true );
+				setcookie( self::AUTH_DATA, '', time() - 3600, COOKIEPATH, COOKIE_DOMAIN );
+			}
+
+			if ( $this->forcedRedirection || $user_auth_data || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
+				if ( ! empty( $this->auth->getSLOurl() ) && ! empty( $user_auth_data ) ) {
 					$this->auth->logout(
 						add_query_arg( 'loggedout', true, wp_login_url() ),
 						[],
@@ -701,10 +712,8 @@ class SAML {
 						$user_auth_data['nameIdNameQualifier'],
 						$user_auth_data['nameIdSPNameQualifier']
 					);
-					$this->doExit();
-					return true;
 				}
-				if ( $this->forcedRedirection && empty( $_SESSION[ self::USER_DATA ] ) ) {
+				if ( $this->forcedRedirection && $user_auth_data ) {
 					remove_filter( 'login_url', [ $this, 'changeLoginUrl' ], 999 );
 				}
 			}
@@ -900,7 +909,8 @@ class SAML {
 	 * @return array [ (int) user_id, (string) sanitized username ]
 	 */
 	public function createUser( $username, $email ) {
-		$username = ! $username ? strstr( $email, '@', true ) : $username;
+		// username should not have more than 60 characters
+		$username = $username ?? strstr( $email, '@', true );
 		$i = 1;
 		$unique_username = $this->sanitizeUser( $username );
 		while ( username_exists( $unique_username ) ) {
@@ -954,15 +964,17 @@ class SAML {
 	 *
 	 * @return string
 	 */
-	public function sanitizeUser( $username ) {
+	public function sanitizeUser( string $username ): string {
+		$username = substr( $username, 0, 59 );
+
 		$unique_username = sanitize_user( $username, true );
 		$unique_username = strtolower( $unique_username );
 		$unique_username = preg_replace( '/[^a-z0-9]/', '', $unique_username );
 		if ( preg_match( '/^[0-9]*$/', $unique_username ) ) {
 			$unique_username .= 'a'; // usernames must have letters too
 		}
-		$unique_username = str_pad( $unique_username, 4, '1' );
-		return $unique_username;
+
+		return str_pad( $unique_username, 4, '1' );
 	}
 
 	/**

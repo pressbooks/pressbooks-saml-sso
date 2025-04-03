@@ -100,13 +100,17 @@ Here are the steps to create a test IdP application:
 3. Select "Regular Web Applications" as the application type.
 4. Go to the "Settings" tab of your application.
 5. Scroll down to the "Advanced Settings" section and click on "Ednpoints" tab.
-6. Copy the "SAML Metadata URL" and paste it Pressbooks SAML2 settings page, in the "IdP metadata URL" field and save the changes.
+6. Copy the "SAML Metadata URL" and paste it on Pressbooks SAML2 settings page, in the "IdP metadata URL" field and save the changes.
 7. In Auth0, go to the "Addons" tab of your application, and click on "SAML2 Web App".
 8. In the Settings tab, under the Application Callback URL, add: `https://<NETWORK_DOMAIN>/wp/wp-login.php?action=pb_shibboleth_acs`
-9. In the Settings JSON, add the following:
+9. In the PB Admin area, go to Integrations > SAML2 and click under the "Metadata XML Configuration" link displayed at the top of the page.
+10. Locate the `EntityID` value inside the `<md:EntityDescriptor>` tag in your metadata XML. You’ll use this value as the audience in the next step.
+11. Update your Auth0 Settings JSON to include the following configuration. Be sure to:
+  - Replace `<URL_ENTITY_ID_FROM_METADATA_XML>` with the actual `EntityID` you copied.
+  - Replace `<NETWORK_DOMAIN>` with the domain of your Pressbooks instance.
   ```json
 	{
-		"audience": "https://<NETWORK_DOMAIN>/wp/shibboleth",
+		"audience": "<URL_ENTITY_ID_FROM_METADATA_XML>",
 		"recipient": "https://<NETWORK_DOMAIN>/wp/wp-login.php?action=pb_shibboleth_acs",
 		"mappings": {
 			"user_id": "urn:oid:0.9.2342.19200300.100.1.1",
@@ -127,9 +131,9 @@ Here are the steps to create a test IdP application:
 	}
   ```
   Make sure you are using the correct `NETWORK_DOMAIN` for your Pressbooks instance.
-10. Save the changes in Auth0.
-11. Create a new user in the "User Management" section of the Auth0 dashboard.
-12. Now you can log in using the new user you created in Auth0. Go to your Pressbooks instance and click on the "Login with SAML" button.
+12. Save the changes in Auth0.
+13. Create a new user in the "User Management" section of the Auth0 dashboard.
+14. Now you can log in using the new user you created in Auth0. Go to your Pressbooks instance and click on the "Login with SAML" button.
 
 ## Sending logs
 

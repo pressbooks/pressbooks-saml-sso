@@ -10,6 +10,8 @@ use PressbooksSamlSso\SAML;
 
 class SamlTest extends \WP_UnitTestCase {
 
+	use utilsTrait;
+
 	const TEST_FILE_PATH = __DIR__ . '/data/saml-log.csv';
 
 	// ------------------------------------------------------------------------
@@ -499,17 +501,17 @@ class SamlTest extends \WP_UnitTestCase {
 	public function test_logoutRedirect() {
 		$saml = new \PressbooksSamlSso\SAML( $this->getMockAdminWithForcedRedirection() );
 		$saml->setAuth( $this->getMockAuthSLO() );
-		setcookie(
-			SAML::AUTH_DATA,
-			base64_encode( json_encode( [ 'foo' => 'bar' ] ) ),
-			0,
-			COOKIEPATH,
-			COOKIE_DOMAIN,
-			is_ssl(),
-			true
-		);
 
-		$this->assertEquals( 'https://pressbooks.test', $saml->logoutRedirect( 'https://pressbooks.test' ) );
+		$_SESSION[ SAML::USER_DATA ] = [ 'foo' => 'bar' ];
+
+		$this->assertFalse( $saml->logoutRedirect() );
+
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$_GET['action'] = 'logout';
+
+		$this->assertTrue( $saml->logoutRedirect() );
 	}
 
 	public function test_loginEnqueueScripts() {

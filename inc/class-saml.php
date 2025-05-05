@@ -121,7 +121,7 @@ class SAML {
 		add_filter( 'authenticate', [ $obj, 'authenticate' ], 10, 3 );
 		add_action( 'login_enqueue_scripts', [ $obj, 'loginEnqueueScripts' ] );
 		add_action( 'login_form', [ $obj, 'loginForm' ] );
-		add_filter( 'logout_redirect', [ $obj, 'logoutRedirect' ] );
+		add_filter( 'init', [ $obj, 'logoutRedirect' ] );
 		add_filter( 'show_password_fields', [ $obj, 'showPasswordFields' ], 10, 2 );
 	}
 
@@ -291,13 +291,13 @@ class SAML {
 			'serviceName' => 'Pressbooks',
 			'requestedAttributes' => [
 				[
-					'nameFormat' => \OneLogin\Saml2\Constants::ATTRNAME_FORMAT_URI,
+					'nameFormat' => '',
 					'isRequired' => true,
 					'name' => 'urn:oid:0.9.2342.19200300.100.1.1',
 					'friendlyName' => 'uid',
 				],
 				[
-					'nameFormat' => \OneLogin\Saml2\Constants::ATTRNAME_FORMAT_URI,
+					'nameFormat' => '',
 					'isRequired' => true,
 					'name' => 'urn:oid:0.9.2342.19200300.100.1.3',
 					'friendlyName' => 'mail',
@@ -596,15 +596,7 @@ class SAML {
 			'nameIdSPNameQualifier' => $this->auth->getNameIdSPNameQualifier(),
 		];
 
-		setcookie(
-			self::AUTH_DATA,
-			base64_encode( json_encode( $auth_data ) ),
-			0,
-			COOKIEPATH,
-			COOKIE_DOMAIN,
-			is_ssl(),
-			true
-		);
+		$_SESSION[ self::AUTH_DATA ] = $auth_data;
 
 		$this->logAuthData();
 	}
@@ -691,34 +683,45 @@ class SAML {
 		return $email ? $email : '';
 	}
 
-	public function logoutRedirect( string $redirect_to ): ?string {
-		if ( $this->samlClientIsReady ) {
-			$user_auth_data = $_COOKIE[ self::AUTH_DATA ] ?? null;
-
-			if ( $user_auth_data ) {
-				$user_auth_data = json_decode( base64_decode( $user_auth_data ), true );
-				setcookie( self::AUTH_DATA, '', time() - 3600, COOKIEPATH, COOKIE_DOMAIN );
-			}
-
-			if ( $this->forcedRedirection || $user_auth_data || get_user_meta( $this->currentUserId, self::META_KEY, true ) ) {
-				if ( ! empty( $this->auth->getSLOurl() ) && ! empty( $user_auth_data ) ) {
-					$this->auth->logout(
-						add_query_arg( 'loggedout', true, wp_login_url() ),
-						[],
-						$user_auth_data['nameId'],
-						$user_auth_data['sessionIndex'],
-						false,
-						$user_auth_data['nameFormat'],
-						$user_auth_data['nameIdNameQualifier'],
-						$user_auth_data['nameIdSPNameQualifier']
-					);
-				}
-				if ( $this->forcedRedirection && $user_auth_data ) {
-					remove_filter( 'login_url', [ $this, 'changeLoginUrl' ], 999 );
-				}
-			}
+	public function logoutRedirect(): bool {
+		if ( ! isset( $_GET['action'] ) || $_GET['action'] !== 'logout' ) {
+			return false;
 		}
-		return $redirect_to;
+
+		if ( ! is_user_logged_in() ) {
+			return false;
+		}
+
+		if ( ! $this->samlClientIsReady ) {
+			return false;
+		}
+
+		$user_auth_data = $_SESSION[ self::AUTH_DATA ] ?? null;
+		$user_has_meta = get_user_meta( $this->currentUserId, self::META_KEY, true );
+		$can_trigger_logout = $user_auth_data && ! empty( $this->auth->getSLOurl() );
+
+		if ( $this->forcedRedirection || $user_auth_data || $user_has_meta ) {
+			if ( $can_trigger_logout ) {
+				$this->auth->logout(
+					add_query_arg( 'loggedout', true, wp_login_url() ),
+					[],
+					$user_auth_data['nameId'],
+					$user_auth_data['sessionIndex'],
+					false,
+					$user_auth_data['nameFormat'],
+					$user_auth_data['nameIdNameQualifier'],
+					$user_auth_data['nameIdSPNameQualifier']
+				);
+			}
+
+			if ( $this->forcedRedirection && $user_auth_data ) {
+				remove_filter( 'login_url', [ $this, 'changeLoginUrl' ], 999 );
+			}
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

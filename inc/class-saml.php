@@ -291,13 +291,13 @@ class SAML {
 			'serviceName' => 'Pressbooks',
 			'requestedAttributes' => [
 				[
-					'nameFormat' => \OneLogin\Saml2\Constants::ATTRNAME_FORMAT_URI,
+					'nameFormat' => '',
 					'isRequired' => true,
 					'name' => 'urn:oid:0.9.2342.19200300.100.1.1',
 					'friendlyName' => 'uid',
 				],
 				[
-					'nameFormat' => \OneLogin\Saml2\Constants::ATTRNAME_FORMAT_URI,
+					'nameFormat' => '',
 					'isRequired' => true,
 					'name' => 'urn:oid:0.9.2342.19200300.100.1.3',
 					'friendlyName' => 'mail',
@@ -606,18 +606,17 @@ class SAML {
 			true
 		);
 
-		$this->logAuthData();
+		$this->logAuthData( $auth_data );
 	}
 
-	private function logAuthData(): bool {
-		$log_auth_data = $_COOKIE[ self::AUTH_DATA ] ?? null;
-		if ( ! $log_auth_data ) {
+	private function logAuthData( array $auth_data ): bool {
+		if ( empty( $auth_data ) ) {
 			return false;
 		}
 
-		$log_auth_data['sessionIndex'] = substr( $this->auth->getSessionIndex(), 0, 7 ) . '...';
-		$log_auth_data['nameId'] = substr( $this->auth->getNameId(), 0, 7 ) . '...';
-		$this->logData( 'Auth SAML data', $log_auth_data );
+		$auth_data['sessionIndex'] = substr( $this->auth->getSessionIndex(), 0, 7 ) . '...';
+		$auth_data['nameId'] = substr( $this->auth->getNameId(), 0, 7 ) . '...';
+		$this->logData( 'Auth SAML data', $auth_data );
 		return true;
 	}
 

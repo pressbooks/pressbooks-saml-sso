@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.5.3](https://github.com/pressbooks/pressbooks-saml-sso/compare/2.5.2...2.5.3) (2025-05-06)
+
+
+### Bug Fixes
+
+* accept auth data as parameter for logging ([883b0fb](https://github.com/pressbooks/pressbooks-saml-sso/commit/883b0fb42ae0c0e85fba791a24c81ae941875210))
+* accept auth data as parameter for logging & make nameFormat flexible ([#230](https://github.com/pressbooks/pressbooks-saml-sso/issues/230)) ([883b0fb](https://github.com/pressbooks/pressbooks-saml-sso/commit/883b0fb42ae0c0e85fba791a24c81ae941875210))
+
 ## [2.5.2](https://github.com/pressbooks/pressbooks-saml-sso/compare/2.5.1...2.5.2) (2025-04-03)
 
 

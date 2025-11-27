@@ -3,11 +3,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.6.1\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/\n"
-"POT-Creation-Date: 2022-05-03T20:46:46+00:00\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/"
+"issues\n"
+"POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,23 +17,25 @@ msgstr ""
 "X-Generator: WP-CLI 2.5.0\n"
 
 #. Plugin Name of the plugin
+#: pressbooks-saml-sso.php
 msgid "Pressbooks SAML2 Single Sign-On"
 msgstr "Pressbooks SAML2 Single Sign-On"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
+#: pressbooks-saml-sso.php
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
 
 #. Description of the plugin
+#: pressbooks-saml-sso.php
 msgid ""
-"SAML2 Single Sign-On integration for Pressbooks. (Shibboleth, Microsoft "
-"ADFS, Google Apps, etc.)"
+"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, "
+"Google Apps, etc.)"
 msgstr ""
-"SAML2 Single Sign-On integration for Pressbooks. (Shibboleth, Microsoft "
-"ADFS, Google Apps, etc.)"
 
 #. Author of the plugin
+#: pressbooks-saml-sso.php
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven Inc.)"
 
@@ -39,33 +43,39 @@ msgstr "Pressbooks (Book Oven Inc.)"
 msgid "SAML2"
 msgstr "SAML2"
 
-#: inc/class-admin.php:149
+#: inc/class-admin.php:148
 msgid "Failed to get IdP Metadata from URL."
 msgstr "Failed to get IdP Metadata from URL."
 
-#: inc/class-saml.php:163
-msgid "The Pressbooks SAML Plugin is not configured correctly."
-msgstr "The Pressbooks SAML Plugin is not configured correctly."
+#: inc/class-saml.php:164
+msgid ""
+"The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
+msgstr ""
 
-#: inc/class-saml.php:174
+#: inc/class-saml.php:177
+msgid ""
+"The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
+msgstr ""
+
+#: inc/class-saml.php:199
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
 msgstr "The Pressbooks SAML Plugin failed to initialize. Error: "
 
-#: inc/class-saml.php:507
+#: inc/class-saml.php:532
 msgid "Invalid SP metadata: "
 msgstr "Invalid SP metadata: "
 
 #. translators: Saml error reason
-#: inc/class-saml.php:537
+#: inc/class-saml.php:562
 msgid "Not authenticated. Reason: %s"
 msgstr "Not authenticated. Reason: %s"
 
-#: inc/class-saml.php:600
+#: inc/class-saml.php:625
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 msgstr "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 
 #. translators: %s Pressbooks Network Manager email if found.
-#: inc/class-saml.php:634
+#: inc/class-saml.php:659
 msgid ""
 "Unable to log in: You do not have an account on this Pressbooks network. To "
 "request an account, please contact your institution's Pressbooks Network "
@@ -75,31 +85,27 @@ msgstr ""
 "request an account, please contact your institution's Pressbooks Network "
 "Manager%s"
 
-#: inc/class-saml.php:636
+#: inc/class-saml.php:661
 msgid "SAML authentication failed."
 msgstr "SAML authentication failed."
 
-#: inc/class-saml.php:715
+#: inc/class-saml.php:739
 msgid "Connect via SAML2"
 msgstr "Connect via SAML2"
 
-#: inc/class-saml.php:723
+#: inc/class-saml.php:747
 msgid "Or"
 msgstr "Or"
 
-#: inc/class-saml.php:759
+#: inc/class-saml.php:783
 msgid "Logged in!"
 msgstr "Logged in!"
 
-#: inc/class-saml.php:978
+#: inc/class-saml.php:1002
 msgid "Registered and logged in!"
 msgstr "Registered and logged in!"
 
-#: pressbooks-saml-sso.php:23
-msgid "Cannot find Pressbooks install."
-msgstr "Cannot find Pressbooks install."
-
-#: pressbooks-saml-sso.php:46
+#: pressbooks-saml-sso.php:35
 msgid ""
 "Please run <code>composer install</code> from the root of the Pressbooks "
 "SAML2 Single Sign-On plugin directory."
@@ -113,11 +119,11 @@ msgstr "SAML2 (Security Assertion Markup Language)"
 
 #: templates/admin.blade.php:3
 msgid ""
-"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked"
-" for Service Provider (SP) configuration file. Get that here:"
+"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked "
+"for Service Provider (SP) configuration file. Get that here:"
 msgstr ""
-"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked"
-" for Service Provider (SP) configuration file. Get that here:"
+"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked "
+"for Service Provider (SP) configuration file. Get that here:"
 
 #: templates/admin.blade.php:4
 msgid "Metadata XML Configuration"
@@ -202,3 +208,16 @@ msgid ""
 "Change the [ Connect via SAML2 ] button to something more user-friendly."
 msgstr ""
 "Change the [ Connect via SAML2 ] button to something more user-friendly."
+
+#~ msgid ""
+#~ "SAML2 Single Sign-On integration for Pressbooks. (Shibboleth, Microsoft "
+#~ "ADFS, Google Apps, etc.)"
+#~ msgstr ""
+#~ "SAML2 Single Sign-On integration for Pressbooks. (Shibboleth, Microsoft "
+#~ "ADFS, Google Apps, etc.)"
+
+#~ msgid "The Pressbooks SAML Plugin is not configured correctly."
+#~ msgstr "The Pressbooks SAML Plugin is not configured correctly."
+
+#~ msgid "Cannot find Pressbooks install."
+#~ msgstr "Cannot find Pressbooks install."

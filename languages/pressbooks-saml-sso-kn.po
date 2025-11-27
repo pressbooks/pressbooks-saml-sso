@@ -2,19 +2,21 @@
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # Omshivaprakash H L <omshivaprakash@gmail.com>, 2021
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.5.0\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/"
+"issues\n"
 "POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: Omshivaprakash H L <omshivaprakash@gmail.com>, 2021\n"
-"Language-Team: Kannada (https://app.transifex.com/pressbooks/teams/9194/kn/)\n"
+"Language-Team: Kannada (https://app.transifex.com/pressbooks/teams/9194/"
+"kn/)\n"
+"Language: kn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: kn\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Domain: pressbooks-saml-sso\n"
 "X-Generator: WP-CLI 2.10.0\n"
@@ -33,8 +35,8 @@ msgstr "https://pressbooks.org"
 #. Description of the plugin
 #: pressbooks-saml-sso.php
 msgid ""
-"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS,"
-" Google Apps, etc.)"
+"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, "
+"Google Apps, etc.)"
 msgstr ""
 
 #. Author of the plugin
@@ -84,9 +86,8 @@ msgid ""
 "request an account, please contact your institution's Pressbooks Network "
 "Manager%s"
 msgstr ""
-"ಲಾಗ್ ಇನ್ ಮಾಡಲು ಅಸಮರ್ಥ: ಈ ಪ್ರೆಸ್ ಬುಕ್ಸ್ ನೆಟ್ ವರ್ಕ್ ನಲ್ಲಿ ನಿಮ್ಮ ಬಳಿ ಖಾತೆ ಇಲ್ಲ."
-" ಖಾತೆಯನ್ನು ವಿನಂತಿಸಲು, ದಯವಿಟ್ಟು ನಿಮ್ಮ ಸಂಸ್ಥೆಯ ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ನೆಟ್ ವರ್ಕ್ "
-"ಮ್ಯಾನೇಜರ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿ%s"
+"ಲಾಗ್ ಇನ್ ಮಾಡಲು ಅಸಮರ್ಥ: ಈ ಪ್ರೆಸ್ ಬುಕ್ಸ್ ನೆಟ್ ವರ್ಕ್ ನಲ್ಲಿ ನಿಮ್ಮ ಬಳಿ ಖಾತೆ ಇಲ್ಲ. ಖಾತೆಯನ್ನು "
+"ವಿನಂತಿಸಲು, ದಯವಿಟ್ಟು ನಿಮ್ಮ ಸಂಸ್ಥೆಯ ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ನೆಟ್ ವರ್ಕ್ ಮ್ಯಾನೇಜರ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿ%s"
 
 #: inc/class-saml.php:661
 msgid "SAML authentication failed."
@@ -113,8 +114,8 @@ msgid ""
 "Please run <code>composer install</code> from the root of the Pressbooks "
 "SAML2 Single Sign-On plugin directory."
 msgstr ""
-"ದಯವಿಟ್ಟು <code>composer install</code> ಪ್ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಎಎಂಎಲ್2 ಸಿಂಗಲ್ "
-"ಸೈನ್-ಆನ್ ಪ್ಲಗಿನ್ ಡೈರೆಕ್ಟರಿ ಮೂಲದಿಂದ ಚಲಿಸಿ."
+"ದಯವಿಟ್ಟು <code>composer install</code> ಪ್ಪ್ರೆಸ್‍ಬುಕ್ಸ್ ಎಎಂಎಲ್2 ಸಿಂಗಲ್ ಸೈನ್-ಆನ್ ಪ್ಲಗಿನ್ "
+"ಡೈರೆಕ್ಟರಿ ಮೂಲದಿಂದ ಚಲಿಸಿ."
 
 #: templates/admin.blade.php:2
 msgid "SAML2 (Security Assertion Markup Language)"
@@ -122,12 +123,11 @@ msgstr "SAML2 (Security Assertion Markup Language)"
 
 #: templates/admin.blade.php:3
 msgid ""
-"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked"
-" for Service Provider (SP) configuration file. Get that here:"
+"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked "
+"for Service Provider (SP) configuration file. Get that here:"
 msgstr ""
-"ಶಿಬೋಲೆತ್ ಅಥವಾ ಎಸ್ಎಎಂಎಲ್2 ಗುರುತಿನ ಪೂರೈಕೆದಾರ (ಐಡಿಪಿ) ಗೆ ಸೇರುವಾಗ ನಿಮ್ಮನ್ನು ಸೇವಾ"
-" ಪೂರೈಕೆದಾರ (ಎಸ್‍ಪಿ) ಕಾನ್ಫಿಗರೇಶನ್ ಫೈಲ್‍ಗಾಗಿ ಕೇಳಲಾಗುತ್ತದೆ. ಅದನ್ನು ಇಲ್ಲಿ "
-"ಪಡೆಯಿರಿ:"
+"ಶಿಬೋಲೆತ್ ಅಥವಾ ಎಸ್ಎಎಂಎಲ್2 ಗುರುತಿನ ಪೂರೈಕೆದಾರ (ಐಡಿಪಿ) ಗೆ ಸೇರುವಾಗ ನಿಮ್ಮನ್ನು ಸೇವಾ "
+"ಪೂರೈಕೆದಾರ (ಎಸ್‍ಪಿ) ಕಾನ್ಫಿಗರೇಶನ್ ಫೈಲ್‍ಗಾಗಿ ಕೇಳಲಾಗುತ್ತದೆ. ಅದನ್ನು ಇಲ್ಲಿ ಪಡೆಯಿರಿ:"
 
 #: templates/admin.blade.php:4
 msgid "Metadata XML Configuration"
@@ -142,8 +142,8 @@ msgid ""
 "If you have an IdP metadata URL, enter it here and save. The fields below "
 "should then auto-fill."
 msgstr ""
-"ನೀವು ಐಡಿಪಿ ಮೆಟಾಡೇಟಾ ಯುಆರ್ ಎಲ್ ಹೊಂದಿದ್ದರೆ, ಅದನ್ನು ಇಲ್ಲಿ ನಮೂದಿಸಿ ಮತ್ತು ಉಳಿಸಿ. "
-"ಕೆಳಗಿನ ಹೊಲಗಳು ನಂತರ ಸ್ವಯಂ ಭರ್ತಿ ಮಾಡಬೇಕು."
+"ನೀವು ಐಡಿಪಿ ಮೆಟಾಡೇಟಾ ಯುಆರ್ ಎಲ್ ಹೊಂದಿದ್ದರೆ, ಅದನ್ನು ಇಲ್ಲಿ ನಮೂದಿಸಿ ಮತ್ತು ಉಳಿಸಿ. ಕೆಳಗಿನ "
+"ಹೊಲಗಳು ನಂತರ ಸ್ವಯಂ ಭರ್ತಿ ಮಾಡಬೇಕು."
 
 #: templates/admin.blade.php:20
 msgid "Manual Configuration"
@@ -191,8 +191,8 @@ msgid ""
 "Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" "
 "lists under <a href=\"%s\">Network Settings</a>."
 msgstr ""
-"<a href=\"%s\">ನೆಟ್ವರ್ಕ್ ಸೆಟ್ಟಿಂಗ್ಗಳ</a>ಅಡಿಯಲ್ಲಿ \"ಸೀಮಿತ ಇಮೇಲ್ ನೋಂದಣಿಗಳು\" "
-"ಮತ್ತು \"ನಿಷೇಧಿತ ಇಮೇಲ್ ಡೊಮೇನ್ ಗಳು\" ಪಟ್ಟಿಗಳನ್ನು ಬೈಪಾಸ್ ಮಾಡಿ."
+"<a href=\"%s\">ನೆಟ್ವರ್ಕ್ ಸೆಟ್ಟಿಂಗ್ಗಳ</a>ಅಡಿಯಲ್ಲಿ \"ಸೀಮಿತ ಇಮೇಲ್ ನೋಂದಣಿಗಳು\" ಮತ್ತು "
+"\"ನಿಷೇಧಿತ ಇಮೇಲ್ ಡೊಮೇನ್ ಗಳು\" ಪಟ್ಟಿಗಳನ್ನು ಬೈಪಾಸ್ ಮಾಡಿ."
 
 #: templates/admin.blade.php:79
 msgid " Forced Redirection"

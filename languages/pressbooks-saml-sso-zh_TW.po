@@ -3,19 +3,21 @@
 # Translators:
 # Steel Wagstaff <steel@pressbooks.com>, 2024
 # fish free <winofchina@hotmail.com>, 2024
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.5.0\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/"
+"issues\n"
 "POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: fish free <winofchina@hotmail.com>, 2024\n"
-"Language-Team: Chinese (Taiwan) (https://app.transifex.com/pressbooks/teams/9194/zh_TW/)\n"
+"Language-Team: Chinese (Taiwan) (https://app.transifex.com/pressbooks/teams/"
+"9194/zh_TW/)\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: pressbooks-saml-sso\n"
 "X-Generator: WP-CLI 2.10.0\n"
@@ -34,9 +36,11 @@ msgstr "https://pressbooks.org"
 #. Description of the plugin
 #: pressbooks-saml-sso.php
 msgid ""
-"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS,"
-" Google Apps, etc.)"
-msgstr "Pressbooks 的 SAML2 单点登录集成（Shibboleth、Microsoft ADFS、Google Apps 等）"
+"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, "
+"Google Apps, etc.)"
+msgstr ""
+"Pressbooks 的 SAML2 单点登录集成（Shibboleth、Microsoft ADFS、Google Apps "
+"等）"
 
 #. Author of the plugin
 #: pressbooks-saml-sso.php
@@ -110,7 +114,9 @@ msgstr "注册成功并已登入！"
 msgid ""
 "Please run <code>composer install</code> from the root of the Pressbooks "
 "SAML2 Single Sign-On plugin directory."
-msgstr "请在Pressbooks的SAML2单点登录插件的根目录下运行：<code>composer install</code>。"
+msgstr ""
+"请在Pressbooks的SAML2单点登录插件的根目录下运行：<code>composer install</"
+"code>。"
 
 #: templates/admin.blade.php:2
 msgid "SAML2 (Security Assertion Markup Language)"
@@ -118,9 +124,11 @@ msgstr "SAML2（安全断言标记语言）"
 
 #: templates/admin.blade.php:3
 msgid ""
-"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked"
-" for Service Provider (SP) configuration file. Get that here:"
-msgstr "当加入一个Shibboleth 或 SAML2 身份提供者 (IdP) 时，需要在此提供服务提供者（SP）配置文件。"
+"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked "
+"for Service Provider (SP) configuration file. Get that here:"
+msgstr ""
+"当加入一个Shibboleth 或 SAML2 身份提供者 (IdP) 时，需要在此提供服务提供者"
+"（SP）配置文件。"
 
 #: templates/admin.blade.php:4
 msgid "Metadata XML Configuration"
@@ -181,7 +189,8 @@ msgstr "忽略"
 msgid ""
 "Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" "
 "lists under <a href=\"%s\">Network Settings</a>."
-msgstr "忽略<a href=\"%s\">网络设置</a>中的“受限Email注册”和“禁止Email域”的限制。"
+msgstr ""
+"忽略<a href=\"%s\">网络设置</a>中的“受限Email注册”和“禁止Email域”的限制。"
 
 #: templates/admin.blade.php:79
 msgid " Forced Redirection"

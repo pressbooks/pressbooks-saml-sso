@@ -2,19 +2,21 @@
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # Eduardo Vera, 2023
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.5.0\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/"
+"issues\n"
 "POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: Eduardo Vera, 2023\n"
-"Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
+"Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/"
+"ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: pressbooks-saml-sso\n"
 "X-Generator: WP-CLI 2.10.0\n"
@@ -33,10 +35,11 @@ msgstr "https://pressbooks.org"
 #. Description of the plugin
 #: pressbooks-saml-sso.php
 msgid ""
-"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS,"
-" Google Apps, etc.)"
+"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, "
+"Google Apps, etc.)"
 msgstr ""
-"Pressbooks に対して SAML2 シングルサインオン統合 (Shibboleth、Microsoft ADFS、Google アプリなど)。"
+"Pressbooks に対して SAML2 シングルサインオン統合 (Shibboleth、Microsoft "
+"ADFS、Google アプリなど)。"
 
 #. Author of the plugin
 #: pressbooks-saml-sso.php
@@ -54,12 +57,14 @@ msgstr "URL から IdP メタデータを取得できません。"
 #: inc/class-saml.php:164
 msgid ""
 "The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
-msgstr "Pressbooks SAML プラグインがまだ<a href=\"%1$s\">設定</a>されていません。"
+msgstr ""
+"Pressbooks SAML プラグインがまだ<a href=\"%1$s\">設定</a>されていません。"
 
 #: inc/class-saml.php:177
 msgid ""
 "The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
-msgstr "Pressbooks SAML プラグインが正しく<a href=\"%1$s\">設定</a>されていません。"
+msgstr ""
+"Pressbooks SAML プラグインが正しく<a href=\"%1$s\">設定</a>されていません。"
 
 #: inc/class-saml.php:199
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
@@ -85,8 +90,9 @@ msgid ""
 "request an account, please contact your institution's Pressbooks Network "
 "Manager%s"
 msgstr ""
-"ログインできません: この Pressbooks サイトネットワークのアカウントをお持ちではありません。アカウントをリクエストするには、機関の "
-"Pressbooks サイトネットワーク管理者に連絡してください%s"
+"ログインできません: この Pressbooks サイトネットワークのアカウントをお持ちで"
+"はありません。アカウントをリクエストするには、機関の Pressbooks サイトネット"
+"ワーク管理者に連絡してください%s"
 
 #: inc/class-saml.php:661
 msgid "SAML authentication failed."
@@ -113,8 +119,8 @@ msgid ""
 "Please run <code>composer install</code> from the root of the Pressbooks "
 "SAML2 Single Sign-On plugin directory."
 msgstr ""
-"Pressbooks SAML2 Single Sign-On プラグインディレクトリのルートから <code>composer "
-"install</code> を実行してください。"
+"Pressbooks SAML2 Single Sign-On プラグインディレクトリのルートから "
+"<code>composer install</code> を実行してください。"
 
 #: templates/admin.blade.php:2
 msgid "SAML2 (Security Assertion Markup Language)"
@@ -122,11 +128,11 @@ msgstr "SAML2 (セキュリティ・アサーション・マークアップ言�
 
 #: templates/admin.blade.php:3
 msgid ""
-"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked"
-" for Service Provider (SP) configuration file. Get that here:"
+"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked "
+"for Service Provider (SP) configuration file. Get that here:"
 msgstr ""
-"Shibboleth または SAML2 ID プロバイダー (IdP) に参加すると、サービスプロバイダ (SP) "
-"の構成ファイルを要求されます。ここに取得します:"
+"Shibboleth または SAML2 ID プロバイダー (IdP) に参加すると、サービスプロバイ"
+"ダ (SP) の構成ファイルを要求されます。ここに取得します:"
 
 #: templates/admin.blade.php:4
 msgid "Metadata XML Configuration"
@@ -140,7 +146,9 @@ msgstr "自動設定"
 msgid ""
 "If you have an IdP metadata URL, enter it here and save. The fields below "
 "should then auto-fill."
-msgstr "IdP メタデータ URL をお持ちの場合、ここに入力して保存します。その後で、以下のフィールドが自動入力することができます。"
+msgstr ""
+"IdP メタデータ URL をお持ちの場合、ここに入力して保存します。その後で、以下の"
+"フィールドが自動入力することができます。"
 
 #: templates/admin.blade.php:20
 msgid "Manual Configuration"
@@ -188,8 +196,8 @@ msgid ""
 "Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" "
 "lists under <a href=\"%s\">Network Settings</a>."
 msgstr ""
-"「<a "
-"href=\"%s\">サイトネットワーク設定</a>」の「登録メールアドレスの制限」と「登録を拒否するメールのドメイン」リストをバイパスします。"
+"「<a href=\"%s\">サイトネットワーク設定</a>」の「登録メールアドレスの制限」と"
+"「登録を拒否するメールのドメイン」リストをバイパスします。"
 
 #: templates/admin.blade.php:79
 msgid " Forced Redirection"

@@ -1,3 +1,5 @@
+import '../styles/login-form.scss';
+
 // Inspired by Shibboleth plugin for WordPress
 // @see https://github.com/michaelryanmcneill/shibboleth/blob/master/assets/js/shibboleth_login_form.js
 // Originally from Automattic's Jetpack SSO module (v5.3)

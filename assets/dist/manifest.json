@@ -1,0 +1,20 @@
+{
+  "assets/src/scripts/login-form.js": {
+    "file": "assets/login-form-BrmGMpEk.js",
+    "name": "login-form",
+    "src": "assets/src/scripts/login-form.js",
+    "isEntry": true,
+    "css": [
+      "assets/login-form-BY3rLRyY.css"
+    ]
+  },
+  "assets/src/scripts/pressbooks-saml-sso.js": {
+    "file": "assets/pressbooks-saml-sso-BOO3hWi7.js",
+    "name": "pressbooks-saml-sso",
+    "src": "assets/src/scripts/pressbooks-saml-sso.js",
+    "isEntry": true,
+    "css": [
+      "assets/pressbooks-saml-sso-tn0RQdqM.css"
+    ]
+  }
+}

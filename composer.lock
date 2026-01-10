@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67f99c8087bcdecc597c5943a4f3cbbc",
+    "content-hash": "adc7495cce4fddbad34c47d35f1777dc",
     "packages": [
         {
             "name": "composer/installers",
@@ -153,6 +153,45 @@
             "time": "2024-06-24T20:46:46+00:00"
         },
         {
+            "name": "kucrut/vite-for-wp",
+            "version": "v0.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kucrut/vite-for-wp.git",
+                "reference": "45ec51bbaedbc4e7335db3b3d4a4923962634fea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/45ec51bbaedbc4e7335db3b3d4a4923962634fea",
+                "reference": "45ec51bbaedbc4e7335db3b3d4a4923962634fea",
+                "shasum": ""
+            },
+            "require-dev": {
+                "wp-coding-standards/wpcs": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "vite-for-wp.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Dzikri Aziz"
+                }
+            ],
+            "description": "Vite integration for WordPress plugins and themes development.",
+            "support": {
+                "issues": "https://github.com/kucrut/vite-for-wp/issues",
+                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.12.0"
+            },
+            "time": "2025-06-26T03:15:40+00:00"
+        },
+        {
             "name": "onelogin/php-saml",
             "version": "4.2.0",
             "source": {
@@ -277,6 +316,52 @@
                 "source": "https://github.com/PHPCompatibility/PHPCompatibility"
             },
             "time": "2019-12-27T09:44:58+00:00"
+        },
+        {
+            "name": "pressbooks/frontend-tools",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pressbooks/frontend-tools.git",
+                "reference": "4d69c650715526793b5da5ebdd9175392fb5b7ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pressbooks/frontend-tools/zipball/4d69c650715526793b5da5ebdd9175392fb5b7ac",
+                "reference": "4d69c650715526793b5da5ebdd9175392fb5b7ac",
+                "shasum": ""
+            },
+            "require": {
+                "kucrut/vite-for-wp": "^0.12.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PressbooksFrontendTools\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pressbooks (Book Oven Inc.)",
+                    "email": "code@pressbooks.com"
+                },
+                {
+                    "name": "Oscar Arzola",
+                    "email": "os@pressbooks.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/pressbooks/frontend-tools/issues",
+                "source": "https://github.com/pressbooks/frontend-tools/tree/1.0.0"
+            },
+            "time": "2025-11-19T19:57:02+00:00"
         },
         {
             "name": "robrichards/xmlseclibs",
@@ -2618,12 +2703,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }

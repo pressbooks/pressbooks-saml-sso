@@ -1,3 +1,5 @@
+import '../styles/pressbooks-saml-sso.scss';
+
 jQuery( function ( $ ) {
 	let idpMetadataUrl = $( '#idp_metadata_url' );
 	idpMetadataUrl.on( 'input', function () {

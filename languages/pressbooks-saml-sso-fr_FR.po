@@ -4,22 +4,20 @@
 # Amelie Roberge <aroberge@tciinc.ca>, 2019
 # Hubert GB <hgblouin@tciinc.ca>, 2019
 # Steel Wagstaff <steel@pressbooks.com>, 2022
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.5.0\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/"
-"issues\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
 "POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2022\n"
 "Language-Team: French (https://app.transifex.com/pressbooks/teams/9194/fr/)\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 "X-Domain: pressbooks-saml-sso\n"
 "X-Generator: WP-CLI 2.10.0\n"
 
@@ -37,8 +35,8 @@ msgstr "https://pressbooks.org"
 #. Description of the plugin
 #: pressbooks-saml-sso.php
 msgid ""
-"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, "
-"Google Apps, etc.)"
+"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS,"
+" Google Apps, etc.)"
 msgstr ""
 
 #. Author of the plugin
@@ -130,8 +128,8 @@ msgstr "SAML2 (Security Assertion Markup Language)"
 
 #: templates/admin.blade.php:3
 msgid ""
-"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked "
-"for Service Provider (SP) configuration file. Get that here:"
+"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked"
+" for Service Provider (SP) configuration file. Get that here:"
 msgstr ""
 "En vous connectant par un Shibboleth ou un fournisseur d&rsquo;identité "
 "(IdP) SAML2, vous devrez fournir le fichier de configuration du fournisseur "
@@ -150,8 +148,8 @@ msgid ""
 "If you have an IdP metadata URL, enter it here and save. The fields below "
 "should then auto-fill."
 msgstr ""
-"Si vous avez une adresse URL des métadonnées du fournisseur d&rsquo;identité "
-"(IdP), indiquez-la ici et sauvegardez. Les champs ci-dessous devraient se "
+"Si vous avez une adresse URL des métadonnées du fournisseur d&rsquo;identité"
+" (IdP), indiquez-la ici et sauvegardez. Les champs ci-dessous devraient se "
 "remplir automatiquement."
 
 #: templates/admin.blade.php:20
@@ -207,7 +205,8 @@ msgid ""
 "lists under <a href=\"%s\">Network Settings</a>."
 msgstr ""
 "Contourner les listes de limites d&rsquo;inscriptions par courriel et de "
-"domaines de courriel interdits dans les<a href=\"%s\"> Paramètres réseau</a>."
+"domaines de courriel interdits dans les<a href=\"%s\"> Paramètres "
+"réseau</a>."
 
 #: templates/admin.blade.php:79
 msgid " Forced Redirection"

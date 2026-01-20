@@ -3,23 +3,20 @@
 # Translators:
 # Ho Man Chan <homan@pressbooks.com>, 2021
 # Eduardo Vera, 2023
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.5.0\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/"
-"issues\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
 "POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
 "PO-Revision-Date: 2019-02-28 19:57+0000\n"
 "Last-Translator: Eduardo Vera, 2023\n"
-"Language-Team: Spanish (https://app.transifex.com/pressbooks/teams/9194/"
-"es/)\n"
-"Language: es\n"
+"Language-Team: Spanish (https://app.transifex.com/pressbooks/teams/9194/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
-"1 : 2;\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 "X-Domain: pressbooks-saml-sso\n"
 "X-Generator: WP-CLI 2.10.0\n"
 
@@ -37,8 +34,8 @@ msgstr "https://pressbooks.org"
 #. Description of the plugin
 #: pressbooks-saml-sso.php
 msgid ""
-"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, "
-"Google Apps, etc.)"
+"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS,"
+" Google Apps, etc.)"
 msgstr ""
 "Integración con la identificación única mediante SAML2 para Pressbooks "
 "(Shibboleth, Microsoft ADFS, Google Apps, etc.)."
@@ -59,8 +56,7 @@ msgstr "No se pudieron obtener los metadatos IdP de la URL."
 #: inc/class-saml.php:164
 msgid ""
 "The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
-msgstr ""
-"El plugin Pressbooks SAML aún no está <a href=\"%1$s\">configurado</a>."
+msgstr "El plugin Pressbooks SAML aún no está <a href=\"%1$s\">configurado</a>."
 
 #: inc/class-saml.php:177
 msgid ""
@@ -131,11 +127,12 @@ msgstr "SAML2 (Lenguaje de marcado para confirmaciones de seguridad)"
 
 #: templates/admin.blade.php:3
 msgid ""
-"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked "
-"for Service Provider (SP) configuration file. Get that here:"
+"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked"
+" for Service Provider (SP) configuration file. Get that here:"
 msgstr ""
-"Al unirte a un proveedor de identidad (IdP) Shibboleth o SAML2, se te pedirá "
-"el archivo de configuración del proveedor del servicio (SP). Consíguelo aquí:"
+"Al unirte a un proveedor de identidad (IdP) Shibboleth o SAML2, se te pedirá"
+" el archivo de configuración del proveedor del servicio (SP). Consíguelo "
+"aquí:"
 
 #: templates/admin.blade.php:4
 msgid "Metadata XML Configuration"
@@ -150,8 +147,8 @@ msgid ""
 "If you have an IdP metadata URL, enter it here and save. The fields below "
 "should then auto-fill."
 msgstr ""
-"Si tienes una URL de metadatos del IdP, escríbela aquí y guarda los cambios. "
-"Los campos siguientes deberían autocompletarse."
+"Si tienes una URL de metadatos del IdP, escríbela aquí y guarda los cambios."
+" Los campos siguientes deberían autocompletarse."
 
 #: templates/admin.blade.php:20
 msgid "Manual Configuration"
@@ -171,7 +168,8 @@ msgstr ""
 #: templates/admin.blade.php:45
 msgid "URL Location of the IdP where SLO Request will be sent."
 msgstr ""
-"Ubicación URL del IdP a la que se enviará la solicitud de salida única (SLO)."
+"Ubicación URL del IdP a la que se enviará la solicitud de salida única "
+"(SLO)."
 
 #: templates/admin.blade.php:54
 msgid "Public x509 certificate of the IdP."

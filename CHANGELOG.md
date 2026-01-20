@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.0](https://github.com/pressbooks/pressbooks-saml-sso/compare/2.5.3...2.6.0) (2026-01-20)
+
+
+### Features
+
+* remove po generation workflow and tx files ([#244](https://github.com/pressbooks/pressbooks-saml-sso/issues/244)) ([8d68715](https://github.com/pressbooks/pressbooks-saml-sso/commit/8d687151fabad6675a67674f56109cf5142ecbaa))
+
 ## [2.5.3](https://github.com/pressbooks/pressbooks-saml-sso/compare/2.5.2...2.5.3) (2025-05-06)
 
 

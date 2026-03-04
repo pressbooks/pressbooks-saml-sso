@@ -382,7 +382,8 @@ class SAML {
 							if ( ! $net_id ) {
 								return new \WP_Error(
 									'authentication_failed',
-									'Attribute ' . self::SAML_MAP_FIELDS['uid'] . ' not found.'
+									/* translators: %s: SAML attribute field name */
+									sprintf( __( 'Attribute %s not found.', 'pressbooks-saml-sso' ), self::SAML_MAP_FIELDS['uid'] )
 								);
 							}
 							$email = $this->getEmailByAttributes( $attributes, $net_id );

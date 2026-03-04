@@ -79,7 +79,7 @@ class Admin {
 	public function printMenu() {
 		try {
 			if ( $this->saveOptions() ) {
-				echo '<div id="message" role="status" class="updated notice is-dismissible"><p>' . __( 'Settings saved.' ) . '</p></div>';
+				echo '<div id="message" role="status" class="updated notice is-dismissible"><p>' . __( 'Settings saved.', 'pressbooks-saml-sso' ) . '</p></div>';
 			}
 		} catch ( \Exception $e ) {
 			echo '<div id="message" role="alert" class="error notice is-dismissible"><p>' . $e->getMessage() . '</p></div>';

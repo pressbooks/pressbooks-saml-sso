@@ -1,0 +1,31 @@
+"project_id_env": "CROWDIN_OPEN_PROJECT_ID"
+"api_token_env": "CROWDIN_API_SECRET"
+"pull_request_title": "chore(l10n): update languages"
+"preserve_hierarchy": true
+"files": [
+  {
+    "source": "/languages/pressbooks-saml-sso.pot",
+    "dest": "/languages/pressbooks-saml-sso.pot",
+    "translation": "/languages/pressbooks-saml-sso-%locale_with_underscore%.po",
+    "languages_mapping": {
+      "locale_with_underscore": {
+        "de": "de_DE",
+        "es-ES": "es_ES",
+        "fr": "fr_FR",
+        "fr-CA": "fr_CA",
+        "gl": "gl_ES",
+        "nb": "nb_NO",
+        "it": "it_IT",
+        "ka": "ka_GE",
+        "ru": "ru_RU",
+        "ta": "ta_LK",
+        "hr": "hr",
+        "ja": "ja",
+        "kn": "kn",
+        "tr": "tr_TR",
+        "zh-CN": "zh_CN",
+        "zh-TW": "zh_TW"
+      }
+    }
+  }
+]

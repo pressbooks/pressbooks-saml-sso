@@ -12,6 +12,7 @@
  * License:             GPL v3 or later
  * License URI:         https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:         pressbooks-saml-sso
+ * Domain Path:         /languages
  * Network:             True
  * GitHub Plugin URI:   pressbooks/pressbooks-saml-sso
  * Release Asset:       true

@@ -1,17 +1,17 @@
-# Copyright (C) 2024 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2026 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.5.0\n"
+"Project-Id-Version: Pressbooks SAML SSO 2.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
+"POT-Creation-Date: 2026-03-05T17:51:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks-saml-sso\n"
 
 #. Plugin Name of the plugin
@@ -35,20 +35,26 @@ msgstr ""
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr ""
 
-#: inc/class-admin.php:63
-#: inc/class-admin.php:64
+#: inc/class-admin.php:68
+#: inc/class-admin.php:69
 msgid "SAML2"
 msgstr ""
 
-#: inc/class-admin.php:148
+#: inc/class-admin.php:82
+msgid "Settings saved."
+msgstr ""
+
+#: inc/class-admin.php:153
 msgid "Failed to get IdP Metadata from URL."
 msgstr ""
 
 #: inc/class-saml.php:164
+#, php-format
 msgid "The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
 msgstr ""
 
 #: inc/class-saml.php:177
+#, php-format
 msgid "The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
 msgstr ""
 
@@ -56,45 +62,57 @@ msgstr ""
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
 msgstr ""
 
-#: inc/class-saml.php:532
+#. translators: %s: SAML attribute field name
+#: inc/class-saml.php:386
+#, php-format
+msgid "Attribute %s not found."
+msgstr ""
+
+#: inc/class-saml.php:533
 msgid "Invalid SP metadata: "
 msgstr ""
 
 #. translators: Saml error reason
-#: inc/class-saml.php:562
+#: inc/class-saml.php:563
+#, php-format
 msgid "Not authenticated. Reason: %s"
 msgstr ""
 
-#: inc/class-saml.php:625
+#: inc/class-saml.php:638
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 msgstr ""
 
 #. translators: %s Pressbooks Network Manager email if found.
-#: inc/class-saml.php:659
+#: inc/class-saml.php:672
+#, php-format
 msgid "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s"
 msgstr ""
 
-#: inc/class-saml.php:661
+#: inc/class-saml.php:674
 msgid "SAML authentication failed."
 msgstr ""
 
-#: inc/class-saml.php:739
+#: inc/class-saml.php:748
 msgid "Connect via SAML2"
 msgstr ""
 
-#: inc/class-saml.php:747
+#: inc/class-saml.php:756
 msgid "Or"
 msgstr ""
 
-#: inc/class-saml.php:783
+#: inc/class-saml.php:792
 msgid "Logged in!"
 msgstr ""
 
-#: inc/class-saml.php:1002
+#: inc/class-saml.php:1014
 msgid "Registered and logged in!"
 msgstr ""
 
 #: pressbooks-saml-sso.php:35
+msgid "Dependencies Missing"
+msgstr ""
+
+#: pressbooks-saml-sso.php:36
 msgid "Please run <code>composer install</code> from the root of the Pressbooks SAML2 Single Sign-On plugin directory."
 msgstr ""
 
@@ -114,6 +132,10 @@ msgstr ""
 msgid "Automatic Configuration"
 msgstr ""
 
+#: templates/admin.blade.php:11
+msgid "IdP metadata URL"
+msgstr ""
+
 #: templates/admin.blade.php:15
 msgid "If you have an IdP metadata URL, enter it here and save. The fields below should then auto-fill."
 msgstr ""
@@ -122,16 +144,32 @@ msgstr ""
 msgid "Manual Configuration"
 msgstr ""
 
+#: templates/admin.blade.php:23
+msgid "EntityID"
+msgstr ""
+
 #: templates/admin.blade.php:27
 msgid "Identifier of the IdP entity (must be a URI.)"
+msgstr ""
+
+#: templates/admin.blade.php:32
+msgid "SingleSignOnService"
 msgstr ""
 
 #: templates/admin.blade.php:36
 msgid "URL Target of the IdP where the Authentication Request Message will be sent."
 msgstr ""
 
+#: templates/admin.blade.php:41
+msgid "SingleLogoutService"
+msgstr ""
+
 #: templates/admin.blade.php:45
 msgid "URL Location of the IdP where SLO Request will be sent."
+msgstr ""
+
+#: templates/admin.blade.php:50
+msgid "X509Certificate"
 msgstr ""
 
 #: templates/admin.blade.php:54
@@ -155,15 +193,16 @@ msgid "Optional Information"
 msgstr ""
 
 #: templates/admin.blade.php:72
-msgid " Bypass"
+msgid "Bypass"
 msgstr ""
 
 #: templates/admin.blade.php:74
+#, php-format
 msgid "Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" lists under <a href=\"%s\">Network Settings</a>."
 msgstr ""
 
 #: templates/admin.blade.php:79
-msgid " Forced Redirection"
+msgid "Forced Redirection"
 msgstr ""
 
 #: templates/admin.blade.php:82

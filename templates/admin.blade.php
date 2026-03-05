@@ -7,7 +7,7 @@
         <h2>{{ __('Automatic Configuration', 'pressbooks-saml-sso') }}</h2>
         <table class="form-table" role="none" id="automatic-configuration">
             <tr>
-                <th><label for="idp_metadata_url">IdP metadata URL</label></th>
+                <th><label for="idp_metadata_url">{{ __( 'IdP metadata URL', 'pressbooks-saml-sso' ) }}</label></th>
                 <td>
                     <input name="idp_metadata_url" id="idp_metadata_url" type="url" value="{{ $options['idp_metadata_url'] }}" class="regular-text"/>
                     <p>
@@ -19,7 +19,7 @@
         <h2>{{ __('Manual Configuration', 'pressbooks-saml-sso') }}</h2>
         <table class="form-table" role="none" id="manual-configuration">
             <tr>
-                <th><label for="idp_entity_id">EntityID</label></th>
+                <th><label for="idp_entity_id">{{ __( 'EntityID', 'pressbooks-saml-sso' ) }}</label></th>
                 <td>
                     <input name="idp_entity_id" id="idp_entity_id" type="text" value="{{ $options['idp_entity_id'] }}" class="regular-text"/>
                     <p>
@@ -28,7 +28,7 @@
                 </td>
             </tr>
             <tr>
-                <th><label for="idp_sso_login_url">SingleSignOnService</label></th>
+                <th><label for="idp_sso_login_url">{{ __( 'SingleSignOnService', 'pressbooks-saml-sso' ) }}</label></th>
                 <td>
                     <input name="idp_sso_login_url" id="idp_sso_login_url" type="url" value="{{ $options['idp_sso_login_url'] }}" class="regular-text"/>
                     <p>
@@ -37,7 +37,7 @@
                 </td>
             </tr>
             <tr>
-                <th><label for="idp_sso_logout_url">SingleLogoutService</label></th>
+                <th><label for="idp_sso_logout_url">{{ __( 'SingleLogoutService', 'pressbooks-saml-sso' ) }}</label></th>
                 <td>
                     <input name="idp_sso_logout_url" id="idp_sso_logout_url" type="url" value="{{ $options['idp_sso_logout_url'] }}" class="regular-text"/>
                     <p>
@@ -46,7 +46,7 @@
                 </td>
             </tr>
             <tr>
-                <th><label for="idp_x509_cert">X509Certificate</label></th>
+                <th><label for="idp_x509_cert">{{ __( 'X509Certificate', 'pressbooks-saml-sso' ) }}</label></th>
                 <td>
                     <textarea name="idp_x509_cert" id="idp_x509_cert" type="text" class="large-text code" rows="5">{{ $options['idp_x509_cert'] }}</textarea>
                     <p>
@@ -68,7 +68,7 @@
         <h2>{{ __('Optional Information', 'pressbooks-saml-sso') }}</h2>
         <table class="form-table" role="none">
             <tr>
-                <th>{{ __(' Bypass', 'pressbooks-saml-sso') }}</th>
+                <th>{{ __('Bypass', 'pressbooks-saml-sso') }}</th>
                 <td><label><input name="bypass" id="bypass" type="checkbox"
                                   value="1" {!! checked( $options['bypass'] ) !!}/> {!!
                                   sprintf( __('Bypass the "Limited Email Registrations" and "Banned Email Domains" lists under <a href="%s">Network Settings</a>.', 'pressbooks-saml-sso') ,'settings.php' )
@@ -76,7 +76,7 @@
                     </label></td>
             </tr>
             <tr>
-                <th>{{ __(' Forced Redirection', 'pressbooks-saml-sso') }}</th>
+                <th>{{ __('Forced Redirection', 'pressbooks-saml-sso') }}</th>
                 <td>
                     <label><input name="forced_redirection" id="forced_redirection" type="checkbox"
                                   value="1" {!! checked( $options['forced_redirection'] ) !!}/> {{ __('Hide the Pressbooks login page.', 'pressbooks-saml-sso') }}</label>

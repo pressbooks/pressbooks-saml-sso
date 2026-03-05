@@ -12,6 +12,7 @@
  * License:             GPL v3 or later
  * License URI:         https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:         pressbooks-saml-sso
+ * Domain Path:         /languages
  * Network:             True
  * GitHub Plugin URI:   pressbooks/pressbooks-saml-sso
  * Release Asset:       true
@@ -31,7 +32,7 @@ if ( ! class_exists( '\OneLogin\Saml2\Auth' ) ) {
 	if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 		require_once __DIR__ . '/vendor/autoload.php';
 	} else {
-		$title = __( 'Dependencies Missing', 'pressbooks-cas-sso' );
+		$title = __( 'Dependencies Missing', 'pressbooks-saml-sso' );
 		$body = __( 'Please run <code>composer install</code> from the root of the Pressbooks SAML2 Single Sign-On plugin directory.', 'pressbooks-saml-sso' );
 		$message = "<h1>{$title}</h1><p>{$body}</p>";
 		wp_die( $message, $title );

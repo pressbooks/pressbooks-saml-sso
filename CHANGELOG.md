@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.7.0](https://github.com/pressbooks/pressbooks-saml-sso/compare/2.6.0...2.7.0) (2026-03-12)
+
+
+### Features
+
+* new build tools ([#254](https://github.com/pressbooks/pressbooks-saml-sso/issues/254)) ([905cf34](https://github.com/pressbooks/pressbooks-saml-sso/commit/905cf3401e9b541cbfcdc3a7a7967be5f63ce5d2))
+
+
+### Chores
+
+* **l10n:** migrate from Transifex to Crowdin ([#261](https://github.com/pressbooks/pressbooks-saml-sso/issues/261)) ([83c2bd5](https://github.com/pressbooks/pressbooks-saml-sso/commit/83c2bd5cd47e2f7aeea506e1188d71e578c56d76))
+
 ## [2.6.0](https://github.com/pressbooks/pressbooks-saml-sso/compare/2.5.3...2.6.0) (2026-01-20)
 
 

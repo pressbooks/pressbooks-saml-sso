@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-05T17:51:26+00:00\n"
+"POT-Creation-Date: 2026-03-12T22:02:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks-saml-sso\n"
@@ -35,60 +35,60 @@ msgstr ""
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr ""
 
-#: inc/class-admin.php:68
 #: inc/class-admin.php:69
+#: inc/class-admin.php:70
 msgid "SAML2"
 msgstr ""
 
-#: inc/class-admin.php:82
+#: inc/class-admin.php:83
 msgid "Settings saved."
 msgstr ""
 
-#: inc/class-admin.php:153
+#: inc/class-admin.php:154
 msgid "Failed to get IdP Metadata from URL."
 msgstr ""
 
-#: inc/class-saml.php:164
+#: inc/class-saml.php:165
 #, php-format
 msgid "The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
 msgstr ""
 
-#: inc/class-saml.php:177
+#: inc/class-saml.php:178
 #, php-format
 msgid "The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
 msgstr ""
 
-#: inc/class-saml.php:199
+#: inc/class-saml.php:200
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
 msgstr ""
 
 #. translators: %s: SAML attribute field name
-#: inc/class-saml.php:386
+#: inc/class-saml.php:387
 #, php-format
 msgid "Attribute %s not found."
 msgstr ""
 
-#: inc/class-saml.php:533
+#: inc/class-saml.php:534
 msgid "Invalid SP metadata: "
 msgstr ""
 
 #. translators: Saml error reason
-#: inc/class-saml.php:563
+#: inc/class-saml.php:564
 #, php-format
 msgid "Not authenticated. Reason: %s"
 msgstr ""
 
-#: inc/class-saml.php:638
+#: inc/class-saml.php:639
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 msgstr ""
 
 #. translators: %s Pressbooks Network Manager email if found.
-#: inc/class-saml.php:672
+#: inc/class-saml.php:673
 #, php-format
 msgid "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s"
 msgstr ""
 
-#: inc/class-saml.php:674
+#: inc/class-saml.php:675
 msgid "SAML authentication failed."
 msgstr ""
 

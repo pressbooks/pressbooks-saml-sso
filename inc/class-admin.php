@@ -2,7 +2,8 @@
 
 namespace PressbooksSamlSso;
 
-use PressbooksMix\Assets;
+use PressbooksFrontendTools\Assets;
+use PressbooksFrontendTools\AssetType;
 
 class Admin {
 
@@ -53,8 +54,8 @@ class Admin {
 		if ( $hook !== get_plugin_page_hookname( 'pb_saml_admin', 'pb_network_integrations' ) ) {
 			return;
 		}
-		$assets = new Assets( 'pressbooks-saml-sso', 'plugin' );
-		wp_enqueue_script( 'pb-saml-sso', $assets->getPath( 'scripts/pressbooks-saml-sso.js' ), [ 'jquery' ] );
+		$assets = new Assets( 'pressbooks-saml-sso', AssetType::PLUGIN );
+		$assets->enqueue( 'assets/src/scripts/pressbooks-saml-sso.js', 'pb-saml-sso' );
 	}
 
 	/**

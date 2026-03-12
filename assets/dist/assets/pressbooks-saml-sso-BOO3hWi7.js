@@ -1,0 +1,2 @@
+jQuery(function(e){e("#idp_metadata_url").on("input",function(){document.querySelectorAll("#manual-configuration input, textarea").forEach(d=>{this.value.trim()?d.setAttribute("disabled","disabled"):d.removeAttribute("disabled")})});let t=e("#button_text"),i=e("#forced_redirection");i[0].checked?t[0].setAttribute("disabled","disabled"):t[0].removeAttribute("disabled"),i.on("change",function(){this.checked?t[0].setAttribute("disabled","disabled"):t[0].removeAttribute("disabled")})});
+//# sourceMappingURL=pressbooks-saml-sso-BOO3hWi7.js.map

@@ -5,7 +5,8 @@ namespace PressbooksSamlSso;
 use function Pressbooks\Utility\empty_space;
 use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
-use PressbooksMix\Assets;
+use PressbooksFrontendTools\Assets;
+use PressbooksFrontendTools\AssetType;
 use Pressbooks\Log\CloudWatchProvider as CloudWatchProvider;
 use Pressbooks\Log\Log;
 
@@ -725,9 +726,8 @@ class SAML {
 	 * Add login CSS and JS
 	 */
 	public function loginEnqueueScripts() {
-		$assets = new Assets( 'pressbooks-saml-sso', 'plugin' );
-		wp_enqueue_style( 'pb-saml-login', $assets->getPath( 'styles/login-form.css' ) );
-		wp_enqueue_script( 'pb-saml-login', $assets->getPath( 'scripts/login-form.js' ), [ 'jquery' ] );
+		$assets = new Assets( 'pressbooks-saml-sso', AssetType::PLUGIN );
+		$assets->enqueue( 'assets/src/scripts/login-form.js', 'pb-saml-login' );
 	}
 
 	/**

@@ -1,23 +1,25 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
-# Translators:
-# Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2024
-# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 2.5.0\n"
+"Project-Id-Version: pressbooks-open-source\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
-"POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
-"PO-Revision-Date: 2019-02-28 19:57+0000\n"
-"Last-Translator: Mustafa Bulun <mustafa.bulun@bizimajans.com>, 2024\n"
-"Language-Team: Turkish (Turkey) (https://app.transifex.com/pressbooks/teams/9194/tr_TR/)\n"
+"Last-Translator: \n"
+"Language-Team: Turkish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr_TR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Domain: pressbooks-saml-sso\n"
+"POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
+"PO-Revision-Date: 2026-03-18 00:04\n"
 "X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: pressbooks-saml-sso\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: pressbooks-open-source\n"
+"X-Crowdin-Project-ID: 866076\n"
+"X-Crowdin-Language: tr\n"
+"X-Crowdin-File: /pressbooks-saml-sso/languages/pressbooks-saml-sso.pot\n"
+"X-Crowdin-File-ID: 106\n"
+"Language: tr_TR\n"
 
 #. Plugin Name of the plugin
 #: pressbooks-saml-sso.php
@@ -32,9 +34,7 @@ msgstr "https://pressbooks.org"
 
 #. Description of the plugin
 #: pressbooks-saml-sso.php
-msgid ""
-"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS,"
-" Google Apps, etc.)"
+msgid "SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, Google Apps, etc.)"
 msgstr ""
 
 #. Author of the plugin
@@ -42,7 +42,8 @@ msgstr ""
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven Inc.)"
 
-#: inc/class-admin.php:63 inc/class-admin.php:64
+#: inc/class-admin.php:63
+#: inc/class-admin.php:64
 msgid "SAML2"
 msgstr "SAML2"
 
@@ -51,13 +52,11 @@ msgid "Failed to get IdP Metadata from URL."
 msgstr "URL'den IdP Meta Verileri alınamadı."
 
 #: inc/class-saml.php:164
-msgid ""
-"The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
+msgid "The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
 msgstr ""
 
 #: inc/class-saml.php:177
-msgid ""
-"The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
+msgid "The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
 msgstr ""
 
 #: inc/class-saml.php:199
@@ -79,13 +78,8 @@ msgstr ""
 
 #. translators: %s Pressbooks Network Manager email if found.
 #: inc/class-saml.php:659
-msgid ""
-"Unable to log in: You do not have an account on this Pressbooks network. To "
-"request an account, please contact your institution's Pressbooks Network "
-"Manager%s"
-msgstr ""
-"Oturum açılamıyor: Bu Pressbooks ağında hesabınız yok. Bir hesap talep etmek"
-" için lütfen kurumunuzun Pressbooks Ağ Yöneticisi ile iletişime geçin%s"
+msgid "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s"
+msgstr "Oturum açılamıyor: Bu Pressbooks ağında hesabınız yok. Bir hesap talep etmek için lütfen kurumunuzun Pressbooks Ağ Yöneticisi ile iletişime geçin%s"
 
 #: inc/class-saml.php:661
 msgid "SAML authentication failed."
@@ -108,24 +102,16 @@ msgid "Registered and logged in!"
 msgstr "Kayıt olundu ve giriş yapıldı"
 
 #: pressbooks-saml-sso.php:35
-msgid ""
-"Please run <code>composer install</code> from the root of the Pressbooks "
-"SAML2 Single Sign-On plugin directory."
-msgstr ""
-"Lütfen Pressbooks SAML2 Single Sign-On eklenti dizininin kökünden "
-"<code>composer yüklemesini</code>çalıştırın."
+msgid "Please run <code>composer install</code> from the root of the Pressbooks SAML2 Single Sign-On plugin directory."
+msgstr "Lütfen Pressbooks SAML2 Single Sign-On eklenti dizininin kökünden <code>composer yüklemesini</code>çalıştırın."
 
 #: templates/admin.blade.php:2
 msgid "SAML2 (Security Assertion Markup Language)"
 msgstr "SAML2 (Security Assertion Markup Language)"
 
 #: templates/admin.blade.php:3
-msgid ""
-"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked"
-" for Service Provider (SP) configuration file. Get that here:"
-msgstr ""
-"Bir Shibboleth veya SAML2 Kimlik Sağlayıcıya (IdP) katılırken, Servis "
-"Sağlayıcı (SP) yapılandırma dosyası istenir. Buradan alın:"
+msgid "When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked for Service Provider (SP) configuration file. Get that here:"
+msgstr "Bir Shibboleth veya SAML2 Kimlik Sağlayıcıya (IdP) katılırken, Servis Sağlayıcı (SP) yapılandırma dosyası istenir. Buradan alın:"
 
 #: templates/admin.blade.php:4
 msgid "Metadata XML Configuration"
@@ -136,12 +122,8 @@ msgid "Automatic Configuration"
 msgstr "Otomatik Yapılandırma"
 
 #: templates/admin.blade.php:15
-msgid ""
-"If you have an IdP metadata URL, enter it here and save. The fields below "
-"should then auto-fill."
-msgstr ""
-"Bir IdP meta veri URL'niz varsa, buraya girin ve kaydedin. Aşağıdaki alanlar"
-" daha sonra otomatik olarak doldurulmalıdır."
+msgid "If you have an IdP metadata URL, enter it here and save. The fields below should then auto-fill."
+msgstr "Bir IdP meta veri URL'niz varsa, buraya girin ve kaydedin. Aşağıdaki alanlar daha sonra otomatik olarak doldurulmalıdır."
 
 #: templates/admin.blade.php:20
 msgid "Manual Configuration"
@@ -152,8 +134,7 @@ msgid "Identifier of the IdP entity (must be a URI.)"
 msgstr "IdP varlığının tanımlayıcısı (bir URI olmalıdır.)"
 
 #: templates/admin.blade.php:36
-msgid ""
-"URL Target of the IdP where the Authentication Request Message will be sent."
+msgid "URL Target of the IdP where the Authentication Request Message will be sent."
 msgstr "Kimlik Doğrulama İsteği Mesajının gönderileceği IdP'nin URL Hedefi."
 
 #: templates/admin.blade.php:45
@@ -185,12 +166,8 @@ msgid " Bypass"
 msgstr " Atla"
 
 #: templates/admin.blade.php:74
-msgid ""
-"Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" "
-"lists under <a href=\"%s\">Network Settings</a>."
-msgstr ""
-"<a href=\"%s\">Ağ Ayarları</a>altındaki \"Sınırlı E-posta Kayıtları\" ve "
-"\"Yasaklanmış E-posta Etki Alanları\" listelerini atlayın."
+msgid "Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" lists under <a href=\"%s\">Network Settings</a>."
+msgstr "<a href=\"%s\">Ağ Ayarları</a>altındaki \"Sınırlı E-posta Kayıtları\" ve \"Yasaklanmış E-posta Etki Alanları\" listelerini atlayın."
 
 #: templates/admin.blade.php:79
 msgid " Forced Redirection"
@@ -205,7 +182,6 @@ msgid "Customize Button Text"
 msgstr "Düğme Metnini Özelleştir"
 
 #: templates/admin.blade.php:90
-msgid ""
-"Change the [ Connect via SAML2 ] button to something more user-friendly."
-msgstr ""
-"[SAML2 ile Bağlan] düğmesini daha kullanıcı dostu bir şekle değiştirin."
+msgid "Change the [ Connect via SAML2 ] button to something more user-friendly."
+msgstr "[SAML2 ile Bağlan] düğmesini daha kullanıcı dostu bir şekle değiştirin."
+

@@ -1,20 +1,25 @@
-# Copyright (C) 2022 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks SAML2 Single Sign-On 1.6.1\n"
-"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/"
-"issues\n"
-"POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Project-Id-Version: pressbooks-open-source\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
+"Last-Translator: \n"
+"Language-Team: English, United States\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
+"PO-Revision-Date: 2026-03-18 00:04\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks-saml-sso\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: pressbooks-open-source\n"
+"X-Crowdin-Project-ID: 866076\n"
+"X-Crowdin-Language: en-US\n"
+"X-Crowdin-File: /pressbooks-saml-sso/languages/pressbooks-saml-sso.pot\n"
+"X-Crowdin-File-ID: 106\n"
+"Language: en_US\n"
 
 #. Plugin Name of the plugin
 #: pressbooks-saml-sso.php
@@ -29,9 +34,7 @@ msgstr "https://pressbooks.org"
 
 #. Description of the plugin
 #: pressbooks-saml-sso.php
-msgid ""
-"SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, "
-"Google Apps, etc.)"
+msgid "SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, Google Apps, etc.)"
 msgstr ""
 
 #. Author of the plugin
@@ -39,7 +42,8 @@ msgstr ""
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven Inc.)"
 
-#: inc/class-admin.php:63 inc/class-admin.php:64
+#: inc/class-admin.php:63
+#: inc/class-admin.php:64
 msgid "SAML2"
 msgstr "SAML2"
 
@@ -48,13 +52,11 @@ msgid "Failed to get IdP Metadata from URL."
 msgstr "Failed to get IdP Metadata from URL."
 
 #: inc/class-saml.php:164
-msgid ""
-"The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
+msgid "The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
 msgstr ""
 
 #: inc/class-saml.php:177
-msgid ""
-"The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
+msgid "The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
 msgstr ""
 
 #: inc/class-saml.php:199
@@ -76,14 +78,8 @@ msgstr "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
 
 #. translators: %s Pressbooks Network Manager email if found.
 #: inc/class-saml.php:659
-msgid ""
-"Unable to log in: You do not have an account on this Pressbooks network. To "
-"request an account, please contact your institution's Pressbooks Network "
-"Manager%s"
-msgstr ""
-"Unable to log in: You do not have an account on this Pressbooks network. To "
-"request an account, please contact your institution's Pressbooks Network "
-"Manager%s"
+msgid "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s"
+msgstr "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s"
 
 #: inc/class-saml.php:661
 msgid "SAML authentication failed."
@@ -106,24 +102,16 @@ msgid "Registered and logged in!"
 msgstr "Registered and logged in!"
 
 #: pressbooks-saml-sso.php:35
-msgid ""
-"Please run <code>composer install</code> from the root of the Pressbooks "
-"SAML2 Single Sign-On plugin directory."
-msgstr ""
-"Please run <code>composer install</code> from the root of the Pressbooks "
-"SAML2 Single Sign-On plugin directory."
+msgid "Please run <code>composer install</code> from the root of the Pressbooks SAML2 Single Sign-On plugin directory."
+msgstr "Please run <code>composer install</code> from the root of the Pressbooks SAML2 Single Sign-On plugin directory."
 
 #: templates/admin.blade.php:2
 msgid "SAML2 (Security Assertion Markup Language)"
 msgstr "SAML2 (Security Assertion Markup Language)"
 
 #: templates/admin.blade.php:3
-msgid ""
-"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked "
-"for Service Provider (SP) configuration file. Get that here:"
-msgstr ""
-"When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked "
-"for Service Provider (SP) configuration file. Get that here:"
+msgid "When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked for Service Provider (SP) configuration file. Get that here:"
+msgstr "When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked for Service Provider (SP) configuration file. Get that here:"
 
 #: templates/admin.blade.php:4
 msgid "Metadata XML Configuration"
@@ -134,12 +122,8 @@ msgid "Automatic Configuration"
 msgstr "Automatic Configuration"
 
 #: templates/admin.blade.php:15
-msgid ""
-"If you have an IdP metadata URL, enter it here and save. The fields below "
-"should then auto-fill."
-msgstr ""
-"If you have an IdP metadata URL, enter it here and save. The fields below "
-"should then auto-fill."
+msgid "If you have an IdP metadata URL, enter it here and save. The fields below should then auto-fill."
+msgstr "If you have an IdP metadata URL, enter it here and save. The fields below should then auto-fill."
 
 #: templates/admin.blade.php:20
 msgid "Manual Configuration"
@@ -150,10 +134,8 @@ msgid "Identifier of the IdP entity (must be a URI.)"
 msgstr "Identifier of the IdP entity (must be a URI.)"
 
 #: templates/admin.blade.php:36
-msgid ""
-"URL Target of the IdP where the Authentication Request Message will be sent."
-msgstr ""
-"URL Target of the IdP where the Authentication Request Message will be sent."
+msgid "URL Target of the IdP where the Authentication Request Message will be sent."
+msgstr "URL Target of the IdP where the Authentication Request Message will be sent."
 
 #: templates/admin.blade.php:45
 msgid "URL Location of the IdP where SLO Request will be sent."
@@ -184,12 +166,8 @@ msgid " Bypass"
 msgstr " Bypass"
 
 #: templates/admin.blade.php:74
-msgid ""
-"Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" "
-"lists under <a href=\"%s\">Network Settings</a>."
-msgstr ""
-"Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" "
-"lists under <a href=\"%s\">Network Settings</a>."
+msgid "Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" lists under <a href=\"%s\">Network Settings</a>."
+msgstr "Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" lists under <a href=\"%s\">Network Settings</a>."
 
 #: templates/admin.blade.php:79
 msgid " Forced Redirection"
@@ -204,20 +182,6 @@ msgid "Customize Button Text"
 msgstr "Customize Button Text"
 
 #: templates/admin.blade.php:90
-msgid ""
-"Change the [ Connect via SAML2 ] button to something more user-friendly."
-msgstr ""
-"Change the [ Connect via SAML2 ] button to something more user-friendly."
+msgid "Change the [ Connect via SAML2 ] button to something more user-friendly."
+msgstr "Change the [ Connect via SAML2 ] button to something more user-friendly."
 
-#~ msgid ""
-#~ "SAML2 Single Sign-On integration for Pressbooks. (Shibboleth, Microsoft "
-#~ "ADFS, Google Apps, etc.)"
-#~ msgstr ""
-#~ "SAML2 Single Sign-On integration for Pressbooks. (Shibboleth, Microsoft "
-#~ "ADFS, Google Apps, etc.)"
-
-#~ msgid "The Pressbooks SAML Plugin is not configured correctly."
-#~ msgstr "The Pressbooks SAML Plugin is not configured correctly."
-
-#~ msgid "Cannot find Pressbooks install."
-#~ msgstr "Cannot find Pressbooks install."

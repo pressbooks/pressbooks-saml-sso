@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: pressbooks-open-source\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
 "Last-Translator: \n"
-"Language-Team: Chinese Simplified\n"
+"Language-Team: Lithuanian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,175 +13,175 @@ msgstr ""
 "PO-Revision-Date: 2026-03-18 00:04\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks-saml-sso\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && (n%100>19 || n%100<11) ? 0 : (n%10>=2 && n%10<=9) && (n%100>19 || n%100<11) ? 1 : n%1!=0 ? 2: 3);\n"
 "X-Crowdin-Project: pressbooks-open-source\n"
 "X-Crowdin-Project-ID: 866076\n"
-"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-Language: lt\n"
 "X-Crowdin-File: /pressbooks-saml-sso/languages/pressbooks-saml-sso.pot\n"
 "X-Crowdin-File-ID: 106\n"
-"Language: zh_CN\n"
+"Language: lt_LT\n"
 
 #. Plugin Name of the plugin
 #: pressbooks-saml-sso.php
 msgid "Pressbooks SAML2 Single Sign-On"
-msgstr "Pressbooks SAML2单点登录"
+msgstr ""
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
 #: pressbooks-saml-sso.php
 msgid "https://pressbooks.org"
-msgstr "https://pressbooks.org"
+msgstr ""
 
 #. Description of the plugin
 #: pressbooks-saml-sso.php
 msgid "SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, Google Apps, etc.)"
-msgstr "Pressbooks 的 SAML2 单点登录集成（Shibboleth、Microsoft ADFS、Google Apps 等）"
+msgstr ""
 
 #. Author of the plugin
 #: pressbooks-saml-sso.php
 msgid "Pressbooks (Book Oven Inc.)"
-msgstr "Pressbooks (Book Oven 有限公司)"
+msgstr ""
 
 #: inc/class-admin.php:63
 #: inc/class-admin.php:64
 msgid "SAML2"
-msgstr "SAML2"
+msgstr ""
 
 #: inc/class-admin.php:148
 msgid "Failed to get IdP Metadata from URL."
-msgstr "从URL获取IdP元数据失败。"
+msgstr ""
 
 #: inc/class-saml.php:164
 msgid "The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
-msgstr "Pressbooks SAML 插件尚未<a href=\"%1$s\">配置</a>。"
+msgstr ""
 
 #: inc/class-saml.php:177
 msgid "The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
-msgstr "Pressbooks SAML 插件<a href=\"%1$s\">配置</a>不正确。"
+msgstr ""
 
 #: inc/class-saml.php:199
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
-msgstr "Pressbooks SAML插件初始化失败。错误："
+msgstr ""
 
 #: inc/class-saml.php:532
 msgid "Invalid SP metadata: "
-msgstr "无效的SP元数据："
+msgstr ""
 
 #. translators: Saml error reason
 #: inc/class-saml.php:562
 msgid "Not authenticated. Reason: %s"
-msgstr "未认证。原因：%s"
+msgstr ""
 
 #: inc/class-saml.php:625
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
-msgstr "缺失SAML属性 urn:oid:0.9.2342.19200300.100.1.1"
+msgstr ""
 
 #. translators: %s Pressbooks Network Manager email if found.
 #: inc/class-saml.php:659
 msgid "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s"
-msgstr "无法登入：您在此Pressbooks网络中无账号。请和管理员联系账号事宜。%s"
+msgstr ""
 
 #: inc/class-saml.php:661
 msgid "SAML authentication failed."
-msgstr "SAML认证失败。"
+msgstr ""
 
 #: inc/class-saml.php:739
 msgid "Connect via SAML2"
-msgstr "使用SMAL2登录"
+msgstr ""
 
 #: inc/class-saml.php:747
 msgid "Or"
-msgstr "或"
+msgstr ""
 
 #: inc/class-saml.php:783
 msgid "Logged in!"
-msgstr "已登入！"
+msgstr ""
 
 #: inc/class-saml.php:1002
 msgid "Registered and logged in!"
-msgstr "注册成功并已登入！"
+msgstr ""
 
 #: pressbooks-saml-sso.php:35
 msgid "Please run <code>composer install</code> from the root of the Pressbooks SAML2 Single Sign-On plugin directory."
-msgstr "请在Pressbooks的SAML2单点登录插件的根目录下运行：<code>composer install</code>。"
+msgstr ""
 
 #: templates/admin.blade.php:2
 msgid "SAML2 (Security Assertion Markup Language)"
-msgstr "SAML2（安全断言标记语言）"
+msgstr ""
 
 #: templates/admin.blade.php:3
 msgid "When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked for Service Provider (SP) configuration file. Get that here:"
-msgstr "当加入一个Shibboleth 或 SAML2 身份提供者 (IdP) 时，需要在此提供服务提供者（SP）配置文件。"
+msgstr ""
 
 #: templates/admin.blade.php:4
 msgid "Metadata XML Configuration"
-msgstr "XML配置元数据"
+msgstr ""
 
 #: templates/admin.blade.php:8
 msgid "Automatic Configuration"
-msgstr "自动配置"
+msgstr ""
 
 #: templates/admin.blade.php:15
 msgid "If you have an IdP metadata URL, enter it here and save. The fields below should then auto-fill."
-msgstr "若您有IdP元数据URL，请在此输入并保存，下方的字段将会被自动填充。"
+msgstr ""
 
 #: templates/admin.blade.php:20
 msgid "Manual Configuration"
-msgstr "手动配置"
+msgstr ""
 
 #: templates/admin.blade.php:27
 msgid "Identifier of the IdP entity (must be a URI.)"
-msgstr "IdP实体标识符（必须是一个URI。）"
+msgstr ""
 
 #: templates/admin.blade.php:36
 msgid "URL Target of the IdP where the Authentication Request Message will be sent."
-msgstr "IdP的URL目标（认证请求消息将发送至此URL）。"
+msgstr ""
 
 #: templates/admin.blade.php:45
 msgid "URL Location of the IdP where SLO Request will be sent."
-msgstr "IdP的URL位置（SLO请求将被发送至此）。"
+msgstr ""
 
 #: templates/admin.blade.php:54
 msgid "Public x509 certificate of the IdP."
-msgstr "IdP的公开的x509证书。"
+msgstr ""
 
 #: templates/admin.blade.php:61
 msgid "If the user does not have a Pressbooks account"
-msgstr "若该用户无Pressbooks账户"
+msgstr ""
 
 #: templates/admin.blade.php:63
 msgid "Refuse Access"
-msgstr "拒绝访问"
+msgstr ""
 
 #: templates/admin.blade.php:64
 msgid "Add New User"
-msgstr "新加用户"
+msgstr ""
 
 #: templates/admin.blade.php:69
 msgid "Optional Information"
-msgstr "可选信息"
+msgstr ""
 
 #: templates/admin.blade.php:72
 msgid " Bypass"
-msgstr "忽略"
+msgstr ""
 
 #: templates/admin.blade.php:74
 msgid "Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" lists under <a href=\"%s\">Network Settings</a>."
-msgstr "忽略<a href=\"%s\">网络设置</a>中的“受限Email注册”和“禁止Email域”的限制。"
+msgstr ""
 
 #: templates/admin.blade.php:79
 msgid " Forced Redirection"
-msgstr "强制跳转"
+msgstr ""
 
 #: templates/admin.blade.php:82
 msgid "Hide the Pressbooks login page."
-msgstr "隐藏Pressbooks登录页。"
+msgstr ""
 
 #: templates/admin.blade.php:86
 msgid "Customize Button Text"
-msgstr "定制按钮文字"
+msgstr ""
 
 #: templates/admin.blade.php:90
 msgid "Change the [ Connect via SAML2 ] button to something more user-friendly."
-msgstr "更改[ 使用SAML2登录 ]按钮的文字。"
+msgstr ""
 

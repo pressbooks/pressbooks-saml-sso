@@ -7,7 +7,7 @@ use function Pressbooks\Utility\str_remove_prefix;
 use function Pressbooks\Utility\str_starts_with;
 use PressbooksFrontendTools\Assets;
 use PressbooksFrontendTools\AssetType;
-use Pressbooks\Log\CloudWatchProvider as CloudWatchProvider;
+use Pressbooks\Log\CloudWatchProvider;
 use Pressbooks\Log\Log;
 
 /**
@@ -102,7 +102,7 @@ class SAML {
 	/**
 	 * @return SAML
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			$admin = Admin::init();
 			$log = null;
@@ -118,7 +118,7 @@ class SAML {
 	/**
 	 * @param SAML $obj
 	 */
-	static public function hooks( SAML $obj ) {
+	public static function hooks( SAML $obj ) {
 		add_filter( 'authenticate', [ $obj, 'authenticate' ], 10, 3 );
 		add_action( 'login_enqueue_scripts', [ $obj, 'loginEnqueueScripts' ] );
 		add_action( 'login_form', [ $obj, 'loginForm' ] );
@@ -1085,5 +1085,4 @@ class SAML {
 			exit;
 		}
 	}
-
 }

@@ -18,7 +18,7 @@ class Admin {
 	/**
 	 * @return Admin
 	 */
-	static public function init() {
+	public static function init() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 			self::hooks( self::$instance );
@@ -29,10 +29,10 @@ class Admin {
 	/**
 	 * @param Admin $obj
 	 */
-	static public function hooks( Admin $obj ) {
+	public static function hooks( Admin $obj ) {
 		add_action( 'admin_enqueue_scripts', [ $obj, 'adminEnqueueScripts' ] );
 		add_action( 'network_admin_menu', [ $obj, 'addMenu' ] );
-		add_action( 'init', function() {
+		add_action( 'init', function () {
 			load_plugin_textdomain(
 				'pressbooks-saml-sso',
 				false,
@@ -202,5 +202,4 @@ class Admin {
 
 		return $options;
 	}
-
 }

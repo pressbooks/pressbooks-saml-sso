@@ -1,7 +1,7 @@
 <?php
 
 use Aws\CloudWatchLogs\CloudWatchLogsClient;
-use Maxbanton\Cwh\Handler\CloudWatch;
+use Pressbooks\Log\CloudWatchHandler;
 use Monolog\Logger;
 use Pressbooks\Log;
 use PressbooksSamlSso\SAML;
@@ -114,7 +114,7 @@ class LogTest extends \WP_UnitTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$handler = $this
-			->getMockBuilder( CloudWatch::class )
+			->getMockBuilder( CloudWatchHandler::class )
 			->disableOriginalConstructor()
 			->setMethods([
 				'setFormatter',

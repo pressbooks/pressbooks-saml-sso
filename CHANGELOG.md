@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.7.1](https://github.com/pressbooks/pressbooks-saml-sso/compare/2.7.0...2.7.1) (2026-07-29)
+
+
+### Chores
+
+* **l10n:** update languages ([#264](https://github.com/pressbooks/pressbooks-saml-sso/issues/264)) ([5e3daef](https://github.com/pressbooks/pressbooks-saml-sso/commit/5e3daef7abbb2262ff1a4977702ad645176dbb3a))
+* update coding standards ([#282](https://github.com/pressbooks/pressbooks-saml-sso/issues/282)) ([8413757](https://github.com/pressbooks/pressbooks-saml-sso/commit/84137576b1d0e5bf5af56cbaa89be9f184d097a8))
+
 ## [2.7.0](https://github.com/pressbooks/pressbooks-saml-sso/compare/2.6.0...2.7.0) (2026-03-12)
 
 

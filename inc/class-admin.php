@@ -152,6 +152,7 @@ class Admin {
 		$settings = @\OneLogin\Saml2\IdPMetadataParser::parseRemoteXML( $url ); // @codingStandardsIgnoreLine
 		if ( ! isset( $settings['idp'] ) ) {
 			$error = __( 'Failed to get IdP Metadata from URL.', 'pressbooks-saml-sso' );
+			// phpcs:ignore Pressbooks.Security.EscapeOutput.ExceptionNotEscaped -- Exception message, not rendered output.
 			throw new \Exception( $error );
 		}
 

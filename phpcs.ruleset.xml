@@ -9,6 +9,10 @@
 		<exclude name="Pressbooks.Security.EscapeOutput.OutputNotEscaped"/>
 		<exclude name="Pressbooks.Security.ValidatedSanitizedInput"/>
 		<exclude name="WordPress.NamingConventions.ValidVariableName"/>
+		 <!-- Conflicts with PSR12.Files.FileHeader.IncorrectOrder: this rule doesn't
+		 separate class-based and function-based use statements when sorting,
+		 so no ordering can satisfy both rules at once. -->
+	        <exclude name="PSR2R.Namespaces.UseInAlphabeticalOrder"/>
 	</rule>
     <rule ref="PSR1.Methods.CamelCapsMethodName">
         <!-- Exclude classes that override WP Core: -->

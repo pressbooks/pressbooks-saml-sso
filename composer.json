@@ -14,40 +14,48 @@
 	"keywords": ["ebooks", "publishing", "webbooks"],
 	"support": {
 		"email": "code@pressbooks.com",
-		"issues":
-			"https://github.com/pressbooks/pressbooks-saml-sso/issues/",
+		"issues": "https://github.com/pressbooks/pressbooks-saml-sso/issues/",
 		"source": "https://github.com/pressbooks/pressbooks-saml-sso/"
 	},
 	"config": {
 		"sort-packages": true,
+		"platform": {
+			"php": "8.3"
+		},
 		"allow-plugins": {
-			"composer/installers": true,
-			"dealerdirect/phpcodesniffer-composer-installer": true
+			"composer/installers": true
 		}
 	},
 	"require": {
 		"php": "^8.3",
 		"composer/installers": "^2.1",
 		"onelogin/php-saml": "^4.1",
-		"phpcompatibility/php-compatibility": "^9.3",
 		"pressbooks/frontend-tools": "^1.0.0"
 	},
 	"require-dev": {
-		"pressbooks/coding-standards": "^2.0",
+		"laravel/pint": "^1.10",
 		"yoast/phpunit-polyfills": "^1.1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"PressbooksSamlSso\\": "src/"
+		},
+		"files": [
+			"src/namespace.php"
+		]
 	},
 	"scripts": {
 		"test": [
-      "vendor/bin/phpunit --configuration phpunit.xml"
+			"vendor/bin/phpunit --configuration phpunit.xml"
 		],
-    "test-coverage": [
-      "vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml"
-    ],
+		"test-coverage": [
+			"vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml"
+		],
+		"fix": [
+			"vendor/bin/pint"
+		],
 		"standards": [
-			"vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/"
-		],
-    "fix": [
-      "vendor/bin/phpcbf --standard=phpcs.ruleset.xml *.php inc/ bin/"
-    ]
+			"vendor/bin/pint --test"
+		]
 	}
 }

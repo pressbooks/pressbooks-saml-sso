@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name:         Pressbooks SAML2 Single Sign-On
  * Plugin URI:          https://pressbooks.org
@@ -19,37 +20,22 @@
  */
 
 // -------------------------------------------------------------------------------------------------------------------
-// Class autoloader
+// Composer autoloader (PSR-4 classes + namespace.php helpers + vendor dependencies)
 // -------------------------------------------------------------------------------------------------------------------
-
-\HM\Autoloader\register_class_path( 'PressbooksSamlSso', __DIR__ . '/inc' );
-
-// -------------------------------------------------------------------------------------------------------------------
-// Composer autoloader
-// -------------------------------------------------------------------------------------------------------------------
-
-if ( ! class_exists( '\OneLogin\Saml2\Auth' ) ) {
-	if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
-		require_once __DIR__ . '/vendor/autoload.php';
-	} else {
-		$title = __( 'Dependencies Missing', 'pressbooks-saml-sso' );
-		$body = __( 'Please run <code>composer install</code> from the root of the Pressbooks SAML2 Single Sign-On plugin directory.', 'pressbooks-saml-sso' );
-		$message = "<h1>{$title}</h1><p>{$body}</p>";
-		wp_die( $message, $title );
-	}
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+} else {
+    $title = __('Dependencies Missing', 'pressbooks-saml-sso');
+    $body = __('Please run <code>composer install</code> from the root of the Pressbooks SAML2 Single Sign-On plugin directory.', 'pressbooks-saml-sso');
+    $message = "<h1>{$title}</h1><p>{$body}</p>";
+    wp_die($message, $title);
 }
-
-// -------------------------------------------------------------------------------------------------------------------
-// Requires
-// -------------------------------------------------------------------------------------------------------------------
-
-require __DIR__ . '/inc/namespace.php';
 
 // -------------------------------------------------------------------------------------------------------------------
 // Hooks
 // -------------------------------------------------------------------------------------------------------------------
-add_action( 'plugins_loaded', function () {
-	\Pressbooks\Container::get( 'Blade' )->addNamespace( 'PressbooksSamlSso', __DIR__ . '/templates' );
-} );
-add_action( 'plugins_loaded', [ '\PressbooksSamlSso\SAML', 'init' ] );
-add_action( 'plugins_loaded', [ '\PressbooksSamlSso\Admin', 'init' ] );
+add_action('plugins_loaded', function () {
+    \Pressbooks\Container::get('Blade')->addNamespace('PressbooksSamlSso', __DIR__ . '/templates');
+});
+add_action('plugins_loaded', [ '\PressbooksSamlSso\SAML', 'init' ]);
+add_action('plugins_loaded', [ '\PressbooksSamlSso\Admin', 'init' ]);

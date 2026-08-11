@@ -41,7 +41,7 @@
 			"PressbooksSamlSso\\": "src/"
 		},
 		"files": [
-			"src/namespace.php"
+			"src/helpers.php"
 		]
 	},
 	"scripts": {

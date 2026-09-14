@@ -71,7 +71,7 @@
                 <th>{{ __('Bypass', 'pressbooks-saml-sso') }}</th>
                 <td><label><input name="bypass" id="bypass" type="checkbox"
                                   value="1" {!! checked( $options['bypass'] ) !!}/> {!!
-                                  sprintf( __('Bypass the "Limited Email Registrations" and "Banned Email Domains" lists under <a href="%s">Network Settings</a>.', 'pressbooks-saml-sso') ,'settings.php' )
+                                  sprintf( __('Bypass the "Limited Email Registrations" and "Banned Email Domains" lists under %s.', 'pressbooks-saml-sso'), \Pressbooks\Admin\NetworkManagers\is_restricted() ? __( 'Network Settings', 'pressbooks-saml-sso' ) : sprintf( '<a href="%s">%s</a>', esc_url( network_admin_url( 'settings.php' ) ), __( 'Network Settings', 'pressbooks-saml-sso' ) ) )
                                    !!}
                     </label></td>
             </tr>

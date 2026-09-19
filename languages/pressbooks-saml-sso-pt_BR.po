@@ -5,183 +5,183 @@ msgstr ""
 "Project-Id-Version: pressbooks-open-source\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-saml-sso/issues\n"
 "Last-Translator: \n"
-"Language-Team: Japanese\n"
+"Language-Team: Portuguese, Brazilian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-05-08T19:31:29+00:00\n"
-"PO-Revision-Date: 2026-05-13 00:17\n"
+"PO-Revision-Date: 2026-03-20 00:03\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks-saml-sso\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: pressbooks-open-source\n"
 "X-Crowdin-Project-ID: 866076\n"
-"X-Crowdin-Language: ja\n"
+"X-Crowdin-Language: pt-BR\n"
 "X-Crowdin-File: /pressbooks-saml-sso/languages/pressbooks-saml-sso.pot\n"
 "X-Crowdin-File-ID: 106\n"
-"Language: ja_JP\n"
+"Language: pt_BR\n"
 
 #. Plugin Name of the plugin
 #: pressbooks-saml-sso.php
 msgid "Pressbooks SAML2 Single Sign-On"
-msgstr "Pressbooks SAML2 Single Sign-On"
+msgstr ""
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
 #: pressbooks-saml-sso.php
 msgid "https://pressbooks.org"
-msgstr "https://pressbooks.org"
+msgstr ""
 
 #. Description of the plugin
 #: pressbooks-saml-sso.php
 msgid "SAML2 Single Sign-On integration for Pressbooks (Shibboleth, Microsoft ADFS, Google Apps, etc.)"
-msgstr "Pressbooks に対して SAML2 シングルサインオン統合 (Shibboleth、Microsoft ADFS、Google アプリなど)。"
+msgstr ""
 
 #. Author of the plugin
 #: pressbooks-saml-sso.php
 msgid "Pressbooks (Book Oven Inc.)"
-msgstr "Pressbooks (Book Oven Inc.)"
+msgstr ""
 
 #: inc/class-admin.php:63
 #: inc/class-admin.php:64
 msgid "SAML2"
-msgstr "SAML2"
+msgstr ""
 
 #: inc/class-admin.php:148
 msgid "Failed to get IdP Metadata from URL."
-msgstr "URL から IdP メタデータを取得できません。"
+msgstr ""
 
 #: inc/class-saml.php:164
 msgid "The Pressbooks SAML Plugin has not been <a href=\"%1$s\">configured</a> yet."
-msgstr "Pressbooks SAML プラグインがまだ<a href=\"%1$s\">設定</a>されていません。"
+msgstr ""
 
 #: inc/class-saml.php:177
 msgid "The Pressbooks SAML Plugin is not <a href=\"%1$s\">configured</a> correctly."
-msgstr "Pressbooks SAML プラグインが正しく<a href=\"%1$s\">設定</a>されていません。"
+msgstr ""
 
 #: inc/class-saml.php:199
 msgid "The Pressbooks SAML Plugin failed to initialize. Error: "
-msgstr "Pressbooks SAML プラグインの初期化に失敗しました。エラー: "
+msgstr ""
 
 #: inc/class-saml.php:532
 msgid "Invalid SP metadata: "
-msgstr "無効な SP メタデータ: "
+msgstr ""
 
 #. translators: Saml error reason
 #: inc/class-saml.php:562
 msgid "Not authenticated. Reason: %s"
-msgstr "認証に失敗しました。理由: %s"
+msgstr ""
 
 #: inc/class-saml.php:625
 msgid "Missing SAML urn:oid:0.9.2342.19200300.100.1.1 attribute"
-msgstr "SAML urn:oid:0.9.2342.19200300.100.1.1 属性が見つかりません。"
+msgstr ""
 
 #. translators: %s Pressbooks Network Manager email if found.
 #: inc/class-saml.php:659
 msgid "Unable to log in: You do not have an account on this Pressbooks network. To request an account, please contact your institution's Pressbooks Network Manager%s"
-msgstr "ログインできません: この Pressbooks サイトネットワークのアカウントをお持ちではありません。アカウントをリクエストするには、機関の Pressbooks サイトネットワーク管理者に連絡してください%s"
+msgstr ""
 
 #: inc/class-saml.php:661
 msgid "SAML authentication failed."
-msgstr "SAML 認証に失敗しました。"
+msgstr ""
 
 #: inc/class-saml.php:739
 msgid "Connect via SAML2"
-msgstr "SAML2 でログイン"
+msgstr ""
 
 #: inc/class-saml.php:747
 msgid "Or"
-msgstr "または"
+msgstr ""
 
 #: inc/class-saml.php:783
 msgid "Logged in!"
-msgstr "ログイン中 !"
+msgstr ""
 
 #: inc/class-saml.php:1002
 msgid "Registered and logged in!"
-msgstr "登録してログイン中 !"
+msgstr ""
 
 #: pressbooks-saml-sso.php:35
 msgid "Please run <code>composer install</code> from the root of the Pressbooks SAML2 Single Sign-On plugin directory."
-msgstr "Pressbooks SAML2 Single Sign-On プラグインディレクトリのルートから <code>composer install</code> を実行してください。"
+msgstr ""
 
 #: templates/admin.blade.php:2
 msgid "SAML2 (Security Assertion Markup Language)"
-msgstr "SAML2 (セキュリティ・アサーション・マークアップ言語)"
+msgstr ""
 
 #: templates/admin.blade.php:3
 msgid "When joining a Shibboleth or SAML2 Identity Provider (IdP) you will be asked for Service Provider (SP) configuration file. Get that here:"
-msgstr "Shibboleth または SAML2 ID プロバイダー (IdP) に参加すると、サービスプロバイダ (SP) の構成ファイルを要求されます。ここに取得します:"
+msgstr ""
 
 #: templates/admin.blade.php:4
 msgid "Metadata XML Configuration"
-msgstr "メタデータ XML 設定"
+msgstr ""
 
 #: templates/admin.blade.php:8
 msgid "Automatic Configuration"
-msgstr "自動設定"
+msgstr ""
 
 #: templates/admin.blade.php:15
 msgid "If you have an IdP metadata URL, enter it here and save. The fields below should then auto-fill."
-msgstr "IdP メタデータ URL をお持ちの場合、ここに入力して保存します。その後で、以下のフィールドが自動入力することができます。"
+msgstr ""
 
 #: templates/admin.blade.php:20
 msgid "Manual Configuration"
-msgstr "手動設定"
+msgstr ""
 
 #: templates/admin.blade.php:27
 msgid "Identifier of the IdP entity (must be a URI.)"
-msgstr "IdP エンティティの識別子 (URL にする必要があります)"
+msgstr ""
 
 #: templates/admin.blade.php:36
 msgid "URL Target of the IdP where the Authentication Request Message will be sent."
-msgstr "認証リクエストメッセージを送信される IdP の URL ターゲット。"
+msgstr ""
 
 #: templates/admin.blade.php:45
 msgid "URL Location of the IdP where SLO Request will be sent."
-msgstr "シングルログアウトのリクエストを送信する IdP の URL 場所。"
+msgstr ""
 
 #: templates/admin.blade.php:54
 msgid "Public x509 certificate of the IdP."
-msgstr "IdP の公開 X.509 証明書。"
+msgstr ""
 
 #: templates/admin.blade.php:61
 msgid "If the user does not have a Pressbooks account"
-msgstr "ユーザーは Pressbooks アカウントをお持ちでないの場合"
+msgstr ""
 
 #: templates/admin.blade.php:63
 msgid "Refuse Access"
-msgstr "アクセスを拒否"
+msgstr ""
 
 #: templates/admin.blade.php:64
 msgid "Add New User"
-msgstr "新規ユーザーを追加"
+msgstr ""
 
 #: templates/admin.blade.php:69
 msgid "Optional Information"
-msgstr "オプションの情報"
+msgstr ""
 
 #: templates/admin.blade.php:72
 msgid " Bypass"
-msgstr " バイパス"
+msgstr ""
 
 #: templates/admin.blade.php:74
 msgid "Bypass the \"Limited Email Registrations\" and \"Banned Email Domains\" lists under <a href=\"%s\">Network Settings</a>."
-msgstr "「<a href=\"%s\">サイトネットワーク設定</a>」の「登録メールアドレスの制限」と「登録を拒否するメールのドメイン」リストをバイパスします。"
+msgstr ""
 
 #: templates/admin.blade.php:79
 msgid " Forced Redirection"
-msgstr " 強制リダイレクト"
+msgstr ""
 
 #: templates/admin.blade.php:82
 msgid "Hide the Pressbooks login page."
-msgstr "Pressbooks ログインページを非表示"
+msgstr ""
 
 #: templates/admin.blade.php:86
 msgid "Customize Button Text"
-msgstr "ボタンのテキストをカスタマイズ"
+msgstr ""
 
 #: templates/admin.blade.php:90
 msgid "Change the [ Connect via SAML2 ] button to something more user-friendly."
-msgstr "「SAML2 でログイン」ボタンをより使いやすいものに変更します。"
+msgstr ""
 

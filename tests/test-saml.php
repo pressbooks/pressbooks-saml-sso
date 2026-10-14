@@ -266,6 +266,25 @@ class SamlTest extends \WP_UnitTestCase
         $this->assertStringContainsString('correctly', $buffer);
     }
 
+    /**
+     * @test
+     */
+    public function it_renders_network_admin_notice_for_invalid_sso_url(): void
+    {
+        ob_start();
+        $this->getSaml([
+            'idp_entity_id' => 'https://idp.testshib.org/idp/shibboleth',
+            'idp_sso_login_url' => 'not-a-valid-url',
+            'idp_x509_cert' => 'fake-cert',
+        ]);
+        do_action('network_admin_notices');
+        $buffer = ob_get_clean();
+
+        $this->assertStringContainsString('The Pressbooks SAML Plugin is not', $buffer);
+        $this->assertStringContainsString('configured', $buffer);
+        $this->assertStringContainsString('correctly', $buffer);
+    }
+
     public function test_getSamlSettings()
     {
         $this->assertTrue(is_array($this->saml->getSamlSettings()));

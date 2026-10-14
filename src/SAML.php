@@ -179,19 +179,11 @@ class SAML
             return;
         }
 
-        $configuration_error_message = sprintf(
-            __(
-                'The Pressbooks SAML Plugin is not <a href="%1$s">configured</a> correctly.',
-                'pressbooks-saml-sso'
-            ),
-            network_admin_url('admin.php?page=pb_saml_admin')
-        );
-
         if (! filter_var($options['idp_sso_login_url'], FILTER_VALIDATE_URL)) {
             add_action(
                 'network_admin_notices',
-                function () use ($configuration_error_message) {
-                    echo '<div id="message" role="alert" class="error fade"><p>' . $configuration_error_message . '</p></div>';
+                function () {
+                    echo '<div id="message" role="alert" class="error fade"><p>' . $this->getConfigurationErrorMessage() . '</p></div>';
                 }
             );
             return;
@@ -201,17 +193,32 @@ class SAML
             $this->auth = new \OneLogin\Saml2\Auth($this->getSamlSettings());
             $this->samlClientIsReady = true;
         } catch (\Exception $e) {
-            $error_message = 'pb_saml_admin' !== @$_REQUEST['page'] ? // @codingStandardsIgnoreLine
-                $configuration_error_message :
-                __('The Pressbooks SAML Plugin failed to initialize. Error: ', 'pressbooks-saml-sso')
-                    . $e->getMessage();
+            $exception_message = $e->getMessage();
             add_action(
                 'network_admin_notices',
-                function () use ($error_message) {
-                    echo '<div id="message" role="alert" class="error fade"><p>' . $error_message . '</p></div>';
+                function () use ($exception_message) {
+                    $message = 'pb_saml_admin' !== @$_REQUEST['page'] ? // @codingStandardsIgnoreLine
+                        $this->getConfigurationErrorMessage() :
+                        __('The Pressbooks SAML Plugin failed to initialize. Error: ', 'pressbooks-saml-sso')
+                            . $exception_message;
+                    echo '<div id="message" role="alert" class="error fade"><p>' . $message . '</p></div>';
                 }
             );
         }
+    }
+
+    /**
+     * @return string
+     */
+    private function getConfigurationErrorMessage()
+    {
+        return sprintf(
+            __(
+                'The Pressbooks SAML Plugin is not <a href="%1$s">configured</a> correctly.',
+                'pressbooks-saml-sso'
+            ),
+            network_admin_url('admin.php?page=pb_saml_admin')
+        );
     }
 
     /**

@@ -1,115 +1,123 @@
 <?php
 
-class AdminTest extends \WP_UnitTestCase {
+class AdminTest extends \WP_UnitTestCase
+{
+    /**
+     * @var \PressbooksSamlSso\Admin
+     */
+    protected $admin;
 
-	/**
-	 * @var \PressbooksSamlSso\Admin
-	 */
-	protected $admin;
+    private static $localWebServerId = null;
 
-	private static $localWebServerId = null;
+    /**
+     * @return string
+     */
+    private function launchWebPage()
+    {
+        $command = sprintf(
+            'php -S %s -t %s >/dev/null 2>&1 & echo $!',
+            '127.0.0.1:8888',
+            __DIR__ . '/data/'
+        );
 
-	/**
-	 * @return string
-	 */
-	private function launchWebPage() {
-		$command = sprintf(
-			'php -S %s -t %s >/dev/null 2>&1 & echo $!',
-			'127.0.0.1:8888',
-			__DIR__ . '/data/'
-		);
+        $output = [];
+        exec($command, $output);
+        self::$localWebServerId = (int) $output[0];
+        sleep(2);
+        return 'http://127.0.0.1:8888/testshib-providers.xml';
+    }
 
-		$output = [];
-		exec( $command, $output );
-		self::$localWebServerId = (int) $output[0];
-		sleep( 2 );
-		return 'http://127.0.0.1:8888/testshib-providers.xml';
-	}
+    private function killWebPage()
+    {
+        if (self::$localWebServerId) {
+            exec('kill ' . self::$localWebServerId);
+            self::$localWebServerId = null;
+        }
+    }
 
-	private function killWebPage() {
-		if ( self::$localWebServerId ) {
-			exec( 'kill ' . self::$localWebServerId );
-			self::$localWebServerId = null;
-		}
-	}
+    /**
+     *
+     */
+    public function set_up()
+    {
+        parent::set_up();
+        $this->admin = new \PressbooksSamlSso\Admin;
+    }
 
-	/**
-	 *
-	 */
-	public function set_up() {
-		parent::set_up();
-		$this->admin = new \PressbooksSamlSso\Admin();
-	}
+    public function tear_down()
+    {
+        $this->killWebPage();
+        parent::tear_down();
+    }
 
-	public function tear_down() {
-		$this->killWebPage();
-		parent::tear_down();
-	}
+    public function test_addMenu()
+    {
+        $this->admin->addMenu();
+        $this->assertTrue(true); // Did not crash
+    }
 
-	public function test_addMenu() {
-		$this->admin->addMenu();
-		$this->assertTrue( true ); // Did not crash
-	}
+    public function test_printMenu()
+    {
+        ob_start();
+        $this->admin->printMenu();
+        $buffer = ob_get_clean();
+        $this->assertStringContainsString('</form>', $buffer);
+    }
 
-	public function test_printMenu() {
-		ob_start();
-		$this->admin->printMenu();
-		$buffer = ob_get_clean();
-		$this->assertStringContainsString( '</form>', $buffer );
-	}
+    public function test_parseOptionsFromRemoteXML()
+    {
+        $url = $this->launchWebPage();
+        $update = $this->admin->parseOptionsFromRemoteXML($url);
+        $this->killWebPage();
+        $this->assertStringContainsString('testshib', $update['idp_entity_id']);
+        $this->assertStringContainsString('testshib', $update['idp_sso_login_url']);
+        $this->assertNotEmpty($update['idp_x509_cert']);
 
-	public function test_parseOptionsFromRemoteXML() {
-		$url = $this->launchWebPage();
-		$update = $this->admin->parseOptionsFromRemoteXML( $url );
-		$this->killWebPage();
-		$this->assertStringContainsString( 'testshib', $update['idp_entity_id'] );
-		$this->assertStringContainsString( 'testshib', $update['idp_sso_login_url'] );
-		$this->assertNotEmpty( $update['idp_x509_cert'] );
+        try {
+            $this->admin->parseOptionsFromRemoteXML('garbage');
+        } catch (\Exception $e) {
+            $this->assertTrue(true); // Expected exception was thrown
+            return;
+        }
+        $this->fail();
+    }
 
-		try {
-			$this->admin->parseOptionsFromRemoteXML( 'garbage' );
-		} catch ( \Exception $e ) {
-			$this->assertTrue( true ); // Expected exception was thrown
-			return;
-		}
-		$this->fail();
-	}
+    public function test_options()
+    {
 
-	public function test_options() {
+        $options = $this->admin->getOptions();
 
-		$options = $this->admin->getOptions();
+        // idp_metadata_url
+        $this->assertEquals($options['idp_entity_id'], '');
+        $this->assertEquals($options['idp_sso_login_url'], '');
+        $this->assertEquals($options['idp_x509_cert'], '');
+        // idp_sso_logout_url
+        $this->assertEquals($options['provision'], 'refuse');
+        $this->assertEquals($options['button_text'], '');
+        $this->assertEquals($options['bypass'], 0);
+        $this->assertEquals($options['forced_redirection'], 0);
 
-		// idp_metadata_url
-		$this->assertEquals( $options['idp_entity_id'], '' );
-		$this->assertEquals( $options['idp_sso_login_url'], '' );
-		$this->assertEquals( $options['idp_x509_cert'], '' );
-		// idp_sso_logout_url
-		$this->assertEquals( $options['provision'], 'refuse' );
-		$this->assertEquals( $options['button_text'], '' );
-		$this->assertEquals( $options['bypass'], 0 );
-		$this->assertEquals( $options['forced_redirection'], 0 );
+        $_REQUEST['_wpnonce'] = wp_create_nonce('pb-saml-sso');
+        $_POST = [
+            'idp_entity_id' => 'https://idp.testshib.org/idp/shibboleth',
+            'idp_sso_login_url' => 'https://idp.testshib.org/idp/profile/SAML2/Redirect/SSO',
+            'idp_x509_cert' => '00bfd57d54f083ce83b773f4332b1258',
+            'idp_sso_logout_url' => '',
+            'provision' => 'create',
+            'button_text' => 'Connect via<br>Some SSO Provider<script src="http://evil-script.com/script.js"></script>',
+            'bypass' => '1',
+            'forced_redirection' => '1',
+        ];
+        $this->admin->saveOptions();
+        $options = $this->admin->getOptions();
 
-		$_REQUEST['_wpnonce'] = wp_create_nonce( 'pb-saml-sso' );
-		$_POST = [
-			'idp_entity_id' => 'https://idp.testshib.org/idp/shibboleth',
-			'idp_sso_login_url' => 'https://idp.testshib.org/idp/profile/SAML2/Redirect/SSO',
-			'idp_x509_cert' => '00bfd57d54f083ce83b773f4332b1258',
-			'idp_sso_logout_url' => '',
-			'provision' => 'create',
-			'button_text' => 'Connect via<br>Some SSO Provider<script src="http://evil-script.com/script.js"></script>',
-			'bypass' => '1',
-			'forced_redirection' => '1',
-		];
-		$this->admin->saveOptions();
-		$options = $this->admin->getOptions();
-
-		$this->assertEquals( $options['idp_entity_id'], 'https://idp.testshib.org/idp/shibboleth' );
-		$this->assertEquals( $options['idp_sso_login_url'], 'https://idp.testshib.org/idp/profile/SAML2/Redirect/SSO' );
-		$this->assertEquals( $options['idp_x509_cert'], '00bfd57d54f083ce83b773f4332b1258' );
-		$this->assertEquals( $options['provision'], 'create' );
-		$this->assertEquals( $options['button_text'], 'Connect via<br>Some SSO Provider' );
-		$this->assertEquals( $options['bypass'], 1 );
-		$this->assertEquals( $options['forced_redirection'], 1 );
-	}
+        $this->assertEquals($options['idp_entity_id'], 'https://idp.testshib.org/idp/shibboleth');
+        $this->assertEquals($options['idp_sso_login_url'], 'https://idp.testshib.org/idp/profile/SAML2/Redirect/SSO');
+        $this->assertEquals($options['idp_x509_cert'], '00bfd57d54f083ce83b773f4332b1258');
+        $this->assertEquals($options['provision'], 'create');
+        $this->assertEquals($options['button_text'], 'Connect via<br>Some SSO Provider');
+        $this->assertEquals($options['bypass'], 1);
+        $this->assertEquals($options['forced_redirection'], 1);
+    }
 
 }

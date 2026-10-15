@@ -22,13 +22,15 @@
 // -------------------------------------------------------------------------------------------------------------------
 // Composer autoloader (PSR-4 classes + helpers.php + vendor dependencies)
 // -------------------------------------------------------------------------------------------------------------------
-if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-    require_once __DIR__ . '/vendor/autoload.php';
-} else {
-    $title = __('Dependencies Missing', 'pressbooks-saml-sso');
-    $body = __('Please run <code>composer install</code> from the root of the Pressbooks SAML2 Single Sign-On plugin directory.', 'pressbooks-saml-sso');
-    $message = "<h1>{$title}</h1><p>{$body}</p>";
-    wp_die($message, $title);
+if (! class_exists('\PressbooksSamlSso\SAML')) {
+    if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+        require_once __DIR__ . '/vendor/autoload.php';
+    } else {
+        $title = __('Dependencies Missing', 'pressbooks-saml-sso');
+        $body = __('Please run <code>composer install</code> from the root of the Pressbooks SAML2 Single Sign-On plugin directory.', 'pressbooks-saml-sso');
+        $message = "<h1>{$title}</h1><p>{$body}</p>";
+        wp_die($message, $title);
+    }
 }
 
 // -------------------------------------------------------------------------------------------------------------------

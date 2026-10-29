@@ -630,6 +630,23 @@ class SamlTest extends \WP_UnitTestCase
         }
     }
 
+    public function test_handleLoginAttempt_skips_two_factor()
+    {
+        $prefix = uniqid('test');
+        $email = "{$prefix}@pressbooks.test";
+        $required = [];
+        add_action('wp_login', function ($user_login, $user) use (&$required) {
+            $required[] = apply_filters('two_factor_is_required_for_user', true, $user);
+        }, 10, 2);
+
+        // Registered and logged in, then logged in as a matched user
+        $this->saml->handleLoginAttempt($prefix, $email);
+        $this->saml->handleLoginAttempt($prefix, $email);
+
+        $this->assertSame([false, false], $required);
+        $this->assertTrue(apply_filters('two_factor_is_required_for_user', true, get_user_by('email', $email)));
+    }
+
     public function test_findExistingUser()
     {
         // Create a new user

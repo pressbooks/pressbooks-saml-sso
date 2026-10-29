@@ -1142,12 +1142,14 @@ class SAML
      */
     private function programmaticLogin(string $username): bool
     {
-        add_filter('two_factor_is_required_for_user', '__return_false');
+        // Own callback, so removing it can't drop a __return_false added by other code.
+        $skipTwoFactor = static fn (): bool => false;
+        add_filter('two_factor_is_required_for_user', $skipTwoFactor);
 
         try {
             return \Pressbooks\Redirect\programmatic_login($username);
         } finally {
-            remove_filter('two_factor_is_required_for_user', '__return_false');
+            remove_filter('two_factor_is_required_for_user', $skipTwoFactor);
         }
     }
 

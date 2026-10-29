@@ -825,7 +825,7 @@ class SAML
 
         if ($user) {
             // If a matching user was found, log them in
-            $logged_in = \Pressbooks\Redirect\programmatic_login($user->user_login);
+            $logged_in = $this->programmaticLogin($user->user_login);
             if ($logged_in === true) {
                 $this->logData('Cookies', $this->getPartialCookies());
                 $this->logData('Username matched', [ $user->user_login ]);
@@ -1057,7 +1057,7 @@ class SAML
         $this->linkAccount($user_id, $net_id);
 
         // Attempt to login the new user
-        $logged_in = \Pressbooks\Redirect\programmatic_login($username);
+        $logged_in = $this->programmaticLogin($username);
         if ($logged_in === true) {
             $this->logData('Cookies', $this->getPartialCookies());
             $this->logData('Username associated', [ $username ]);
@@ -1127,6 +1127,27 @@ class SAML
                 $sign_in_page = $home_url;
             }
             $_SESSION[ self::SIGN_IN_PAGE ] = $sign_in_page;
+        }
+    }
+
+    /**
+     * Log the user in, skipping the Two-Factor plugin's second factor.
+     *
+     * The identity provider already authenticated the user. The filter is scoped to this login only,
+     * so password logins for the same user still require Two-Factor.
+     *
+     * @param string $username
+     *
+     * @return bool
+     */
+    private function programmaticLogin(string $username): bool
+    {
+        add_filter('two_factor_is_required_for_user', '__return_false');
+
+        try {
+            return \Pressbooks\Redirect\programmatic_login($username);
+        } finally {
+            remove_filter('two_factor_is_required_for_user', '__return_false');
         }
     }
 

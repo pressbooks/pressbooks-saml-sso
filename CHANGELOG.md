@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.8.0](https://github.com/pressbooks/pressbooks-saml-sso/compare/2.7.0...2.8.0) (2026-10-29)
+
+
+### Features
+
+* bypass two-factor ([#285](https://github.com/pressbooks/pressbooks-saml-sso/issues/285)) ([577e06a](https://github.com/pressbooks/pressbooks-saml-sso/commit/577e06aae3f56b2f6bccdc75480d10e91fae021d))
+* migrate to PSR-4 ([#283](https://github.com/pressbooks/pressbooks-saml-sso/issues/283)) ([6831748](https://github.com/pressbooks/pressbooks-saml-sso/commit/68317488bf7f44ee359e135fb949f402cc3dad71))
+
+
+### Bug Fixes
+
+* withhold Network Settings link from network managers ([#284](https://github.com/pressbooks/pressbooks-saml-sso/issues/284)) ([241e3e3](https://github.com/pressbooks/pressbooks-saml-sso/commit/241e3e311841476c2ec90574b9c44bc0319a4c6c))
+
+
+### Chores
+
+* **l10n:** update languages ([#264](https://github.com/pressbooks/pressbooks-saml-sso/issues/264)) ([5e3daef](https://github.com/pressbooks/pressbooks-saml-sso/commit/5e3daef7abbb2262ff1a4977702ad645176dbb3a))
+* update coding standards ([#282](https://github.com/pressbooks/pressbooks-saml-sso/issues/282)) ([8413757](https://github.com/pressbooks/pressbooks-saml-sso/commit/84137576b1d0e5bf5af56cbaa89be9f184d097a8))
+
 ## [2.7.0](https://github.com/pressbooks/pressbooks-saml-sso/compare/2.6.0...2.7.0) (2026-03-12)
 
 
